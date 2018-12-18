@@ -1,0 +1,1058 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3BA92C4C21B00E5E008D85DB /* ExtensionFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */; };
+		3BA92C4D21B00E5E008D85DB /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BE721B00E5E008D85DB /* CheckboxButton.swift */; };
+		3BA92C4E21B00E5E008D85DB /* DBAttachmentPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BEA21B00E5E008D85DB /* DBAttachmentPickerController.m */; };
+		3BA92C4F21B00E5E008D85DB /* DBThumbnailPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BEC21B00E5E008D85DB /* DBThumbnailPhotoCell.m */; };
+		3BA92C5021B00E5E008D85DB /* DBAssetGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92BEE21B00E5E008D85DB /* DBAssetGroupCell.xib */; };
+		3BA92C5121B00E5E008D85DB /* DBThumbnailPhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92BEF21B00E5E008D85DB /* DBThumbnailPhotoCell.xib */; };
+		3BA92C5221B00E5E008D85DB /* DBAssetGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BF121B00E5E008D85DB /* DBAssetGroupCell.m */; };
+		3BA92C5321B00E5E008D85DB /* DBAssetGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BF321B00E5E008D85DB /* DBAssetGroupsViewController.m */; };
+		3BA92C5421B00E5E008D85DB /* DBAssetItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BF521B00E5E008D85DB /* DBAssetItemsViewController.m */; };
+		3BA92C5521B00E5E008D85DB /* DBAssetGroupsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92BF621B00E5E008D85DB /* DBAssetGroupsViewController.xib */; };
+		3BA92C5621B00E5E008D85DB /* DBAssetItemsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92BF721B00E5E008D85DB /* DBAssetItemsViewController.xib */; };
+		3BA92C5721B00E5E008D85DB /* DBAssetPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BF921B00E5E008D85DB /* DBAssetPickerController.m */; };
+		3BA92C5821B00E5E008D85DB /* DBAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BFD21B00E5E008D85DB /* DBAttachment.m */; };
+		3BA92C5921B00E5E008D85DB /* DBAssetImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BFF21B00E5E008D85DB /* DBAssetImageView.m */; };
+		3BA92C5A21B00E5E008D85DB /* DBAttachmentAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C0421B00E5E008D85DB /* DBAttachmentAlertController.m */; };
+		3BA92C5B21B00E5E008D85DB /* NSBundle+DBLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C0921B00E5E008D85DB /* NSBundle+DBLibrary.m */; };
+		3BA92C5C21B00E5E008D85DB /* UIImage+DBAssetIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C0A21B00E5E008D85DB /* UIImage+DBAssetIcons.m */; };
+		3BA92C5D21B00E5E008D85DB /* NSIndexSet+DBLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C0B21B00E5E008D85DB /* NSIndexSet+DBLibrary.m */; };
+		3BA92C5E21B00E5E008D85DB /* DBAttachmentPickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C0D21B00E5E008D85DB /* DBAttachmentPickerController.strings */; };
+		3BA92C5F21B00E5E008D85DB /* DBAttachmentPickerController.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C0F21B00E5E008D85DB /* DBAttachmentPickerController.stringsdict */; };
+		3BA92C6021B00E5E008D85DB /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2321B00E5E008D85DB /* DLRadioButton.m */; };
+		3BA92C6121B00E5E008D85DB /* SPKeyBoardAvoiding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2421B00E5E008D85DB /* SPKeyBoardAvoiding.swift */; };
+		3BA92C6221B00E5E008D85DB /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2521B00E5E008D85DB /* StringValidation.swift */; };
+		3BA92C6321B00E5E008D85DB /* KLCPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2821B00E5E008D85DB /* KLCPopup.m */; };
+		3BA92C6421B00E5E008D85DB /* YoshikoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2A21B00E5E008D85DB /* YoshikoTextField.swift */; };
+		3BA92C6521B00E5E008D85DB /* HoshiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2C21B00E5E008D85DB /* HoshiTextField.swift */; };
+		3BA92C6621B00E5E008D85DB /* MinoruTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2D21B00E5E008D85DB /* MinoruTextField.swift */; };
+		3BA92C6721B00E5E008D85DB /* YokoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2E21B00E5E008D85DB /* YokoTextField.swift */; };
+		3BA92C6821B00E5E008D85DB /* TextFieldEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2F21B00E5E008D85DB /* TextFieldEffects.swift */; };
+		3BA92C6921B00E5E008D85DB /* JiroTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3021B00E5E008D85DB /* JiroTextField.swift */; };
+		3BA92C6A21B00E5E008D85DB /* MadokaTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3121B00E5E008D85DB /* MadokaTextField.swift */; };
+		3BA92C6B21B00E5E008D85DB /* KaedeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3221B00E5E008D85DB /* KaedeTextField.swift */; };
+		3BA92C6C21B00E5E008D85DB /* AkiraTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3321B00E5E008D85DB /* AkiraTextField.swift */; };
+		3BA92C6D21B00E5E008D85DB /* IsaoTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3421B00E5E008D85DB /* IsaoTextField.swift */; };
+		3BA92C6E21B00E5E008D85DB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3521B00E5E008D85DB /* GradientView.swift */; };
+		3BA92C6F21B00E5E008D85DB /* JYToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3621B00E5E008D85DB /* JYToast.swift */; };
+		3BA92C7021B00E5E008D85DB /* ReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3721B00E5E008D85DB /* ReachabilityCheck.swift */; };
+		3BA92C7121B00E5E008D85DB /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C3B21B00E5E008D85DB /* Admin.storyboard */; };
+		3BA92C7A21B00E5E008D85DB /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */; };
+		3BA92C7B21B00E5E008D85DB /* Doctor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C4821B00E5E008D85DB /* Doctor.storyboard */; };
+		3BA92C7F21B0103E008D85DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C7E21B0103E008D85DB /* Main.storyboard */; };
+		3BF823D521AD7A31004C92E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF823D421AD7A31004C92E5 /* AppDelegate.swift */; };
+		3BF823D721AD7A31004C92E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF823D621AD7A31004C92E5 /* ViewController.swift */; };
+		3BF823DD21AD7A32004C92E5 /* Medoc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3BF823DB21AD7A32004C92E5 /* Medoc.xcdatamodeld */; };
+		3BF823DF21AD7A3F004C92E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BF823DE21AD7A3F004C92E5 /* Assets.xcassets */; };
+		3BF823E221AD7A3F004C92E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BF823E021AD7A3F004C92E5 /* LaunchScreen.storyboard */; };
+		3BF823EE21AE7289004C92E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF823ED21AE7288004C92E5 /* GoogleService-Info.plist */; };
+		580A5A1E21C0F0480019570F /* PatientPrescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */; };
+		580A5A2421C0F16F0019570F /* LCBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 580A5A2021C0F16F0019570F /* LCBezierPath.m */; };
+		580A5A2521C0F16F0019570F /* LCPaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 580A5A2121C0F16F0019570F /* LCPaintView.m */; };
+		580A5A2721C0F3960019570F /* PrescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580A5A2621C0F3960019570F /* PrescriptionViewController.swift */; };
+		5831988B21C22E700068C1AA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5831988A21C22E700068C1AA /* LoginVC.swift */; };
+		583198AF21C239010068C1AA /* SignUpFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583198AE21C239010068C1AA /* SignUpFormVC.swift */; };
+		583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583198B021C23AA80068C1AA /* ContainerVC.swift */; };
+		5877BE1A21B7BB800001328A /* PatientListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5877BE1921B7BB800001328A /* PatientListVC.swift */; };
+		5877BE1C21B7BC9E0001328A /* PatientListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5877BE1B21B7BC9E0001328A /* PatientListCell.swift */; };
+		58D9073621C17C4D000A751E /* CPatientEnrtyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */; };
+		58DAFDD821C77ED700E81940 /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */; };
+		58DAFDFD21C7C19500E81940 /* SideBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDFC21C7C19500E81940 /* SideBarCell.swift */; };
+		58DAFDFF21C7C1E400E81940 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */; };
+		58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */; };
+		58FD985E21BE7BB800E1C968 /* ApiList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FD985D21BE7BB800E1C968 /* ApiList.swift */; };
+		91950D93CFE47E481F691806 /* Pods_Medoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C45CB29D8418FE384706EB /* Pods_Medoc.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3B73761F21AEB3FD000EC50E /* Medoc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Medoc.entitlements; sourceTree = "<group>"; };
+		3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionFile.swift; sourceTree = "<group>"; };
+		3BA92BE721B00E5E008D85DB /* CheckboxButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
+		3BA92BEA21B00E5E008D85DB /* DBAttachmentPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAttachmentPickerController.m; sourceTree = "<group>"; };
+		3BA92BEC21B00E5E008D85DB /* DBThumbnailPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBThumbnailPhotoCell.m; sourceTree = "<group>"; };
+		3BA92BED21B00E5E008D85DB /* DBAssetGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetGroupCell.h; sourceTree = "<group>"; };
+		3BA92BEE21B00E5E008D85DB /* DBAssetGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBAssetGroupCell.xib; sourceTree = "<group>"; };
+		3BA92BEF21B00E5E008D85DB /* DBThumbnailPhotoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBThumbnailPhotoCell.xib; sourceTree = "<group>"; };
+		3BA92BF021B00E5E008D85DB /* DBThumbnailPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBThumbnailPhotoCell.h; sourceTree = "<group>"; };
+		3BA92BF121B00E5E008D85DB /* DBAssetGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetGroupCell.m; sourceTree = "<group>"; };
+		3BA92BF321B00E5E008D85DB /* DBAssetGroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetGroupsViewController.m; sourceTree = "<group>"; };
+		3BA92BF421B00E5E008D85DB /* DBAssetPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetPickerController.h; sourceTree = "<group>"; };
+		3BA92BF521B00E5E008D85DB /* DBAssetItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetItemsViewController.m; sourceTree = "<group>"; };
+		3BA92BF621B00E5E008D85DB /* DBAssetGroupsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBAssetGroupsViewController.xib; sourceTree = "<group>"; };
+		3BA92BF721B00E5E008D85DB /* DBAssetItemsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DBAssetItemsViewController.xib; sourceTree = "<group>"; };
+		3BA92BF821B00E5E008D85DB /* DBAssetItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetItemsViewController.h; sourceTree = "<group>"; };
+		3BA92BF921B00E5E008D85DB /* DBAssetPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetPickerController.m; sourceTree = "<group>"; };
+		3BA92BFA21B00E5E008D85DB /* DBAssetGroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetGroupsViewController.h; sourceTree = "<group>"; };
+		3BA92BFC21B00E5E008D85DB /* DBAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAttachment.h; sourceTree = "<group>"; };
+		3BA92BFD21B00E5E008D85DB /* DBAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAttachment.m; sourceTree = "<group>"; };
+		3BA92BFF21B00E5E008D85DB /* DBAssetImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAssetImageView.m; sourceTree = "<group>"; };
+		3BA92C0021B00E5E008D85DB /* DBAssetImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAssetImageView.h; sourceTree = "<group>"; };
+		3BA92C0121B00E5E008D85DB /* DBAttachmentPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAttachmentPickerController.h; sourceTree = "<group>"; };
+		3BA92C0321B00E5E008D85DB /* DBAttachmentAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAttachmentAlertController.h; sourceTree = "<group>"; };
+		3BA92C0421B00E5E008D85DB /* DBAttachmentAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAttachmentAlertController.m; sourceTree = "<group>"; };
+		3BA92C0621B00E5E008D85DB /* NSBundle+DBLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+DBLibrary.h"; sourceTree = "<group>"; };
+		3BA92C0721B00E5E008D85DB /* UIImage+DBAssetIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DBAssetIcons.h"; sourceTree = "<group>"; };
+		3BA92C0821B00E5E008D85DB /* NSIndexSet+DBLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+DBLibrary.h"; sourceTree = "<group>"; };
+		3BA92C0921B00E5E008D85DB /* NSBundle+DBLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+DBLibrary.m"; sourceTree = "<group>"; };
+		3BA92C0A21B00E5E008D85DB /* UIImage+DBAssetIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DBAssetIcons.m"; sourceTree = "<group>"; };
+		3BA92C0B21B00E5E008D85DB /* NSIndexSet+DBLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet+DBLibrary.m"; sourceTree = "<group>"; };
+		3BA92C0E21B00E5E008D85DB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
+		3BA92C1021B00E5E008D85DB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
+		3BA92C1121B00E5E008D85DB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DBAttachmentPickerController.strings"; sourceTree = "<group>"; };
+		3BA92C1221B00E5E008D85DB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/DBAttachmentPickerController.stringsdict"; sourceTree = "<group>"; };
+		3BA92C1321B00E5E008D85DB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
+		3BA92C1421B00E5E008D85DB /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
+		3BA92C1521B00E5E008D85DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
+		3BA92C1621B00E5E008D85DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
+		3BA92C1721B00E5E008D85DB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
+		3BA92C1821B00E5E008D85DB /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
+		3BA92C1921B00E5E008D85DB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
+		3BA92C1A21B00E5E008D85DB /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = es; path = es.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
+		3BA92C1B21B00E5E008D85DB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/DBAttachmentPickerController.strings"; sourceTree = "<group>"; };
+		3BA92C1C21B00E5E008D85DB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/DBAttachmentPickerController.stringsdict"; sourceTree = "<group>"; };
+		3BA92C1D21B00E5E008D85DB /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/DBAttachmentPickerController.strings"; sourceTree = "<group>"; };
+		3BA92C1E21B00E5E008D85DB /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/DBAttachmentPickerController.stringsdict"; sourceTree = "<group>"; };
+		3BA92C1F21B00E5E008D85DB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
+		3BA92C2021B00E5E008D85DB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
+		3BA92C2121B00E5E008D85DB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
+		3BA92C2221B00E5E008D85DB /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
+		3BA92C2321B00E5E008D85DB /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
+		3BA92C2421B00E5E008D85DB /* SPKeyBoardAvoiding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SPKeyBoardAvoiding.swift; sourceTree = "<group>"; };
+		3BA92C2521B00E5E008D85DB /* StringValidation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringValidation.swift; sourceTree = "<group>"; };
+		3BA92C2721B00E5E008D85DB /* KLCPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KLCPopup.h; sourceTree = "<group>"; };
+		3BA92C2821B00E5E008D85DB /* KLCPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KLCPopup.m; sourceTree = "<group>"; };
+		3BA92C2A21B00E5E008D85DB /* YoshikoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoshikoTextField.swift; sourceTree = "<group>"; };
+		3BA92C2B21B00E5E008D85DB /* TextFieldEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldEffects.h; sourceTree = "<group>"; };
+		3BA92C2C21B00E5E008D85DB /* HoshiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoshiTextField.swift; sourceTree = "<group>"; };
+		3BA92C2D21B00E5E008D85DB /* MinoruTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinoruTextField.swift; sourceTree = "<group>"; };
+		3BA92C2E21B00E5E008D85DB /* YokoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YokoTextField.swift; sourceTree = "<group>"; };
+		3BA92C2F21B00E5E008D85DB /* TextFieldEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldEffects.swift; sourceTree = "<group>"; };
+		3BA92C3021B00E5E008D85DB /* JiroTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JiroTextField.swift; sourceTree = "<group>"; };
+		3BA92C3121B00E5E008D85DB /* MadokaTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadokaTextField.swift; sourceTree = "<group>"; };
+		3BA92C3221B00E5E008D85DB /* KaedeTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KaedeTextField.swift; sourceTree = "<group>"; };
+		3BA92C3321B00E5E008D85DB /* AkiraTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AkiraTextField.swift; sourceTree = "<group>"; };
+		3BA92C3421B00E5E008D85DB /* IsaoTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IsaoTextField.swift; sourceTree = "<group>"; };
+		3BA92C3521B00E5E008D85DB /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		3BA92C3621B00E5E008D85DB /* JYToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYToast.swift; sourceTree = "<group>"; };
+		3BA92C3721B00E5E008D85DB /* ReachabilityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityCheck.swift; sourceTree = "<group>"; };
+		3BA92C3921B00E5E008D85DB /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
+		3BA92C3B21B00E5E008D85DB /* Admin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
+		3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
+		3BA92C4821B00E5E008D85DB /* Doctor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Doctor.storyboard; sourceTree = "<group>"; };
+		3BA92C7E21B0103E008D85DB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3BA92C8121B01455008D85DB /* Medoc-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Medoc-Bridging-Header.h"; sourceTree = "<group>"; };
+		3BF823D121AD7A31004C92E5 /* Medoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Medoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BF823D421AD7A31004C92E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3BF823D621AD7A31004C92E5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3BF823DC21AD7A32004C92E5 /* Medoc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Medoc.xcdatamodel; sourceTree = "<group>"; };
+		3BF823DE21AD7A3F004C92E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3BF823E121AD7A3F004C92E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3BF823E321AD7A3F004C92E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BF823ED21AE7288004C92E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		49C45CB29D8418FE384706EB /* Pods_Medoc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Medoc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A4C2C855EE3C184BAB4C94F /* Pods-Medoc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medoc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Medoc/Pods-Medoc.debug.xcconfig"; sourceTree = "<group>"; };
+		580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPrescriptionVC.swift; sourceTree = "<group>"; };
+		580A5A2021C0F16F0019570F /* LCBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCBezierPath.m; sourceTree = "<group>"; };
+		580A5A2121C0F16F0019570F /* LCPaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCPaintView.m; sourceTree = "<group>"; };
+		580A5A2221C0F16F0019570F /* LCBezierPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCBezierPath.h; sourceTree = "<group>"; };
+		580A5A2321C0F16F0019570F /* LCPaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCPaintView.h; sourceTree = "<group>"; };
+		580A5A2621C0F3960019570F /* PrescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescriptionViewController.swift; sourceTree = "<group>"; };
+		5831988A21C22E700068C1AA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		583198AE21C239010068C1AA /* SignUpFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFormVC.swift; sourceTree = "<group>"; };
+		583198B021C23AA80068C1AA /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
+		5877BE1921B7BB800001328A /* PatientListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListVC.swift; sourceTree = "<group>"; };
+		5877BE1B21B7BC9E0001328A /* PatientListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListCell.swift; sourceTree = "<group>"; };
+		58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPatientEnrtyData.swift; sourceTree = "<group>"; };
+		58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
+		58DAFDFC21C7C19500E81940 /* SideBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarCell.swift; sourceTree = "<group>"; };
+		58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
+		58DAFE0121C7EC8200E81940 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		58FD985D21BE7BB800E1C968 /* ApiList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiList.swift; sourceTree = "<group>"; };
+		DB567A7B6C833F547ACD17EE /* Pods-Medoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Medoc/Pods-Medoc.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3BF823CE21AD7A31004C92E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91950D93CFE47E481F691806 /* Pods_Medoc.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		23BBE48D3403E73043994BF3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4A4C2C855EE3C184BAB4C94F /* Pods-Medoc.debug.xcconfig */,
+				DB567A7B6C833F547ACD17EE /* Pods-Medoc.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2DD19FEA867A40814D9CFCCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				49C45CB29D8418FE384706EB /* Pods_Medoc.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BA92BDE21B00E5D008D85DB /* SUPER ADMIN LOGIN */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "SUPER ADMIN LOGIN";
+			sourceTree = "<group>";
+		};
+		3BA92BE421B00E5D008D85DB /* CommonFiles */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */,
+			);
+			path = CommonFiles;
+			sourceTree = "<group>";
+		};
+		3BA92BE621B00E5E008D85DB /* Third Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				58DAFE0021C7EC8200E81940 /* SWRevealViewController */,
+				580A5A1F21C0F16F0019570F /* LCPaintView */,
+				3BA92BE721B00E5E008D85DB /* CheckboxButton.swift */,
+				3BA92BE821B00E5E008D85DB /* DBAttachPicker */,
+				3BA92C2321B00E5E008D85DB /* DLRadioButton.m */,
+				3BA92C2421B00E5E008D85DB /* SPKeyBoardAvoiding.swift */,
+				3BA92C2521B00E5E008D85DB /* StringValidation.swift */,
+				3BA92C2621B00E5E008D85DB /* KLCPopup */,
+				3BA92C2921B00E5E008D85DB /* TextFieldEffects */,
+				3BA92C3521B00E5E008D85DB /* GradientView.swift */,
+				3BA92C3621B00E5E008D85DB /* JYToast.swift */,
+				3BA92C3721B00E5E008D85DB /* ReachabilityCheck.swift */,
+				3BA92C3921B00E5E008D85DB /* DLRadioButton.h */,
+			);
+			path = "Third Libraries";
+			sourceTree = "<group>";
+		};
+		3BA92BE821B00E5E008D85DB /* DBAttachPicker */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92BE921B00E5E008D85DB /* Source */,
+			);
+			path = DBAttachPicker;
+			sourceTree = "<group>";
+		};
+		3BA92BE921B00E5E008D85DB /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92BEA21B00E5E008D85DB /* DBAttachmentPickerController.m */,
+				3BA92BEB21B00E5E008D85DB /* Cells */,
+				3BA92BF221B00E5E008D85DB /* DBAssetPickerController */,
+				3BA92BFB21B00E5E008D85DB /* Models */,
+				3BA92BFE21B00E5E008D85DB /* Common */,
+				3BA92C0121B00E5E008D85DB /* DBAttachmentPickerController.h */,
+				3BA92C0221B00E5E008D85DB /* DBAttachmentAlertController */,
+				3BA92C0521B00E5E008D85DB /* Categories */,
+				3BA92C0C21B00E5E008D85DB /* Localization */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		3BA92BEB21B00E5E008D85DB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92BEC21B00E5E008D85DB /* DBThumbnailPhotoCell.m */,
+				3BA92BED21B00E5E008D85DB /* DBAssetGroupCell.h */,
+				3BA92BEE21B00E5E008D85DB /* DBAssetGroupCell.xib */,
+				3BA92BEF21B00E5E008D85DB /* DBThumbnailPhotoCell.xib */,
+				3BA92BF021B00E5E008D85DB /* DBThumbnailPhotoCell.h */,
+				3BA92BF121B00E5E008D85DB /* DBAssetGroupCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		3BA92BF221B00E5E008D85DB /* DBAssetPickerController */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92BF321B00E5E008D85DB /* DBAssetGroupsViewController.m */,
+				3BA92BF421B00E5E008D85DB /* DBAssetPickerController.h */,
+				3BA92BF521B00E5E008D85DB /* DBAssetItemsViewController.m */,
+				3BA92BF621B00E5E008D85DB /* DBAssetGroupsViewController.xib */,
+				3BA92BF721B00E5E008D85DB /* DBAssetItemsViewController.xib */,
+				3BA92BF821B00E5E008D85DB /* DBAssetItemsViewController.h */,
+				3BA92BF921B00E5E008D85DB /* DBAssetPickerController.m */,
+				3BA92BFA21B00E5E008D85DB /* DBAssetGroupsViewController.h */,
+			);
+			path = DBAssetPickerController;
+			sourceTree = "<group>";
+		};
+		3BA92BFB21B00E5E008D85DB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92BFC21B00E5E008D85DB /* DBAttachment.h */,
+				3BA92BFD21B00E5E008D85DB /* DBAttachment.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3BA92BFE21B00E5E008D85DB /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92BFF21B00E5E008D85DB /* DBAssetImageView.m */,
+				3BA92C0021B00E5E008D85DB /* DBAssetImageView.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3BA92C0221B00E5E008D85DB /* DBAttachmentAlertController */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92C0321B00E5E008D85DB /* DBAttachmentAlertController.h */,
+				3BA92C0421B00E5E008D85DB /* DBAttachmentAlertController.m */,
+			);
+			path = DBAttachmentAlertController;
+			sourceTree = "<group>";
+		};
+		3BA92C0521B00E5E008D85DB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92C0621B00E5E008D85DB /* NSBundle+DBLibrary.h */,
+				3BA92C0721B00E5E008D85DB /* UIImage+DBAssetIcons.h */,
+				3BA92C0821B00E5E008D85DB /* NSIndexSet+DBLibrary.h */,
+				3BA92C0921B00E5E008D85DB /* NSBundle+DBLibrary.m */,
+				3BA92C0A21B00E5E008D85DB /* UIImage+DBAssetIcons.m */,
+				3BA92C0B21B00E5E008D85DB /* NSIndexSet+DBLibrary.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		3BA92C0C21B00E5E008D85DB /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92C0D21B00E5E008D85DB /* DBAttachmentPickerController.strings */,
+				3BA92C0F21B00E5E008D85DB /* DBAttachmentPickerController.stringsdict */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		3BA92C2621B00E5E008D85DB /* KLCPopup */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92C2721B00E5E008D85DB /* KLCPopup.h */,
+				3BA92C2821B00E5E008D85DB /* KLCPopup.m */,
+			);
+			path = KLCPopup;
+			sourceTree = "<group>";
+		};
+		3BA92C2921B00E5E008D85DB /* TextFieldEffects */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92C2A21B00E5E008D85DB /* YoshikoTextField.swift */,
+				3BA92C2B21B00E5E008D85DB /* TextFieldEffects.h */,
+				3BA92C2C21B00E5E008D85DB /* HoshiTextField.swift */,
+				3BA92C2D21B00E5E008D85DB /* MinoruTextField.swift */,
+				3BA92C2E21B00E5E008D85DB /* YokoTextField.swift */,
+				3BA92C2F21B00E5E008D85DB /* TextFieldEffects.swift */,
+				3BA92C3021B00E5E008D85DB /* JiroTextField.swift */,
+				3BA92C3121B00E5E008D85DB /* MadokaTextField.swift */,
+				3BA92C3221B00E5E008D85DB /* KaedeTextField.swift */,
+				3BA92C3321B00E5E008D85DB /* AkiraTextField.swift */,
+				3BA92C3421B00E5E008D85DB /* IsaoTextField.swift */,
+			);
+			path = TextFieldEffects;
+			sourceTree = "<group>";
+		};
+		3BA92C3A21B00E5E008D85DB /* ADMIN LOGIN */ = {
+			isa = PBXGroup;
+			children = (
+				3BA92C3B21B00E5E008D85DB /* Admin.storyboard */,
+				3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */,
+			);
+			path = "ADMIN LOGIN";
+			sourceTree = "<group>";
+		};
+		3BA92C4721B00E5E008D85DB /* DOCTOR LOGIN */ = {
+			isa = PBXGroup;
+			children = (
+				5877BE1821B7BB580001328A /* DoctorCell */,
+				5877BE1721B7BB4D0001328A /* DoctorVC */,
+				3BA92C4821B00E5E008D85DB /* Doctor.storyboard */,
+			);
+			path = "DOCTOR LOGIN";
+			sourceTree = "<group>";
+		};
+		3BF823C821AD7A31004C92E5 = {
+			isa = PBXGroup;
+			children = (
+				3BF823D321AD7A31004C92E5 /* Medoc */,
+				3BF823D221AD7A31004C92E5 /* Products */,
+				23BBE48D3403E73043994BF3 /* Pods */,
+				2DD19FEA867A40814D9CFCCC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3BF823D221AD7A31004C92E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3BF823D121AD7A31004C92E5 /* Medoc.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3BF823D321AD7A31004C92E5 /* Medoc */ = {
+			isa = PBXGroup;
+			children = (
+				583198AD21C238E50068C1AA /* NewFiles */,
+				3BA92C4721B00E5E008D85DB /* DOCTOR LOGIN */,
+				3BA92C3A21B00E5E008D85DB /* ADMIN LOGIN */,
+				3BA92BDE21B00E5D008D85DB /* SUPER ADMIN LOGIN */,
+				3BA92BE421B00E5D008D85DB /* CommonFiles */,
+				3BA92BE621B00E5E008D85DB /* Third Libraries */,
+				3B73761F21AEB3FD000EC50E /* Medoc.entitlements */,
+				3BF823D421AD7A31004C92E5 /* AppDelegate.swift */,
+				3BF823D621AD7A31004C92E5 /* ViewController.swift */,
+				3BA92C7E21B0103E008D85DB /* Main.storyboard */,
+				3BF823DE21AD7A3F004C92E5 /* Assets.xcassets */,
+				3BF823E021AD7A3F004C92E5 /* LaunchScreen.storyboard */,
+				3BF823E321AD7A3F004C92E5 /* Info.plist */,
+				3BF823ED21AE7288004C92E5 /* GoogleService-Info.plist */,
+				3BF823DB21AD7A32004C92E5 /* Medoc.xcdatamodeld */,
+				3BA92C8121B01455008D85DB /* Medoc-Bridging-Header.h */,
+				58FD985D21BE7BB800E1C968 /* ApiList.swift */,
+			);
+			path = Medoc;
+			sourceTree = "<group>";
+		};
+		580A5A1F21C0F16F0019570F /* LCPaintView */ = {
+			isa = PBXGroup;
+			children = (
+				580A5A2021C0F16F0019570F /* LCBezierPath.m */,
+				580A5A2121C0F16F0019570F /* LCPaintView.m */,
+				580A5A2221C0F16F0019570F /* LCBezierPath.h */,
+				580A5A2321C0F16F0019570F /* LCPaintView.h */,
+			);
+			path = LCPaintView;
+			sourceTree = "<group>";
+		};
+		583198AD21C238E50068C1AA /* NewFiles */ = {
+			isa = PBXGroup;
+			children = (
+				583198AE21C239010068C1AA /* SignUpFormVC.swift */,
+				5831988A21C22E700068C1AA /* LoginVC.swift */,
+				583198B021C23AA80068C1AA /* ContainerVC.swift */,
+				58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */,
+			);
+			path = NewFiles;
+			sourceTree = "<group>";
+		};
+		5877BE1721B7BB4D0001328A /* DoctorVC */ = {
+			isa = PBXGroup;
+			children = (
+				580A5A2621C0F3960019570F /* PrescriptionViewController.swift */,
+				5877BE1921B7BB800001328A /* PatientListVC.swift */,
+				580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */,
+				58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */,
+				58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */,
+			);
+			path = DoctorVC;
+			sourceTree = "<group>";
+		};
+		5877BE1821B7BB580001328A /* DoctorCell */ = {
+			isa = PBXGroup;
+			children = (
+				5877BE1B21B7BC9E0001328A /* PatientListCell.swift */,
+				58DAFDFC21C7C19500E81940 /* SideBarCell.swift */,
+			);
+			path = DoctorCell;
+			sourceTree = "<group>";
+		};
+		58DAFE0021C7EC8200E81940 /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				58DAFE0121C7EC8200E81940 /* SWRevealViewController.h */,
+				58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */,
+			);
+			path = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3BF823D021AD7A31004C92E5 /* Medoc */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BF823E621AD7A3F004C92E5 /* Build configuration list for PBXNativeTarget "Medoc" */;
+			buildPhases = (
+				CCB4F8DD986BDD30BCB4236C /* [CP] Check Pods Manifest.lock */,
+				3BF823CD21AD7A31004C92E5 /* Sources */,
+				3BF823CE21AD7A31004C92E5 /* Frameworks */,
+				3BF823CF21AD7A31004C92E5 /* Resources */,
+				38BC1B475F96631D3E8642E5 /* [CP] Embed Pods Frameworks */,
+				284F1E3DFE9BA9FF26E3EF5A /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Medoc;
+			productName = Medoc;
+			productReference = 3BF823D121AD7A31004C92E5 /* Medoc.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3BF823C921AD7A31004C92E5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = Kanishka;
+				TargetAttributes = {
+					3BF823D021AD7A31004C92E5 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 3BF823CC21AD7A31004C92E5 /* Build configuration list for PBXProject "Medoc" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				de,
+				"zh-Hans",
+				ja,
+				uk,
+				es,
+				"zh-Hant",
+				"pt-BR",
+				ru,
+				fr,
+			);
+			mainGroup = 3BF823C821AD7A31004C92E5;
+			productRefGroup = 3BF823D221AD7A31004C92E5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3BF823D021AD7A31004C92E5 /* Medoc */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3BF823CF21AD7A31004C92E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BF823E221AD7A3F004C92E5 /* LaunchScreen.storyboard in Resources */,
+				3BA92C5F21B00E5E008D85DB /* DBAttachmentPickerController.stringsdict in Resources */,
+				3BA92C5E21B00E5E008D85DB /* DBAttachmentPickerController.strings in Resources */,
+				3BA92C5021B00E5E008D85DB /* DBAssetGroupCell.xib in Resources */,
+				3BF823EE21AE7289004C92E5 /* GoogleService-Info.plist in Resources */,
+				3BA92C5121B00E5E008D85DB /* DBThumbnailPhotoCell.xib in Resources */,
+				3BA92C5521B00E5E008D85DB /* DBAssetGroupsViewController.xib in Resources */,
+				3BA92C7F21B0103E008D85DB /* Main.storyboard in Resources */,
+				3BA92C7B21B00E5E008D85DB /* Doctor.storyboard in Resources */,
+				3BF823DF21AD7A3F004C92E5 /* Assets.xcassets in Resources */,
+				3BA92C7121B00E5E008D85DB /* Admin.storyboard in Resources */,
+				3BA92C5621B00E5E008D85DB /* DBAssetItemsViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		284F1E3DFE9BA9FF26E3EF5A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Medoc/Pods-Medoc-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Medoc/Pods-Medoc-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		38BC1B475F96631D3E8642E5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Medoc/Pods-Medoc-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Medoc/Pods-Medoc-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCB4F8DD986BDD30BCB4236C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Medoc-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3BF823CD21AD7A31004C92E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BA92C5D21B00E5E008D85DB /* NSIndexSet+DBLibrary.m in Sources */,
+				3BA92C6421B00E5E008D85DB /* YoshikoTextField.swift in Sources */,
+				5831988B21C22E700068C1AA /* LoginVC.swift in Sources */,
+				3BA92C4E21B00E5E008D85DB /* DBAttachmentPickerController.m in Sources */,
+				3BA92C5921B00E5E008D85DB /* DBAssetImageView.m in Sources */,
+				5877BE1C21B7BC9E0001328A /* PatientListCell.swift in Sources */,
+				3BA92C6321B00E5E008D85DB /* KLCPopup.m in Sources */,
+				583198AF21C239010068C1AA /* SignUpFormVC.swift in Sources */,
+				3BA92C5221B00E5E008D85DB /* DBAssetGroupCell.m in Sources */,
+				3BA92C7021B00E5E008D85DB /* ReachabilityCheck.swift in Sources */,
+				3BA92C5821B00E5E008D85DB /* DBAttachment.m in Sources */,
+				3BA92C7A21B00E5E008D85DB /* AppStoryboard.swift in Sources */,
+				580A5A1E21C0F0480019570F /* PatientPrescriptionVC.swift in Sources */,
+				3BF823DD21AD7A32004C92E5 /* Medoc.xcdatamodeld in Sources */,
+				3BA92C4D21B00E5E008D85DB /* CheckboxButton.swift in Sources */,
+				3BA92C6F21B00E5E008D85DB /* JYToast.swift in Sources */,
+				583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */,
+				3BA92C5321B00E5E008D85DB /* DBAssetGroupsViewController.m in Sources */,
+				3BA92C6921B00E5E008D85DB /* JiroTextField.swift in Sources */,
+				3BA92C6521B00E5E008D85DB /* HoshiTextField.swift in Sources */,
+				3BA92C6D21B00E5E008D85DB /* IsaoTextField.swift in Sources */,
+				3BA92C6221B00E5E008D85DB /* StringValidation.swift in Sources */,
+				3BA92C6121B00E5E008D85DB /* SPKeyBoardAvoiding.swift in Sources */,
+				3BA92C4F21B00E5E008D85DB /* DBThumbnailPhotoCell.m in Sources */,
+				3BA92C5721B00E5E008D85DB /* DBAssetPickerController.m in Sources */,
+				580A5A2721C0F3960019570F /* PrescriptionViewController.swift in Sources */,
+				3BA92C6B21B00E5E008D85DB /* KaedeTextField.swift in Sources */,
+				3BA92C5421B00E5E008D85DB /* DBAssetItemsViewController.m in Sources */,
+				3BA92C5B21B00E5E008D85DB /* NSBundle+DBLibrary.m in Sources */,
+				3BA92C6C21B00E5E008D85DB /* AkiraTextField.swift in Sources */,
+				58DAFDFF21C7C1E400E81940 /* SideMenuVC.swift in Sources */,
+				3BA92C4C21B00E5E008D85DB /* ExtensionFile.swift in Sources */,
+				58FD985E21BE7BB800E1C968 /* ApiList.swift in Sources */,
+				3BA92C6621B00E5E008D85DB /* MinoruTextField.swift in Sources */,
+				3BA92C6821B00E5E008D85DB /* TextFieldEffects.swift in Sources */,
+				58D9073621C17C4D000A751E /* CPatientEnrtyData.swift in Sources */,
+				3BA92C6721B00E5E008D85DB /* YokoTextField.swift in Sources */,
+				58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */,
+				3BF823D721AD7A31004C92E5 /* ViewController.swift in Sources */,
+				580A5A2421C0F16F0019570F /* LCBezierPath.m in Sources */,
+				58DAFDFD21C7C19500E81940 /* SideBarCell.swift in Sources */,
+				3BA92C6021B00E5E008D85DB /* DLRadioButton.m in Sources */,
+				5877BE1A21B7BB800001328A /* PatientListVC.swift in Sources */,
+				3BA92C5A21B00E5E008D85DB /* DBAttachmentAlertController.m in Sources */,
+				58DAFDD821C77ED700E81940 /* ForgetPasswordVC.swift in Sources */,
+				580A5A2521C0F16F0019570F /* LCPaintView.m in Sources */,
+				3BF823D521AD7A31004C92E5 /* AppDelegate.swift in Sources */,
+				3BA92C6E21B00E5E008D85DB /* GradientView.swift in Sources */,
+				3BA92C5C21B00E5E008D85DB /* UIImage+DBAssetIcons.m in Sources */,
+				3BA92C6A21B00E5E008D85DB /* MadokaTextField.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3BA92C0D21B00E5E008D85DB /* DBAttachmentPickerController.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BA92C0E21B00E5E008D85DB /* de */,
+				3BA92C1121B00E5E008D85DB /* zh-Hans */,
+				3BA92C1321B00E5E008D85DB /* ja */,
+				3BA92C1521B00E5E008D85DB /* en */,
+				3BA92C1721B00E5E008D85DB /* uk */,
+				3BA92C1921B00E5E008D85DB /* es */,
+				3BA92C1B21B00E5E008D85DB /* zh-Hant */,
+				3BA92C1D21B00E5E008D85DB /* pt-BR */,
+				3BA92C1F21B00E5E008D85DB /* ru */,
+				3BA92C2121B00E5E008D85DB /* fr */,
+			);
+			name = DBAttachmentPickerController.strings;
+			sourceTree = "<group>";
+		};
+		3BA92C0F21B00E5E008D85DB /* DBAttachmentPickerController.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BA92C1021B00E5E008D85DB /* de */,
+				3BA92C1221B00E5E008D85DB /* zh-Hans */,
+				3BA92C1421B00E5E008D85DB /* ja */,
+				3BA92C1621B00E5E008D85DB /* en */,
+				3BA92C1821B00E5E008D85DB /* uk */,
+				3BA92C1A21B00E5E008D85DB /* es */,
+				3BA92C1C21B00E5E008D85DB /* zh-Hant */,
+				3BA92C1E21B00E5E008D85DB /* pt-BR */,
+				3BA92C2021B00E5E008D85DB /* ru */,
+				3BA92C2221B00E5E008D85DB /* fr */,
+			);
+			name = DBAttachmentPickerController.stringsdict;
+			sourceTree = "<group>";
+		};
+		3BF823E021AD7A3F004C92E5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3BF823E121AD7A3F004C92E5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3BF823E421AD7A3F004C92E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3BF823E521AD7A3F004C92E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3BF823E721AD7A3F004C92E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A4C2C855EE3C184BAB4C94F /* Pods-Medoc.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6GBQ93JCQJ;
+				INFOPLIST_FILE = Medoc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseNanoPB\"",
+					"-framework",
+					"\"GTMOAuth2\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"nanopb\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kanishka.Medoc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3BF823E821AD7A3F004C92E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB567A7B6C833F547ACD17EE /* Pods-Medoc.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6GBQ93JCQJ;
+				INFOPLIST_FILE = Medoc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"FBSDKCoreKit\"",
+					"-framework",
+					"\"FBSDKLoginKit\"",
+					"-framework",
+					"\"FirebaseAnalytics\"",
+					"-framework",
+					"\"FirebaseAuth\"",
+					"-framework",
+					"\"FirebaseCore\"",
+					"-framework",
+					"\"FirebaseCoreDiagnostics\"",
+					"-framework",
+					"\"FirebaseInstanceID\"",
+					"-framework",
+					"\"FirebaseNanoPB\"",
+					"-framework",
+					"\"GTMOAuth2\"",
+					"-framework",
+					"\"GTMSessionFetcher\"",
+					"-framework",
+					"\"GoogleSignIn\"",
+					"-framework",
+					"\"GoogleToolboxForMac\"",
+					"-framework",
+					"\"SafariServices\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"StoreKit\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"nanopb\"",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Kanishka.Medoc;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3BF823CC21AD7A31004C92E5 /* Build configuration list for PBXProject "Medoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BF823E421AD7A3F004C92E5 /* Debug */,
+				3BF823E521AD7A3F004C92E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BF823E621AD7A3F004C92E5 /* Build configuration list for PBXNativeTarget "Medoc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BF823E721AD7A3F004C92E5 /* Debug */,
+				3BF823E821AD7A3F004C92E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3BF823DB21AD7A32004C92E5 /* Medoc.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3BF823DC21AD7A32004C92E5 /* Medoc.xcdatamodel */,
+			);
+			currentVersion = 3BF823DC21AD7A32004C92E5 /* Medoc.xcdatamodel */;
+			path = Medoc.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 3BF823C921AD7A31004C92E5 /* Project object */;
+}
