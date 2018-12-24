@@ -24,6 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     {
         IQKeyboardManager.shared().isEnabled = true
       
+        let result = UserDefaults.standard.value(forKey: "userData")
+        if result != nil {
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: .main)
+            
+            let yourVc : PatientListVC = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
+            
+        //    let yourViewController: PatientListVC = storyboard.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
+            let navigationController = self.window?.rootViewController as! UINavigationController
+            navigationController.setViewControllers([yourVc], animated: true)
+        }
+        
        return true
      
     }

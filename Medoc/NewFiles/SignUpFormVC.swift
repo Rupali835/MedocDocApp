@@ -100,19 +100,20 @@ class SignUpFormVC: UIViewController {
                     {
                         self.view.removeFromSuperview()
                     }
-                }else if Msg == "Already exit"
+                }else if Msg == "Already exist"
                 {
                    
                     ZAlertView.init(title: "Medoc", msg: "Mobile number or Email has already available on server. Please use another.", actiontitle: "OK")
                     {
                         print("")
                     }
-                }else if Msg == "User not found"
-                {
-                    ZAlertView.init(title: "Medoc", msg: "Your data is not found, Please sign up.", actiontitle: "OK")
-                    {
-                        print("")
-                    }
+                }
+                else if Msg == "User not found"
+               {
+                ZAlertView.init(title: "Medoc", msg: "Your data is not found, Please sign up.", actiontitle: "OK")
+                   {
+                print("")
+                   }
                 }
                 break
 

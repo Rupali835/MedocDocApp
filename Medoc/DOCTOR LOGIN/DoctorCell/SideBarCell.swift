@@ -12,6 +12,7 @@ class SideBarCell: UITableViewCell {
 
     @IBOutlet weak var lblSideNm: UILabel!
     @IBOutlet weak var imgSideList: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

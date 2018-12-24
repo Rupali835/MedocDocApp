@@ -4,126 +4,161 @@ import UIKit
 import DropDown
 
 
-class PatientPrescriptionVC: UIViewController {
+class PatientPrescriptionVC: UIViewController, UITextViewDelegate, UITextFieldDelegate
+{
 
-    @IBOutlet weak var btnDrawPrescription: UIButton!
-    @IBOutlet weak var btnInchA: UIButton!
-    @IBOutlet weak var btnFeetA: UIButton!
-    @IBOutlet weak var txtTemp: UITextField!
-    @IBOutlet weak var btnHgtInch: UIButton!
-    @IBOutlet weak var btnHgtFt: UIButton!
-    @IBOutlet weak var viewPrisptn: UIView!
+    @IBOutlet weak var btnsave: UIButton!
+    @IBOutlet weak var txtOtherDetail: UITextView!
+    @IBOutlet weak var tblviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var medicalViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var txtThirdMedicinetime: UITextField!
+    @IBOutlet weak var txtSecMedicineTime: UITextField!
+    @IBOutlet weak var btnSetMedicalData: UIButton!
+    @IBOutlet weak var txtEnterMedicalTime: UITextField!
+    @IBOutlet weak var txtEnterMedicalNm: UITextField!
+    @IBOutlet weak var tblMedical: UITableView!
+    @IBOutlet weak var txtWritePrescription: UITextView!
+    @IBOutlet weak var lblReferdBy: UILabel!
+    @IBOutlet weak var lblPatId: UILabel!
+    @IBOutlet weak var lblPatNm: UILabel!
     @IBOutlet weak var viewPid: UIView!
-    @IBOutlet weak var btnBloodGrp: UIButton!
-    @IBOutlet weak var btnTemp: UIButton!
-    @IBOutlet weak var txtBloodGrp: UITextField!
+    @IBOutlet weak var btnAddPrescription: UIButton!
     
-    let dropdownBloodGrp = DropDown()
-    let dropdownTemp = DropDown()
-    let dropdownFt = DropDown()
-    let dropdownInch = DropDown()
+    var PatInfoArr = [String : Any]()
+    var m_cMedicineData = [cMedicianEntryData]()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        setDropDown()
-        btnAction()
-       
-        viewPid.designCell()
-        viewPrisptn.designCell()
-    }
-    
-    func btnAction()
-    {
-        btnBloodGrp.addTarget(self, action: #selector(btnBldGrp_onClick), for: .touchUpInside)
         
-        btnTemp.addTarget(self, action: #selector(btnTemp_onClick), for: .touchUpInside)
+        self.txtWritePrescription.delegate = self
+        self.txtOtherDetail.delegate = self
         
-        btnHgtFt.addTarget(self, action: #selector(btnHgtFt_onClick), for: .touchUpInside)
+        let Nm = self.PatInfoArr["name"] as! String
+        let PatId = self.PatInfoArr["patient_id"] as! String
         
-          btnFeetA.addTarget(self, action: #selector(btnHgtFt_onClick), for: .touchUpInside)
+        lblPatNm.text = "Name : \(Nm)"
+        lblPatId.text = "Patient ID : \(PatId)"
         
-          btnInchA.addTarget(self, action: #selector(btnHgtInch_onClick), for: .touchUpInside)
+        tblviewHeight.constant = 0
+        medicalViewHeight.constant = 140
         
-          btnHgtInch.addTarget(self, action: #selector(btnHgtInch_onClick), for: .touchUpInside)
+        tblMedical.delegate = self
+        tblMedical.dataSource = self
+        tblMedical.separatorStyle = .none
         
-        btnDrawPrescription.addTarget(self, action: #selector(btnDraw_onClick), for: .touchUpInside)
-        
-    }
-    
-    func setDropDown()
-    {
-        DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 20)
-        dropdownBloodGrp.arrowIndicationX = 50
-        dropdownBloodGrp.anchorView = btnBloodGrp
-        dropdownTemp.anchorView = btnTemp
-        dropdownFt.anchorView = btnHgtFt
-        dropdownInch.anchorView = btnHgtInch
-        
-        dropdownInch.anchorView = btnInchA
-        dropdownFt.anchorView = btnFeetA
-        
-        dropdownBloodGrp.dataSource = ["O +ve","O -ve","A","B","AB"]
-        dropdownTemp.dataSource = ["Hypothermia(<35.0°C)", "Normal(36.5 - 37.5°C)", "Hyperthermia(>37.5 or 38.3°C)", "Hyperpyrexia(>40.0 or 41.5°C)"]
-        dropdownFt.dataSource = ["3 ft", "4 ft", "5 ft", "6 ft"]
-        dropdownInch.dataSource = ["0 in", "1 in", "2 in", "3 in", "4 in", "5 in", "6 in", "7 in", "8 in", "9 in", "10 in", "11 in"]
+        txtEnterMedicalNm.clearButtonMode = .always
+        txtEnterMedicalTime.clearButtonMode = .always
+        txtSecMedicineTime.clearButtonMode = .always
+        txtThirdMedicinetime.clearButtonMode = .always
         
         
-        dropdownTemp.direction = .bottom
-        dropdownBloodGrp.direction = .bottom
-        dropdownInch.direction = .bottom
-        dropdownFt.direction = .bottom
-        
-        dropdownTemp.bottomOffset = CGPoint(x: 0, y:(dropdownTemp.anchorView?.plainView.bounds.height)!)
+        btnsave.layer.borderColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0).cgColor
+        btnsave.layer.borderWidth = 1.0
+        btnsave.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        btnsave.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        btnsave.layer.shadowOpacity = 1.0
+        btnsave.layer.shadowRadius = 0.0
+        btnsave.layer.masksToBounds = false
+        btnsave.layer.cornerRadius = 30.0
 
-        dropdownBloodGrp.bottomOffset = CGPoint(x: 0, y:(dropdownBloodGrp.anchorView?.plainView.bounds.height)!)
         
-        dropdownInch.bottomOffset = CGPoint(x: 0, y:(dropdownInch.anchorView?.plainView.bounds.height)!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+         self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView)
+    {
+        if textView == self.txtWritePrescription{
+            if self.txtWritePrescription.text == "Write Here.."
+            {
+                self.txtWritePrescription.text = ""
+            }
+        }
         
-        dropdownFt.bottomOffset = CGPoint(x: 0, y:(dropdownFt.anchorView?.plainView.bounds.height)!)
-    }
-  
-    @objc func btnBldGrp_onClick()
-    {
-        dropdownBloodGrp.show()
-        dropdownBloodGrp.selectionAction = { [unowned self] (index: Int, item: String) in
-            
-            self.txtBloodGrp.text = item
+        if textView == self.txtOtherDetail
+        {
+            if self.txtOtherDetail.text == "Write Here.."
+            {
+                self.txtOtherDetail.text = ""
+            }
         }
     }
     
-    @objc func btnTemp_onClick()
-    {
-        dropdownTemp.show()
-        dropdownTemp.selectionAction = { [unowned self] (index: Int, item: String) in
-            
-            self.txtTemp.text = item
-        }
-    }
     
-    @objc func btnHgtFt_onClick()
-    {
-        dropdownFt.show()
-        dropdownFt.selectionAction = { [unowned self] (index: Int, item: String) in
-            
-            self.btnHgtFt.setTitle(item, for: .normal)
-        }
-    }
-
-    @objc func btnHgtInch_onClick()
-    {
-        dropdownInch.show()
-        dropdownInch.selectionAction = { [unowned self] (index: Int, item: String) in
-            
-            self.btnHgtInch.setTitle(item, for: .normal)
-        }
-    }
     
-    @objc func btnDraw_onClick()
+    @IBAction func btnSetMedicalData_onClick(_ sender: Any)
+    {
+        let lcdata = cMedicianEntryData(cMedicinenm: txtEnterMedicalNm.text!, cMedicinetime: txtEnterMedicalTime.text!, cSec: txtSecMedicineTime.text!, cThird: txtThirdMedicinetime.text!)
+        
+        self.m_cMedicineData.append(lcdata)
+        tblMedical.reloadData()
+        
+        let ArrCount = self.m_cMedicineData.count
+        
+        tblviewHeight.constant = CGFloat(80 * ArrCount)
+        
+        let viewHgt = Int(tblviewHeight.constant)
+        
+        medicalViewHeight.constant = CGFloat(150 + viewHgt)
+        
+        
+      }
+    
+    
+    @IBAction func btnAddPrescription_onClick(_ sender: Any)
     {
         let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+        present(vc, animated: true, completion: nil)
+      
+    }
+    
+    @objc func DeleteMedicineData(sender : UIButton)
+    {
+        let index = sender.tag
+        print(index)
+        self.m_cMedicineData.remove(at: index)
+        tblMedical.reloadData()
+        
+        let ArrCount = self.m_cMedicineData.count
+        
+
         
     }
+    
+    
+}
+extension PatientPrescriptionVC : UITableViewDelegate, UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tblMedical.dequeueReusableCell(withIdentifier: "MedicalDetailCell", for: indexPath) as! MedicalDetailCell
+        
+        let lcdict = m_cMedicineData[indexPath.row]
+        
+        cell.lblMedicalNm.text = lcdict.medicineNm
+        cell.lblMedicalTime.text = lcdict.medicineTime
+        cell.lblSecondTime.text = lcdict.secMedicineTime
+        cell.lblThirdTime.text = lcdict.ThirdMedicineTime
+        
+        
+        cell.btnCancelMedicine.tag = indexPath.row
+        cell.btnCancelMedicine.addTarget(self, action: #selector(DeleteMedicineData(sender:)), for: .touchUpInside)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return m_cMedicineData.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
 
+    
 }

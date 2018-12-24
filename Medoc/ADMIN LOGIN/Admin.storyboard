@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="ipad12_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,11 +11,11 @@
             <objects>
                 <viewController storyboardIdentifier="AdminHospitalListVC" id="XQv-sx-SBS" customClass="AdminHospitalListVC" customModule="Medoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MRO-rc-6Bd">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pr9-7p-oh3">
-                                <rect key="frame" x="0.0" y="122" width="1024" height="1244"/>
+                                <rect key="frame" x="0.0" y="116" width="600" height="484"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Owe-Lr-4tp">
                                         <rect key="frame" x="0.0" y="0.0" width="1024" height="75"/>
@@ -65,7 +62,7 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Y58-Si-oBx">
-                                        <rect key="frame" x="5" y="5" width="1014" height="1234"/>
+                                        <rect key="frame" x="5" y="5" width="590" height="474"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eJQ-HB-Ytw">
                                             <size key="itemSize" width="582" height="490"/>
@@ -75,7 +72,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HospitalCell" id="AlF-NK-SdP" customClass="HospitalCell" customModule="Medoc" customModuleProvider="target">
-                                                <rect key="frame" x="216" y="0.0" width="582" height="490"/>
+                                                <rect key="frame" x="4" y="0.0" width="582" height="490"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="582" height="490"/>
@@ -214,14 +211,14 @@
             <objects>
                 <viewController storyboardIdentifier="DoctorAssistantListVc" id="58o-PY-Cnx" customClass="DoctorAssistantListVc" customModule="Medoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WTp-ey-vYV">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H4B-If-t6U">
-                                <rect key="frame" x="0.0" y="70" width="1024" height="1246"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="N2o-dz-7Ft">
-                                        <rect key="frame" x="8" y="10" width="1008" height="1228"/>
+                                        <rect key="frame" x="8" y="10" width="584" height="474"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="yGm-oe-dwl">
                                             <size key="itemSize" width="434" height="284"/>
@@ -231,7 +228,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DoctorListCell" id="M1h-H1-dEq" customClass="DoctorListCell" customModule="Medoc" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="410" height="275"/>
+                                                <rect key="frame" x="87" y="0.0" width="410" height="275"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                     <rect key="frame" x="0.0" y="0.0" width="410" height="275"/>
@@ -432,10 +429,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Viu-dE-6Ec">
-                                <rect key="frame" x="0.0" y="70" width="834" height="1880"/>
+                                <rect key="frame" x="0.0" y="64" width="834" height="1892"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RBp-3p-QVB">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="1880"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="834" height="1892"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubU-b2-i4p">
                                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1914.5"/>
@@ -898,10 +895,10 @@
             </objects>
             <point key="canvasLocation" x="1075.5395683453239" y="-263.30935251798564"/>
         </scene>
-        <!--Add DoctorVC-->
+        <!--Add AssistantVC-->
         <scene sceneID="Rmk-3G-m8h">
             <objects>
-                <viewController storyboardIdentifier="AddDoctorVC" id="ReS-Ow-5pg" customClass="AddDoctorVC" customModule="Medoc" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddDoctorVC" id="ReS-Ow-5pg" customClass="AddAssistantVC" customModule="Medoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iuD-rC-AEi">
                         <rect key="frame" x="0.0" y="0.0" width="834" height="2500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1173,7 +1170,7 @@
                                                                         <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
                                                                     </textField>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qualification" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfi-h0-fVT">
-                                                                        <rect key="frame" x="391" y="5" width="368.5" height="40"/>
+                                                                        <rect key="frame" x="391.5" y="5" width="368.5" height="40"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -1634,10 +1631,10 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0BV-6x-cQ0">
-                            <rect key="frame" x="5" y="25" width="458" height="263"/>
+                            <rect key="frame" x="5" y="5" width="458" height="283"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which user you want to add ?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2i-ce-AXF">
-                                    <rect key="frame" x="29" y="27.5" width="400" height="34.5"/>
+                                    <rect key="frame" x="29" y="47.5" width="400" height="34.5"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="400" id="IwQ-ld-Kev"/>
                                     </constraints>
@@ -1645,7 +1642,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="M0G-xc-7fT">
-                                    <rect key="frame" x="79" y="92" width="300" height="120"/>
+                                    <rect key="frame" x="79" y="112" width="300" height="120"/>
                                     <subviews>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VV5-YH-Xq6">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="52.5"/>
@@ -1719,10 +1716,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ura-Au-Kiw">
-                                <rect key="frame" x="0.0" y="70" width="834" height="1630"/>
+                                <rect key="frame" x="0.0" y="64" width="834" height="1636"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBn-UG-tav">
-                                        <rect key="frame" x="0.0" y="0.0" width="834" height="1630"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="834" height="1636"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rgf-60-w7S">
                                                 <rect key="frame" x="0.0" y="0.0" width="834" height="1434"/>

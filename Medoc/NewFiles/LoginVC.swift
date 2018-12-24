@@ -25,7 +25,7 @@ class LoginVC: UIViewController
         super.viewDidLoad()
 
         btnLogin.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
-      //  Login()
+      
     }
   
 
@@ -41,15 +41,19 @@ class LoginVC: UIViewController
     
     @IBAction func btnLogin_onClick(_ sender: Any)
     {
-//        
-//        let cliniclist = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: PatientListVC.storyboardID)
-//        
-//        self.present(cliniclist, animated: true, completion: nil)
-        
-        if validation()
-        {
-            Login()
 
+//        let vc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
+//      //  present(vc, animated: true, completion: nil)
+//
+//        let appdel = UIApplication.shared.delegate as! AppDelegate
+//
+//        let navigationController = appdel.window?.rootViewController as! UINavigationController
+//        navigationController.setViewControllers([vc], animated: true)
+//        
+
+       if validation()
+        {
+         Login()
 
         }
     }
@@ -60,7 +64,7 @@ class LoginVC: UIViewController
         
         let Param = ["username" : txtUserNm.text!,
                      "password" : txtPassword.text!
-                ]
+                    ]
         
         Alamofire.request(LoginApi, method: .post, parameters: Param).responseJSON { (resp) in
             print(resp)
@@ -68,10 +72,20 @@ class LoginVC: UIViewController
             switch resp.result
             {
             case .success(_):
-                
-                let cliniclist = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: PatientListVC.storyboardID)
                
-                self.present(cliniclist, animated: true, completion: nil)
+                let json = resp.result.value as! NSDictionary
+                
+                let Msg = json["msg"] as! String
+                
+                if Msg == "success"
+                {
+                    let userData = json["data"] as! NSDictionary
+                    UserDefaults.standard.set(userData, forKey: "userData")
+                    
+                    let cliniclist = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: PatientListVC.storyboardID)
+                    
+                    self.present(cliniclist, animated: true, completion: nil)
+                }
                 
                 break
                 
@@ -95,17 +109,10 @@ class LoginVC: UIViewController
             toast.isShow("Both fields are mandetory")
             return false
         }
-        
-//        if txtPassword.text?.isValidPassword() == false
-//        {
-//            self.toast.isShow("You should enter Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character")
-//           return false
-//        }
+    
         
         return true
     }
-    
-    
     
 }
 extension String {

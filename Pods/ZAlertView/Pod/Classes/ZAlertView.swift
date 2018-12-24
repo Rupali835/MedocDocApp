@@ -44,12 +44,12 @@ import UIKit
 
     static let Padding: CGFloat               = 12
     static let InnerPadding: CGFloat          = 8
-    static let CornerRadius: CGFloat          = 4
-    static let ButtonHeight: CGFloat          = 40
+    static let CornerRadius: CGFloat          = 5
+    static let ButtonHeight: CGFloat          = 60
     static let ButtonSectionExtraGap: CGFloat = 12
-    static let TextFieldHeight: CGFloat       = 40
-    static let AlertWidth: CGFloat            = 280
-    static let AlertHeight: CGFloat           = 65
+    static let TextFieldHeight: CGFloat       = 60
+    static let AlertWidth: CGFloat            = 400
+    static let AlertHeight: CGFloat           = 150
     static let BackgroundAlpha: CGFloat       = 0.5
     
     // MARK: - Global

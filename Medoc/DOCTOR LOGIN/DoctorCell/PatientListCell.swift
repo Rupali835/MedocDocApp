@@ -11,9 +11,9 @@ class PatientListCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        backView.layer.cornerRadius = 10.0
-//        backView.layer.borderWidth = 1.0
-//        backView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        self.selectionStyle = .none
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

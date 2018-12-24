@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZAlertView
 
 class ForgetPasswordVC: UIViewController {
 
@@ -58,8 +59,10 @@ class ForgetPasswordVC: UIViewController {
         
         if txtNewPassword.text?.isValidPassword() == false
         {
-            self.toast.isShow("You should enter Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character")
-                   return false
+            ZAlertView.init(title: "Medoc", msg: "You should enter Minimum eight and maximum 10 characters, at least one uppercase letter, one lowercase letter, one number and one special character", actiontitle: "OK") {
+                
+            }
+              return false
         }
         
         if txtNewPassword.text != txtConformPassword.text

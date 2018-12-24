@@ -61,13 +61,20 @@
 		5831988B21C22E700068C1AA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5831988A21C22E700068C1AA /* LoginVC.swift */; };
 		583198AF21C239010068C1AA /* SignUpFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583198AE21C239010068C1AA /* SignUpFormVC.swift */; };
 		583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583198B021C23AA80068C1AA /* ContainerVC.swift */; };
+		5868516D21C8DA5600D3BE39 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5868516C21C8DA5600D3BE39 /* ProfileVC.swift */; };
+		5868516F21C9042200D3BE39 /* AddAssistantVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5868516E21C9042200D3BE39 /* AddAssistantVC.swift */; };
 		5877BE1A21B7BB800001328A /* PatientListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5877BE1921B7BB800001328A /* PatientListVC.swift */; };
 		5877BE1C21B7BC9E0001328A /* PatientListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5877BE1B21B7BC9E0001328A /* PatientListCell.swift */; };
+		58AFEC6A21CB7EC700A712E0 /* SearchPatientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AFEC6921CB7EC700A712E0 /* SearchPatientVC.swift */; };
+		58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AFEC6B21CB7F0000A712E0 /* SearchPatientCell.swift */; };
 		58D9073621C17C4D000A751E /* CPatientEnrtyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */; };
 		58DAFDD821C77ED700E81940 /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */; };
 		58DAFDFD21C7C19500E81940 /* SideBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDFC21C7C19500E81940 /* SideBarCell.swift */; };
 		58DAFDFF21C7C1E400E81940 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */; };
 		58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */; };
+		58DF976721CCCA09007AD147 /* MedicalDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF976621CCCA09007AD147 /* MedicalDetailCell.swift */; };
+		58DF976921CCCB62007AD147 /* cMedicianEntryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF976821CCCB62007AD147 /* cMedicianEntryData.swift */; };
+		58E3506421CA485700AAF430 /* SideMenuListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E3506321CA485700AAF430 /* SideMenuListVC.swift */; };
 		58FD985E21BE7BB800E1C968 /* ApiList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FD985D21BE7BB800E1C968 /* ApiList.swift */; };
 		91950D93CFE47E481F691806 /* Pods_Medoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C45CB29D8418FE384706EB /* Pods_Medoc.framework */; };
 /* End PBXBuildFile section */
@@ -168,14 +175,21 @@
 		5831988A21C22E700068C1AA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		583198AE21C239010068C1AA /* SignUpFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFormVC.swift; sourceTree = "<group>"; };
 		583198B021C23AA80068C1AA /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
+		5868516C21C8DA5600D3BE39 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		5868516E21C9042200D3BE39 /* AddAssistantVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssistantVC.swift; sourceTree = "<group>"; };
 		5877BE1921B7BB800001328A /* PatientListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListVC.swift; sourceTree = "<group>"; };
 		5877BE1B21B7BC9E0001328A /* PatientListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListCell.swift; sourceTree = "<group>"; };
+		58AFEC6921CB7EC700A712E0 /* SearchPatientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPatientVC.swift; sourceTree = "<group>"; };
+		58AFEC6B21CB7F0000A712E0 /* SearchPatientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPatientCell.swift; sourceTree = "<group>"; };
 		58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPatientEnrtyData.swift; sourceTree = "<group>"; };
 		58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
 		58DAFDFC21C7C19500E81940 /* SideBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarCell.swift; sourceTree = "<group>"; };
 		58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		58DAFE0121C7EC8200E81940 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		58DF976621CCCA09007AD147 /* MedicalDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalDetailCell.swift; sourceTree = "<group>"; };
+		58DF976821CCCB62007AD147 /* cMedicianEntryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cMedicianEntryData.swift; sourceTree = "<group>"; };
+		58E3506321CA485700AAF430 /* SideMenuListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListVC.swift; sourceTree = "<group>"; };
 		58FD985D21BE7BB800E1C968 /* ApiList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiList.swift; sourceTree = "<group>"; };
 		DB567A7B6C833F547ACD17EE /* Pods-Medoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Medoc/Pods-Medoc.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,13 +221,6 @@
 				49C45CB29D8418FE384706EB /* Pods_Medoc.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3BA92BDE21B00E5D008D85DB /* SUPER ADMIN LOGIN */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "SUPER ADMIN LOGIN";
 			sourceTree = "<group>";
 		};
 		3BA92BE421B00E5D008D85DB /* CommonFiles */ = {
@@ -384,6 +391,7 @@
 		3BA92C4721B00E5E008D85DB /* DOCTOR LOGIN */ = {
 			isa = PBXGroup;
 			children = (
+				5868516B21C8DA3600D3BE39 /* SideMenuPages */,
 				5877BE1821B7BB580001328A /* DoctorCell */,
 				5877BE1721B7BB4D0001328A /* DoctorVC */,
 				3BA92C4821B00E5E008D85DB /* Doctor.storyboard */,
@@ -415,7 +423,6 @@
 				583198AD21C238E50068C1AA /* NewFiles */,
 				3BA92C4721B00E5E008D85DB /* DOCTOR LOGIN */,
 				3BA92C3A21B00E5E008D85DB /* ADMIN LOGIN */,
-				3BA92BDE21B00E5D008D85DB /* SUPER ADMIN LOGIN */,
 				3BA92BE421B00E5D008D85DB /* CommonFiles */,
 				3BA92BE621B00E5E008D85DB /* Third Libraries */,
 				3B73761F21AEB3FD000EC50E /* Medoc.entitlements */,
@@ -455,6 +462,16 @@
 			path = NewFiles;
 			sourceTree = "<group>";
 		};
+		5868516B21C8DA3600D3BE39 /* SideMenuPages */ = {
+			isa = PBXGroup;
+			children = (
+				5868516C21C8DA5600D3BE39 /* ProfileVC.swift */,
+				5868516E21C9042200D3BE39 /* AddAssistantVC.swift */,
+				58AFEC6921CB7EC700A712E0 /* SearchPatientVC.swift */,
+			);
+			path = SideMenuPages;
+			sourceTree = "<group>";
+		};
 		5877BE1721B7BB4D0001328A /* DoctorVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +480,8 @@
 				580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */,
 				58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */,
 				58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */,
+				58E3506321CA485700AAF430 /* SideMenuListVC.swift */,
+				58DF976821CCCB62007AD147 /* cMedicianEntryData.swift */,
 			);
 			path = DoctorVC;
 			sourceTree = "<group>";
@@ -472,6 +491,8 @@
 			children = (
 				5877BE1B21B7BC9E0001328A /* PatientListCell.swift */,
 				58DAFDFC21C7C19500E81940 /* SideBarCell.swift */,
+				58AFEC6B21CB7F0000A712E0 /* SearchPatientCell.swift */,
+				58DF976621CCCA09007AD147 /* MedicalDetailCell.swift */,
 			);
 			path = DoctorCell;
 			sourceTree = "<group>";
@@ -663,6 +684,7 @@
 				3BA92C6421B00E5E008D85DB /* YoshikoTextField.swift in Sources */,
 				5831988B21C22E700068C1AA /* LoginVC.swift in Sources */,
 				3BA92C4E21B00E5E008D85DB /* DBAttachmentPickerController.m in Sources */,
+				58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */,
 				3BA92C5921B00E5E008D85DB /* DBAssetImageView.m in Sources */,
 				5877BE1C21B7BC9E0001328A /* PatientListCell.swift in Sources */,
 				3BA92C6321B00E5E008D85DB /* KLCPopup.m in Sources */,
@@ -676,6 +698,7 @@
 				3BA92C4D21B00E5E008D85DB /* CheckboxButton.swift in Sources */,
 				3BA92C6F21B00E5E008D85DB /* JYToast.swift in Sources */,
 				583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */,
+				58DF976921CCCB62007AD147 /* cMedicianEntryData.swift in Sources */,
 				3BA92C5321B00E5E008D85DB /* DBAssetGroupsViewController.m in Sources */,
 				3BA92C6921B00E5E008D85DB /* JiroTextField.swift in Sources */,
 				3BA92C6521B00E5E008D85DB /* HoshiTextField.swift in Sources */,
@@ -689,8 +712,12 @@
 				3BA92C5421B00E5E008D85DB /* DBAssetItemsViewController.m in Sources */,
 				3BA92C5B21B00E5E008D85DB /* NSBundle+DBLibrary.m in Sources */,
 				3BA92C6C21B00E5E008D85DB /* AkiraTextField.swift in Sources */,
+				5868516D21C8DA5600D3BE39 /* ProfileVC.swift in Sources */,
+				58E3506421CA485700AAF430 /* SideMenuListVC.swift in Sources */,
 				58DAFDFF21C7C1E400E81940 /* SideMenuVC.swift in Sources */,
 				3BA92C4C21B00E5E008D85DB /* ExtensionFile.swift in Sources */,
+				58AFEC6A21CB7EC700A712E0 /* SearchPatientVC.swift in Sources */,
+				58DF976721CCCA09007AD147 /* MedicalDetailCell.swift in Sources */,
 				58FD985E21BE7BB800E1C968 /* ApiList.swift in Sources */,
 				3BA92C6621B00E5E008D85DB /* MinoruTextField.swift in Sources */,
 				3BA92C6821B00E5E008D85DB /* TextFieldEffects.swift in Sources */,
@@ -699,6 +726,7 @@
 				58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */,
 				3BF823D721AD7A31004C92E5 /* ViewController.swift in Sources */,
 				580A5A2421C0F16F0019570F /* LCBezierPath.m in Sources */,
+				5868516F21C9042200D3BE39 /* AddAssistantVC.swift in Sources */,
 				58DAFDFD21C7C19500E81940 /* SideBarCell.swift in Sources */,
 				3BA92C6021B00E5E008D85DB /* DLRadioButton.m in Sources */,
 				5877BE1A21B7BB800001328A /* PatientListVC.swift in Sources */,

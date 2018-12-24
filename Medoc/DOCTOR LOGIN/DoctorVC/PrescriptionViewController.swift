@@ -60,7 +60,19 @@ class PrescriptionViewController: UIViewController {
         self.selectedColor = hexStringToUIColor(hex: "#000000")
         NotificationCenter.default.addObserver(self, selector: #selector(change), name: NSNotification.Name("Updated"), object: nil)
         // Do any additional setup after loading the view.
+        
     }
+    
+/*    @objc func change()
+    {
+        Paintview.lineColor = selectedColor
+        Paintview.lineWidth = Float(selectedWidth)
+        brushColor.titleLabel?.textColor = hexStringToUIColor(hex: color[Selectedindex])
+    }
+ 
+ */
+    
+    
     @objc func change(){
         Paintview.lineColor = selectedColor
         Paintview.lineWidth = Float(selectedWidth)
@@ -98,6 +110,7 @@ class PrescriptionViewController: UIViewController {
             print("Selected item: \(item) at index: \(index)")
         }
     }
+    
     @objc func saveAction(){
         if Paintview.image != nil{
             NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : Paintview.image!])
@@ -106,11 +119,12 @@ class PrescriptionViewController: UIViewController {
     @objc func clearAction(){
         self.Paintview.clear()
     }
+    
     @objc func EraserAction(){
         if selected == true {
             selectedColor = UIColor.white
             Paintview.lineColor = selectedColor
-            Paintview.lineWidth = Float(selectedWidth + 20)
+            Paintview.lineWidth = Float(selectedWidth + 40)
             Eraser.setTitle("Done", for: .normal)
             selected = false
         } 

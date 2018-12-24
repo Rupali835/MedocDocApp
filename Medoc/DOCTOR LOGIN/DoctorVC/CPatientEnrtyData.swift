@@ -10,16 +10,16 @@ import Foundation
 
 class CPatientEntryData: NSObject
 {
-    var P_name : String
-    var P_Contact : String
-    var P_Email : String
-    var P_problems : String
+    var name : String
+    var p_description : String
+    var patient_id : String
+  
     
-    init(pName: String, pContact: String, pEmail: String, pProblems: String) {
-        self.P_name      = pName
-        self.P_Contact   = pContact
-        self.P_Email     = pEmail
-        self.P_problems    = pProblems
+    init(pName: String, pContact: String, pDescp: String) {
+        self.name      = pName
+        self.p_description = pContact
+        self.patient_id     = pDescp
+      
     }
     
 }
