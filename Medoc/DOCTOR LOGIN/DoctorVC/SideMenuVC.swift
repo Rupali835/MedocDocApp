@@ -13,7 +13,7 @@ class SideMenuVC: UIViewController
 
     @IBOutlet weak var tblSideList: UITableView!
     
-    var SideListArr = ["Today's Patient", "Add Report", "Profile", "Your QR Code", "Chat", "Rate Us", "Contact Us", "Purchases"]
+    var SideListArr = ["Today's Patient", "Add Report", "Profile", "Your QR Code", "Chat","Videos", "Rate Us", "Contact Us", "Purchases"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,7 @@ class SideMenuVC: UIViewController
         tblSideList.delegate = self
         tblSideList.dataSource = self
         tblSideList.separatorStyle = .none
+        
         
     }
  

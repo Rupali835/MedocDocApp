@@ -23,11 +23,15 @@ class AddAssistantVC: UIViewController {
     @IBOutlet weak var txtMobileNo: HoshiTextField!
     
     var toast = JYToast()
+    var loginid = Int()
+    var Role = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        sideMenus()
+        let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
+         loginid = dict["id"] as! Int
+         Role = dict["role_id"] as! String
        
     }
     
@@ -38,16 +42,16 @@ class AddAssistantVC: UIViewController {
             txtemail.text = "NF"
         }
         
-        let addAssistantApi = "http://www.otgmart.com/medoc/medoc_new/index.php/API/add_assistant"
+        let addAssistantApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_assistant"
         
-        let param = ["loggedin_id" : "2",
-                     "loggedin_role" : "5",
+        let param = ["loggedin_id" : loginid,
+                     "loggedin_role" : Role,
                      "action" : "add",
                      "name" : txtNm.text!,
                      "email" : txtemail.text!,
                      "contact" : txtMobileNo.text!,
                      "hospital_id" : "1"
-                     ]
+            ] as [String : Any]
         
         Alamofire.request(addAssistantApi, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
@@ -98,14 +102,7 @@ class AddAssistantVC: UIViewController {
     
     @IBAction func btnBack_onClick(_ sender: Any)
     {
-        if revealViewController() != nil
-        {
-            revealViewController().rearViewRevealWidth = 500
-            revealViewController().rightViewRevealWidth = 130
-            
-            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
-        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func btnSend_onClick(_ sender: Any)

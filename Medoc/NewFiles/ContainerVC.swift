@@ -14,9 +14,18 @@ class ContainerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.loginvc.view.frame = self.containerView.bounds
-        self.containerView.addSubview(self.loginvc.view)
+       
         
+        UIView.animate(withDuration: 1.0) {
+            
+            self.loginvc.view.frame = self.containerView.bounds
+            self.containerView.addSubview(self.loginvc.view)
+            self.containerView.layer.cornerRadius = 20.0
+            self.containerView.clipsToBounds = true
+            self.containerView.designCell()
+        }
+        
+       
         
     }
     
@@ -39,15 +48,35 @@ class ContainerVC: UIViewController {
     
     func showsign()
     {
-        self.signupvc.view.frame = self.containerView.bounds
-        self.containerView.addSubview(self.signupvc.view)
+        UIView.transition(with: self.containerView,
+                          duration: 1.0,
+                          options: [.transitionFlipFromRight],
+                          animations: {
+                            
+                            self.signupvc.view.frame = self.containerView.bounds
+                            self.containerView.addSubview(self.signupvc.view)
+        },
+                          completion: nil)
+        
+//        self.signupvc.view.frame = self.containerView.bounds
+//        self.containerView.addSubview(self.signupvc.view)
         
     }
     
     func showForgetpassword()
     {
-        self.passwordvc.view.frame = self.containerView.bounds
-        self.containerView.addSubview(self.passwordvc.view)
+        UIView.transition(with: self.containerView,
+                          duration: 1.0,
+                          options: [.transitionCurlUp],
+                          animations: {
+                            
+                            self.passwordvc.view.frame = self.containerView.bounds
+                            self.containerView.addSubview(self.passwordvc.view)
+        },
+                          completion: nil)
+        
+        
+      
     }
 
 }

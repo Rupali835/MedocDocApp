@@ -27,8 +27,7 @@ class LoginVC: UIViewController
         btnLogin.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
       
     }
-  
-
+    
     @IBAction func btnForgetPassword_onClick(_ sender: Any)
     {
        self.m_cContainerVC.showForgetpassword()
@@ -42,24 +41,15 @@ class LoginVC: UIViewController
     @IBAction func btnLogin_onClick(_ sender: Any)
     {
 
-//        let vc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-//      //  present(vc, animated: true, completion: nil)
-//
-//        let appdel = UIApplication.shared.delegate as! AppDelegate
-//
-//        let navigationController = appdel.window?.rootViewController as! UINavigationController
-//        navigationController.setViewControllers([vc], animated: true)
-//        
-
-       if validation()
+        if validation()
         {
          Login()
-
         }
     }
     
     func Login()
     {
+    
         let LoginApi = "http://otgmart.com/medoc/medoc_test/public/api/login"
         
         let Param = ["username" : txtUserNm.text!,
@@ -81,10 +71,16 @@ class LoginVC: UIViewController
                 {
                     let userData = json["data"] as! NSDictionary
                     UserDefaults.standard.set(userData, forKey: "userData")
+                   
+                    let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let navigationController = appDelegate.window!.rootViewController as! UINavigationController
                     
-                    let cliniclist = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: PatientListVC.storyboardID)
+                   //navigationController.pushViewController(yourVc, animated: true)
+                    navigationController.setViewControllers([yourVc], animated: true)
                     
-                    self.present(cliniclist, animated: true, completion: nil)
+                }else{
+                    self.toast.isShow("Check Username or Password..")
                 }
                 
                 break
@@ -123,4 +119,26 @@ extension String {
         
         return passwordValidation.evaluate(with: self)
     }
+    
+    func isValidNumber() -> Bool
+    {
+       // let phoneNumberRegex = "^[7-9][0-9]{8,9}$"
+        
+        let phoneNumberRegex = "^(?:|0|[1-9]\\d*)(?:|0|[/]\\d*)(?:\\.\\d*)?$"
+         let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
+        
+        return phoneTest.evaluate(with: self)
+    }
+    
+    func isValidName() -> Bool
+    {
+        // let phoneNumberRegex = "^[7-9][0-9]{8,9}$"
+        
+        let phoneNumberRegex = "^(?:|0|[a-z]\\d*)(?:|0|[A-Z]\\d*)(?:\\.\\d*)?$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneNumberRegex)
+        
+        return phoneTest.evaluate(with: self)
+    }
+    
+    
 }

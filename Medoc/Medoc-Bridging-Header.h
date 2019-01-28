@@ -15,6 +15,8 @@
 #import "KLCPopup.h"
 #import "LCPaintView.h"
 #import "SWRevealViewController.h"
+#import "CryptLib.h"
+
 
 
 #endif /* Medoc_Bridging_Header_h */

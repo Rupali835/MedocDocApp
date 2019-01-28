@@ -1,4 +1,10 @@
-
+//
+//  CheckboxButton.swift
+//  CheckboxButton
+//
+//  Created by Joe Amanse on 30/11/2015.
+//  Copyright © 2015 Joe Christopher Paul Amanse. All rights reserved.
+//
 
 import UIKit
 
@@ -74,7 +80,7 @@ open class CheckboxButton: UIButton {
         let sideLength: CGFloat
         if width > height {
             sideLength = height
-            x = 0   //(width - sideLength) / 2
+            x = 0//(width - sideLength) / 2
             y = 0
         } else {
             sideLength = width

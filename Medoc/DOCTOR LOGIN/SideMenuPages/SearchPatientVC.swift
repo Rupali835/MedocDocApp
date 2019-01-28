@@ -29,15 +29,15 @@ class SearchPatientVC: UIViewController
         self.tblSearchPatient.rowHeight = UITableView.automaticDimension
         
         Oldpatient()
-        sideMenus()
+       // sideMenus()
         
     }
     
     func Oldpatient()
     {
-        let Old_patApi = "http://www.otgmart.com/medoc/medoc_new/index.php/API/get_old_patients"
+        let Old_patApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_old_patients"
         
-        let Param = ["loggedin_id" : "2"]
+        let Param = ["loggedin_id" : "1"]
         
         Alamofire.request(Old_patApi, method: .post, parameters: Param).responseJSON { (resp) in
             print(resp)
@@ -80,14 +80,7 @@ class SearchPatientVC: UIViewController
     
     @IBAction func btnBack_onClick(_ sender: Any)
     {
-        if revealViewController() != nil
-        {
-            revealViewController().rearViewRevealWidth = 500
-            revealViewController().rightViewRevealWidth = 130
-            
-            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
-        }
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -104,7 +97,14 @@ extension SearchPatientVC : UITableViewDelegate, UITableViewDataSource
         cell.lblDate.text = lcdict["created_at"] as! String
         cell.lblNm.text = "Name :  \(lcdict["name"] as! String)"
         cell.lblPatID.text = "Patient ID : \(lcdict["patient_id"] as! String)"
-        cell.lblPAtDesc.text = lcdict["p_description"] as! String
+        
+        if let descNm = lcdict["p_description"] as? String
+        {
+             cell.lblPAtDesc.text = descNm
+        }else{
+            cell.lblPAtDesc.text = "NF"
+        }
+       
         return cell
     }
     

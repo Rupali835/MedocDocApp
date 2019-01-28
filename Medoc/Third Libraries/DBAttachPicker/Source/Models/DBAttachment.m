@@ -45,7 +45,9 @@
 
 @implementation DBAttachment
 
-+ (instancetype)attachmentFromPHAsset:(PHAsset *)asset {
+//+ (instancetype)attachmentFromPHAsset:(PHAsset *)asset {
++ (instancetype)attachmentFromPHAsset:(PHAsset *)asset TxtfileName:(NSString *)FileName {
+    //inMode:(UIDocumentPickerMode)mode
     DBAttachment *model = [[[self class] alloc] init];
     model.sourceType = DBAttachmentSourceTypePHAsset;
     model.photoAsset = asset;
@@ -63,7 +65,7 @@
             model.mediaType = DBAttachmentMediaTypeOther;
             break;
     }
-    model.fileName = resource.originalFilename;
+    model.fileName = FileName;//resource.originalFilename;
     model.creationDate = asset.creationDate;
     
     return model;

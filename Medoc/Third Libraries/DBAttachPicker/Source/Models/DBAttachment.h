@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param asset PHAsset object
  @return An instance attachment object
  */
-+ (instancetype)attachmentFromPHAsset:(PHAsset *)asset;
++ (instancetype)attachmentFromPHAsset:(PHAsset *)asset TxtfileName:(NSString *)FileName;
 
 /*!
  @brief Creates and returns an attachment on the basis of UIImage

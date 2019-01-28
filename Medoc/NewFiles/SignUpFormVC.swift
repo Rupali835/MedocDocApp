@@ -30,8 +30,7 @@ class SignUpFormVC: UIViewController {
         super.viewDidLoad()
         
         btnRegister.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
-    
-    }
+       }
     
     func initilize(cContainervc: ContainerVC)
     {
@@ -81,7 +80,7 @@ class SignUpFormVC: UIViewController {
                      "registration_no" : txtRegNo.text!,
                      "profile_picture" : ""
                      
-            ] as! Parameters
+            ] as Parameters
         
         print(param)
         

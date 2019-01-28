@@ -37,6 +37,7 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 @property (strong, nonatomic) CancelBlock extendedCancelBlock;
 
 @property (assign, nonatomic) BOOL ignoreChangeMediaType;
+@property (assign, nonatomic) NSString *TxtFileName;
 
 @end
 
@@ -191,7 +192,8 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 - (NSArray<DBAttachment *> *)attachmentArrayFromPHAssetArray:(NSArray<PHAsset *> *)assetArray {
     NSMutableArray *attachmentArray = [NSMutableArray arrayWithCapacity:assetArray.count];
     for (PHAsset *asset in assetArray) {
-        DBAttachment *model = [DBAttachment attachmentFromPHAsset:asset];
+       // DBAttachment *model = [DBAttachment attachmentFromPHAsset:asset];
+        DBAttachment *model = [DBAttachment attachmentFromPHAsset:asset TxtfileName: _TxtFileName];
         [attachmentArray addObject:model];
     }
     return [attachmentArray copy];
@@ -264,7 +266,8 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
     }
 }
 
-- (void)takePictureButtonDidSelect {
+- (void)takePictureButtonDidSelect
+{
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         [self cancelWithAlertErrorText:NSLocalizedString(@"Device has no camera", @"Error text")];
         return;
@@ -372,10 +375,50 @@ const DBAttachmentMediaType DBAttachmentMediaTypeMaskAll = DBAttachmentMediaType
 
 - (void)DBAssetPickerController:(nonnull DBAssetPickerController *)controller didFinishPickingAssetArray:(nonnull NSArray<PHAsset *> *)assetArray {
     __weak typeof(self) weakSelf = self;
-    [controller dismissViewControllerAnimated:YES completion:^{
+    
+    UIAlertController *alert= [UIAlertController
+                               alertControllerWithTitle:@"Title"
+                               message:@"SubTitle"
+                               preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action){
+                                                   //Do Some action here
+                                                   UITextField *textField = alert.textFields[0];
+                                                   NSLog(@"text was %@", textField.text);
+                                                   self->_TxtFileName = textField.text;
+                                                   [controller dismissViewControllerAnimated:YES completion:^{
+                                                       NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
+                                                       [weakSelf finishPickingWithAttachmentArray:attachmentArray];
+                                                   }];
+                                                   
+                                               }];
+    UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * action) {
+                                                       
+                                                       NSLog(@"cancel btn");
+                                                       
+                                                       [alert dismissViewControllerAnimated:YES completion:nil];
+                                                       
+                                                   }];
+    
+    [alert addAction:ok];
+    [alert addAction:cancel];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"placeHolderText";
+        textField.keyboardType = UIKeyboardTypeDefault;
+    }];
+    
+   
+    [controller presentViewController:alert animated:YES completion:nil];
+    
+
+
+   /* [controller dismissViewControllerAnimated:YES completion:^{
         NSArray<DBAttachment *> *attachmentArray = [weakSelf attachmentArrayFromPHAssetArray:assetArray];
         [weakSelf finishPickingWithAttachmentArray:attachmentArray];
-    }];
+    }];*/
 }
 
 - (void)DBAssetPickerControllerDidCancel:(nonnull DBAssetPickerController *)controller {

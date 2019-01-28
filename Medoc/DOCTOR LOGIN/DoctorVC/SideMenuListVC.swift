@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import ZAlertView
 
 class SideList : NSObject
 {
@@ -23,22 +25,80 @@ class SideList : NSObject
 class SideMenuListVC: UIViewController
 {
 
+    @IBOutlet weak var lblDocEmail: UILabel!
+    @IBOutlet weak var lblDocNm: UILabel!
     @IBOutlet weak var tblSideMenu: UITableView!
     
     var m_cSideList = [SideList]()
+    var ProfileArr = [AnyObject]()
+    var toast = JYToast()
+
+
+    var SideListArr = ["Today's Patient", "Appointments", "News Feed", "Videos", "Profile", "DOC-COM", "Rate Us", "About Us", "Contact Us", "Purchases", "Logout"]
     
-    var SideListArr = ["Today's Patient", "Profile", "Search Patient", "Add Assistant","Add Report", "Your QR Code", "Chat", "Rate Us", "Contact Us", "Purchases"]
+    var imgArr = ["signuser", "calendar", "NewsFeed", "Videos", "user (1)", "Chat", "RateUs", "AboutUs","ContactUs", "Purchase", "icon"]
     
-    var SideListImg = [""]
     
-    override func viewDidLoad() {
+      override func viewDidLoad() {
         super.viewDidLoad()
         
         tblSideMenu.delegate = self
         tblSideMenu.dataSource = self
         tblSideMenu.separatorStyle = .none
-     }
- 
+     
+    }
+    
+    func Logout()
+    {
+        let result = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
+        print(result)
+        
+        let Token = result["token_type"] as! String
+        let AccessToken = result["access_token"] as! String
+        let Key = Token + " " + AccessToken
+        print(Key)
+        
+        let logoutUrl = "http://otgmart.com/medoc/medoc_test/public/api/logout_api"
+        
+        let headers : HTTPHeaders = ["Authorization" : Key,
+                                     "Accept" : "application/json"]
+        
+        Alamofire.request(logoutUrl, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON { (resp) in
+            print(resp)
+            
+            switch resp.result
+            {
+            case .success(_):
+                let json = resp.result.value as! NSDictionary
+                if let Msg = json["msg"] as? String
+                {
+                    if Msg == "success"
+                    {
+                        UserDefaults.standard.removeObject(forKey: "userData")
+                        
+                        let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: .main)
+                        let loginVC = storyboard.instantiateViewController(withIdentifier: "ContainerVC") as! ContainerVC
+                        
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        let navigationController = appDelegate.window?.rootViewController as! UINavigationController
+                        navigationController.setViewControllers([loginVC], animated: true)
+                    }
+                    
+                }
+                
+                if let MSG = json["message"] as? String
+                {
+                    self.toast.isShow("Something went wrong..")
+                }
+                break
+                
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    
 }
 extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
 {
@@ -50,11 +110,17 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
     {
         let cell = tblSideMenu.dequeueReusableCell(withIdentifier: "SideBarCell", for: indexPath) as! SideBarCell
         cell.lblSideNm.text = SideListArr[indexPath.row]
+        cell.imgSideList.image = UIImage(named: imgArr[indexPath.row])
+        
+        
+        cell.imgSideList.image = cell.imgSideList.image!.withRenderingMode(.alwaysTemplate)
+        cell.imgSideList.tintColor = UIColor.darkGray
+       
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
+        return 60.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -65,34 +131,66 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
         {
         case 0:
             let todayPatVc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-            revealViewController()?.pushFrontViewController(todayPatVc, animated: true)
+             revealViewController().pushFrontViewController(todayPatVc, animated: true)
+            
+        
+            break
+       
+    
+        case 1:
+            let appointVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AppointmentVC") as! AppointmentVC
+             revealViewController().pushFrontViewController(appointVc, animated: true)
+         
             break
         
-       case 1:
-            let profileVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
-            revealViewController()?.pushFrontViewController(profileVc, animated: true)
-            break
-            
         case 2:
-            let searchvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "SearchPatientVC") as! SearchPatientVC
-            revealViewController()?.pushFrontViewController(searchvc, animated: true)
+            let appointVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "NewsFeedVC") as! NewsFeedVC
+            revealViewController().pushFrontViewController(appointVc, animated: true)
             
             break
-         
-        case 3:
-            let addAssistantVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddAssistantVC") as! AddAssistantVC
-            revealViewController()?.pushFrontViewController(addAssistantVc, animated: true)
             
+        case 3:
+            let videoVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "VideoListVC") as! VideoListVC
+            revealViewController().pushFrontViewController(videoVc, animated: true)
+            break
+            
+       case 4:
+            let profileVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+            revealViewController().pushFrontViewController(profileVc, animated: true)
+            break
+            
+        case 5:
+            let chatVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+           revealViewController().pushFrontViewController(chatVc, animated: true)
+            break
+        
+        case 7:
+            let aboutusVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AboutUsVC") as! AboutUsVC
+            revealViewController().pushFrontViewController(aboutusVc, animated: true)
+            break
+            
+        case 8:
+            let contactVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ContactUsVC") as! ContactUsVC
+             revealViewController().pushFrontViewController(contactVc, animated: true)
+            
+            break
+        
+        case 9:
+            let purchaseVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PurchaseLienceVC") as! PurchaseLienceVC
+            revealViewController().pushFrontViewController(purchaseVc, animated: true)
+            break
+            
+        case 10:
+          
+            ZAlertView(title: "Medoc", msg: "Are you sure you want to logout ?", dismisstitle: "No", actiontitle: "Yes")
+            {
+                self.Logout()
+            }
             break
             
         default:
             print("Not match")
         }
-        
-        
-       
-        
-        
         
     }
     

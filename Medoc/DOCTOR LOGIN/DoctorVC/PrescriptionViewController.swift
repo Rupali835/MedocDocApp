@@ -6,9 +6,18 @@
 //  Copyright © 2018 Kanishka. All rights reserved.
 //
 
+
 import UIKit
-//import LCPaintView
 import DropDown
+import ZAlertView
+
+
+protocol PaintDocsDelegate {
+    
+    func DrawingDocs(docImg : UIImage, doctag : String, doctimeStamp : String)  // for drawing
+    
+    func PaintDocs(docs : UIImage, docnm : String, docTimeStamp : String) // for prescription
+}
 
 class PrescriptionViewController: UIViewController {
 
@@ -21,12 +30,22 @@ class PrescriptionViewController: UIViewController {
     @IBOutlet var undo : UIButton!
 
     var selected = Bool(true)
-    var selectedWidth = 10
+    var selectedWidth = 5
     var selectedColor = UIColor()
     let dropdownWidth = DropDown()
     let dropdownColor = DropDown()
     var Selectedindex = 0
     let color = ["#000000","#FFFB00","#0096FF","#8EFA00","#FF2600","#FF7E79","FF9300"]
+    
+    var paintImgArr = [UIImage]()
+    
+    var m_cPaintDocsdelegate : PaintDocsDelegate!
+    var alertWithText = ZAlertView()
+    var m_bView = Bool(false)
+    var m_cdraw_arr = [DrawingArr]()
+    
+    var m_cPressData: CPressData!
+    var m_cDrawData: CDrawData!
     
     @IBOutlet var Paintview: LCPaintView!
     
@@ -40,7 +59,7 @@ class PrescriptionViewController: UIViewController {
         dropdownWidth.anchorView = brushWidth
         dropdownColor.anchorView = brushColor
         
-        dropdownWidth.dataSource = ["10","15","20","25","30"]
+        dropdownWidth.dataSource = ["2","5","8","10","15","20"]
         dropdownColor.dataSource = ["Black","Yellow","Blue","Green","Red","Pink","Orange"]
         
         dropdownWidth.direction = .bottom
@@ -50,8 +69,7 @@ class PrescriptionViewController: UIViewController {
         dropdownColor.bottomOffset = CGPoint(x: 0, y:(dropdownColor.anchorView?.plainView.bounds.height)!)
         
         cancel.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
-        brushColor.addTarget(self, action: #selector(brushColorAction), for: .touchUpInside)
-        brushWidth.addTarget(self, action: #selector(brushWidthAction), for: .touchUpInside)
+   
         save.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
         clear.addTarget(self, action: #selector(clearAction), for: .touchUpInside)
         Eraser.addTarget(self, action: #selector(EraserAction), for: .touchUpInside)
@@ -59,20 +77,10 @@ class PrescriptionViewController: UIViewController {
         
         self.selectedColor = hexStringToUIColor(hex: "#000000")
         NotificationCenter.default.addObserver(self, selector: #selector(change), name: NSNotification.Name("Updated"), object: nil)
-        // Do any additional setup after loading the view.
-        
+
     }
     
-/*    @objc func change()
-    {
-        Paintview.lineColor = selectedColor
-        Paintview.lineWidth = Float(selectedWidth)
-        brushColor.titleLabel?.textColor = hexStringToUIColor(hex: color[Selectedindex])
-    }
- 
- */
-    
-    
+
     @objc func change(){
         Paintview.lineColor = selectedColor
         Paintview.lineWidth = Float(selectedWidth)
@@ -89,33 +97,115 @@ class PrescriptionViewController: UIViewController {
         brushColor.titleLabel?.textColor = hexStringToUIColor(hex: color[Selectedindex])
     }
     @objc func cancelAction(){
-        self.dismiss(animated: true, completion: nil)
+       // self.dismiss(animated: true, completion: nil)
+        
+        self.navigationController?.popViewController(animated: true)
+        
     }
-    @objc func brushColorAction(){
-        dropdownColor.show()
-        dropdownColor.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.selectedColor = self.hexStringToUIColor(hex: self.color[index])
-            self.brushColor.titleLabel?.textColor = self.hexStringToUIColor(hex: self.color[index])
-            self.brushColor.setTitle(item, for: .normal)
-            self.Selectedindex = index
-            NotificationCenter.default.post(name: NSNotification.Name("Updated"), object: self)
-            print("Selected item: \(item) at index: \(index)")
-        }
-    }
-    @objc func brushWidthAction(){
-        dropdownWidth.show()
-        dropdownWidth.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.brushWidth.setTitle("Width : \(item)", for: .normal)
-            self.selectedWidth = Int(item)!
-            print("Selected item: \(item) at index: \(index)")
-        }
-    }
+    
+
     
     @objc func saveAction(){
         if Paintview.image != nil{
-            NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : Paintview.image!])
+            
+          if self.m_bView == false
+            {
+                let drawImg = self.Paintview.image
+                self.paintImgArr.append(drawImg!)
+                
+                
+                
+                let timestamp = Date().toMillis()
+                drawImg?.accessibilityIdentifier = String(describing: timestamp)
+                
+                let lcPresObj = PresArr(cPressImg: drawImg!, cTimestamp: String(describing: timestamp!))
+              self.m_cPressData.m_cPressDataArr.append(lcPresObj)
+                
+                let prescvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddPrescriptionDrawingVC") as! AddPrescriptionDrawingVC
+                
+               prescvc.m_cPressData = self.m_cPressData
+             //   prescvc.m_cDrawimg = self as! drawingOnBack
+             self.navigationController?.pushViewController(prescvc, animated: true)
+                
+            }else
+            {
+                 openPopupName()
+            }
+            
+//            if self.m_bView == false
+//            {
+//                dataOfPrescription()
+//            }else
+//            {
+//                 openPopupName()
+//            }
+//
+
         }
     }
+    
+ /*
+    func dataOfPrescription()
+    {
+        NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : self.Paintview.image!])
+        
+        let drawImg = self.Paintview.image
+        self.paintImgArr.append(drawImg!)
+        
+        let timestamp = Date().toMillis()
+        drawImg?.accessibilityIdentifier = String(describing: timestamp)
+        
+        self.m_cPaintDocsdelegate.PaintDocs(docs: drawImg!, docnm: "", docTimeStamp: String(describing: timestamp!))
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+   */
+    
+    func openPopupName()
+    {
+        
+        UIView.animate(withDuration: 1.0) {
+            
+            ZAlertView.showAnimation = .fadeIn
+            
+            self.alertWithText = ZAlertView(title: "Medoc", message: "Enter the name which you want to save the image", isOkButtonLeft: false, okButtonText: "Save", cancelButtonText: "Cancel", okButtonHandler: { (send) in
+                
+                let txt1 = self.alertWithText.getTextFieldWithIdentifier("Remark")!
+                
+                let docNm = txt1.text!
+                
+
+                NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : self.Paintview.image!])
+                
+                let drawImg = self.Paintview.image
+                self.paintImgArr.append(drawImg!)
+                
+                let timestamp = Date().toMillis()
+                drawImg?.accessibilityIdentifier = String(describing: timestamp)
+               
+                let lcDrawObj = DrawingArr(cDrawImg: self.Paintview.image!, cDrawTag: docNm, cDrawTimestamp: String(describing: timestamp))
+                
+                self.m_cDrawData.m_cDrawDataArr.append(lcDrawObj)
+                
+         let lcDrawDataVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddDrawingVC") as! AddDrawingVC
+           
+                lcDrawDataVC.m_cDrawData = self.m_cDrawData
+          
+            self.navigationController?.pushViewController(lcDrawDataVC, animated: true)
+                
+                send.dismissWithDuration(0.5)
+                ZAlertView.hideAnimation = .fadeOut
+                
+            }) { (cancel) in
+                cancel.dismissWithDuration(0.5)
+            }
+            self.alertWithText.addTextField("Remark", placeHolder: "Enter the name of image")
+            self.alertWithText.showWithDuration(1.0)
+        }
+    }
+    
+    
     @objc func clearAction(){
         self.Paintview.clear()
     }
@@ -139,6 +229,7 @@ class PrescriptionViewController: UIViewController {
     @objc func undoAction(){
         self.Paintview.undo()
     }
+    
     func hexStringToUIColor (hex:String) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
@@ -160,14 +251,101 @@ class PrescriptionViewController: UIViewController {
             alpha: CGFloat(1.0)
         )
     }
+    
+    
+    @IBAction func btnBrush1_onClick(_ sender: Any)
+    {
+        self.selectedWidth = 10
+        Paintview.lineWidth = Float(selectedWidth)
+    }
+    
+    @IBAction func btnBrush2_onclick(_ sender: Any)
+    {
+        self.selectedWidth = 3
+        Paintview.lineWidth = Float(selectedWidth)
+    }
+    
+    @IBAction func btnBrush3_onclick(_ sender: Any)
+    {
+        self.selectedWidth = 8
+        Paintview.lineWidth = Float(selectedWidth)
+    }
+    
+    
+    @IBAction func btnEraser_onclick(_ sender: Any)
+    {
+        if selected == true {
+            selectedColor = UIColor.white
+            Paintview.lineColor = selectedColor
+            Paintview.lineWidth = Float(selectedWidth + 40)
+            Eraser.setTitle("Done", for: .normal)
+            selected = false
+        }
+        else if selected == false {
+            selectedColor = hexStringToUIColor(hex: self.color[Selectedindex])
+            Paintview.lineColor = selectedColor
+            Paintview.lineWidth = Float(selectedWidth)
+            Eraser.setTitle("Eraser", for: .normal)
+            selected = true
+        }
+
+    }
+    
+    
+    @IBAction func btnRedColor_onclick(_ sender: Any)
+    {
+        self.selectedColor = self.hexStringToUIColor(hex: "#FF2600")
+     
+        NotificationCenter.default.post(name: NSNotification.Name("Updated"), object: self)
+    
+    }
+    
+    @IBAction func btnBlackclr_onclick(_ sender: Any)
+    {
+        self.selectedColor = self.hexStringToUIColor(hex: "#000000")
+     
+        NotificationCenter.default.post(name: NSNotification.Name("Updated"), object: self)
+    }
+    
+    @IBAction func btnPurplt_onclick(_ sender: Any)
+    {
+        self.selectedColor = self.hexStringToUIColor(hex: "#673AB7")
+        
+        NotificationCenter.default.post(name: NSNotification.Name("Updated"), object: self)
+      }
+    
+    @IBAction func btnBlue_onclick(_ sender: Any)
+    {
+        self.selectedColor = self.hexStringToUIColor(hex: "#0433FF")
+        
+        NotificationCenter.default.post(name: NSNotification.Name("Updated"), object: self)
+    }
+    
+    @IBAction func btnGreen_onclick(_ sender: Any)
+    {
+        self.selectedColor = self.hexStringToUIColor(hex: "#4F8F00")
+        
+        NotificationCenter.default.post(name: NSNotification.Name("Updated"), object: self)
+    }
+    
+    @IBAction func btnDarkRed_onclick(_ sender: Any)
+    {
+        self.selectedColor = self.hexStringToUIColor(hex: "#941100")
+        
+        NotificationCenter.default.post(name: NSNotification.Name("Updated"), object: self)
+    }
+    
 }
 extension UIView {
     
-    // If Swift version is lower than 4.2, 
-    // You should change the name. (ex. var renderedImage: UIImage?)
-    
     var image: UIImage? {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in layer.render(in: rendererContext.cgContext) }
+    
+        return renderer.image { rendererContext in layer.render(in: rendererContext.cgContext)
+            
+            
+//           rendererContext.cgContext.draw((UIImage(named: "sign_imageNm")?.cgImage)!, in: CGRect(x: 0, y: 0, width: 100, height: 80))
+        }
     }
 }
+

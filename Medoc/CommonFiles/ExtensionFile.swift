@@ -10,7 +10,7 @@ extension UIView{
         self.layer.shadowOpacity = 1.0
         self.layer.shadowOffset = CGSize(width: -1, height: 1)
         self.layer.shadowRadius = 5.0
-        self.layer.shadowColor = UIColor.red.cgColor
+        self.layer.shadowColor = UIColor.lightGray.cgColor
         self.backgroundColor = UIColor.white
     }
 
@@ -54,3 +54,39 @@ extension ZAlertView
     
     
 }
+
+
+//        let backColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
+//
+//        let dialog = ZAlertView(title: nil, message: nil, alertType: ZAlertView.AlertType.multipleChoice)
+//
+//        dialog.addButton("Scan Document", font: UIFont.systemFont(ofSize: 27), color: backColor, titleColor: UIColor.black) { (altview) in
+//
+//            let scannerVC = ImageScannerController()
+//            scannerVC.imageScannerDelegate = self
+//            self.present(scannerVC, animated: true, completion: nil)
+//            altview.dismissAlertView()
+//        }
+//
+//        dialog.addButton("Take Photo", font: UIFont.systemFont(ofSize: 27), color: backColor, titleColor: UIColor.black) { (altview) in
+//            self.TakePhoto()
+//            altview.dismissAlertView()
+//        }
+//
+//        dialog.addButton("Photo Library", font: UIFont.systemFont(ofSize: 27), color: backColor, titleColor: UIColor.black) { (altview) in
+//            self.TakePhoto()
+//            altview.dismissAlertView()
+//        }
+//
+//        dialog.addButton("Add Sketch", font: UIFont.systemFont(ofSize: 27), color: backColor, titleColor: UIColor.black) { (altview) in
+//            altview.dismissAlertView()
+//            let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
+//            vc.m_cPaintDocsdelegate = self
+//            self.present(vc, animated: true, completion: nil)
+//        }
+//
+//        dialog.addButton("Cancel", font: UIFont.systemFont(ofSize: 27), color: UIColor(red:0.61, green:0.35, blue:0.71, alpha:1.0), titleColor: UIColor.white) { (altview) in
+//            altview.dismissAlertView()
+//        }
+//
+//        dialog.show()

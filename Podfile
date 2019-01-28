@@ -14,5 +14,11 @@ pod 'Alamofire'
 pod 'IQKeyboardManager'
 pod 'DropDown'
 pod 'ZAlertView'
+pod 'razorpay-pod'
+pod 'Kingfisher'
+pod 'LiquidFloatingActionButton'
+pod 'SkyFloatingLabelTextField'
+pod 'AVScanner'
+pod 'CryptoSwift'
 
 end

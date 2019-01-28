@@ -23,18 +23,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         IQKeyboardManager.shared().isEnabled = true
-      
-        let result = UserDefaults.standard.value(forKey: "userData")
+       
+        
+       let result = UserDefaults.standard.value(forKey: "userData")
+        print(result)
         if result != nil {
-            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: .main)
-            
-            let yourVc : PatientListVC = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-            
-        //    let yourViewController: PatientListVC = storyboard.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
+           let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
             let navigationController = self.window?.rootViewController as! UINavigationController
             navigationController.setViewControllers([yourVc], animated: true)
         }
+           // var rootVCStoryboardId = userIsLoggedin ? "SWRevealViewController" : "LoginViewController"
+           // self.window?.rootViewController = UIStoryboard(name: Storyboards.main, bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rootVCStoryboardId)
+       // }
         
+//        var rootVCStoryboardId = userIsLoggedin ? "SWRevealViewController" : "LoginViewController"
+//        self.window?.rootViewController = UIStoryboard(name: Storyboards.main, bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rootVCStoryboardId)
        return true
      
     }

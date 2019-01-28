@@ -13,6 +13,10 @@ import Alamofire
 class ProfileVC: UIViewController, UITextFieldDelegate
 {
 
+    @IBOutlet weak var btnback: UIButton!
+    @IBOutlet weak var lblContact: UILabel!
+    @IBOutlet weak var lblemail: UILabel!
+    @IBOutlet weak var lblNm: UILabel!
     @IBOutlet weak var txtReferanceNo: HoshiTextField!
     @IBOutlet weak var txtDOB: HoshiTextField!
     @IBOutlet weak var txtAltMobNo: HoshiTextField!
@@ -26,8 +30,9 @@ class ProfileVC: UIViewController, UITextFieldDelegate
      let dropdownAssistantList = DropDown()
     let dropdownDoctorList = DropDown()
     var AssistantData = [AnyObject]()
-    var DoctorDesigntnArr = [AnyObject]()
+    
     var toast = JYToast()
+    var profileData = [AnyObject]()
     
     override func viewDidLoad()
     {
@@ -37,23 +42,106 @@ class ProfileVC: UIViewController, UITextFieldDelegate
         dropdownAssistantList.anchorView = btnMyAssistant
        
         dropdownDoctorList.anchorView = txtSpecilizedIn
-        
-        sideMenus()
         SetBtn()
         setDropDown()
-        getAssistant()
-        getDoctorDesintn()
+      
     }
     
+    func sideMenus()
+    {
+        
+        if revealViewController() != nil {
+            
+            self.backBtn.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+            revealViewController().rearViewRevealWidth = 400
+            revealViewController().rightViewRevealWidth = 180
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
+        let LoginId = dict["id"] as! Int
+        let Role = dict["role_id"] as! String
+        GetDoctorProfile(Id: LoginId)
+        getAssistant(role: Role, Id: LoginId)
+        sideMenus()
+    }
+    
+     func GetDoctorProfile(Id : Int)
+    {
+        let get_profile = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_doctor_info"
+        let param = ["loggedin_id" : Id]
+        
+        Alamofire.request(get_profile, method: .post, parameters: param).responseJSON { (resp) in
+            print(resp)
+            
+            switch resp.result
+            {
+            case .success(_):
+                let json = resp.result.value as! NSDictionary
+                let Msg = json["msg"] as! String
+                if Msg == "success"
+                {
+                    self.profileData = json["data"] as! [AnyObject]
+                    
+                    for lcdata in self.profileData
+                    {
+                        self.lblNm.text = lcdata["name"] as! String
+                        self.lblemail.text = lcdata["email"] as! String
+                        self.lblContact.text = lcdata["contact_no"] as! String
+                        
+                        
+                        if (lcdata["address"] as! String) != ""
+                        {
+                            self.txtAddress.text = (lcdata["address"] as! String)
+                        }
+                        
+                        if (lcdata["website"] as! String) != ""
+                        {
+                            self.txtWebsite.text = (lcdata["website"] as! String)
+                        }
+                        
+                        if (lcdata["dob"] as! String) != ""
+                        {
+                            self.txtDOB.text = (lcdata["dob"] as! String)
+                        }
+                        
+                        if (lcdata["designation"] as! String) != ""
+                        {
+                            self.txtSpecilizedIn.text = (lcdata["designation"] as! String)
+                        }
+                        
+                        if (lcdata["alt_contact_no"] as! String) != ""
+                        {
+                            self.txtAltMobNo.text = (lcdata["alt_contact_no"] as! String)
+                        }
+                        
+                        if (lcdata["registration_no"] as! String) != ""
+                        {
+                            self.txtReferanceNo.text = (lcdata["registration_no"] as! String)
+                        }
+
+                        
+                    }
+                }
+                
+                
+                break
+                
+            case .failure(_):
+                break
+            }
+            
+        }
+    }
+    
+  
     func setDropDown()
     {
         dropdownAssistantList.direction = .bottom
         dropdownAssistantList.bottomOffset = CGPoint(x: 0, y: (dropdownAssistantList.anchorView?.plainView.bounds.height)!)
         DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 25)
-        
-        dropdownDoctorList.direction = .top
-        dropdownDoctorList.bottomOffset = CGPoint(x: 0, y: (dropdownDoctorList.anchorView?.plainView.bounds.height)!)
-        
     }
     
     func SetBtn()
@@ -66,61 +154,13 @@ class ProfileVC: UIViewController, UITextFieldDelegate
         btnMyAssistant.layer.borderWidth = 1.0
     }
     
-    func sideMenus()
-    {
-        if revealViewController() != nil {
-            
-            backBtn.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            revealViewController().rearViewRevealWidth = 500
-            revealViewController().rightViewRevealWidth = 130
- view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
-        }
-    }
     
-    func setProfile()
+  
+    func getAssistant(role : String, Id : Int)
     {
-        let profileApi = "http://www.otgmart.com/medoc/medoc_new/index.php/API/update_doctor"
-        
-        let param = ["name" : "",
-                     "email" : "",
-                     "gender" : 1,   // 1= male, 2= female, 3= other
-                     "contact_no" : "",
-                     "alt_contact_no" : "",
-                     "loggedin_id" : "2",
-                     "registration_no" : "",
-                     "qualification" : "",
-                     "experience" : "",
-                     "designation" : ""] as [String : Any]
-        
-        Alamofire.request(profileApi, method: .post, parameters: param).responseJSON { (resp) in
-            print(resp)
-            
-            switch resp.result
-            {
-            case .success(_):
-                let json = resp.result.value as! NSDictionary
-                let Msg = json["msg"] as! String
-                
-                if Msg == "success"
-                {
-                    let profileData = json["data"] as! [AnyObject]
-                }
-                
-                break
-                
-            case .failure(_):
-                self.toast.isShow("Something went wrong")
-                break
-            }
-        }
-    }
-    
-    func getAssistant()
-    {
-        let Api = "http://www.otgmart.com/medoc/medoc_new/index.php/API/get_assistant"
-        let param = ["loggedin_role" : "5",
-                     "loggedin_id" : "2"]
+        let Api = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_assistant"
+        let param = ["loggedin_role" : role,
+                     "loggedin_id" : Id] as [String : Any]
         
         Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
@@ -150,51 +190,8 @@ class ProfileVC: UIViewController, UITextFieldDelegate
         
     }
     
-    func getDoctorDesintn()
-    {
-        let DestApi = "http://www.otgmart.com/medoc/medoc_new/index.php/API/get_designations"
-        
-        Alamofire.request(DestApi, method: .get, parameters: nil).responseJSON { (resp) in
-            print(resp)
-            
-            switch resp.result
-            {
-            case .success(_):
-                let json = resp.result.value as! NSDictionary
-                let Msg = json["msg"] as! String
-                if Msg == "success"
-                {
-                    self.DoctorDesigntnArr = json["data"] as! [AnyObject]
-                    
-                    for lcData in self.DoctorDesigntnArr
-                    {
-                        let destnm = lcData["description"] as! String
-                        self.dropdownDoctorList.dataSource.append(destnm)
-                    }
-                    
-                }
-                break
-                
-            case .failure(_):
-                self.toast.isShow("Something went wrong")
-                break
-            }
-        }
-    }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        dropdownDoctorList.show()
-        
-        dropdownDoctorList.selectionAction = { [unowned self] (index: Int, item: String) in
-            
-            self.txtSpecilizedIn.text = item
-            
-            //self.btnFirst.setTitle(item, for: .normal)
-            print("Selected item: \(item) at index: \(index)")
-        }
-        
-        
-    }
+    
     
     @IBAction func btnMyAssistant_onClick(_ sender: Any)
     {
@@ -203,14 +200,14 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     
     @IBAction func brnBack_onClick(_ sender: Any)
     {
-        if revealViewController() != nil
-        {
-            revealViewController().rearViewRevealWidth = 500
-            revealViewController().rightViewRevealWidth = 130
-            
-            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
-        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func btnEditProfile_onclick(_ sender: Any)
+    {
+        let updateVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "UpdateDoctorProfileVC") as! UpdateDoctorProfileVC
+        updateVc.setUpData(cProfileData: self.profileData)
+        self.present(updateVc, animated: true, completion: nil)
     }
     
 }

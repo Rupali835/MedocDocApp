@@ -1,7 +1,7 @@
 #import "DLRadioButton.h"
 
-static const CGFloat kDefaultIconSize = 15.0;
-static const CGFloat kDefaultMarginWidth = 5.0;
+static const CGFloat kDefaultIconSize = 30.0;
+static const CGFloat kDefaultMarginWidth = 10.0;
 static const CFTimeInterval kDefaultAnimationDuration = 0.3;
 static NSString * const kGeneratedIconName = @"Generated Icon";
 

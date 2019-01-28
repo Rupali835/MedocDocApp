@@ -52,7 +52,14 @@ class PatientPrescriptionVC: UIViewController, UITextViewDelegate, UITextFieldDe
         txtSecMedicineTime.clearButtonMode = .always
         txtThirdMedicinetime.clearButtonMode = .always
         
+        setBtnView()
+    
+
         
+    }
+    
+    func setBtnView()
+    {
         btnsave.layer.borderColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0).cgColor
         btnsave.layer.borderWidth = 1.0
         btnsave.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
@@ -61,8 +68,6 @@ class PatientPrescriptionVC: UIViewController, UITextViewDelegate, UITextFieldDe
         btnsave.layer.shadowRadius = 0.0
         btnsave.layer.masksToBounds = false
         btnsave.layer.cornerRadius = 30.0
-
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,10 +130,13 @@ class PatientPrescriptionVC: UIViewController, UITextViewDelegate, UITextFieldDe
         
         let ArrCount = self.m_cMedicineData.count
         
-
-        
     }
     
+    
+    @IBAction func btnCloseForm_onClick(_ sender: Any)
+    {
+        self.dismiss(animated: true, completion: nil)
+    }
     
 }
 extension PatientPrescriptionVC : UITableViewDelegate, UITableViewDataSource
