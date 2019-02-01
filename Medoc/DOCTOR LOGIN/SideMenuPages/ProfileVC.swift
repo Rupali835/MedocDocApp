@@ -9,10 +9,12 @@
 import UIKit
 import DropDown
 import Alamofire
+import Kingfisher
 
 class ProfileVC: UIViewController, UITextFieldDelegate
 {
 
+    @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var btnback: UIButton!
     @IBOutlet weak var lblContact: UILabel!
     @IBOutlet weak var lblemail: UILabel!
@@ -24,10 +26,9 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     @IBOutlet weak var txtAddress: HoshiTextField!
     @IBOutlet weak var txtSpecilizedIn: HoshiTextField!
     @IBOutlet weak var backBtn: UIButton!
-    @IBOutlet weak var btnDoctorList: UIButton!
-    @IBOutlet weak var btnMyAssistant: UIButton!
+   
     
-     let dropdownAssistantList = DropDown()
+   var img_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
     let dropdownDoctorList = DropDown()
     var AssistantData = [AnyObject]()
     
@@ -37,14 +38,11 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
         self.txtSpecilizedIn.delegate = self
-        dropdownAssistantList.anchorView = btnMyAssistant
-       
         dropdownDoctorList.anchorView = txtSpecilizedIn
-        SetBtn()
-        setDropDown()
-      
+        
+        self.imgProfile.layer.borderColor = UIColor.white.cgColor
+        self.imgProfile.layer.borderWidth = 1.0
     }
     
     func sideMenus()
@@ -64,7 +62,6 @@ class ProfileVC: UIViewController, UITextFieldDelegate
         let LoginId = dict["id"] as! Int
         let Role = dict["role_id"] as! String
         GetDoctorProfile(Id: LoginId)
-        getAssistant(role: Role, Id: LoginId)
         sideMenus()
     }
     
@@ -122,6 +119,12 @@ class ProfileVC: UIViewController, UITextFieldDelegate
                             self.txtReferanceNo.text = (lcdata["registration_no"] as! String)
                         }
 
+                        if let profile_img = lcdata["profile_picture"] as? String
+                        {
+                            let str = "\(self.img_path)\(profile_img)"
+                            let ImgUrl = URL(string: str)
+                            self.imgProfile.kf.setImage(with: ImgUrl)
+                        }
                         
                     }
                 }
@@ -137,66 +140,6 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     }
     
   
-    func setDropDown()
-    {
-        dropdownAssistantList.direction = .bottom
-        dropdownAssistantList.bottomOffset = CGPoint(x: 0, y: (dropdownAssistantList.anchorView?.plainView.bounds.height)!)
-        DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 25)
-    }
-    
-    func SetBtn()
-    {
-        btnMyAssistant.layer.borderColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0).cgColor
-        
-        btnDoctorList.layer.borderColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0).cgColor
-        
-        btnDoctorList.layer.borderWidth = 1.0
-        btnMyAssistant.layer.borderWidth = 1.0
-    }
-    
-    
-  
-    func getAssistant(role : String, Id : Int)
-    {
-        let Api = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_assistant"
-        let param = ["loggedin_role" : role,
-                     "loggedin_id" : Id] as [String : Any]
-        
-        Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
-            print(resp)
-            
-            switch resp.result
-            {
-            case .success(_):
-                let json = resp.result.value as! NSDictionary
-                let Msg = json["msg"] as! String
-                if Msg == "success"
-                {
-                    self.AssistantData = json["data"] as! [AnyObject]
-                    
-                    for lcdict in self.AssistantData
-                    {
-                        let Name = lcdict["name"] as! String
-                        self.dropdownAssistantList.dataSource.append(Name)
-                    }
-                }
-                break
-                
-            case .failure(_):
-                self.toast.isShow("Something went wrong")
-                break
-            }
-        }
-        
-    }
-    
-    
-    
-    
-    @IBAction func btnMyAssistant_onClick(_ sender: Any)
-    {
-        dropdownAssistantList.show()
-    }
     
     @IBAction func brnBack_onClick(_ sender: Any)
     {

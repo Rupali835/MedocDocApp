@@ -91,7 +91,6 @@ class PatientPrescriptionListVC: UIViewController
                 let num = PatientDict["contact_no"] as! String
                 self.btnContactNo.setTitle(num, for: .normal)
                 PrescriptionList(id : self.patient_id)
-                
             }
         }
 

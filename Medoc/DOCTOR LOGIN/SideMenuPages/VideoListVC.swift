@@ -17,14 +17,14 @@ class VideoListVC: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+    }
+
+    
+    @IBAction func btnShowvideo_onclick(_ sender: Any)
+    {
         playVideo()
     }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//    }
-    
-   
     private func playVideo()
     {
         guard let path = Bundle.main.path(forResource: "Phlebotomy- Syringe Draw Procedure - Blood Collection (Rx-TN)", ofType:"mp4")

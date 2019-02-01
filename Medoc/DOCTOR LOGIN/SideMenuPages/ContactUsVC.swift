@@ -18,11 +18,11 @@ class ContactUsVC: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        
         loadUrl()
     }
   
+   
+    
     func loadUrl(){
         
         let url = URL(string: "http://ksoftpl.com/contact-us")
@@ -32,7 +32,6 @@ class ContactUsVC: UIViewController {
     
     func sideMenus()
     {
-        
         if revealViewController() != nil {
             
             self.btnback.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)

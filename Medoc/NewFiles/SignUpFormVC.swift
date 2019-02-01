@@ -2,18 +2,29 @@
 import UIKit
 import Alamofire
 import ZAlertView
+import CloudTagView
+import DropDown
+import SkyFloatingLabelTextField
 
-class SignUpFormVC: UIViewController {
+class SignUpFormVC: UIViewController
+{
 
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var btnCamera: UIButton!
-    @IBOutlet weak var txtQualification: HoshiTextField!
-    @IBOutlet weak var txtRegNo: HoshiTextField!
-    @IBOutlet weak var txtMobileNo: HoshiTextField!
-    @IBOutlet weak var txtEmail: HoshiTextField!
-    @IBOutlet weak var txtName: HoshiTextField!
+    
+    @IBOutlet weak var txtName: SkyFloatingLabelTextField!
+    @IBOutlet weak var txtQualification: SkyFloatingLabelTextField!
+    @IBOutlet weak var txtRegNo: SkyFloatingLabelTextField!
+    @IBOutlet weak var txtMobileNo: SkyFloatingLabelTextField!
+    @IBOutlet weak var txtEmail: SkyFloatingLabelTextField!
+    
+    
     @IBOutlet weak var btnProfileImg: UIButton!
+    @IBOutlet weak var imglink: UIImageView!
+    @IBOutlet weak var imgcap: UIImageView!
+    
+    @IBOutlet weak var QualificationtagView: CloudTagView!
     
     var m_cContainerVC: ContainerVC!
     var toast = JYToast()
@@ -25,13 +36,106 @@ class SignUpFormVC: UIViewController {
     var DocumentImageFileName: String!
     var DocumentFileURL: URL!
     var DocumentFileName: String?
+    var dropdownQualification = DropDown()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dropdownQualification.anchorView = txtQualification
+        txtQualification.delegate = self
         btnRegister.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
+        
+        imgcap.image = imgcap.image!.withRenderingMode(.alwaysTemplate)
+        imgcap.tintColor = UIColor.white
+        
+        imglink.image = imglink.image!.withRenderingMode(.alwaysTemplate)
+        imglink.tintColor = UIColor.white
+        QualificationtagView.delegate = self
+        AddJsonData()
+        textValidAction()
+        
        }
+
+    func textValidAction()
+    {
+      
+        self.txtEmail.delegate = self
+        self.txtMobileNo.delegate = self
+        
+        self.txtMobileNo.addTarget(self, action: #selector(MobileNoDidChange), for: .editingChanged)
+        
+        self.txtEmail.addTarget(self, action: #selector(EmailDidChande), for: .editingChanged)
+        
+    }
+
     
+    @objc func MobileNoDidChange()
+    {
+        if txtMobileNo.text != nil {
+            if let floatingLabelTextField = txtMobileNo {
+                
+                
+                if txtMobileNo.text?.isValidNumber() == false
+                {
+                    floatingLabelTextField.errorMessage = "Invalid contact number"
+                }
+                    
+                else {
+                    
+                    floatingLabelTextField.errorMessage = ""
+                }
+            }
+        }
+    }
+    
+    @objc func EmailDidChande()
+    {
+        if txtEmail.text != nil {
+            if let floatingLabelTextField = txtEmail {
+                
+                
+                if txtEmail.text?.isValidEmail() == false
+                {
+                    floatingLabelTextField.errorMessage = "Invalid email"
+                }
+                    
+                else {
+                    
+                    floatingLabelTextField.errorMessage = ""
+                }
+            }
+        }
+    }
+    
+    
+    
+    func AddJsonData()
+    {
+        if let path = Bundle.main.path(forResource: "Type of Doctor", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let PatientProblem = jsonResult["data"] as? [AnyObject]
+                {
+                    print(PatientProblem)
+                    
+                    for lcdict in PatientProblem
+                    {
+                        let Name = lcdict["name"] as? String
+                        
+                        dropdownQualification.dataSource.append(Name!)
+                        
+                    }
+                    
+                }
+            } catch {
+                // handle error
+                self.toast.isShow(error as! String)
+            }
+        }
+    }
+    
+  
     func initilize(cContainervc: ContainerVC)
     {
        self.m_cContainerVC = cContainervc
@@ -63,13 +167,20 @@ class SignUpFormVC: UIViewController {
     
     func sendData()
     {
+        var ProfilePic = String()
         
         if txtQualification.text == ""
         {
             txtQualification.text = "NF"
         }
+    
+        if self.selectedImage != nil
+        {
+            ProfilePic = self.fileName
+        }else{
+             ProfilePic = "NF"
+        }
         
-        //let Mobile_No = Int(txtMobileNo.text!)
         
         let SignupApi = "http://otgmart.com/medoc/medoc_test/public/api/doc_signup_api"
         
@@ -78,11 +189,78 @@ class SignUpFormVC: UIViewController {
                      "contact_no" : txtMobileNo.text! ,
                      "qualification" : txtQualification.text!,
                      "registration_no" : txtRegNo.text!,
-                     "profile_picture" : ""
+                     "profile_picture" : ProfilePic
                      
             ] as Parameters
         
         print(param)
+       
+        
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                
+                if self.selectedImage != nil
+                {
+                    
+                    let data = self.selectedImage.jpegData(compressionQuality: 0.0)
+                    multipartFormData.append(data!, withName: "profile_picture", fileName: self.fileName, mimeType: "image/jpeg")
+                    
+                }
+                
+                for (key, val) in param {
+                    multipartFormData.append((val as AnyObject).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue).rawValue)!, withName: key)
+                }
+        },
+            to: SignupApi,
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+
+                        
+                            switch response.result
+                            {
+                            case .success(_):
+                                
+                                let json = response.result.value as! NSDictionary
+                                let Msg = json["msg"] as! String
+                                if Msg == "Added Successfully"
+                                {
+                                    ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details in Medoc App. Thank you!", actiontitle: "OK")
+                                    {
+                                        self.view.removeFromSuperview()
+                                    }
+                                }else if Msg == "Already exist"
+                                {
+                                    
+                                    ZAlertView.init(title: "Medoc", msg: "Mobile number or Email has already available on server. Please use another.", actiontitle: "OK")
+                                    {
+                                        print("")
+                                    }
+                                }
+                                else if Msg == "User not found"
+                                {
+                                    ZAlertView.init(title: "Medoc", msg: "Your data is not found, Please sign up.", actiontitle: "OK")
+                                    {
+                                        print("")
+                                    }
+                                }
+                                break
+                                
+                            case .failure(_):
+                                break
+                            }
+                            
+                        }
+                    
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+        })
+        
+        
+        
+  /*
         
        Alamofire.request(SignupApi, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
@@ -120,6 +298,9 @@ class SignUpFormVC: UIViewController {
                 break
             }
         }
+ 
+ */
+ 
         
     }
     
@@ -154,9 +335,9 @@ class SignUpFormVC: UIViewController {
             return false
         }
         
-        if ((txtMobileNo.text?.count)! < 10) || ((txtMobileNo.text?.count)! > 10)
+        if txtEmail.errorMessage != ""
         {
-            self.toast.isShow("Please enter valid mobile number")
+            self.toast.isShow("Please enter valid email")
             return false
         }
         
@@ -167,13 +348,21 @@ class SignUpFormVC: UIViewController {
     {
         let attachmentPickerController = DBAttachmentPickerController.imagePickerControllerFinishPicking({ CDBAttachmentArr in
             
+            
             for lcAttachment in CDBAttachmentArr
             {
                 self.fileName = lcAttachment.fileName
+                print(self.fileName)
                 
                 lcAttachment.loadOriginalImage(completion: {image in
                     
+                    
+                    let timestamp = Date().toMillis()
+                    image?.accessibilityIdentifier = String(describing: timestamp)
+                    
+                    self.fileName = String(describing: timestamp!)
                     self.btnProfileImg.setImage(image, for: .normal)
+                    
                     self.selectedImage = image
                 })
                 
@@ -189,5 +378,40 @@ class SignUpFormVC: UIViewController {
         attachmentPickerController.present(on: self)
     }
     
+    
+}
+extension SignUpFormVC : TagViewDelegate {
+    func tagDismissed(_ tag: TagView) {
+        print("tag dismissed: " + tag.text)
+    }
+    
+    func tagTouched(_ tag: TagView) {
+        print("tag touched: " + tag.text)
+    }
+}
+extension SignUpFormVC : UITextFieldDelegate
+{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == txtQualification
+        {
+            dropdownQualification.show()
+            dropdownQualification.selectionAction = { [unowned self] (index: Int, item: String) in
+                
+                self.QualificationtagView.tags.append(TagView(text: item))
+                
+            }
+        }
+        
+        if textField == txtMobileNo
+        {
+            guard let text = txtMobileNo.text else { return true }
+            let newLength = text.characters.count + string.characters.count - range.length
+            
+            return newLength <= 10
+        }
+        
+        return true
+    }
     
 }

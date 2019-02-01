@@ -32,4 +32,5 @@ class newsFeedWebViewVC: UIViewController
     {
         self.navigationController?.popViewController(animated: true)
     }
+    
 }

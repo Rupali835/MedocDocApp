@@ -7,6 +7,7 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - CloudTagView (3.0.0)
   - CryptoSwift (0.13.1)
   - DropDown (2.3.2)
   - FBSDKCoreKit (4.31.1):
@@ -57,6 +58,7 @@ PODS:
   - IQKeyboardManager (5.0.8)
   - Kingfisher (5.0.1)
   - LiquidFloatingActionButton (1.2.0)
+  - MultiAutoCompleteTextSwift (0.1.1)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -64,11 +66,13 @@ PODS:
   - nanopb/encode (0.3.8)
   - razorpay-pod (1.0.26)
   - SkyFloatingLabelTextField (3.6.0)
+  - SVProgressHUD (2.2.5)
   - ZAlertView (1.0.4)
 
 DEPENDENCIES:
   - Alamofire
   - AVScanner
+  - CloudTagView
   - CryptoSwift
   - DropDown
   - FBSDKLoginKit
@@ -78,8 +82,10 @@ DEPENDENCIES:
   - IQKeyboardManager
   - Kingfisher
   - LiquidFloatingActionButton
+  - MultiAutoCompleteTextSwift
   - razorpay-pod
   - SkyFloatingLabelTextField
+  - SVProgressHUD
   - ZAlertView
 
 SPEC REPOS:
@@ -87,6 +93,7 @@ SPEC REPOS:
     - Alamofire
     - AVScanner
     - Bolts
+    - CloudTagView
     - CryptoSwift
     - DropDown
     - FBSDKCoreKit
@@ -103,15 +110,18 @@ SPEC REPOS:
     - IQKeyboardManager
     - Kingfisher
     - LiquidFloatingActionButton
+    - MultiAutoCompleteTextSwift
     - nanopb
     - razorpay-pod
     - SkyFloatingLabelTextField
+    - SVProgressHUD
     - ZAlertView
 
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   AVScanner: 8cdbdff32cf74ba5650cb22ffc3b96532476fc00
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  CloudTagView: c4eebbb9cf88d8de849e4ae0c3323e95ccc236b2
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   DropDown: 7f87abecc28f9b4edad810fe1211c5c018c257e5
   FBSDKCoreKit: e08ccfcefa7bc1347a07c276dac9bf6c7fe57024
@@ -128,11 +138,13 @@ SPEC CHECKSUMS:
   IQKeyboardManager: 266cb7b1d11f94a3e71229d77f960f9a1b538e5b
   Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
   LiquidFloatingActionButton: 9c28961915754e08cf596ea6bdd60f9cd949f172
+  MultiAutoCompleteTextSwift: d5631e77b48413af5795e14a1ae6d72054fe2d1e
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   razorpay-pod: 6f1eeb10e473b4a88baee1cd054eed76b926c923
   SkyFloatingLabelTextField: 38164979b79512f9ff9288ad8acfc4bbf5d843e3
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   ZAlertView: 59fffdb4e37a01df461835566d5101052b8af953
 
-PODFILE CHECKSUM: 985e4b271509851a72a25d46368b52c2bb9910f3
+PODFILE CHECKSUM: 27a84a7a20077cf1c14fa0f1eea11aa481904f91
 
 COCOAPODS: 1.5.3

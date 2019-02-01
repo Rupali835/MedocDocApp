@@ -29,20 +29,14 @@ class PatientListVC: UIViewController, AddPatientProtocol
    
     @IBOutlet weak var viewBtnPatinet: UIView!
     @IBOutlet weak var lineTotalPatient : UILabel!
-    
-    
     @IBOutlet weak var newsCollection: UICollectionView!
     @IBOutlet var viewExistingPatient: UIView!
     @IBOutlet weak var lineMonthlyPatient : UILabel!
     @IBOutlet weak var btnMonthlyPatient : UIButton!
     @IBOutlet weak var btnTotalPatient : UIButton!
-    
-   
     @IBOutlet weak var HgtofViewofCollection: NSLayoutConstraint!
- 
     @IBOutlet weak var collPatientList: UICollectionView!
     @IBOutlet weak var TopView: UIView!
-  
     @IBOutlet var viewAddPatient: UIView!
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var lblRepeted_patient_count: UILabel!
@@ -56,25 +50,21 @@ class PatientListVC: UIViewController, AddPatientProtocol
     var Uid : String!
     var formValid = Bool(true)
     var toast = JYToast()
-    
     var alertwithtext = ZAlertView()
     var PatientArr = [AnyObject]()
-    
     var sidevc : SideMenuListVC!
     var m_cAddPatient = AddPatient()
-
-   
     var cells: [LiquidFloatingCell] = []
     var floatingActionButton: LiquidFloatingActionButton!
-    
     var m_bStatus = Bool(true)
     var CountArr = [AnyObject]()
-    
     var addPatientVc : AddPatientVC!
     var newsArr = [AnyObject]()
+    var ColorArr = [UIColor]()
     
     override func viewDidLoad()
     {
+        
         super.viewDidLoad()
         setCountLines()
         getHealthData()
@@ -93,13 +83,14 @@ class PatientListVC: UIViewController, AddPatientProtocol
        
         m_cAddPatient.loggedin_id = dict["id"] as? Int
         m_cAddPatient.loggedin_role = dict["role_id"] as? String
-       
-        GetPatientData()
+      
         collPatientList.delegate = self
         collPatientList.dataSource = self
         newsCollection.delegate = self
         newsCollection.dataSource = self
         self.GetCount()
+        
+        self.ColorArr = [UIColor.MKColor.Red.P400, UIColor.MKColor.Blue.P400, UIColor.MKColor.Orange.P400, UIColor.MKColor.Green.P400, UIColor.MKColor.Indigo.P400, UIColor.MKColor.Amber.P400, UIColor.MKColor.LightBlue.P400, UIColor.MKColor.BlueGrey.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Cyan.P400, UIColor.MKColor.Teal.P400, UIColor.MKColor.Lime.P400, UIColor.MKColor.Pink.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Purple.P400]
     }
     
     override func awakeFromNib() {
@@ -149,6 +140,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
     {
         popUp.dismiss(true)
         let scanvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ScannerVC") as! ScannerVC
+        scanvc.m_dPatient = self
         self.navigationController?.pushViewController(scanvc, animated: true)
     }
     
@@ -231,6 +223,14 @@ class PatientListVC: UIViewController, AddPatientProtocol
         }
     }
     
+    @IBAction func btnInfo_onclick(_ sender: Any)
+    {
+        ZAlertView.init(title: "Medoc", msg: "License expiry on 11-02-2020", actiontitle: "OK")
+        {
+            print("")
+        }
+    }
+    
     @IBAction func btnExistingPatient_onclick(_ sender: Any)
     {
         self.viewBtnPatinet.isHidden = true
@@ -259,13 +259,16 @@ class PatientListVC: UIViewController, AddPatientProtocol
                 
                 let RefId = txt1.text!
                 
-                self.SendRefelCode(refId: RefId)
-   //             send.dismissAlertView()
+                if RefId != ""
+                {
+                    self.SendRefelCode(refId: RefId)
+                }
+               
                 send.dismissWithDuration(0.5)
                 ZAlertView.hideAnimation = .fadeOut
                 
             }) { (cancel) in
-   //         cancel.dismissAlertView()
+  
                 cancel.dismissWithDuration(0.5)
                 
                 
@@ -317,6 +320,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
         self.TopView.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
     revealViewController().navigationController?.navigationBar.isHidden = true
       self.sideMenus()
+        GetPatientData()
     }
  
   
@@ -343,24 +347,24 @@ class PatientListVC: UIViewController, AddPatientProtocol
                     
                     if self.PatientArr.count == 2
                     {
-                        self.HgtofViewofCollection.constant = 120
+                        self.HgtofViewofCollection.constant = 90
                     }
                     if self.PatientArr.count == 3
                     {
-                        self.HgtofViewofCollection.constant = 240
+                        self.HgtofViewofCollection.constant = 180
                     }
                     if self.PatientArr.count == 4
                     {
-                        self.HgtofViewofCollection.constant = 240
+                        self.HgtofViewofCollection.constant = 180
                     }
                     if self.PatientArr.count > 4
                     {
-                        self.HgtofViewofCollection.constant = 240
+                        self.HgtofViewofCollection.constant = 270
                     }
                     
                 }else{
                     self.toast.isShow("No any patient")
-                }
+                 }
                 
                 break
                 
@@ -369,6 +373,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
                 break
             }
         }
+        
     }
 
    
@@ -488,9 +493,13 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource
         if collectionView == collPatientList
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PatientListCollectionCell", for: indexPath) as! PatientListCollectionCell
+            
+             let randomColor = ColorArr[Int(arc4random_uniform(UInt32(ColorArr.count)))]
+            
             let lcdict = self.PatientArr[indexPath.row]
             let index = indexPath.row
             cell.lblNum.text = String(index + 1)
+            cell.lblNum.backgroundColor = randomColor
             cell.lblPatNm.text = lcdict["name"] as? String
             
             cell.backview.designCell()
@@ -518,7 +527,8 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource
             }
             
             Ncell.backview.designCell()
-            Ncell.backview.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
+            Ncell.backview.layer.borderColor = UIColor.white.cgColor
+             Ncell.backview.layer.borderWidth = 1.0
             Ncell.btnReadMore.layer.borderColor = UIColor.darkGray.cgColor
             Ncell.btnReadMore.layer.borderWidth = 1
             

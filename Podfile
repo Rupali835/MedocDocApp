@@ -20,5 +20,8 @@ pod 'LiquidFloatingActionButton'
 pod 'SkyFloatingLabelTextField'
 pod 'AVScanner'
 pod 'CryptoSwift'
+pod 'MultiAutoCompleteTextSwift'
+pod 'CloudTagView'
+pod 'SVProgressHUD'
 
 end

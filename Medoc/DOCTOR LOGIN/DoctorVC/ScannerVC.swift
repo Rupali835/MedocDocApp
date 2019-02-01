@@ -22,6 +22,7 @@ class ScannerVC: AVScannerViewController
     var Key = "GFyb1eIRzR6zqWJjY97L+A==:QjJ/cH+l6nEoXn+dqf2Djnec/y+/s/Lua6xq1dLrjMk="
     
     let cryptLib = CryptLib()
+    var m_dPatient : AddPatientProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,14 +62,29 @@ class ScannerVC: AVScannerViewController
         print(string)
         
         let decryptedString = self.cryptLib.decryptCipherTextRandomIV(withCipherText: string, key: self.Key)
-        print("decryptedString \(decryptedString! as String)")
-        
+
+            print("decryptedString \(decryptedString! as String)")
+
+            if decryptedString != nil
+            {
+                self.TakePatientData(patId: decryptedString!)
+            }
+       
+//        do{
+//            let decryptedString = try self.cryptLib.decryptCipherTextRandomIV(withCipherText: string, key: self.Key)
+//
+//            if decryptedString != nil
+//            {
+//            self.TakePatientData(patId: decryptedString!)
+//            }
+//
+//        }
+//        catch let error {
+//            print("Error: \(error)")
+//        }
   
         
-        if decryptedString != nil
-        {
-             self.TakePatientData(patId: decryptedString!)
-        }
+     
         
     }
     
@@ -98,25 +114,23 @@ class ScannerVC: AVScannerViewController
                 {
                     ZAlertView.init(title: "Medoc", msg: "Patient not found", actiontitle: "OK")
                     {
-                        let patientList = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-                        
-                        self.present(patientList, animated: true, completion: nil)
+                        self.navigationController?.popViewController(animated: true)
+
                     }
                 }
                 if Msg == "success"
                 {
+                    self.toast.isShow("Existing patient is added")
                     let patientList = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-                    
-                    self.present(patientList, animated: true, completion: nil)
+                    self.m_dPatient.callAddPatientApi()
+                   self.navigationController?.popViewController(animated: true)
                 }
                 
                 if Msg == "Patient has already been added"
                 {
                     ZAlertView.init(title: "Medoc", msg: "Patient has already been added", actiontitle: "OK")
                     {
-                        let patientList = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-                        
-                        self.present(patientList, animated: true, completion: nil)
+                        self.navigationController?.popViewController(animated: true)
                     }
                 }
                 
@@ -124,8 +138,8 @@ class ScannerVC: AVScannerViewController
                 {
                     ZAlertView.init(title: "Medoc", msg: "something went wrong", actiontitle: "Rescan")
                     {
-                        print("")
-
+            self.navigationController?.popViewController(animated: true)
+                        
                     }
                 }
                 
@@ -141,7 +155,8 @@ class ScannerVC: AVScannerViewController
 
     @IBAction func btnBACk_onclick(_ sender: Any)
     {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+//        self.dismiss(animated: true, completion: nil)
     }
     
 }

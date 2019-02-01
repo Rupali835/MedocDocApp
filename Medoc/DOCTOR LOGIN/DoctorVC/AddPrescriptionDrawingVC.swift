@@ -109,20 +109,10 @@ class AddPrescriptionDrawingVC: UIViewController, PaintDocsDelegate {
             }
         })
         
-        
-        
-       // m_cDrawimg.sendDataToFirstPage(Arr: self.m_cPressData.m_cPressDataArr) //self.m_cPrescArr)
-        
-//        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AndriodPrescFormVC") as! AndriodPrescFormVC
-//        self.navigationController?.popToViewController(vc, animated: true)
-        
-      //self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func btnback_onclick(_ sender: Any)
     {
-        
-        
         
         let viewcontrollers = self.navigationController?.viewControllers
         
@@ -132,9 +122,6 @@ class AddPrescriptionDrawingVC: UIViewController, PaintDocsDelegate {
             }
         })
         
-        
-//        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AndriodPrescFormVC") as! AndriodPrescFormVC
-//        self.navigationController?.popToViewController(vc, animated: true)
     }
     
     @objc func Delete_Click(sender: AnyObject)
@@ -143,8 +130,7 @@ class AddPrescriptionDrawingVC: UIViewController, PaintDocsDelegate {
         ZAlertView(title: "Medoc", msg: "Are you sure you want to delete this ?", dismisstitle: "No", actiontitle: "Yes")
         {
             let nIndex = sender.tag
-            let refArrObj = self.m_cPressData.m_cPressDataArr[nIndex!]//self.m_cPrescArr[nIndex!]
-           // self.m_cPrescArr.remove(at: nIndex!)
+            let refArrObj = self.m_cPressData.m_cPressDataArr[nIndex!]//
             self.m_cPressData.m_cPressDataArr.remove(at: nIndex!)
             self.tblPaintImgs.reloadData()
         }
@@ -170,8 +156,10 @@ extension AddPrescriptionDrawingVC : UITableViewDelegate, UITableViewDataSource
         
         let lcdata = self.m_cPressData.m_cPressDataArr[indexPath.item]//self.m_cPrescArr[indexPath.row]
         
+        let index = indexPath.row + 1
+        
         cell.imgPres.image = lcdata.PresImg
-        //cell.lblimgNm.text = lcdata.PresImgNm
+        cell.lblimgNm.text = "Page \(index)"
         
         cell.btnDeleteImg.tag = indexPath.row
         cell.btnDeleteImg.addTarget(self, action: #selector(Delete_Click(sender:)), for: .touchUpInside)

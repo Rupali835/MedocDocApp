@@ -48,6 +48,7 @@
 		580E851E21F9E7D8002A4DCD /* ViewMoreDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580E851D21F9E7D8002A4DCD /* ViewMoreDetailVC.swift */; };
 		580E852221F9ECF5002A4DCD /* CryptLib.m in Sources */ = {isa = PBXBuildFile; fileRef = 580E852121F9ECF5002A4DCD /* CryptLib.m */; };
 		580E852421F9F896002A4DCD /* PatientInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580E852321F9F896002A4DCD /* PatientInfoCell.swift */; };
+		581226F4220224FB007759FB /* PatientProblemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 581226F3220224FB007759FB /* PatientProblemCell.swift */; };
 		582528C621F6F118003B4996 /* CellMedicineData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582528C521F6F118003B4996 /* CellMedicineData.swift */; };
 		582528C821F7024D003B4996 /* ScannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582528C721F7024C003B4996 /* ScannerVC.swift */; };
 		582528CA21F74783003B4996 /* Phlebotomy- Syringe Draw Procedure - Blood Collection (Rx-TN).mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 582528C921F746E9003B4996 /* Phlebotomy- Syringe Draw Procedure - Blood Collection (Rx-TN).mp4 */; };
@@ -75,7 +76,6 @@
 		5859911A21FEEED50004CF7A /* Type of Doctor.json in Resources */ = {isa = PBXBuildFile; fileRef = 5859911821FEEED50004CF7A /* Type of Doctor.json */; };
 		5859911C21FF12FD0004CF7A /* SwiftLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5859911B21FF12FD0004CF7A /* SwiftLoader.swift */; };
 		5868516D21C8DA5600D3BE39 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5868516C21C8DA5600D3BE39 /* ProfileVC.swift */; };
-		5868516F21C9042200D3BE39 /* AddAssistantVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5868516E21C9042200D3BE39 /* AddAssistantVC.swift */; };
 		5877BE1A21B7BB800001328A /* PatientListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5877BE1921B7BB800001328A /* PatientListVC.swift */; };
 		587B1C0321E0926000877C70 /* PaintImgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587B1C0221E0926000877C70 /* PaintImgCell.swift */; };
 		587B1C0521E13C8E00877C70 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587B1C0421E13C8E00877C70 /* ChatVC.swift */; };
@@ -98,9 +98,26 @@
 		587FFC9A21FCD54900C2B316 /* NSIndexSet+DBLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 587FFC7321FCD54900C2B316 /* NSIndexSet+DBLibrary.m */; };
 		587FFC9B21FCD54900C2B316 /* DBAttachmentPickerController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 587FFC7521FCD54900C2B316 /* DBAttachmentPickerController.strings */; };
 		587FFC9C21FCD54900C2B316 /* DBAttachmentPickerController.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 587FFC7721FCD54900C2B316 /* DBAttachmentPickerController.stringsdict */; };
-		58AFEC6A21CB7EC700A712E0 /* SearchPatientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AFEC6921CB7EC700A712E0 /* SearchPatientVC.swift */; };
 		58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AFEC6B21CB7F0000A712E0 /* SearchPatientCell.swift */; };
 		58C8803B21E318C90054FBC1 /* VideoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C8803A21E318C90054FBC1 /* VideoListVC.swift */; };
+		58C9923A2202F8CD00E56C5A /* MedocInfowebVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C992392202F8CD00E56C5A /* MedocInfowebVc.swift */; };
+		58C9924D22030F7F00E56C5A /* MKCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9923C22030F7F00E56C5A /* MKCollectionViewCell.swift */; };
+		58C9924E22030F7F00E56C5A /* MKSideDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9923D22030F7F00E56C5A /* MKSideDrawerViewController.swift */; };
+		58C9924F22030F7F00E56C5A /* MKCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9923E22030F7F00E56C5A /* MKCardView.swift */; };
+		58C9925022030F7F00E56C5A /* MKSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9923F22030F7F00E56C5A /* MKSwitch.swift */; };
+		58C9925122030F7F00E56C5A /* MKTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924022030F7F00E56C5A /* MKTableViewCell.swift */; };
+		58C9925222030F7F00E56C5A /* MKNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924122030F7F00E56C5A /* MKNavigationBar.swift */; };
+		58C9925322030F7F00E56C5A /* MKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924222030F7F00E56C5A /* MKTextField.swift */; };
+		58C9925422030F7F00E56C5A /* MKSnackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924322030F7F00E56C5A /* MKSnackbar.swift */; };
+		58C9925522030F7F00E56C5A /* MKEmbedDrawerControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924422030F7F00E56C5A /* MKEmbedDrawerControllerSegue.swift */; };
+		58C9925622030F7F00E56C5A /* MKRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924522030F7F00E56C5A /* MKRefreshControl.swift */; };
+		58C9925722030F7F00E56C5A /* MKImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924622030F7F00E56C5A /* MKImageView.swift */; };
+		58C9925822030F7F00E56C5A /* MKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924722030F7F00E56C5A /* MKLabel.swift */; };
+		58C9925922030F7F00E56C5A /* MKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924822030F7F00E56C5A /* MKButton.swift */; };
+		58C9925A22030F7F00E56C5A /* MKActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924922030F7F00E56C5A /* MKActivityIndicator.swift */; };
+		58C9925B22030F7F00E56C5A /* MKLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924A22030F7F00E56C5A /* MKLayer.swift */; };
+		58C9925C22030F7F00E56C5A /* MKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924B22030F7F00E56C5A /* MKColor.swift */; };
+		58C9925D22030F7F00E56C5A /* MKEmbedMainControllerSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9924C22030F7F00E56C5A /* MKEmbedMainControllerSegue.swift */; };
 		58CB10C521E4DDA600745BC9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 58CB109221E4DDA500745BC9 /* Localizable.strings */; };
 		58CB10C621E4DDA600745BC9 /* ImageScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CB109421E4DDA500745BC9 /* ImageScannerController.swift */; };
 		58CB10C721E4DDA600745BC9 /* RectangleFeaturesFunnel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CB109821E4DDA500745BC9 /* RectangleFeaturesFunnel.swift */; };
@@ -139,9 +156,10 @@
 		58CB10E821E4DDA600745BC9 /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CB10C421E4DDA500745BC9 /* CaptureSession.swift */; };
 		58CC60E321FED539007F70B1 /* NewsFeedHomePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CC60E221FED539007F70B1 /* NewsFeedHomePageCell.swift */; };
 		58D9073621C17C4D000A751E /* CPatientEnrtyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */; };
+		58D9538F22017A6500804C59 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9538D22017A6400804C59 /* Alert.swift */; };
+		58D9539022017A6500804C59 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9538E22017A6500804C59 /* Reachability.swift */; };
 		58DAFDD821C77ED700E81940 /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */; };
 		58DAFDFD21C7C19500E81940 /* SideBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDFC21C7C19500E81940 /* SideBarCell.swift */; };
-		58DAFDFF21C7C1E400E81940 /* SideMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */; };
 		58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */; };
 		58DE554D21FC1CDC00C2C5FA /* OpenSideMenuClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DE554C21FC1CDC00C2C5FA /* OpenSideMenuClass.swift */; };
 		58DF976721CCCA09007AD147 /* MedicalDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF976621CCCA09007AD147 /* MedicalDetailCell.swift */; };
@@ -226,6 +244,7 @@
 		580E852021F9ECF4002A4DCD /* CryptLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CryptLib.h; sourceTree = "<group>"; };
 		580E852121F9ECF5002A4DCD /* CryptLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CryptLib.m; sourceTree = "<group>"; };
 		580E852321F9F896002A4DCD /* PatientInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientInfoCell.swift; sourceTree = "<group>"; };
+		581226F3220224FB007759FB /* PatientProblemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProblemCell.swift; sourceTree = "<group>"; };
 		582528C521F6F118003B4996 /* CellMedicineData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMedicineData.swift; sourceTree = "<group>"; };
 		582528C721F7024C003B4996 /* ScannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerVC.swift; sourceTree = "<group>"; };
 		582528C921F746E9003B4996 /* Phlebotomy- Syringe Draw Procedure - Blood Collection (Rx-TN).mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Phlebotomy- Syringe Draw Procedure - Blood Collection (Rx-TN).mp4"; sourceTree = "<group>"; };
@@ -266,7 +285,6 @@
 		5859911821FEEED50004CF7A /* Type of Doctor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Type of Doctor.json"; sourceTree = "<group>"; };
 		5859911B21FF12FD0004CF7A /* SwiftLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLoader.swift; sourceTree = "<group>"; };
 		5868516C21C8DA5600D3BE39 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		5868516E21C9042200D3BE39 /* AddAssistantVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAssistantVC.swift; sourceTree = "<group>"; };
 		5877BE1921B7BB800001328A /* PatientListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListVC.swift; sourceTree = "<group>"; };
 		587B1C0221E0926000877C70 /* PaintImgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintImgCell.swift; sourceTree = "<group>"; };
 		587B1C0421E13C8E00877C70 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
@@ -319,9 +337,26 @@
 		587FFC8821FCD54900C2B316 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
 		587FFC8921FCD54900C2B316 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/DBAttachmentPickerController.strings; sourceTree = "<group>"; };
 		587FFC8A21FCD54900C2B316 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/DBAttachmentPickerController.stringsdict; sourceTree = "<group>"; };
-		58AFEC6921CB7EC700A712E0 /* SearchPatientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPatientVC.swift; sourceTree = "<group>"; };
 		58AFEC6B21CB7F0000A712E0 /* SearchPatientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPatientCell.swift; sourceTree = "<group>"; };
 		58C8803A21E318C90054FBC1 /* VideoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListVC.swift; sourceTree = "<group>"; };
+		58C992392202F8CD00E56C5A /* MedocInfowebVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedocInfowebVc.swift; sourceTree = "<group>"; };
+		58C9923C22030F7F00E56C5A /* MKCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKCollectionViewCell.swift; sourceTree = "<group>"; };
+		58C9923D22030F7F00E56C5A /* MKSideDrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKSideDrawerViewController.swift; sourceTree = "<group>"; };
+		58C9923E22030F7F00E56C5A /* MKCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKCardView.swift; sourceTree = "<group>"; };
+		58C9923F22030F7F00E56C5A /* MKSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKSwitch.swift; sourceTree = "<group>"; };
+		58C9924022030F7F00E56C5A /* MKTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKTableViewCell.swift; sourceTree = "<group>"; };
+		58C9924122030F7F00E56C5A /* MKNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKNavigationBar.swift; sourceTree = "<group>"; };
+		58C9924222030F7F00E56C5A /* MKTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKTextField.swift; sourceTree = "<group>"; };
+		58C9924322030F7F00E56C5A /* MKSnackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKSnackbar.swift; sourceTree = "<group>"; };
+		58C9924422030F7F00E56C5A /* MKEmbedDrawerControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKEmbedDrawerControllerSegue.swift; sourceTree = "<group>"; };
+		58C9924522030F7F00E56C5A /* MKRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKRefreshControl.swift; sourceTree = "<group>"; };
+		58C9924622030F7F00E56C5A /* MKImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKImageView.swift; sourceTree = "<group>"; };
+		58C9924722030F7F00E56C5A /* MKLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKLabel.swift; sourceTree = "<group>"; };
+		58C9924822030F7F00E56C5A /* MKButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKButton.swift; sourceTree = "<group>"; };
+		58C9924922030F7F00E56C5A /* MKActivityIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKActivityIndicator.swift; sourceTree = "<group>"; };
+		58C9924A22030F7F00E56C5A /* MKLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKLayer.swift; sourceTree = "<group>"; };
+		58C9924B22030F7F00E56C5A /* MKColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKColor.swift; sourceTree = "<group>"; };
+		58C9924C22030F7F00E56C5A /* MKEmbedMainControllerSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKEmbedMainControllerSegue.swift; sourceTree = "<group>"; };
 		58CB109321E4DDA500745BC9 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		58CB109421E4DDA500745BC9 /* ImageScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScannerController.swift; sourceTree = "<group>"; };
 		58CB109521E4DDA500745BC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -366,9 +401,10 @@
 		58CB10C421E4DDA500745BC9 /* CaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		58CC60E221FED539007F70B1 /* NewsFeedHomePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedHomePageCell.swift; sourceTree = "<group>"; };
 		58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPatientEnrtyData.swift; sourceTree = "<group>"; };
+		58D9538D22017A6400804C59 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		58D9538E22017A6500804C59 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
 		58DAFDFC21C7C19500E81940 /* SideBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarCell.swift; sourceTree = "<group>"; };
-		58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVC.swift; sourceTree = "<group>"; };
 		58DAFE0121C7EC8200E81940 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		58DE554C21FC1CDC00C2C5FA /* OpenSideMenuClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSideMenuClass.swift; sourceTree = "<group>"; };
@@ -419,6 +455,8 @@
 		3BA92BE421B00E5D008D85DB /* CommonFiles */ = {
 			isa = PBXGroup;
 			children = (
+				58D9538D22017A6400804C59 /* Alert.swift */,
+				58D9538E22017A6500804C59 /* Reachability.swift */,
 				3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */,
 				58DE554C21FC1CDC00C2C5FA /* OpenSideMenuClass.swift */,
 			);
@@ -428,6 +466,7 @@
 		3BA92BE621B00E5E008D85DB /* Third Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				58C9923B22030F7F00E56C5A /* MaterialDesign */,
 				5859911B21FF12FD0004CF7A /* SwiftLoader.swift */,
 				587FFC5021FCD54900C2B316 /* DBAttachPicker */,
 				58CB109121E4DDA500745BC9 /* WeScan */,
@@ -628,8 +667,6 @@
 			isa = PBXGroup;
 			children = (
 				5868516C21C8DA5600D3BE39 /* ProfileVC.swift */,
-				5868516E21C9042200D3BE39 /* AddAssistantVC.swift */,
-				58AFEC6921CB7EC700A712E0 /* SearchPatientVC.swift */,
 				585768F821DD5E33004E931B /* PurchaseLienceVC.swift */,
 				587B1C0421E13C8E00877C70 /* ChatVC.swift */,
 				58C8803A21E318C90054FBC1 /* VideoListVC.swift */,
@@ -639,6 +676,7 @@
 				580E851921F9D880002A4DCD /* ContactUsVC.swift */,
 				580E851B21F9DE55002A4DCD /* AboutUsVC.swift */,
 				5859911421FEDA440004CF7A /* newsFeedWebViewVC.swift */,
+				58C992392202F8CD00E56C5A /* MedocInfowebVc.swift */,
 			);
 			path = SideMenuPages;
 			sourceTree = "<group>";
@@ -650,7 +688,6 @@
 				5877BE1921B7BB800001328A /* PatientListVC.swift */,
 				580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */,
 				58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */,
-				58DAFDFE21C7C1E400E81940 /* SideMenuVC.swift */,
 				58E3506321CA485700AAF430 /* SideMenuListVC.swift */,
 				58DF976821CCCB62007AD147 /* cMedicianEntryData.swift */,
 				58348D9121DDD9D7007BE8C2 /* AndriodPrescFormVC.swift */,
@@ -692,6 +729,7 @@
 				585913FE21F89EF500B2ACCD /* NewsFeedCell.swift */,
 				580E852321F9F896002A4DCD /* PatientInfoCell.swift */,
 				58CC60E221FED539007F70B1 /* NewsFeedHomePageCell.swift */,
+				581226F3220224FB007759FB /* PatientProblemCell.swift */,
 			);
 			path = DoctorCell;
 			sourceTree = "<group>";
@@ -803,6 +841,30 @@
 				582528C921F746E9003B4996 /* Phlebotomy- Syringe Draw Procedure - Blood Collection (Rx-TN).mp4 */,
 			);
 			path = VideoFile;
+			sourceTree = "<group>";
+		};
+		58C9923B22030F7F00E56C5A /* MaterialDesign */ = {
+			isa = PBXGroup;
+			children = (
+				58C9923C22030F7F00E56C5A /* MKCollectionViewCell.swift */,
+				58C9923D22030F7F00E56C5A /* MKSideDrawerViewController.swift */,
+				58C9923E22030F7F00E56C5A /* MKCardView.swift */,
+				58C9923F22030F7F00E56C5A /* MKSwitch.swift */,
+				58C9924022030F7F00E56C5A /* MKTableViewCell.swift */,
+				58C9924122030F7F00E56C5A /* MKNavigationBar.swift */,
+				58C9924222030F7F00E56C5A /* MKTextField.swift */,
+				58C9924322030F7F00E56C5A /* MKSnackbar.swift */,
+				58C9924422030F7F00E56C5A /* MKEmbedDrawerControllerSegue.swift */,
+				58C9924522030F7F00E56C5A /* MKRefreshControl.swift */,
+				58C9924622030F7F00E56C5A /* MKImageView.swift */,
+				58C9924722030F7F00E56C5A /* MKLabel.swift */,
+				58C9924822030F7F00E56C5A /* MKButton.swift */,
+				58C9924922030F7F00E56C5A /* MKActivityIndicator.swift */,
+				58C9924A22030F7F00E56C5A /* MKLayer.swift */,
+				58C9924B22030F7F00E56C5A /* MKColor.swift */,
+				58C9924C22030F7F00E56C5A /* MKEmbedMainControllerSegue.swift */,
+			);
+			path = MaterialDesign;
 			sourceTree = "<group>";
 		};
 		58CB109121E4DDA500745BC9 /* WeScan */ = {
@@ -1060,6 +1122,7 @@
 				"${BUILT_PRODUCTS_DIR}/AVScanner/AVScanner.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/CloudTagView/CloudTagView.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
@@ -1070,6 +1133,8 @@
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LiquidFloatingActionButton/LiquidFloatingActionButton.framework",
+				"${BUILT_PRODUCTS_DIR}/MultiAutoCompleteTextSwift/MultiAutoCompleteTextSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/ZAlertView/ZAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -1080,6 +1145,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AVScanner.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CloudTagView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
@@ -1090,6 +1156,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LiquidFloatingActionButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MultiAutoCompleteTextSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -1130,25 +1198,32 @@
 				580E851821F9D475002A4DCD /* PdfReaderVC.swift in Sources */,
 				58348D9821DE1DCC007BE8C2 /* CheckboxButton.swift in Sources */,
 				5827125921F09D4A009E7C02 /* CellReportImages.swift in Sources */,
+				581226F4220224FB007759FB /* PatientProblemCell.swift in Sources */,
 				580E851321F98344002A4DCD /* AddPatientVC.swift in Sources */,
+				58C9925B22030F7F00E56C5A /* MKLayer.swift in Sources */,
 				58F7E21521EF6A100027E284 /* AppointmentVC.swift in Sources */,
 				3BA92C6421B00E5E008D85DB /* YoshikoTextField.swift in Sources */,
 				5831988B21C22E700068C1AA /* LoginVC.swift in Sources */,
 				5827125321F07538009E7C02 /* DetailPrescriptionVC.swift in Sources */,
+				58C9925122030F7F00E56C5A /* MKTableViewCell.swift in Sources */,
 				58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */,
 				5827125521F09D1A009E7C02 /* CellPrescImages.swift in Sources */,
+				58C9925222030F7F00E56C5A /* MKNavigationBar.swift in Sources */,
 				58F7E21121EF49770027E284 /* PatientPrescriptionListCell.swift in Sources */,
 				3BA92C6321B00E5E008D85DB /* KLCPopup.m in Sources */,
 				583198AF21C239010068C1AA /* SignUpFormVC.swift in Sources */,
 				587FFC9921FCD54900C2B316 /* UIImage+DBAssetIcons.m in Sources */,
 				58CB10CD21E4DDA600745BC9 /* CIImage+Utils.swift in Sources */,
 				58CB10D621E4DDA600745BC9 /* Error.swift in Sources */,
+				58D9539022017A6500804C59 /* Reachability.swift in Sources */,
 				58E4A1E421F3310D00156AD7 /* AddDrawingImgCell.swift in Sources */,
 				587FFC9A21FCD54900C2B316 /* NSIndexSet+DBLibrary.m in Sources */,
 				3BA92C7021B00E5E008D85DB /* ReachabilityCheck.swift in Sources */,
 				5859911521FEDA440004CF7A /* newsFeedWebViewVC.swift in Sources */,
 				58CB10CC21E4DDA600745BC9 /* CGPoint+Utils.swift in Sources */,
 				587FFC9521FCD54900C2B316 /* DBAttachment.m in Sources */,
+				58C9925722030F7F00E56C5A /* MKImageView.swift in Sources */,
+				58C9925022030F7F00E56C5A /* MKSwitch.swift in Sources */,
 				3BA92C7A21B00E5E008D85DB /* AppStoryboard.swift in Sources */,
 				587B1C0321E0926000877C70 /* PaintImgCell.swift in Sources */,
 				580A5A1E21C0F0480019570F /* PatientPrescriptionVC.swift in Sources */,
@@ -1158,6 +1233,7 @@
 				5827125721F09D33009E7C02 /* CellDrawingImages.swift in Sources */,
 				583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */,
 				58CB10CF21E4DDA600745BC9 /* CGRect+Utils.swift in Sources */,
+				58C9925822030F7F00E56C5A /* MKLabel.swift in Sources */,
 				58348D9221DDD9D7007BE8C2 /* AndriodPrescFormVC.swift in Sources */,
 				587FFC9721FCD54900C2B316 /* DBAttachmentAlertController.m in Sources */,
 				58DF976921CCCB62007AD147 /* cMedicianEntryData.swift in Sources */,
@@ -1174,8 +1250,10 @@
 				3BA92C6D21B00E5E008D85DB /* IsaoTextField.swift in Sources */,
 				587B1C0721E13D0A00877C70 /* DrListCell.swift in Sources */,
 				3BA92C6221B00E5E008D85DB /* StringValidation.swift in Sources */,
+				58C9925A22030F7F00E56C5A /* MKActivityIndicator.swift in Sources */,
 				3BA92C6121B00E5E008D85DB /* SPKeyBoardAvoiding.swift in Sources */,
 				580A5A2721C0F3960019570F /* PrescriptionViewController.swift in Sources */,
+				58C9925522030F7F00E56C5A /* MKEmbedDrawerControllerSegue.swift in Sources */,
 				580E852221F9ECF5002A4DCD /* CryptLib.m in Sources */,
 				58CB10D321E4DDA600745BC9 /* ZoomGestureController.swift in Sources */,
 				3BA92C6B21B00E5E008D85DB /* KaedeTextField.swift in Sources */,
@@ -1184,23 +1262,25 @@
 				5868516D21C8DA5600D3BE39 /* ProfileVC.swift in Sources */,
 				58E3506421CA485700AAF430 /* SideMenuListVC.swift in Sources */,
 				580E851A21F9D880002A4DCD /* ContactUsVC.swift in Sources */,
+				58C9924E22030F7F00E56C5A /* MKSideDrawerViewController.swift in Sources */,
 				5827125121F0612F009E7C02 /* AppointmentCell.swift in Sources */,
+				58C9923A2202F8CD00E56C5A /* MedocInfowebVc.swift in Sources */,
 				587FFC9821FCD54900C2B316 /* NSBundle+DBLibrary.m in Sources */,
 				582DA44E21E8CCDF00B85EF5 /* ShowMedicineCell.swift in Sources */,
 				587FFC8B21FCD54900C2B316 /* DBAttachmentPickerController.m in Sources */,
 				585913FF21F89EF500B2ACCD /* NewsFeedCell.swift in Sources */,
 				58CB10D121E4DDA600745BC9 /* UIImage+Orientation.swift in Sources */,
-				58DAFDFF21C7C1E400E81940 /* SideMenuVC.swift in Sources */,
+				58D9538F22017A6500804C59 /* Alert.swift in Sources */,
 				58CB10CE21E4DDA600745BC9 /* CGAffineTransform+Utils.swift in Sources */,
 				3BA92C4C21B00E5E008D85DB /* ExtensionFile.swift in Sources */,
 				582DA44621E88E4400B85EF5 /* AddPrescriptionDrawingVC.swift in Sources */,
 				587FFC9121FCD54900C2B316 /* DBAssetItemsViewController.m in Sources */,
-				58AFEC6A21CB7EC700A712E0 /* SearchPatientVC.swift in Sources */,
 				58CB10E821E4DDA600745BC9 /* CaptureSession.swift in Sources */,
 				58CB10D421E4DDA600745BC9 /* EditScanViewController.swift in Sources */,
 				58DF976721CCCA09007AD147 /* MedicalDetailCell.swift in Sources */,
 				58FD985E21BE7BB800E1C968 /* ApiList.swift in Sources */,
 				3BA92C6621B00E5E008D85DB /* MinoruTextField.swift in Sources */,
+				58C9925422030F7F00E56C5A /* MKSnackbar.swift in Sources */,
 				582528C821F7024D003B4996 /* ScannerVC.swift in Sources */,
 				3BA92C6821B00E5E008D85DB /* TextFieldEffects.swift in Sources */,
 				58D9073621C17C4D000A751E /* CPatientEnrtyData.swift in Sources */,
@@ -1211,27 +1291,33 @@
 				58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */,
 				58CB10D021E4DDA600745BC9 /* Array+Utils.swift in Sources */,
 				3BF823D721AD7A31004C92E5 /* ViewController.swift in Sources */,
+				58C9924D22030F7F00E56C5A /* MKCollectionViewCell.swift in Sources */,
 				58DE554D21FC1CDC00C2C5FA /* OpenSideMenuClass.swift in Sources */,
 				580E851E21F9E7D8002A4DCD /* ViewMoreDetailVC.swift in Sources */,
 				5859911C21FF12FD0004CF7A /* SwiftLoader.swift in Sources */,
 				580A5A2421C0F16F0019570F /* LCBezierPath.m in Sources */,
 				587FFC8C21FCD54900C2B316 /* DBThumbnailPhotoCell.m in Sources */,
+				58C9925C22030F7F00E56C5A /* MKColor.swift in Sources */,
 				58E4A1E221F32AB300156AD7 /* AddDrawingVC.swift in Sources */,
 				585913FD21F89EB000B2ACCD /* NewsFeedVC.swift in Sources */,
 				58CB10DA21E4DDA600745BC9 /* Quadrilateral.swift in Sources */,
+				58C9925D22030F7F00E56C5A /* MKEmbedMainControllerSegue.swift in Sources */,
+				58C9925322030F7F00E56C5A /* MKTextField.swift in Sources */,
 				58CB10E721E4DDA600745BC9 /* CaptureSession+Orientation.swift in Sources */,
 				58CB10C821E4DDA600745BC9 /* CaptureSessionManager.swift in Sources */,
 				580E851C21F9DE55002A4DCD /* AboutUsVC.swift in Sources */,
-				5868516F21C9042200D3BE39 /* AddAssistantVC.swift in Sources */,
+				58C9925922030F7F00E56C5A /* MKButton.swift in Sources */,
 				580466BA21F5B5FF004CF7DF /* UpdateDoctorProfileVC.swift in Sources */,
 				58DAFDFD21C7C19500E81940 /* SideBarCell.swift in Sources */,
 				587B1C0521E13C8E00877C70 /* ChatVC.swift in Sources */,
+				58C9925622030F7F00E56C5A /* MKRefreshControl.swift in Sources */,
 				582DA44821E89CDE00B85EF5 /* AddPresImgCell.swift in Sources */,
 				3BA92C6021B00E5E008D85DB /* DLRadioButton.m in Sources */,
 				5877BE1A21B7BB800001328A /* PatientListVC.swift in Sources */,
 				58CB10D521E4DDA600745BC9 /* EditScanCornerView.swift in Sources */,
 				587FFC9021FCD54900C2B316 /* DBAssetGroupsViewController.m in Sources */,
 				58CB10CB21E4DDA600745BC9 /* AVCaptureVideoOrientation+Utils.swift in Sources */,
+				58C9924F22030F7F00E56C5A /* MKCardView.swift in Sources */,
 				58CB10C921E4DDA600745BC9 /* ShutterButton.swift in Sources */,
 				582DA44A21E8B86300B85EF5 /* AddReportVC.swift in Sources */,
 				582DA44C21E8B93D00B85EF5 /* AddReportImgCell.swift in Sources */,
@@ -1498,7 +1584,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Medoc-Patient-Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -1573,7 +1659,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "Medoc-Patient-Distribution";
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

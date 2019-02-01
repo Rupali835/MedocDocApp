@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ZAlertView
 
 protocol DrawingOnPadProtocol {
     func DrawingOnPad()
@@ -99,8 +100,7 @@ class AddDrawingVC: UIViewController, PaintDocsDelegate
         lcPrescriptionViewControllerVC.m_cPaintDocsdelegate = self
         lcPrescriptionViewControllerVC.m_bView = true
         lcPrescriptionViewControllerVC.m_cDrawData = self.m_cDrawData
-        //self.present(vc, animated: true, completion: nil)
-        navigationController?.pushViewController(lcPrescriptionViewControllerVC, animated: true)
+navigationController?.pushViewController(lcPrescriptionViewControllerVC, animated: true)
     }
     
     func DrawingDocs(docImg: UIImage, doctag: String, doctimeStamp: String)
@@ -115,6 +115,19 @@ class AddDrawingVC: UIViewController, PaintDocsDelegate
     func PaintDocs(docs: UIImage, docnm: String, docTimeStamp: String)
     {
       print("")
+    }
+    
+    @objc func Delete_Click(sender: AnyObject)
+    {
+        
+        ZAlertView(title: "Medoc", msg: "Are you sure you want to delete this ?", dismisstitle: "No", actiontitle: "Yes")
+        {
+            let nIndex = sender.tag
+            let refArrObj = self.m_cDrawData.m_cDrawDataArr[nIndex!]
+            self.m_cDrawData.m_cDrawDataArr.remove(at: nIndex!)
+            self.tbldrawing.reloadData()
+        }
+        
     }
     
 }
@@ -137,7 +150,8 @@ extension AddDrawingVC : UITableViewDelegate, UITableViewDataSource
         
         cell.imgDrawing.image = lcdata.drawing_img
         cell.lbl_imgTag.text = lcdata.drawing_tag
-        
+        cell.btndeleteImg.tag = indexPath.row
+        cell.btndeleteImg.addTarget(self, action: #selector(Delete_Click(sender:)), for: .touchUpInside)
         cell.backview.designCell()
         
         return cell

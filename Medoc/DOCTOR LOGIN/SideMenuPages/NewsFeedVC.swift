@@ -78,12 +78,20 @@ class NewsFeedVC: UIViewController
     
     @objc func OpenWeb(sender : UIButton)
     {
+        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "newsFeedWebViewVC") as! newsFeedWebViewVC
+        
         let lcPointInTable = sender.convert(sender.bounds.origin, to: self.tblNewsFeed)
         let lcIndexPath = self.tblNewsFeed.indexPathForRow(at: lcPointInTable)
-        print("indexPath.row = \(lcIndexPath?.row)")
+     
         let lcDict = self.articleArr[(lcIndexPath?.row)!]
         
-        UIApplication.shared.open(URL(string: lcDict["url"] as! String)!, options: [:])
+        if let Url = lcDict["url"] as? String
+        {
+            vc.urlStr = Url
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 
 }

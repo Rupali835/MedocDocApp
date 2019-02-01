@@ -11,6 +11,7 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import SVProgressHUD
 
 class DetailPrescriptionVC: UIViewController {
 
@@ -53,8 +54,12 @@ class DetailPrescriptionVC: UIViewController {
     var PrescImgArray = [AnyObject]()
     var StringURL : String!
     var pres_pdf : String!
+    var PatientId = String()
+    var pdfName = String()
     
     let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
+    
+    let pdf_path = "http://www.otgmart.com/medoc/medoc_doctor_api/prescription_pdf/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,19 +135,14 @@ class DetailPrescriptionVC: UIViewController {
         
     }
     
-    func setMedicineData()
-    {
-        
-    }
-    
-    
     func setDataToText(Arr : [AnyObject])
     {
         for lcdata in Arr
         {
-            print(lcdata)
-            self.txtTemp.text = lcdata["temperature"] as? String
-            self.txtBloodGroup.text = lcdata["blood_pressure"] as? String
+            self.pdfName = (lcdata["prescription_pdf"] as? String)!
+            self.PatientId = (lcdata["patient_id"] as? String)!
+            self.txtBloodGroup.text = lcdata["temperature"] as? String
+            self.txtTemp.text = lcdata["blood_pressure"] as? String
             self.txtHeight.text = (lcdata["height"] as! String)
             self.txtWeight.text = (lcdata["weight"] as! String)
             self.txtPrescdetail.text = (lcdata["prescription_details"] as! String)
@@ -150,46 +150,28 @@ class DetailPrescriptionVC: UIViewController {
             
             let DrawingImg = lcdata["drawing_image"] as! String
             
-
-                self.drawingImgArr = getArrayFromJSonString(cJsonStr: DrawingImg)
-                
-                if self.drawingImgArr.isEmpty == false
-                {
-                    self.HgtPatientDrawingImges.constant = 350
-                    
-                }else
-                {
-                    self.HgtPatientDrawingImges.constant = 120
-                    
-//                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-//                    label.center = CGPoint(x: 160, y: 285)
-//                    label.textAlignment = .center
-//                    label.text = "No Drawing Images"
-//                    self.viewDrawingImg.addSubview(label)
-                }
-                
-                patientDrawingImgColl.reloadData()
-
+            if DrawingImg != "NF"
+            {
+                  self.drawingImgArr = getArrayFromJSonString(cJsonStr: DrawingImg)
+                  self.drawingImgArr = getArrayFromJSonString(cJsonStr: DrawingImg)
+                  patientDrawingImgColl.reloadData()
+            }else
+            {
+                 self.HgtPatientDrawingImges.constant = 120
+            }
+            
             
             let HandwritenImg = lcdata["handwritten_image"] as! String
 
-                self.PrescImgArray = getArrayFromJSonString(cJsonStr: HandwritenImg)
-              
-                if self.PrescImgArray.isEmpty == false
-                {
-                    self.HgtPrescriptionImages.constant = 350
-                }else{
-                    self.HgtPrescriptionImages.constant = 120
-                    
-//                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-//                    label.center = CGPoint(x: 160, y: 285)
-//                    label.textAlignment = .center
-//                    label.text = "No Prescription Images"
-//                    self.viewPrescImges.addSubview(label)
-                }
+            if HandwritenImg != "NF"
+            {
+                 self.PrescImgArray = getArrayFromJSonString(cJsonStr: HandwritenImg)
                 
-                prescImgColl.reloadData()
-
+                  self.HgtPrescriptionImages.constant = 350
+                   prescImgColl.reloadData()
+            }else{
+                self.HgtPrescriptionImages.constant = 120
+            }
             
             let signimg = lcdata["signature_image"] as! String
             let ImgPath = image_path + signimg
@@ -203,45 +185,16 @@ class DetailPrescriptionVC: UIViewController {
        for lcArr in Arr
        {
             let report_imgNm = lcArr["image_name"] as! String
-            self.reportImgArr = getArrayFromJSonString(cJsonStr: report_imgNm)
         
-            if self.reportImgArr.isEmpty == false
+            if report_imgNm != "NF"
             {
-               self.HgtReportImges.constant = 350
-               repoetImgColl.reloadData()
+                self.reportImgArr = getArrayFromJSonString(cJsonStr: report_imgNm)
+                self.HgtReportImges.constant = 350
+                repoetImgColl.reloadData()
             }else
             {
-                self.HgtReportImges.constant = 120
-                
-//                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-//                label.center = CGPoint(x: 160, y: 285)
-//                label.textAlignment = .center
-//                label.text = "No Report Images"
-//                self.viewReportImg.addSubview(label)
+                 self.HgtReportImges.constant = 120
             }
-        }
-    }
-    
-    func getPDF(presId : Int, loginId : Int, patientId : String)
-    {
-        let pdfUrl = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/prescription_pdf"
-        
-        let param = ["prescription_id" : presId,
-                     "loggedin_id" : loginId,
-                     "patient_id" : patientId] as [String : Any]
-        
-        Alamofire.request(pdfUrl, method: .post, parameters: param).responseJSON { (resp) in
-            print(resp)
-            switch resp.result
-            {
-            case .success(_):
-                print("")
-                break
-            case .failure(_):
-                print("")
-                break
-            }
-            
         }
     }
     
@@ -257,12 +210,18 @@ class DetailPrescriptionVC: UIViewController {
     }
     
     
-/*
+
     @IBAction func btnDownloadPdf_onclick(_ sender: Any)
     {
+        OperationQueue.main.addOperation {
+            SVProgressHUD.setDefaultMaskType(.custom)
+            SVProgressHUD.setBackgroundColor(UIColor.gray)
+            SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
+            SVProgressHUD.show(withStatus: "Downloading Prescription..")
+            
+        }
         
-        
-        let downloadurl = "http://www.otgmart.com/public_html/medoc/medoc_doctor_api/application/views\(self.pres_pdf)"
+          let downloadurl = "\(pdf_path)\(self.PatientId)\("/")\(self.pdfName)"
         
         let pdfvc = self.storyboard?.instantiateViewController(withIdentifier: "PdfReaderVC") as! PdfReaderVC
         
@@ -285,6 +244,11 @@ class DetailPrescriptionVC: UIViewController {
                     print("mmm",filePath)
                     self.StringURL = filePath
                     
+                    OperationQueue.main.addOperation {
+                        SVProgressHUD.dismiss()
+                        
+                    }
+                    
                     let pdfvc = self.storyboard?.instantiateViewController(withIdentifier: "PdfReaderVC") as! PdfReaderVC
                     
                     pdfvc.UrlStr = self.StringURL
@@ -293,15 +257,11 @@ class DetailPrescriptionVC: UIViewController {
         }
         
     }
- */
+ 
     @IBAction func btnback_onclick(_ sender: Any)
     {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
-   
     
 }
 extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataSource
@@ -337,96 +297,106 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
         {
             let Pcell = prescImgColl.dequeueReusableCell(withReuseIdentifier: "CellPrescImages", for: indexPath) as! CellPrescImages
         
-            let lcdict = self.PrescImgArray[indexPath.row]
-            
-            let Img = lcdict["dataName"] as! String
-            let ImgPath = image_path + Img
-            let Imgurl = URL(string: ImgPath)
-            Pcell.imgpresc.kf.setImage(with: Imgurl)
-            
-            if let DataTag = lcdict["dataTag"] as? String
+            if self.PrescImgArray.count != 0
             {
-               Pcell.lblprescnm.text = lcdict["dataTag"] as! String
+                let lcdict = self.PrescImgArray[indexPath.row]
+                
+                let Img = lcdict["dataName"] as! String
+                let ImgPath = image_path + Img
+                let Imgurl = URL(string: ImgPath)
+                Pcell.imgpresc.kf.setImage(with: Imgurl)
+                Pcell.lblprescnm.text = "Page \(indexPath.row + 1)"
+              
+                Pcell.backview.designCell()
             }
             
-            Pcell.backview.designCell()
             return Pcell
             
         }else if collectionView == patientDrawingImgColl
         {
             let Dcell = patientDrawingImgColl.dequeueReusableCell(withReuseIdentifier: "CellDrawingImages", for: indexPath) as! CellDrawingImages
             
-            let lcdict = self.drawingImgArr[indexPath.row]
-            let Img = lcdict["dataName"] as! String
-            let ImgPath = image_path + Img
-            let Imgurl = URL(string: ImgPath)
-            Dcell.imgDrawing.kf.setImage(with: Imgurl)
-            
-            Dcell.lblnm.text = lcdict["dataTag"] as! String
-            
-            Dcell.backView.designCell()
+            if self.drawingImgArr.count != 0
+            {
+                
+                let lcdict = self.drawingImgArr[indexPath.row]
+                let Img = lcdict["dataName"] as! String
+                let ImgPath = image_path + Img
+                let Imgurl = URL(string: ImgPath)
+                Dcell.imgDrawing.kf.setImage(with: Imgurl)
+                Dcell.lblnm.text = lcdict["dataTag"] as! String
+                Dcell.backView.designCell()
+            }
+          
             return Dcell
             
          }else if collectionView == repoetImgColl
           {
             let Rcell = repoetImgColl.dequeueReusableCell(withReuseIdentifier: "CellReportImages", for: indexPath) as! CellReportImages
             
-            let lcdict = self.reportImgArr[indexPath.row]
-            
-            let Img = lcdict["dataName"] as! String
-            let ImgPath = image_path + Img
-            let Imgurl = URL(string: ImgPath)
-            Rcell.imgReport.kf.setImage(with: Imgurl)
-            
-            Rcell.lblReportNm.text = lcdict["dataTag"] as? String
-            
-            Rcell.backview.designCell()
+            if self.reportImgArr.count != 0
+            {
+                
+                let lcdict = self.reportImgArr[indexPath.row]
+                let Img = lcdict["dataName"] as! String
+                let ImgPath = image_path + Img
+                let Imgurl = URL(string: ImgPath)
+                Rcell.imgReport.kf.setImage(with: Imgurl)
+                Rcell.lblReportNm.text = lcdict["dataTag"] as? String
+                Rcell.backview.designCell()
+            }
+          
             return Rcell
 
         }
         else if collectionView == medicineCollectionView
         {
             let Mcell = medicineCollectionView.dequeueReusableCell(withReuseIdentifier: "CellMedicineData", for: indexPath) as! CellMedicineData
-            
-            let dict = self.MedicineArr[indexPath.row]
-            Mcell.lblmedNm.text = dict["medicine_name"] as? String
-            Mcell.backview.designCell()
-            
-            var FirstTimeOfMed = String()
-            var SecondTimeOfMed = String()
-            var ThirdTimeOfMed = String()
-            
-            let bfBrk = dict["before_bf"] as? String
-            let afBrk = dict["after_bf"] as? String
-            let bfLunch = dict["before_lunch"] as? String
-            let afLunch = dict["after_lunch"] as? String
-            let bfDinner = dict["before_dinner"] as? String
-            let afDinner = dict["after_dinner"] as? String
-            
-            if bfBrk == "1" || afBrk == "1"
+           
+            if self.MedicineArr.count != 0
             {
-                FirstTimeOfMed = "1-"
-            }else
-            {
-                FirstTimeOfMed = "0-"
+                
+                let dict = self.MedicineArr[indexPath.row]
+                Mcell.lblmedNm.text = dict["medicine_name"] as? String
+                Mcell.backview.designCell()
+                
+                var FirstTimeOfMed = String()
+                var SecondTimeOfMed = String()
+                var ThirdTimeOfMed = String()
+                
+                let bfBrk = dict["before_bf"] as? String
+                let afBrk = dict["after_bf"] as? String
+                let bfLunch = dict["before_lunch"] as? String
+                let afLunch = dict["after_lunch"] as? String
+                let bfDinner = dict["before_dinner"] as? String
+                let afDinner = dict["after_dinner"] as? String
+                
+                if bfBrk == "1" || afBrk == "1"
+                {
+                    FirstTimeOfMed = "1-"
+                }else
+                {
+                    FirstTimeOfMed = "0-"
+                }
+                
+                if bfLunch == "1" || afLunch == "1"
+                {
+                    SecondTimeOfMed = "1-"
+                }else{
+                    SecondTimeOfMed = "0-"
+                }
+                
+                if bfDinner == "1" || afDinner == "1"
+                {
+                    ThirdTimeOfMed = "1"
+                }else{
+                    ThirdTimeOfMed = "0"
+                }
+                let medtime = FirstTimeOfMed + SecondTimeOfMed + ThirdTimeOfMed
+                Mcell.lblMedTime.text = medtime
+                
             }
-            
-            if bfLunch == "1" || afLunch == "1"
-            {
-                SecondTimeOfMed = "1-"
-            }else{
-                 SecondTimeOfMed = "0-"
-            }
-            
-            if bfDinner == "1" || afDinner == "1"
-            {
-                ThirdTimeOfMed = "1"
-            }else{
-                ThirdTimeOfMed = "0"
-            }
-            let medtime = FirstTimeOfMed + SecondTimeOfMed + ThirdTimeOfMed
-            Mcell.lblMedTime.text = medtime
-            
+         
             return Mcell
         }
         else

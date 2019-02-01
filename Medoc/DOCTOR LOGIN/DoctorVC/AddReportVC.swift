@@ -33,7 +33,7 @@ class ReportImageArr
 }
 
 
-class AddReportVC: UIViewController, reportImgDelegate
+class AddReportVC: UIViewController
 {
    
     @IBOutlet weak var btnAddReport: UIButton!
@@ -51,14 +51,14 @@ class AddReportVC: UIViewController, reportImgDelegate
     var DocumentFileName: String?
     var m_cReportDelegate : reportImgDelegate!
     var alert = ZAlertView()
-    var m_cReportImgArr = [ReportImageArr]()
+  //  var m_cReportImgArr = [ReportImageArr]()
     
     var m_cReportData: CReportData!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if m_cReportImgArr.isEmpty == false
+        
+        if m_cReportData.m_cReportDataArr.isEmpty == false
         {
             tblReportData.reloadData()
         }
@@ -71,12 +71,6 @@ class AddReportVC: UIViewController, reportImgDelegate
         tblReportData.separatorStyle = .none
     }
     
-    func reportImages() {
-        print("")
-    }
-    
-
-    
     func Btn(btn : UIButton)
     {
         btn.layer.cornerRadius = 5
@@ -87,7 +81,6 @@ class AddReportVC: UIViewController, reportImgDelegate
     
     @IBAction func btnBack_onclick(_ sender: Any)
     {
-        //self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -109,8 +102,8 @@ class AddReportVC: UIViewController, reportImgDelegate
         ZAlertView(title: "Medoc", msg: "Are you sure you want to delete this ?", dismisstitle: "No", actiontitle: "Yes")
         {
             let nIndex = sender.tag
-            let refArrObj = self.m_cReportImgArr[nIndex!]
-            self.m_cReportImgArr.remove(at: nIndex!)
+            let refArrObj = self.m_cReportData.m_cReportDataArr[nIndex!]
+            self.m_cReportData.m_cReportDataArr.remove(at: nIndex!)
             self.tblReportData.reloadData()
         }
         
@@ -130,18 +123,12 @@ class AddReportVC: UIViewController, reportImgDelegate
                     let timestamp = Date().toMillis()
                     image?.accessibilityIdentifier = String(describing: timestamp)
                     
-                    let lcReportVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddReportVC") as! AddReportVC
+                    let lcReport = ReportImageArr(cReport_img: image!, cReport_timestmp: String(describing: timestamp!), cReport_tag: self.fileName!)
                     
-                    let lcReport = ReportImageArr(cReport_img: image!, cReport_timestmp: String(describing: timestamp), cReport_tag: self.fileName)
+                 self.m_cReportData.m_cReportDataArr.append(lcReport)
+                   
+                    self.tblReportData.reloadData()
                     
-                        lcReportVC.m_cReportDelegate = self
-                    self.m_cReportData.m_cReportDataArr.append(lcReport)
-                    
-                    lcReportVC.m_cReportData = self.m_cReportData
-                    self.navigationController?.pushViewController(lcReportVC, animated: true)
-                    
-                    
-                  
                 })
                 
             }
@@ -173,9 +160,11 @@ extension AddReportVC : UITableViewDelegate, UITableViewDataSource
         
         cell.backview.designCell()
         
-        
         let lcdict =  self.m_cReportData.m_cReportDataArr[indexPath.row]
         cell.imgReport.image = lcdict.Report_img
+        
+        cell.imgReport.contentMode = UIView.ContentMode.scaleAspectFit
+        cell.imgReport.clipsToBounds = true
         cell.m_cNamelbl.text = lcdict.Report_Tag
         cell.btnDelete.tag = indexPath.row
         cell.btnDelete.addTarget(self, action: #selector(Delete_Click(sender:)), for: .touchUpInside)

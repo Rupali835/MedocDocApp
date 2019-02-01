@@ -25,7 +25,6 @@ class SideList : NSObject
 class SideMenuListVC: UIViewController
 {
 
-    @IBOutlet weak var lblDocEmail: UILabel!
     @IBOutlet weak var lblDocNm: UILabel!
     @IBOutlet weak var tblSideMenu: UITableView!
     
@@ -45,7 +44,25 @@ class SideMenuListVC: UIViewController
         tblSideMenu.delegate = self
         tblSideMenu.dataSource = self
         tblSideMenu.separatorStyle = .none
-     
+        
+        let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
+       let Nm = dict["name"] as! String
+        self.lblDocNm.text = "Dr. \(Nm)"
+    }
+    
+    
+    @IBAction func btnMedocInfo_onclick(_ sender: Any)
+    {
+        let webvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "MedocInfowebVc") as! MedocInfowebVc
+       
+          revealViewController().pushFrontViewController(webvc, animated: true)
+    }
+    
+    
+    @IBAction func btnKsplLink_onClick(_ sender: Any)
+    {
+        guard let url = URL(string: "http://ksoftpl.com/") else { return }
+        UIApplication.shared.open(url)
     }
     
     func Logout()
@@ -171,6 +188,7 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
             
         case 8:
             let contactVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ContactUsVC") as! ContactUsVC
+          
              revealViewController().pushFrontViewController(contactVc, animated: true)
             
             break

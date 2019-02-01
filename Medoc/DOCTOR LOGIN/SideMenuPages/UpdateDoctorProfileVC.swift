@@ -9,14 +9,13 @@
 import UIKit
 import Alamofire
 import DropDown
+import Kingfisher
 
 class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
 {
-
     
+    @IBOutlet weak var imgProfile: UIImageView!
     @IBOutlet weak var btnProfile: UIButton!
-    
-    
     @IBOutlet weak var txtWebsite: HoshiTextField!
     @IBOutlet weak var txtAddress: HoshiTextField!
     @IBOutlet weak var txtDob: HoshiTextField!
@@ -33,28 +32,21 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
     var toast = JYToast()
     var DoctorDesigntnArr = [AnyObject]()
     let dropdownDoctorList = DropDown()
-    
-    
     let datepicker = UIDatePicker()
     let toolBar = UIToolbar()
     var DateStr : String?
     var loggedinId : Int!
     
     var selectedImage: UIImage!
-    var DocumentselectedImage: UIImage!
-    var filePath: String!
-    var fileURL: URL!
     var fileName: String!
-    var DocumentImageFileName: String!
-    var DocumentFileURL: URL!
-    var DocumentFileName: String?
     var m_cProfileData = [AnyObject]()
+    var img_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
         self.txtDesignation.delegate = self
-       createDatePicker()
+        createDatePicker()
         dropdownDoctorList.anchorView = txtDesignation
         getDoctorDesintn()
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
@@ -62,15 +54,6 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
         loggedinId = dict["id"] as? Int
         setData()
     }
-    
-    func setDropDown()
-    {
-          DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 19)
-        dropdownDoctorList.direction = .top
-        dropdownDoctorList.bottomOffset = CGPoint(x: 0, y: (dropdownDoctorList.anchorView?.plainView.bounds.height)!)
-        
-    }
-    
     
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
@@ -125,7 +108,14 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
         {
             ProfilePic = "NF"
         }
-        
+        var DateDob = String()
+        if self.DateStr != nil
+        {
+            DateDob = self.DateStr!
+        }else
+        {
+            DateDob = txtDob.text!
+        }
         
         let profileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/update_doctor"
         
@@ -141,7 +131,7 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
             "qualification" : self.txtQualification.text!,
             "experience" : self.txtExperience.text!,
             "specialized_in" : self.txtSpecin.text!,
-            "dob" : self.DateStr!,
+            "dob" : DateDob,
             "website" : self.txtWebsite.text!,
             "address" : self.txtAddress.text!,
             "profile_picture" : ProfilePic,
@@ -213,15 +203,24 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
                             let profilevc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
                             
                             self.present(profilevc, animated: true, completion: nil)
-                        }
-                        if Msg == "fail"
+                            
+                        }else if Msg == "fail"
                         {
                             self.toast.isShow("Image not uploaded")
                            let profilevc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
                                 
                         self.present(profilevc, animated: true, completion: nil)
                             
+                        }else
+                        {
+                             self.toast.isShow("Something went wrong")
+                            let profilevc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+                            
+                            self.present(profilevc, animated: true, completion: nil)
                         }
+                        
+                       
+                        
                     }
                 }
                 
@@ -256,8 +255,7 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
             for lcAttachment in CDBAttachmentArr
             {
                 self.fileName = lcAttachment.fileName
-                print(self.fileName)
-                print(self.filePath)
+                
                 lcAttachment.loadOriginalImage(completion: {image in
                     
                     
@@ -350,7 +348,26 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
     {
         for lcdata in m_cProfileData
         {
-            self.txtNm.text = lcdata["name"] as! String
+            self.txtNm.text = lcdata["name"] as? String
+          //  self.txtDob.text = lcdata["dob"] as? String
+            self.txtContact.text = lcdata["contact_no"] as? String
+            self.txtAltContact.text = lcdata["alt_contact_no"] as? String
+            self.txtEmail.text = lcdata["email"] as? String
+            self.txtSpecin.text = lcdata["specialized_in"] as? String
+            self.txtAddress.text = lcdata["address"] as? String
+            self.txtWebsite.text = lcdata["website"] as? String
+            self.txtExperience.text = lcdata["experience"] as? String
+            self.txtDesignation.text = lcdata["designation"] as? String
+            
+            if let profilePic = lcdata["profile_picture"] as? String
+            {
+                
+                let str = "\(img_path)\(profilePic)"
+                let ImgUrl = URL(string: str)
+                imgProfile.kf.setImage(with: ImgUrl)
+                
+            }
+            
         }
     }
     

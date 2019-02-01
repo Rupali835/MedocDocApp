@@ -30,10 +30,9 @@ class PrescriptionViewController: UIViewController {
     @IBOutlet var undo : UIButton!
 
     var selected = Bool(true)
-    var selectedWidth = 5
+    var selectedWidth = 3
     var selectedColor = UIColor()
-    let dropdownWidth = DropDown()
-    let dropdownColor = DropDown()
+  
     var Selectedindex = 0
     let color = ["#000000","#FFFB00","#0096FF","#8EFA00","#FF2600","#FF7E79","FF9300"]
     
@@ -53,21 +52,6 @@ class PrescriptionViewController: UIViewController {
         super.viewDidLoad()
         DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 20)
 
-        dropdownWidth.arrowIndicationX = 50
-        dropdownColor.arrowIndicationX = 50
-        
-        dropdownWidth.anchorView = brushWidth
-        dropdownColor.anchorView = brushColor
-        
-        dropdownWidth.dataSource = ["2","5","8","10","15","20"]
-        dropdownColor.dataSource = ["Black","Yellow","Blue","Green","Red","Pink","Orange"]
-        
-        dropdownWidth.direction = .bottom
-        dropdownColor.direction = .bottom
-        
-        dropdownWidth.bottomOffset = CGPoint(x: 0, y:(dropdownWidth.anchorView?.plainView.bounds.height)!)
-        dropdownColor.bottomOffset = CGPoint(x: 0, y:(dropdownColor.anchorView?.plainView.bounds.height)!)
-        
         cancel.addTarget(self, action: #selector(cancelAction), for: .touchUpInside)
    
         save.addTarget(self, action: #selector(saveAction), for: .touchUpInside)
@@ -97,7 +81,6 @@ class PrescriptionViewController: UIViewController {
         brushColor.titleLabel?.textColor = hexStringToUIColor(hex: color[Selectedindex])
     }
     @objc func cancelAction(){
-       // self.dismiss(animated: true, completion: nil)
         
         self.navigationController?.popViewController(animated: true)
         
@@ -114,7 +97,6 @@ class PrescriptionViewController: UIViewController {
                 self.paintImgArr.append(drawImg!)
                 
                 
-                
                 let timestamp = Date().toMillis()
                 drawImg?.accessibilityIdentifier = String(describing: timestamp)
                 
@@ -123,44 +105,18 @@ class PrescriptionViewController: UIViewController {
                 
                 let prescvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddPrescriptionDrawingVC") as! AddPrescriptionDrawingVC
                 
-               prescvc.m_cPressData = self.m_cPressData
-             //   prescvc.m_cDrawimg = self as! drawingOnBack
-             self.navigationController?.pushViewController(prescvc, animated: true)
+              prescvc.m_cPressData = self.m_cPressData
+              self.navigationController?.pushViewController(prescvc, animated: true)
                 
             }else
             {
                  openPopupName()
             }
             
-//            if self.m_bView == false
-//            {
-//                dataOfPrescription()
-//            }else
-//            {
-//                 openPopupName()
-//            }
-//
 
         }
     }
-    
- /*
-    func dataOfPrescription()
-    {
-        NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : self.Paintview.image!])
-        
-        let drawImg = self.Paintview.image
-        self.paintImgArr.append(drawImg!)
-        
-        let timestamp = Date().toMillis()
-        drawImg?.accessibilityIdentifier = String(describing: timestamp)
-        
-        self.m_cPaintDocsdelegate.PaintDocs(docs: drawImg!, docnm: "", docTimeStamp: String(describing: timestamp!))
-        
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-   */
+
     
     func openPopupName()
     {
@@ -169,7 +125,7 @@ class PrescriptionViewController: UIViewController {
             
             ZAlertView.showAnimation = .fadeIn
             
-            self.alertWithText = ZAlertView(title: "Medoc", message: "Enter the name which you want to save the image", isOkButtonLeft: false, okButtonText: "Save", cancelButtonText: "Cancel", okButtonHandler: { (send) in
+            self.alertWithText = ZAlertView(title: "Medoc", message: "Enter the name which you want to save the drawing", isOkButtonLeft: false, okButtonText: "Save", cancelButtonText: "Cancel", okButtonHandler: { (send) in
                 
                 let txt1 = self.alertWithText.getTextFieldWithIdentifier("Remark")!
                 
@@ -200,7 +156,7 @@ class PrescriptionViewController: UIViewController {
             }) { (cancel) in
                 cancel.dismissWithDuration(0.5)
             }
-            self.alertWithText.addTextField("Remark", placeHolder: "Enter the name of image")
+            self.alertWithText.addTextField("Remark", placeHolder: "Enter the name of drawing")
             self.alertWithText.showWithDuration(1.0)
         }
     }
@@ -255,39 +211,35 @@ class PrescriptionViewController: UIViewController {
     
     @IBAction func btnBrush1_onClick(_ sender: Any)
     {
+        self.selectedColor = UIColor.black
         self.selectedWidth = 10
         Paintview.lineWidth = Float(selectedWidth)
+        Paintview.lineColor = self.selectedColor
     }
     
     @IBAction func btnBrush2_onclick(_ sender: Any)
     {
+        self.selectedColor = UIColor.black
         self.selectedWidth = 3
         Paintview.lineWidth = Float(selectedWidth)
+        Paintview.lineColor = self.selectedColor
     }
     
     @IBAction func btnBrush3_onclick(_ sender: Any)
     {
+        self.selectedColor = UIColor.black
         self.selectedWidth = 8
         Paintview.lineWidth = Float(selectedWidth)
+        Paintview.lineColor = self.selectedColor
     }
     
     
     @IBAction func btnEraser_onclick(_ sender: Any)
     {
-        if selected == true {
-            selectedColor = UIColor.white
-            Paintview.lineColor = selectedColor
-            Paintview.lineWidth = Float(selectedWidth + 40)
-            Eraser.setTitle("Done", for: .normal)
-            selected = false
-        }
-        else if selected == false {
-            selectedColor = hexStringToUIColor(hex: self.color[Selectedindex])
-            Paintview.lineColor = selectedColor
-            Paintview.lineWidth = Float(selectedWidth)
-            Eraser.setTitle("Eraser", for: .normal)
-            selected = true
-        }
+        
+        selectedColor = UIColor.white
+        Paintview.lineColor = selectedColor
+        Paintview.lineWidth = Float(selectedWidth + 40)
 
     }
     
@@ -342,9 +294,7 @@ extension UIView {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
     
         return renderer.image { rendererContext in layer.render(in: rendererContext.cgContext)
-            
-            
-//           rendererContext.cgContext.draw((UIImage(named: "sign_imageNm")?.cgImage)!, in: CGRect(x: 0, y: 0, width: 100, height: 80))
+        
         }
     }
 }

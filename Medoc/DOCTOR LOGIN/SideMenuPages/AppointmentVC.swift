@@ -19,6 +19,7 @@ class AppointmentVC: UIViewController {
     let toolBar = UIToolbar()
     var DateStr : String?
     var patientList = [AnyObject]()
+    var ColorArr = [UIColor]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,8 @@ class AppointmentVC: UIViewController {
         self.txtDate.text = txt + stringDate
         self.DateStr = stringDate
         getPatientList()
+        
+         self.ColorArr = [UIColor.MKColor.Red.P400, UIColor.MKColor.Blue.P400, UIColor.MKColor.Orange.P400, UIColor.MKColor.Green.P400, UIColor.MKColor.Indigo.P400, UIColor.MKColor.Amber.P400, UIColor.MKColor.LightBlue.P400, UIColor.MKColor.BlueGrey.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Cyan.P400, UIColor.MKColor.Teal.P400, UIColor.MKColor.Lime.P400, UIColor.MKColor.Pink.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Purple.P400]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -160,12 +163,15 @@ extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource
     {
         let cell = collView.dequeueReusableCell(withReuseIdentifier: "AppointmentCell", for: indexPath) as! AppointmentCell
         
+           let randomColor = ColorArr[Int(arc4random_uniform(UInt32(ColorArr.count)))]
+        
         let lcdict = self.patientList[indexPath.row]
       
         let index = indexPath.row + 1
         
         cell.lblPatientnm.text = (lcdict["name"] as! String)
         cell.lblnumber.text = String(index)
+        cell.lblnumber.backgroundColor = randomColor
         cell.backview.designCell()
         return cell
     }

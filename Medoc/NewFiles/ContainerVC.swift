@@ -58,9 +58,7 @@ class ContainerVC: UIViewController {
         },
                           completion: nil)
         
-//        self.signupvc.view.frame = self.containerView.bounds
-//        self.containerView.addSubview(self.signupvc.view)
-        
+
     }
     
     func showForgetpassword()

@@ -19,4 +19,5 @@
 
 
 
+
 #endif /* Medoc_Bridging_Header_h */

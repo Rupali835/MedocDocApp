@@ -15,9 +15,10 @@ protocol AddPatientProtocol {
     func callAddPatientApi()
 }
 
-class AddPatientVC: UIViewController, UITextFieldDelegate
+class AddPatientVC: UIViewController
 {
 
+    @IBOutlet weak var txtDob: SkyFloatingLabelTextField!
     @IBOutlet weak var btnProfile: UIButton!
     @IBOutlet weak var btmfemale: UIButton!
     @IBOutlet weak var btnmale: UIButton!
@@ -31,9 +32,7 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
     @IBOutlet weak var txtPatNm: SkyFloatingLabelTextField!
     @IBOutlet weak var txtContactNo: SkyFloatingLabelTextField!
     
-    
     let date = Date()
-    let formatter = DateFormatter()
     let datepicker = UIDatePicker()
     let toolBar = UIToolbar()
     var DateStr : String?
@@ -42,6 +41,8 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
     var m_caddPatient = AddPatient()
     var toast = JYToast()
     var m_dAddPatient : AddPatientProtocol!
+    let formatter = DateFormatter()
+    var dobStr : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,29 +51,36 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
       imgFemale.image = imgFemale.image!.withRenderingMode(.alwaysTemplate)
         
        self.txtContactNo.delegate = self
-        self.txtPatNm.delegate = self
+       self.txtPatNm.delegate = self
+        self.txtDob.delegate = self
         
-      let formatter = DateFormatter()
-       formatter.dateFormat = "yyyy-MM-dd"
+     
+        formatter.dateFormat = "yyyy-MM-dd"
         let stringDate: String = formatter.string(from: Date())
         self.txtDate.text = stringDate
         self.DateStr = stringDate
         self.txtDate.delegate = self
+       
+         self.txtDob.addTarget(self, action: #selector(openDobPicker), for: .editingDidBegin)
         
         self.txtDate.addTarget(self, action: #selector(openPicker), for: .editingDidBegin)
         
-          self.txtPatNm.addTarget(self, action: #selector(validName), for: .editingChanged)
+        self.txtPatNm.addTarget(self, action: #selector(validName), for: .editingChanged)
         
-         self.txtContactNo.addTarget(self, action: #selector(validContact), for: .editingChanged)
-        
-        
+        self.txtContactNo.addTarget(self, action: #selector(validContact), for: .editingChanged)
         
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
         
         m_caddPatient.loggedin_id = dict["id"] as? Int
         m_caddPatient.loggedin_role = dict["role_id"] as? String
-        clearData()
+       
+       
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+         clearData()
     }
     
     @objc func validContact()
@@ -116,19 +124,18 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
         @objc func openPicker()
         {
             createDatePicker()
-        }
+            
+    }
     
+    @objc func openDobPicker()
+    {
+        createDOB()
+    }
     
      @IBAction func btnAddPatientProfile_onclick(_ sender: Any)
         {
             self.TakePhoto()
         }
-    
-    
-    @IBAction func btnDatePicker_onclick(_ sender: Any)
-    {
-        createDatePicker()
-    }
     
     func StringFromDate(nDate: Date) -> String
     {
@@ -137,6 +144,49 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
         return dateFormater.string(from: nDate)
     }
    
+    func createDOB()
+    {
+        _ = Date()
+        
+        datepicker.datePickerMode = .date
+        toolBar.sizeToFit()
+        let barBtnItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneDOB))
+        
+        let barBtnCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(CancelPicker))
+        
+        toolBar.setItems([barBtnItem, barBtnCancel], animated: false)
+        txtDob.inputAccessoryView = toolBar
+        txtDob.inputView = datepicker
+    
+        let calendar = Calendar.current
+         let currentDate: Date = Date()
+        var components: DateComponents = DateComponents()
+        components.calendar = calendar
+        var minDateComponent = calendar.dateComponents([.day,.month,.year], from: Date())
+        minDateComponent.day = 01
+        minDateComponent.month = 01
+        minDateComponent.year = 1920
+        
+        let minDate = calendar.date(from: minDateComponent)
+      
+        let maxDate: Date = calendar.date(byAdding: components, to: currentDate)!
+        
+         self.datepicker.minimumDate = minDate as! Date
+         self.datepicker.maximumDate = maxDate as! Date
+        
+    }
+    
+    @objc func doneDOB()
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        txtDob.text = dateFormatter.string(from: datepicker.date)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.dobStr = self.convertDateFormater(dateFormatter.string(from: datepicker.date))
+        self.view.endEditing(true)
+    }
+    
     
     func createDatePicker()
     {
@@ -151,17 +201,14 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
         toolBar.setItems([barBtnItem, barBtnCancel], animated: false)
         txtDate.inputAccessoryView = toolBar
         txtDate.inputView = datepicker
-        
+    
     }
-    
-    
-    
+
     @objc func donePresses()
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        
         txtDate.text = dateFormatter.string(from: datepicker.date)
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.DateStr = self.convertDateFormater(dateFormatter.string(from: datepicker.date))
@@ -181,7 +228,6 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
         let date = dateFormatter.date(from: date)
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return  dateFormatter.string(from: date!)
-        
     }
     
     @IBAction func btnClosePopup_onClick(_ sender: Any)
@@ -213,7 +259,11 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
             return false
         }
         
-
+        if txtDob.text == ""
+        {
+            self.toast.isShow("Patient date is mandatory")
+            return false
+        }
         
         if txtContactNo.text == ""
         {
@@ -259,6 +309,7 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
                      "contact" : txtContactNo.text!,
                      "profile_picture" : m_caddPatient.profile_picture!,
                      "action" : "new",
+                     "dob" : self.dobStr!,
                      "appointment_date" : self.DateStr!] as [String : Any]
         
         print(param)
@@ -304,6 +355,7 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
     func AddFiles()
     {
         let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
+        
         Alamofire.upload(
             multipartFormData: { multipartFormData in
                 
@@ -338,17 +390,11 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
                         let Msg = JSON["msg"] as! String
                         if Msg == "success"
                         {
-                            let profilevc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-                            
-                            self.present(profilevc, animated: true, completion: nil)
+                            self.view.removeFromSuperview()
                         }
                         if Msg == "fail"
                         {
-                           // self.toast.isShow("Image not uploaded")
-                            let profilevc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-                            
-                            self.present(profilevc, animated: true, completion: nil)
-                            
+                          self.view.removeFromSuperview()
                         }
                     }
                 }
@@ -358,10 +404,11 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
             }
             
         }
+ 
+ 
     }
     
- 
-    
+
     func TakePhoto()
     {
         let attachmentPickerController = DBAttachmentPickerController.imagePickerControllerFinishPicking({ CDBAttachmentArr in
@@ -395,12 +442,10 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
         attachmentPickerController.present(on: self)
     }
     
-  
-     
      @IBAction func btnmale_onclick(_ sender: Any)
      {
      btnmale.tag = 1
-     m_caddPatient.gender = "Male"
+     m_caddPatient.gender = "1"
      self.lblMan.textColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
      self.imgMale.tintColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
      self.lblFemale.textColor = UIColor.darkGray
@@ -410,17 +455,30 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
      @IBAction func btnFemale_onclick(_ sender: Any)
      {
      btmfemale.tag = 2
-     m_caddPatient.gender = "Female"
+     m_caddPatient.gender = "2"
      self.lblFemale.textColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
      self.imgFemale.tintColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
      self.lblMan.textColor = UIColor.darkGray
      self.imgMale.tintColor = UIColor.darkGray
      }
     
+  
+
+}
+extension UIImage {
+    func toString() -> String? {
+        let data: Data? = self.pngData()
+        return data?.base64EncodedString(options: .endLineWithLineFeed)
+    }
+}
+extension AddPatientVC : UITextFieldDelegate
+{
+    
+   
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         
-      
         if textField == txtContactNo
         {
             guard let text = txtContactNo.text else { return true }
@@ -430,5 +488,4 @@ class AddPatientVC: UIViewController, UITextFieldDelegate
         }
         return true
     }
-
 }

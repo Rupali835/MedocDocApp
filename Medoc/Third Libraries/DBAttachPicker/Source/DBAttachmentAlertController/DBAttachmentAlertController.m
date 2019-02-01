@@ -317,7 +317,8 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
                               }];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     [self.selectedIndexPathArray addObject:indexPath];
     if (self.allowsMultipleSelection) {
         [self updateAttachPhotoCountIfNedded];
