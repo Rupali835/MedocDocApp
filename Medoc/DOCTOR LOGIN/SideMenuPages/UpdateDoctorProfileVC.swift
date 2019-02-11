@@ -171,6 +171,8 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
                 
                 if self.selectedImage != nil
                 {
+                   // let data = self.selectedImage.pngData()
+                    
                     let data = self.selectedImage.jpegData(compressionQuality: 0.0)
                     
                     multipartFormData.append(data!, withName: "images[]", fileName: self.fileName, mimeType: "images/jpeg")

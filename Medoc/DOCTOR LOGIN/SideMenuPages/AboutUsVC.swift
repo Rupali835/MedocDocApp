@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class AboutUsVC: UIViewController {
 
@@ -17,6 +18,14 @@ class AboutUsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        OperationQueue.main.addOperation {
+            SVProgressHUD.setDefaultMaskType(.custom)
+            SVProgressHUD.setBackgroundColor(UIColor.gray)
+            SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
+            SVProgressHUD.show()
+        }
+        
         loadUrl()
     }
     
@@ -25,6 +34,12 @@ class AboutUsVC: UIViewController {
         let url = URL(string: "http://ksoftpl.com/about-us")
         let requestObj = URLRequest(url: url! as URL)
         aboutWebview.loadRequest(requestObj)
+        
+        OperationQueue.main.addOperation {
+           
+            SVProgressHUD.dismiss()
+        }
+        
     }
 
     func sideMenus()

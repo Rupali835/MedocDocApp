@@ -37,6 +37,8 @@ class SignUpFormVC: UIViewController
     var DocumentFileURL: URL!
     var DocumentFileName: String?
     var dropdownQualification = DropDown()
+    var selectQualificationString = [String]()
+    var m_cFilterdArr = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -163,15 +165,30 @@ class SignUpFormVC: UIViewController
         TakePhoto()
     }
    
+    func json(from object:Any) -> String? {
+        guard let data = try? JSONSerialization.data(withJSONObject:  object, options: []) else
+        {
+            return nil
+        }
+        
+        return String(data: data, encoding: String.Encoding.utf8)
+    }
+    
+    
     // MARK : FUNCTIONS
     
     func sendData()
     {
         var ProfilePic = String()
         
-        if txtQualification.text == ""
+        var QualVal = String()
+        
+        if selectQualificationString.isEmpty == true
         {
-            txtQualification.text = "NF"
+            QualVal = "NF"
+        }else
+        {
+            QualVal = json(from: selectQualificationString)!
         }
     
         if self.selectedImage != nil
@@ -187,7 +204,7 @@ class SignUpFormVC: UIViewController
         let param = ["name" : txtName.text!,
                      "email" : txtEmail.text!,
                      "contact_no" : txtMobileNo.text! ,
-                     "qualification" : txtQualification.text!,
+                     "qualification" : QualVal,
                      "registration_no" : txtRegNo.text!,
                      "profile_picture" : ProfilePic
                      
@@ -202,7 +219,11 @@ class SignUpFormVC: UIViewController
                 if self.selectedImage != nil
                 {
                     
+                   
                     let data = self.selectedImage.jpegData(compressionQuality: 0.0)
+                    
+              //      let data = self.selectedImage.pngData()
+                    
                     multipartFormData.append(data!, withName: "profile_picture", fileName: self.fileName, mimeType: "image/jpeg")
                     
                 }
@@ -257,50 +278,6 @@ class SignUpFormVC: UIViewController
                     print(encodingError)
                 }
         })
-        
-        
-        
-  /*
-        
-       Alamofire.request(SignupApi, method: .post, parameters: param).responseJSON { (resp) in
-            print(resp)
-
-            switch resp.result
-            {
-            case .success(_):
-
-                let json = resp.result.value as! NSDictionary
-                let Msg = json["msg"] as! String
-                if Msg == "Added Successfully"
-                {
-                    ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details in Medoc App. Thank you!", actiontitle: "OK")
-                    {
-                        self.view.removeFromSuperview()
-                    }
-                }else if Msg == "Already exist"
-                {
-                   
-                    ZAlertView.init(title: "Medoc", msg: "Mobile number or Email has already available on server. Please use another.", actiontitle: "OK")
-                    {
-                        print("")
-                    }
-                }
-                else if Msg == "User not found"
-               {
-                ZAlertView.init(title: "Medoc", msg: "Your data is not found, Please sign up.", actiontitle: "OK")
-                   {
-                print("")
-                   }
-                }
-                break
-
-            case .failure(_):
-                break
-            }
-        }
- 
- */
- 
         
     }
     
@@ -395,10 +372,36 @@ extension SignUpFormVC : UITextFieldDelegate
         
         if textField == txtQualification
         {
-            dropdownQualification.show()
-            dropdownQualification.selectionAction = { [unowned self] (index: Int, item: String) in
+//            dropdownQualification.show()
+//            dropdownQualification.selectionAction = { [unowned self] (index: Int, item: String) in
+//
+//                self.QualificationtagView.tags.append(TagView(text: item))
+//                self.selectQualificationString.append(item)
+//                print(self.selectQualificationString.count)
+//            }
+            
+            
+            
+            if let text = textField.text,
+                let textRange = Range(range, in: text)
+            {
+                self.dropdownQualification.show()
                 
-                self.QualificationtagView.tags.append(TagView(text: item))
+                let updatedText = text.replacingCharacters(in: textRange,with: string)
+                
+                let AutoWordsArr = self.dropdownQualification.dataSource
+                
+                self.m_cFilterdArr = AutoWordsArr.filter( { $0.lowercased().prefix(updatedText.count) == updatedText.lowercased() })
+                
+                self.dropdownQualification.dataSource = self.m_cFilterdArr
+                self.dropdownQualification.reloadAllComponents()
+                
+                dropdownQualification.selectionAction = { [unowned self] (index: Int, item: String) in
+                    
+                     self.QualificationtagView.tags.append(TagView(text: item))
+                     self.selectQualificationString.append(item)
+                     self.txtQualification.text = ""
+                }
                 
             }
         }

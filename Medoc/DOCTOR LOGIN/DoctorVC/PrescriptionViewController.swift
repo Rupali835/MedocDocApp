@@ -140,7 +140,7 @@ class PrescriptionViewController: UIViewController {
                 let timestamp = Date().toMillis()
                 drawImg?.accessibilityIdentifier = String(describing: timestamp)
                
-                let lcDrawObj = DrawingArr(cDrawImg: self.Paintview.image!, cDrawTag: docNm, cDrawTimestamp: String(describing: timestamp))
+                let lcDrawObj = DrawingArr(cDrawImg: self.Paintview.image!, cDrawTag: docNm, cDrawTimestamp: String(describing: timestamp!))
                 
                 self.m_cDrawData.m_cDrawDataArr.append(lcDrawObj)
                 
@@ -236,11 +236,9 @@ class PrescriptionViewController: UIViewController {
     
     @IBAction func btnEraser_onclick(_ sender: Any)
     {
-        
         selectedColor = UIColor.white
         Paintview.lineColor = selectedColor
         Paintview.lineWidth = Float(selectedWidth + 40)
-
     }
     
     

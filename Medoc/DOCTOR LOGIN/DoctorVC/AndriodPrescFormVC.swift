@@ -68,10 +68,18 @@ class MedicineData
     var afterDinnerTime : String!
  }
 
-class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportImgDelegate, UITextViewDelegate, DrawingOnPadProtocol,PaintDocsDelegate
+class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportImgDelegate, DrawingOnPadProtocol,PaintDocsDelegate, UITextViewDelegate
 {
    
     
+    @IBOutlet weak var lblPatientId: UILabel!
+    @IBOutlet weak var txtAfDinTime: UITextField!
+    @IBOutlet weak var txtAfLunchTime: UITextField!
+    @IBOutlet weak var txtAfBrkTime: UITextField!
+    @IBOutlet weak var txtBfDinTime: UITextField!
+    @IBOutlet weak var txtBfLunchTime: UITextField!
+    @IBOutlet weak var txtBfbrkTime: UITextField!
+    @IBOutlet weak var LabTestView: UIView!
     @IBOutlet weak var txtReferdBy: SkyFloatingLabelTextField!
     @IBOutlet weak var problemListTagView: CloudTagView!
    
@@ -137,39 +145,22 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     @IBOutlet weak var checkAfDinner: UIButton!
     @IBOutlet weak var writePrescView: UIView!
     @IBOutlet weak var checkboxStackView: UIStackView!
-    @IBOutlet weak var HgtcheckboxStackView: NSLayoutConstraint!
-    @IBOutlet weak var HgtDailyStackview: NSLayoutConstraint!
     @IBOutlet weak var HgtMedicalView: NSLayoutConstraint!
-  
-    
     @IBOutlet weak var HgtMedicineCollectionView: NSLayoutConstraint!
     @IBOutlet weak var viewPresDrwingPad: UIView!
-    
     @IBOutlet weak var viewpatientDrawing: UIView!
-    
     @IBOutlet weak var viewPatientReport: UIView!
-    
+    @IBOutlet weak var viewWholeDrawingView: UIView!
+
     var m_nNewLength: Int!
     var m_cFilterdArr = [String]()
-    
-   @IBOutlet weak var viewWholeDrawingView: UIView!
-    
     var medicineIntervalType = String()
     var popUp = KLCPopup()
     var signatureFormvc : SignatureVC!
-    var AlertWithText = ZAlertView()
-    var TxtVal = String()
-    var getTxtVal = Bool(false)
     var reportArr = [UIImage]()
     var toast = JYToast()
     var selectedImage: UIImage!
-    var DocumentselectedImage: UIImage!
-    var filePath: String!
-    var fileURL: URL!
     var fileName: String!
-    var DocumentImageFileName: String!
-    var DocumentFileURL: URL!
-    var DocumentFileName: String?
     var m_cPresdata = PresData()
     var PatientdataFromBack = [String : Any]()
     var m_cMedicineData = [MedicineData]()
@@ -209,13 +200,16 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     var m_cDrawData = CDrawData()
     var m_cReportData = CReportData()
     var AutoWordsArr = [String]()
-   let dropdownAutoWordsList = DropDown()
+    let dropdownAutoWordsList = DropDown()
 
+    var pickerview = UIPickerView()
+    var PickerMinArr = [String]()
+    var selectedMinIndex : Int = 0
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-    //    problemListTagView.delegate = self
+
         dropdownAutoWordsList.anchorView = txtpatProblems
         dropdownAutoWordsList.direction = .bottom
         dropdownAutoWordsList.bottomOffset = CGPoint(x: 0, y:(dropdownAutoWordsList.anchorView?.plainView.bounds.height)!)
@@ -251,7 +245,10 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         if self.PatientdataFromBack.isEmpty == false
         {
            self.patient_id = self.PatientdataFromBack["patient_id"] as! String
-           
+            let name = self.PatientdataFromBack["name"] as! String
+            let id  = "(Patient ID: \(self.patient_id))"
+            self.lblPatientId.text = "Patient Name: \(name)\(id)"
+            
         self.PatientClinicVisitId = self.PatientdataFromBack["patient_clinic_visit_id"] as! String
         }
       
@@ -262,6 +259,12 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         collMedicine.dataSource = self
         createDatePicker()
         
+        txtAfBrkTime.delegate = self
+        txtAfLunchTime.delegate = self
+        txtAfDinTime.delegate = self
+        txtBfLunchTime.delegate = self
+        txtBfDinTime.delegate = self
+        txtBfbrkTime.delegate = self
         txtPresc.delegate = self
         txtOtherDetail.delegate = self
         txtpatProblems.delegate = self
@@ -273,6 +276,8 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         txtBloodGrp.clearButtonMode = .whileEditing
         textFeildValid()
         AddJsonData()
+        
+        self.PickerMinArr = ["5 min", "10 min", "15 min", "20 min", "25 min", "30 min", "35 min", "40 min", "45 min", "50 min", "55 min", "60 min"]
 
     }
 
@@ -280,6 +285,14 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     func AddJsonData()
     {
+        
+        OperationQueue.main.addOperation {
+            SVProgressHUD.setDefaultMaskType(.custom)
+            SVProgressHUD.setBackgroundColor(UIColor.gray)
+            SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
+            SVProgressHUD.show(withStatus: "Loading..")
+        }
+        
         if let path = Bundle.main.path(forResource: "Type of Conditions", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
@@ -289,15 +302,21 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                 
                     PatientProblem.forEach { lcdict in
                         self.AutoWordsArr.append((lcdict["name"] as? String)!)
+                        
+                    
+                        self.AutoWordsArr = AutoWordsArr.sorted { $0.localizedCaseInsensitiveCompare($1) == ComparisonResult.orderedAscending }
+                        
                     }
                     
                     self.dropdownAutoWordsList.dataSource = self.AutoWordsArr
                     self.dropdownAutoWordsList.reloadAllComponents()
                     
+                    OperationQueue.main.addOperation {
+                        SVProgressHUD.dismiss()
+                    }
                   
                 }
             } catch {
-                // handle error
                 self.toast.isShow(error as! String)
             }
         }
@@ -563,8 +582,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             
             for lcPresc in self.m_cPressData.m_cPressDataArr
             {
-                //let lcimg = lcPresc.PresImg
-                //let lcPresTimestamp = lcPresc.PresTimestampNm!
+    
                 lcDict["dataName"] = String(self.loggedinId) + lcPresc.PresTimestampNm! + ".jpeg"
                 
                 
@@ -620,14 +638,15 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         writePrescView.layer.cornerRadius = 5.0
          SignView.layer.cornerRadius = 5.0
         BasicDetailView.layer.cornerRadius = 5.0
-
+        LabTestView.layer.cornerRadius = 5.0
+        
         viewDescribePatProblem.layer.cornerRadius = 5.0
         viewPatientReport.layer.cornerRadius = 5.0
         viewPresDrwingPad.layer.cornerRadius = 5.0
         viewpatientDrawing.layer.cornerRadius = 5.0
         viewWholeDrawingView.layer.cornerRadius = 5.0
 
-       
+        LabTestView.designCell()
         medicineView.designCell()
         otherDetailView.designCell()
         writePrescView.designCell()
@@ -651,6 +670,13 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         btnDaily.isSelected = false
         btnWeekly.isSelected = false
         btnTimeInterval.isSelected = false
+        
+        txtBfbrkTime.text = ""
+        txtAfBrkTime.text = ""
+        txtBfLunchTime.text = ""
+        txtAfLunchTime.text = ""
+        txtBfDinTime.text = ""
+        txtAfDinTime.text = ""
         
         btnBeBreak.setTitle("Before Breakfast", for: .normal)
         self.checkBfBrk.setImage(UIImage(named: "emptyCheck"), for: .normal)
@@ -802,10 +828,56 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             
             self.view.endEditing(true)
             
+            if self.txtBfbrkTime.text != ""
+            {
+                self.M_CmedicineData.beforeBreakfastTime = self.txtBfbrkTime.text
+            }else
+            {
+                self.M_CmedicineData.beforeBreakfastTime = "0"
+            }
+
+            if txtAfBrkTime.text != ""
+            {
+                self.M_CmedicineData.afterBreakfastTime = txtAfBrkTime.text
+            }else{
+                self.M_CmedicineData.afterBreakfastTime = "0"
+            }
+            
+            if txtBfLunchTime.text != ""
+            {
+                self.M_CmedicineData.beforeLunchTime = txtBfLunchTime.text
+            }else
+            {
+                self.M_CmedicineData.beforeLunchTime = "0"
+            }
+            
+            if txtAfLunchTime.text != ""
+            {
+                self.M_CmedicineData.afterLunchTime = txtAfLunchTime.text
+            }else
+            {
+                self.M_CmedicineData.afterLunchTime = "0"
+            }
+            
+            if txtBfDinTime.text != ""
+            {
+                self.M_CmedicineData.beforeDinnerTime = txtBfDinTime.text
+            }else
+            {
+                self.M_CmedicineData.beforeDinnerTime = "0"
+            }
+            
+            if txtAfDinTime.text != ""
+            {
+                self.M_CmedicineData.afterDinnerTime = txtBfDinTime.text
+            }else
+            {
+                self.M_CmedicineData.afterDinnerTime = "0"
+            }
+            
             M_CmedicineData.medicineName = self.txtMedicineNm.text!
             M_CmedicineData.intervalPeriod = self.txtHowManyDays.text!
             M_CmedicineData.intervalTime = self.txtHowManyWeeks.text!
-            
             
             medicineDict["patientId"] = self.patient_id
             medicineDict["medicineName"] = M_CmedicineData.medicineName
@@ -864,7 +936,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.HgtMedicalView.constant = 550
         self.dailyStackView.isHidden = false
         self.checkboxStackView.isHidden = false
-       // M_CmedicineData.intervalType = medicineIntervalType
         M_CmedicineData.intervalType = "1"
         M_CmedicineData.intervalTime = "NF"
     }
@@ -907,142 +978,25 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         M_CmedicineData.beforeDinner = "0"
         M_CmedicineData.beforeDinnerTime = "0"
     }
-    
-    func ShowAlerView(sender: UIButton, cTextMsg: String, cTimeVal: String, cCheckMark: UIButton)
-    {
-        
-        UIView.animate(withDuration: 1.0) {
-            
-            ZAlertView.showAnimation = .fadeIn
-            
-            self.AlertWithText = ZAlertView(title: "Medoc", message: "Enter the period, patient should take medicine \(cTextMsg)", isOkButtonLeft: false, okButtonText: "OK", cancelButtonText: "Cancel", okButtonHandler: { (send) in
-                
-                self.medicineMinuteTextfield = self.AlertWithText.getTextFieldWithIdentifier("Remark")!
-                
-                self.medicineMinuteTextfield.delegate = self
-                self.medicineMinuteTextfield.keyboardType = .numberPad
-                
-                self.TxtVal = self.medicineMinuteTextfield.text!
-                
-                if self.TxtVal.count > 2 && self.TxtVal.isValidNumber() == false
-                {
-                    ZAlertView.init(title: "Medoc", msg: "Please enter medicine time in minutes (max. 2 digits)", actiontitle: "OK") {
-                        print("")
-                        
-                    }
-                }
-                    
-                else if self.TxtVal.count > 2 || self.TxtVal.isValidNumber() == false
-                {
-                    ZAlertView.init(title: "Medoc", msg: "Please enter medicine time in minutes (max. 2 digits)", actiontitle: "OK") {
-                        print("")
-                    }
-                }
 
-                else
-                {
-                    if self.TxtVal != ""
-                    {
-                        
-                        let text = self.TxtVal + " " + cTextMsg
-                        sender.setTitle(text, for: .normal)
-                        cCheckMark.setImage(UIImage(named: "fillCheck"), for: .normal)
-                        
-                        if sender == self.btnBeBreak
-                        {
-                            self.M_CmedicineData.beforeBreakfast = cTimeVal
-                            self.M_CmedicineData.beforeBreakfastTime = self.TxtVal
-                        }
-                        else if sender == self.btnAftBrea
-                        {
-                            self.M_CmedicineData.afterBreakfast = cTimeVal
-                            self.M_CmedicineData.afterBreakfastTime = self.TxtVal
-                        }
-                        else if sender == self.btnBfLunch
-                        {
-                            self.M_CmedicineData.beforeLunch = cTimeVal
-                            self.M_CmedicineData.beforeLunchTime = self.TxtVal
-                        }
-                        else if sender == self.btnAftLunch
-                        {
-                            self.M_CmedicineData.afterLunch = cTimeVal
-                            self.M_CmedicineData.afterLunchTime = self.TxtVal
-                        }
-                        else if sender == self.btnBfDinner
-                        {
-                            self.M_CmedicineData.beforeDinner = cTimeVal
-                            self.M_CmedicineData.beforeDinnerTime = self.TxtVal
-                        }
-                        else
-                        {
-                            self.M_CmedicineData.afterDinner = cTimeVal
-                            self.M_CmedicineData.afterDinnerTime = self.TxtVal
-                        }
-                    }
-                }
-                
-                send.dismissWithDuration(0.5)
-                ZAlertView.hideAnimation = .fadeOut
-                
-            }) { (cancel) in
-                cancel.dismissWithDuration(0.5)
-            }
-            self.AlertWithText.addTextField("Remark", placeHolder: "Enter the time period in minutes")
-            self.AlertWithText.showWithDuration(1.0)
-            
-        }
-    }
-    
-    
-    func HideAlertView(sender: UIButton, cTextMsg: String,cTimeVal: String, cCheckMark: UIButton)
-    {
-        sender.setTitle(cTextMsg, for: .normal)
-        cCheckMark.setImage(UIImage(named: "emptyCheck"), for: .normal)
-    
-        if sender == self.btnBeBreak
-        {
-            self.M_CmedicineData.beforeBreakfast = cTimeVal
-            self.M_CmedicineData.beforeBreakfastTime = cTimeVal
-        }
-        else if sender == self.btnAftBrea
-        {
-            self.M_CmedicineData.afterBreakfast = cTimeVal
-            self.M_CmedicineData.afterBreakfastTime = cTimeVal
-        }
-        else if sender == self.btnBfLunch
-        {
-            self.M_CmedicineData.beforeLunch = cTimeVal
-            self.M_CmedicineData.beforeLunchTime = cTimeVal
-        }
-        else if sender == self.btnAftLunch
-        {
-            self.M_CmedicineData.afterLunch = cTimeVal
-            self.M_CmedicineData.afterLunchTime = cTimeVal
-        }
-        else if sender == self.btnBfDinner
-        {
-            self.M_CmedicineData.beforeDinner = cTimeVal
-            self.M_CmedicineData.beforeDinnerTime = cTimeVal
-        }
-        else
-        {
-            self.M_CmedicineData.afterDinner = cTimeVal
-            self.M_CmedicineData.afterDinnerTime = cTimeVal
-        }
-        
-    }
-    
     @IBAction func btnBeforeBreakfast_onclick(_ sender: Any)
     {
-        
+    
         self.m_bBeforBreakfastCheck = !self.m_bBeforBreakfastCheck
         
         if self.m_bBeforBreakfastCheck    // if true
         {
-            self.ShowAlerView(sender: self.btnBeBreak,cTextMsg: "Minutes Before Breakfast", cTimeVal: "1",cCheckMark: checkBfBrk)
+            checkBfBrk.setImage(UIImage(named: "fillCheck"), for: .normal)
+            self.M_CmedicineData.beforeBreakfast = "1"
+            
+       
         }else{
             
-            self.HideAlertView(sender: btnBeBreak, cTextMsg: "Before Breakfast", cTimeVal: "0",cCheckMark: checkBfBrk)
+            checkBfBrk.setImage(UIImage(named: "emptyCheck"), for: .normal)
+            self.M_CmedicineData.beforeBreakfast = "0"
+            self.M_CmedicineData.beforeBreakfastTime = "0"
+            self.txtBfbrkTime.text = ""
+            
         }
         
         
@@ -1084,9 +1038,14 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
         if self.m_bAfterBreakfastCheck
         {
-            self.ShowAlerView(sender: self.btnAftBrea,cTextMsg: "Minutes After Breakfast", cTimeVal: "1", cCheckMark: checkAfBrk)
+            checkAfBrk.setImage(UIImage(named: "fillCheck"), for: .normal)
+            self.M_CmedicineData.afterBreakfast = "1"
+            
         }else{
-            self.HideAlertView(sender: btnAftBrea, cTextMsg: "After Breakfast", cTimeVal: "0", cCheckMark: checkAfBrk)
+            checkAfBrk.setImage(UIImage(named: "emptyCheck"), for: .normal)
+             self.M_CmedicineData.afterBreakfast = "0"
+            self.M_CmedicineData.afterBreakfastTime = "0"
+            txtAfBrkTime.text = ""
         }
         
         
@@ -1129,11 +1088,16 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
         if self.m_bBeforLunchCheck
         {
-            self.ShowAlerView(sender: self.btnBfLunch,cTextMsg: "Minutes Before Lunch", cTimeVal: "1", cCheckMark: checkBfLunch)
-        }else{
-            self.HideAlertView(sender: btnBfLunch, cTextMsg: "Before Lunch", cTimeVal: "0", cCheckMark: checkBfLunch)
-        }
+            checkBfLunch.setImage(UIImage(named: "fillCheck"), for: .normal)
+            self.M_CmedicineData.beforeLunch = "1"
         
+        }else{
+            
+            checkBfLunch.setImage(UIImage(named: "emptyCheck"), for: .normal)
+            self.M_CmedicineData.beforeLunch = "0"
+            self.M_CmedicineData.beforeLunchTime = "0"
+            txtBfLunchTime.text = ""
+        }
         
         if false == m_bBeforBreakfastCheck
         {
@@ -1173,9 +1137,15 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
         if self.m_bAfterLunchCheck
         {
-            self.ShowAlerView(sender: self.btnAftLunch,cTextMsg: "Minutes After Lunch", cTimeVal: "1", cCheckMark: checkAfLunch)
+            checkAfLunch.setImage(UIImage(named: "fillCheck"), for: .normal)
+            self.M_CmedicineData.afterLunch = "1"
+        
         }else{
-            self.HideAlertView(sender: btnAftLunch, cTextMsg: "After Lunch", cTimeVal: "0", cCheckMark: checkAfLunch)
+          
+            checkAfLunch.setImage(UIImage(named: "emptyCheck"), for: .normal)
+            self.M_CmedicineData.afterLunch = "0"
+            self.M_CmedicineData.afterLunchTime = "0"
+            txtAfLunchTime.text = ""
         }
         
         
@@ -1218,11 +1188,16 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
         if self.m_bBeforDinnerCheck
         {
-            self.ShowAlerView(sender: self.btnBfDinner,cTextMsg: "Minutes Before Dinner", cTimeVal: "1", cCheckMark: checkBfDinner)
+            checkBfDinner.setImage(UIImage(named: "fillCheck"), for: .normal)
+            self.M_CmedicineData.beforeDinner = "1"
+          
         }else{
-            self.HideAlertView(sender: btnBfDinner, cTextMsg: "Before Dinner", cTimeVal: "0", cCheckMark: checkBfDinner)
+            checkBfDinner.setImage(UIImage(named: "emptyCheck"), for: .normal)
+            self.M_CmedicineData.beforeDinner = "0"
+            self.M_CmedicineData.beforeDinnerTime = "0"
+            txtBfDinTime.text = ""
+            
         }
-        
         
         if false == m_bBeforBreakfastCheck
         {
@@ -1263,9 +1238,15 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
         if self.m_bAfterDinnerCheck
         {
-            self.ShowAlerView(sender: self.btnAftDinner,cTextMsg: "Minutes After Dinner", cTimeVal: "1", cCheckMark: checkAfDinner)
+            checkAfDinner.setImage(UIImage(named: "fillCheck"), for: .normal)
+            self.M_CmedicineData.afterDinner = "1"
+          
         }else{
-            self.HideAlertView(sender: btnAftDinner, cTextMsg: "After Dinner", cTimeVal: "0", cCheckMark: checkAfDinner)
+            checkAfDinner.setImage(UIImage(named: "emptyCheck"), for: .normal)
+            self.M_CmedicineData.afterDinner = "0"
+            self.M_CmedicineData.afterDinnerTime = "0"
+            txtAfDinTime.text = ""
+           
         }
         
         
@@ -1363,14 +1344,14 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         {
             ZAlertView(title: "Medoc", msg: "Are you sure you want to save this prescription?", dismisstitle: "No", actiontitle: "Yes")
             {
+
                 OperationQueue.main.addOperation {
                     SVProgressHUD.setDefaultMaskType(.custom)
                     SVProgressHUD.setBackgroundColor(UIColor.gray)
                     SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
-                    SVProgressHUD.show(withStatus: "Uploading Prescription")
-                   self.sendPres()
+                    SVProgressHUD.show(withStatus: "Saving Prescription")
                 }
-                
+                self.sendPres()
             }
         }
  
@@ -1502,19 +1483,10 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     }
     
     
-    func pres()
-    {
-        let urlstr = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_prescription"
-       
-        let param = "patient_id=Sur91548667217&temprature=50&weight=56&height=5&feet=5 inch&blood_pressure=NF&other_details=other detail text&refered_by=Rupali&handwritten_image=NF&patient_problem=TB, Fever&drawing_image=NF&signature_image=girl.png&image_name=NF&medicine_data=NF&patient_clinic_visit_id=28&followup_date=28&loggedin_id=129&prescription_details=otherpresc"
-        
-        
-                }
-
-    
-    
     func sendPres()
     {
+        
+        
         if txtReferdBy.text == "NF"
         {
             txtReferdBy.text = "NF"
@@ -1584,8 +1556,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             m_cPresdata.signature_image = "NF"
         }
         
-   
-        
         let PresApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_prescription"
  
            let param = "patient_id=\(patient_id)&temperature=\(txtTemp.text!)&weight=\(txtWeight.text!)&height=\(m_cPresdata.height!)&blood_pressure=\(txtBloodGrp.text!)&other_details=\(txtOtherDetail.text!)&refered_by=\(txtReferdBy.text!)&handwritten_image=\(m_cPresdata.handwritten_image!)&patient_problem=\(txtpatProblems.text!)&drawing_image=\(m_cPresdata.drawing_image!)&signature_image=\(m_cPresdata.signature_image!)&image_name=\(m_cPresdata.image_name!)&medicine_data=\(m_cPresdata.medicine_data!)&patient_clinic_visit_id=\(PatientClinicVisitId)&followup_date=\(txtFollowUpdate.text!)&loggedin_id=\(self.loggedinId!)&prescription_details=\(txtPresc.text!)"
@@ -1620,7 +1590,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                     let Msg = json.value(forKey: "msg") as! String
                     if Msg == "success"
                     {
-                        SVProgressHUD.show(withStatus: "Uploading..")
+                        SVProgressHUD.show(withStatus: "Saving Prescription..")
                         
                         self.AddFiles()
                     }
@@ -1628,10 +1598,8 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                     print("catch")
                 }
             }
-            }.resume()
-    
+        }.resume()
     }
-    
     
     func AddFiles()
     {
@@ -1651,8 +1619,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
        
                 for lcimg in self.m_cPrescARR
                 {
-                  
-                    let imgNm = String(self.loggedinId) + lcimg.PresTimestampNm! + ".jpeg"
+                  let imgNm = String(self.loggedinId) + lcimg.PresTimestampNm! + ".jpeg"
                     
                     let lcImgData = SignatureData(cSignatureImgName: imgNm, cSignatureImg: lcimg.PresImg)
                     self.m_cAllDataArr.append(lcImgData)
@@ -1660,7 +1627,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                 
                 for lcimg in self.m_cReportArr
                 {
-                    
                     let Reprt_img_nm = String(self.loggedinId) + lcimg.Report_timestamp! + ".jpeg"
                     
                     let lcImgData = SignatureData(cSignatureImgName: Reprt_img_nm, cSignatureImg: lcimg.Report_img)
@@ -1669,7 +1635,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
                 for lcimg in self.m_cDrawingARR
                 {
-                    let draw_img_nm = String(self.loggedinId) + lcimg.drawing_timestamp + ".jpeg"
+                    let draw_img_nm = String(self.loggedinId) + lcimg.drawing_timestamp! + ".jpeg"
                     
                     let lcImgData = SignatureData(cSignatureImgName: draw_img_nm, cSignatureImg: lcimg.drawing_img)
                     self.m_cAllDataArr.append(lcImgData)
@@ -1683,6 +1649,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             let img = ImgData.SignatureImg
             let Timestamp = ImgData.SignatureImgName
             
+      //      let Resizedata = img!.pngData()
             let data = img!.jpegData(compressionQuality: 0.0)
             
             multipartFormData.append(data!, withName: "images[]", fileName: Timestamp, mimeType: "images/jpeg")
@@ -1702,6 +1669,8 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             case .success(let upload, _, _):
                 
                 upload.uploadProgress(closure: { (Progress) in
+                    
+                   
                     print("Upload Progress: \(Progress.fractionCompleted)")
                 })
                 
@@ -1728,11 +1697,18 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                          
                         }else if Msg == "fail"
                         {
-                            self.toast.isShow("Images not uploaded")
+                            ZAlertView.init(title: "Medoc", msg: "Prescription Added successfully but images not saved", actiontitle: "OK") {
+                                print("")
+                                
+                            }
+
+                            
+                        //    self.toast.isShow("Prescription Added successfully but images not saved")
+                            self.navigationController?.popViewController(animated: true)
                         }
                         else
                         {
-                           self.toast.isShow("No any image for upload")
+                    self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -1775,7 +1751,10 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             for lcAttachment in CDBAttachmentArr
             {
                 self.fileName = lcAttachment.fileName
-            
+           if lcAttachment.fileName == nil
+           {
+             self.fileName = "ReportImages"
+                }
                 lcAttachment.loadOriginalImage(completion: {image in
                     
                     let timestamp = Date().toMillis()
@@ -2091,6 +2070,11 @@ extension AndriodPrescFormVC : UICollectionViewDelegate, UICollectionViewDataSou
         {
              lblMedicineTiming.text = ""
             detailMedicineWeeks.text = "Number of Time : \(lcdict["intervalTime"] as! String)"
+            
+            detailMedicineNm.text = "Medicine Name : \(lcdict["medicineName"] as! String)"
+            detailMedicineType.text = "Medicine Type : \(setType)"
+            
+            detailMedicineDays.text = "Number of Days : \(lcdict["intervalPeriod"] as! String)"
         }else
         {
             let beforeBrkfast = lcdict["beforeBreakfast"] as! String
@@ -2133,14 +2117,12 @@ extension AndriodPrescFormVC : UICollectionViewDelegate, UICollectionViewDataSou
             
               detailMedicineWeeks.text = "Number of Weeks : \(lcdict["intervalTime"] as! String)"
             
+            detailMedicineNm.text = "Medicine Name : \(lcdict["medicineName"] as! String)"
+            detailMedicineType.text = "Medicine Type : \(setType)"
+            
+            detailMedicineDays.text = "Number of Days : \(lcdict["intervalPeriod"] as! String)"
+            
         }
-        
-        detailMedicineNm.text = "Medicine Name : \(lcdict["medicineName"] as! String)"
-        detailMedicineType.text = "Medicine Type : \(setType)"
-        
-        detailMedicineDays.text = "Number of Days : \(lcdict["intervalPeriod"] as! String)"
-        
-      
    
     }
     
@@ -2177,15 +2159,45 @@ extension AndriodPrescFormVC : UITextFieldDelegate
     
     func textFieldDidBeginEditing(_ textField: UITextField)
     {
+       
         
-        
+        if textField == txtBfbrkTime
+        {
+            self.view.endEditing(true)
+            createAlertView(title: "Select Time", txtcheck: txtBfbrkTime)
+        }
+        if textField == txtBfLunchTime
+        {
+            self.view.endEditing(true)
+            createAlertView(title: "Select Time", txtcheck: txtBfLunchTime)
+        }
+        if textField == txtBfDinTime
+        {
+            self.view.endEditing(true)
+            createAlertView(title: "Select Time", txtcheck: txtBfDinTime)
+        }
+        if textField == txtAfBrkTime
+        {
+            self.view.endEditing(true)
+             createAlertView(title: "Select Time", txtcheck: txtAfBrkTime)
+        }
+        if textField == txtAfLunchTime
+        {
+            self.view.endEditing(true)
+            createAlertView(title: "Select Time", txtcheck: txtAfLunchTime)
+        }
+        if textField == txtAfDinTime
+        {
+            self.view.endEditing(true)
+            createAlertView(title: "Select Time", txtcheck: txtAfDinTime)
+        }
+
     }
     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
-    
-        
+     
         if textField == txtpatProblems
         {
             if let text = textField.text,
@@ -2202,7 +2214,6 @@ extension AndriodPrescFormVC : UITextFieldDelegate
                 
                 dropdownAutoWordsList.selectionAction = { [unowned self] (index: Int, item: String) in
                     self.txtpatProblems.text = item
-                  //  print("Selected item: \(item) at index: \(index)")
                 }
                
             }
@@ -2299,4 +2310,123 @@ extension AndriodPrescFormVC : TagViewDelegate {
     func tagTouched(_ tag: TagView) {
         print("tag touched: " + tag.text)
     }
+}
+
+
+extension AndriodPrescFormVC:  UIPickerViewDelegate,UIPickerViewDataSource{
+    
+    func createAlertView(title: String, txtcheck : UITextField) {
+        
+        
+        
+        let vc = UIViewController()
+        
+        vc.preferredContentSize = CGSize(width: 250,height: 250)
+        
+        pickerview = UIPickerView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
+        
+        pickerview.delegate = self
+        
+        pickerview.dataSource = self
+        
+        vc.view.addSubview(pickerview)
+        
+        let editRadiusAlert = UIAlertController(title: "\(title)", message: "", preferredStyle: UIAlertController.Style.alert)
+        
+        editRadiusAlert.setValue(vc, forKey: "contentViewController")
+        
+        let done = UIAlertAction(title: "Done", style: .default, handler: { (done) in
+            
+            if txtcheck == self.txtBfbrkTime
+            {
+                self.txtBfbrkTime.text = self.PickerMinArr[self.selectedMinIndex]
+                
+            }
+            
+            if txtcheck == self.txtBfLunchTime
+            {
+                self.txtBfLunchTime.text = self.PickerMinArr[self.selectedMinIndex]
+            }
+            
+            if txtcheck == self.txtBfDinTime
+            {
+                self.txtBfDinTime.text = self.PickerMinArr[self.selectedMinIndex]
+            }
+            if txtcheck == self.txtAfBrkTime
+            {
+                self.txtAfBrkTime.text = self.PickerMinArr[self.selectedMinIndex]
+            }
+            if txtcheck == self.txtAfLunchTime
+            {
+                self.txtAfLunchTime.text = self.PickerMinArr[self.selectedMinIndex]
+            }
+            if txtcheck == self.txtAfDinTime
+            {
+                self.txtAfDinTime.text = self.PickerMinArr[self.selectedMinIndex]
+            }
+            self.selectedMinIndex = 0
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .default, handler: { (cancel) in
+            
+        })
+        
+        editRadiusAlert.addAction(cancel)
+        
+        editRadiusAlert.addAction(done)
+        
+        self.present(editRadiusAlert, animated: true)
+        
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
+    {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        return self.PickerMinArr.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+       
+        
+        return self.PickerMinArr[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        self.selectedMinIndex = row
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat
+    {
+        return 45
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        var label: UILabel
+        
+        if let view = view as? UILabel
+        {
+            label = view
+        }
+        else {
+            label = UILabel()
+        }
+        
+        label.textColor = UIColor.black
+        
+        label.textAlignment = .center
+        
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.text = self.PickerMinArr[row]
+
+        return label
+        
+    }
+    
 }

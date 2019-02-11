@@ -11,117 +11,162 @@ import Alamofire
 
 class ViewMoreDetailVC: UIViewController
 {
-
     
-    @IBOutlet weak var tblInfo: UITableView!
+    @IBOutlet weak var collMedicine: UICollectionView!
+    @IBOutlet weak var collLabTest: UICollectionView!
+    @IBOutlet weak var collChiefComplain: UICollectionView!
+    @IBOutlet weak var complainView: UIView!
+    @IBOutlet weak var medicineView: UIView!
+    @IBOutlet weak var btnBldPressure: UIButton!
+    @IBOutlet weak var graphView: UIView!
+    @IBOutlet weak var labTestView: UIView!
+    @IBOutlet weak var diebeticView: UIView!
     
-    var InfoArr = [String : Any]()
+    var InfoArr = [[String : Any]]()
+    var ChiefComplainARR = [String : Int]()
     var toast = JYToast()
+    
+    var MedicineARR = ["Crocin (2)", "Vitamin-B (1)", "Tylenol (2)", "Pepto-Bismol (3)", "Kaopectate (1)", "Bismuth (1)", "Tylenol (2)", "ibuprofen (1)"]
+    
+    var LabTestARR = ["DENGUE FEVER IGM ANTIBODY (1)", "DIABETES SCREEN (3)", "FEVER PANEL 1 (3)", "HIV 1 & 2 ANTIBODIES (1), SCREENING TEST (1)", "X-RAY ANKLE & FOOT (1)", "URINE (2)", "GLUCOSE (3)"]
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        
+        setDelegte()
         let dict = UserDefaults.standard.value(forKey: "PatientDict") as! [String : Any]
         
         let Pid = dict["patient_id"] as! String
-        fetchData(pid: Pid)
+    
+        LayoutView(view: [medicineView, labTestView, graphView, diebeticView, complainView])
         
-        tblInfo.delegate = self
-        tblInfo.dataSource = self
+        if ChiefComplainARR.count != 0
+        {
+            collChiefComplain.reloadData()
+        }
+    
         
-        tblInfo.separatorStyle = .none
-        
+    }
+    
+    func setDelegte()
+    {
+        collChiefComplain.delegate = self
+        collChiefComplain.dataSource = self
+        collMedicine.dataSource = self
+        collMedicine.delegate = self
+        collLabTest.delegate = self
+        collLabTest.dataSource = self
+    }
+    
+    func LayoutView(view : [UIView])
+    {
+        for subView in view
+        {
+            subView.layer.cornerRadius = 10.0
+     
+            subView.designCell()
+            
+            subView.backgroundColor = UIColor.white
+        }
+      
     }
     
     @IBAction func btnback_onclick(_ sender: Any)
     {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
-    func fetchData(pid : String)
+    @IBAction func btnChartOne_onclick(_ sender: Any)
     {
-        let Api = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_patient_info"
-        
-        let param = ["patient_id" : pid]
-        
-        Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
-            print(resp)
-            
-            switch resp.result
-            {
-            case .success(_):
-                
-                let json = resp.result.value as! NSDictionary
-                let Msg = json["msg"] as! String
-                if Msg == "success"
-                {
-                    let data = json["data"] as! [AnyObject]
-                    
-                    self.InfoArr = data[0] as! [String : Any]
-                    print(self.InfoArr)
-                    DispatchQueue.main.async {
-                        self.tblInfo.reloadData()
-                    }
-                    
-                    
-                }
-                
-                break
-            case .failure(_):
-                self.toast.isShow("Something went wrong")
-                break
-            }
-            
-        }
+        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChartAnalysisVC") as! ChartAnalysisVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-
-}
-extension ViewMoreDetailVC : UITableViewDelegate, UITableViewDataSource
+ }
+extension ViewMoreDetailVC : UICollectionViewDelegate, UICollectionViewDataSource
 {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        
-       let lcValuesArr = Array(self.InfoArr.values)
-       
-        var lcCount = 0
-        for lcValues in lcValuesArr
+        if collectionView == collChiefComplain
         {
-            if let val = lcValues as? String
-            {
-                lcCount += 1
-            }
+            return self.ChiefComplainARR.count
+        }else if collectionView == collMedicine
+        {
+            return self.MedicineARR.count
+        }else if collectionView == collLabTest
+        {
+            return self.LabTestARR.count
+        }
+        else{
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
+    {
+       if collectionView == collChiefComplain
+        {
+             let cell = collChiefComplain.dequeueReusableCell(withReuseIdentifier: "ChiefComplainAnalysisCell", for: indexPath) as! ChiefComplainAnalysisCell
             
+            let key = Array(self.self.ChiefComplainARR.keys)[indexPath.row]
+            let value = Array(self.self.ChiefComplainARR.values)[indexPath.row]
+            
+            var count = String()
+            
+            if value == 1
+            {
+                count = "(\(value) time)"
+            }else
+            {
+                count = "(\(value) times)"
+            }
+          
+            cell.lblChiefComplain.text = "\(key) \(count)"
+            return cell
         }
-        print("\(lcCount)")
-        return lcCount
+       else if collectionView == collMedicine
+       {
+        let Mcell = collMedicine.dequeueReusableCell(withReuseIdentifier: "MedicineAnalysisCell", for: indexPath) as! MedicineAnalysisCell
         
+        Mcell.lblMedicineNm.text = self.MedicineARR[indexPath.row]
+        return Mcell
+        
+        }
+        else if collectionView == collLabTest
+       {
+        let Lcell = collLabTest.dequeueReusableCell(withReuseIdentifier: "LabTestAnalysisCell", for: indexPath) as! LabTestAnalysisCell
+        Lcell.lblLabTestNm.text = self.LabTestARR[indexPath.row]
+        return Lcell
+        }
+       else
+       {
+        return UICollectionViewCell()
+        }
+     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //2
+        return CGSize(width: (self.collChiefComplain.frame.size.width) / 2, height: 120)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell = tblInfo.dequeueReusableCell(withIdentifier: "PatientInfoCell", for: indexPath) as! PatientInfoCell
-        
-        //let lcdict = self.InfoArr
-        let lcValuesArr = Array(self.InfoArr.values)
-        let lcKeysArr = Array(self.InfoArr.keys)
-        let lcValue = lcValuesArr[indexPath.row]
-        let lcKey = lcKeysArr[indexPath.row]
-        
-        print("\(lcValue)")
-       
-        if let val = lcValue as? String
-        {
-            cell.lblinfo.text = "\(lcKey) : \(val)"
-        }
-        
-        return cell
+    //3
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
+    //4
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
     }
+    
     
 }
+

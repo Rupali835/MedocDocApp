@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     {
         IQKeyboardManager.shared().isEnabled = true
        
-        
+        Thread.sleep(forTimeInterval: 3.0)
        let result = UserDefaults.standard.value(forKey: "userData")
         print(result)
         if result != nil {

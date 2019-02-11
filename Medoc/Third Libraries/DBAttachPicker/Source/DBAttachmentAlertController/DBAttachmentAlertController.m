@@ -85,10 +85,46 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
         controller.attachActionText = attachAction.title;
         
         controller.extensionAttachHandler = ^(NSArray * _Nonnull assetArray) {
-            if (attachHandler) {
-                attachHandler(assetArray);
-            }
-            [weakController dismissViewControllerAnimated:YES completion:nil];
+            
+            UIAlertController *alert= [UIAlertController
+                                       alertControllerWithTitle:@"Title"
+                                       message:@"SubTitle"
+                                       preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action){
+                                                           //Do Some action here
+                                                           UITextField *textField = alert.textFields[0];
+                                                           NSLog(@"text was %@", textField.text);
+                                                           //self->_TxtFileName = textField.text;
+                                                           
+                                                           if (attachHandler) {
+                                                               attachHandler(assetArray);
+                                                           }
+                                                           
+                                                           [weakController dismissViewControllerAnimated:YES completion:nil];
+                                                           
+                                                       }];
+            UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * action) {
+                                                               
+                                                               NSLog(@"cancel btn");
+                                                               
+                                                               [alert dismissViewControllerAnimated:YES completion:nil];
+                                                               
+                                                           }];
+            
+            [alert addAction:ok];
+            [alert addAction:cancel];
+            
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                textField.placeholder = @"placeHolderText";
+                textField.keyboardType = UIKeyboardTypeDefault;
+            }];
+            
+            
+            [controller presentViewController:alert animated:YES completion:nil];
+            
         };
     }
     
@@ -325,6 +361,9 @@ static NSString *const kPhotoCellIdentifier = @"DBThumbnailPhotoCellID";
         self.needsDisplayEmptySelectedIndicator = YES;
     } else {
         self.extensionAttachHandler([self getSelectedAssetArray]);
+       
+        
+        
     }
 }
 

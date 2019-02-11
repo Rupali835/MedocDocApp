@@ -54,7 +54,12 @@ class ContainerVC: UIViewController {
                           animations: {
                             
                             self.signupvc.view.frame = self.containerView.bounds
+                       
+                       
+                      self.containerView.clipsToBounds = true
+                    
                             self.containerView.addSubview(self.signupvc.view)
+                                 self.signupvc.view.clipsToBounds = true
         },
                           completion: nil)
         
@@ -69,7 +74,11 @@ class ContainerVC: UIViewController {
                           animations: {
                             
                             self.passwordvc.view.frame = self.containerView.bounds
-                            self.containerView.addSubview(self.passwordvc.view)
+                            
+                       
+                         self.containerView.addSubview(self.passwordvc.view)
+                              self.passwordvc.view.clipsToBounds = true
+                            
         },
                           completion: nil)
         

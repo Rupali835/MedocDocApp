@@ -23,5 +23,6 @@ pod 'CryptoSwift'
 pod 'MultiAutoCompleteTextSwift'
 pod 'CloudTagView'
 pod 'SVProgressHUD'
+pod 'Charts'
 
 end

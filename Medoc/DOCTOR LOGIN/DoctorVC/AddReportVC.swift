@@ -116,7 +116,10 @@ class AddReportVC: UIViewController
             for lcAttachment in CDBAttachmentArr
             {
                 self.fileName = lcAttachment.fileName
-               
+               if lcAttachment.fileName == nil
+               {
+                 self.fileName = "ReportImage"
+                }
                 
                 lcAttachment.loadOriginalImage(completion: {image in
                     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ContactUsVC: UIViewController {
 
@@ -18,6 +19,14 @@ class ContactUsVC: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        OperationQueue.main.addOperation {
+            SVProgressHUD.setDefaultMaskType(.custom)
+            SVProgressHUD.setBackgroundColor(UIColor.gray)
+            SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
+            SVProgressHUD.show()
+        }
+        
         loadUrl()
     }
   
@@ -28,6 +37,10 @@ class ContactUsVC: UIViewController {
         let url = URL(string: "http://ksoftpl.com/contact-us")
         let requestObj = URLRequest(url: url! as URL)
        contactWebview.loadRequest(requestObj)
+        OperationQueue.main.addOperation {
+            
+            SVProgressHUD.dismiss()
+        }
     }
     
     func sideMenus()

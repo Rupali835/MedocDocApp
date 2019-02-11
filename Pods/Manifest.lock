@@ -7,6 +7,9 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
+  - Charts (3.2.1):
+    - Charts/Core (= 3.2.1)
+  - Charts/Core (3.2.1)
   - CloudTagView (3.0.0)
   - CryptoSwift (0.13.1)
   - DropDown (2.3.2)
@@ -72,6 +75,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - AVScanner
+  - Charts
   - CloudTagView
   - CryptoSwift
   - DropDown
@@ -93,6 +97,7 @@ SPEC REPOS:
     - Alamofire
     - AVScanner
     - Bolts
+    - Charts
     - CloudTagView
     - CryptoSwift
     - DropDown
@@ -121,6 +126,7 @@ SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   AVScanner: 8cdbdff32cf74ba5650cb22ffc3b96532476fc00
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  Charts: f122fb70b19847fa5817d018b77d6c5a2296ab25
   CloudTagView: c4eebbb9cf88d8de849e4ae0c3323e95ccc236b2
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   DropDown: 7f87abecc28f9b4edad810fe1211c5c018c257e5
@@ -145,6 +151,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   ZAlertView: 59fffdb4e37a01df461835566d5101052b8af953
 
-PODFILE CHECKSUM: 27a84a7a20077cf1c14fa0f1eea11aa481904f91
+PODFILE CHECKSUM: e118a1aafc5c51a1aac368835540c09516663d93
 
 COCOAPODS: 1.5.3

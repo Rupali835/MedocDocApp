@@ -25,8 +25,15 @@ class DetailPrescriptionVC: UIViewController {
     @IBOutlet weak var HgtReportImges: NSLayoutConstraint!
     @IBOutlet weak var HgtPatientDrawingImges: NSLayoutConstraint!
     
+    @IBOutlet weak var lblNoOE: UILabel!
+    
+    @IBOutlet weak var lblNoDrawingImg: UILabel!
+    @IBOutlet weak var lblNoOEimges: UILabel!
     @IBOutlet weak var HgtPrescriptionImages: NSLayoutConstraint!
     
+    @IBOutlet weak var lblNoOtherDetail: UILabel!
+    @IBOutlet weak var lblNoMedicine: UILabel!
+    @IBOutlet weak var lblNoReportImg: UILabel!
     @IBOutlet weak var imgSign: UIImageView!
     @IBOutlet weak var prescImgColl: UICollectionView!
     @IBOutlet weak var repoetImgColl: UICollectionView!
@@ -63,6 +70,8 @@ class DetailPrescriptionVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        self.userInteraction()
         
     if PatientInfo != nil
     {
@@ -73,7 +82,18 @@ class DetailPrescriptionVC: UIViewController {
       
     setDelegate()
         
-}
+  }
+    
+    func userInteraction()
+    {
+        txtTemp.isUserInteractionEnabled = false
+        txtHeight.isUserInteractionEnabled = false
+        txtWeight.isUserInteractionEnabled = false
+        txtPrescdetail.isUserInteractionEnabled = false
+        txtOtherdetail.isUserInteractionEnabled = false
+        txtBloodGroup.isUserInteractionEnabled = false
+        
+    }
     
     func setDelegate()
     {
@@ -122,8 +142,13 @@ class DetailPrescriptionVC: UIViewController {
                     
                     if self.MedicineArr.isEmpty == false
                     {
+                        self.lblNoMedicine.isHidden = true
                         self.medicineCollectionView.reloadData()
+                    }else
+                    {
+                        self.lblNoMedicine.isHidden = false
                     }
+                    
                     
                   }
                 
@@ -145,31 +170,60 @@ class DetailPrescriptionVC: UIViewController {
             self.txtTemp.text = lcdata["blood_pressure"] as? String
             self.txtHeight.text = (lcdata["height"] as! String)
             self.txtWeight.text = (lcdata["weight"] as! String)
-            self.txtPrescdetail.text = (lcdata["prescription_details"] as! String)
+            
+            let presOE = (lcdata["prescription_details"] as! String)
+            if presOE != "NF"
+            {
+                 self.txtPrescdetail.text = presOE
+                self.lblNoOE.isHidden = true
+            }else
+            {
+                self.txtPrescdetail.text = ""
+                self.lblNoOE.isHidden = false
+            }
+            
             self.txtOtherdetail.text = (lcdata["other_details"] as! String)
+            
+            let otherDetailTxt = (lcdata["other_details"] as! String)
+            
+            if otherDetailTxt != "NF"
+            {
+                self.txtOtherdetail.text = otherDetailTxt
+                self.lblNoOtherDetail.isHidden = true
+            }else
+            {
+                self.txtOtherdetail.text = ""
+                 self.lblNoOtherDetail.isHidden = false
+            }
+            
             
             let DrawingImg = lcdata["drawing_image"] as! String
             
-            if DrawingImg != "NF"
+            if (DrawingImg != "NF") && (DrawingImg != "[]")
             {
+                 lblNoDrawingImg.isHidden = true
                   self.drawingImgArr = getArrayFromJSonString(cJsonStr: DrawingImg)
                   self.drawingImgArr = getArrayFromJSonString(cJsonStr: DrawingImg)
                   patientDrawingImgColl.reloadData()
             }else
             {
-                 self.HgtPatientDrawingImges.constant = 120
+                lblNoDrawingImg.isHidden = false
+                self.HgtPatientDrawingImges.constant = 120
             }
             
             
             let HandwritenImg = lcdata["handwritten_image"] as! String
 
-            if HandwritenImg != "NF"
+            if (HandwritenImg != "NF") && (HandwritenImg != "[]")
             {
+                 lblNoOEimges.isHidden = true
                  self.PrescImgArray = getArrayFromJSonString(cJsonStr: HandwritenImg)
                 
                   self.HgtPrescriptionImages.constant = 350
                    prescImgColl.reloadData()
             }else{
+                
+                lblNoOEimges.isHidden = false
                 self.HgtPrescriptionImages.constant = 120
             }
             
@@ -186,13 +240,15 @@ class DetailPrescriptionVC: UIViewController {
        {
             let report_imgNm = lcArr["image_name"] as! String
         
-            if report_imgNm != "NF"
+            if (report_imgNm != "NF") && (report_imgNm != "[]")
             {
+                lblNoReportImg.isHidden = true
                 self.reportImgArr = getArrayFromJSonString(cJsonStr: report_imgNm)
                 self.HgtReportImges.constant = 350
                 repoetImgColl.reloadData()
             }else
             {
+                lblNoReportImg.isHidden = false
                  self.HgtReportImges.constant = 120
             }
         }

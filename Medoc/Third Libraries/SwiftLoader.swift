@@ -314,7 +314,7 @@ public class SwiftLoader: UIView {
         /**
         *  Foreground alpha CGFloat, between 0.0 and 1.0
         */
-        public var foregroundAlpha:CGFloat = 0.7
+        public var foregroundAlpha:CGFloat = 0.9
         
         /**
         *  Corner radius for loader

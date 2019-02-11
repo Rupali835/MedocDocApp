@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import Kingfisher
+import SVProgressHUD
+
 
 class NewsFeedVC: UIViewController
 {
@@ -25,9 +27,13 @@ class NewsFeedVC: UIViewController
         tblNewsFeed.dataSource = self
         tblNewsFeed.separatorStyle = .none
         
-//        self.tblNewsFeed.estimatedRowHeight = 500
-//        self.tblNewsFeed.rowHeight = UITableView.automaticDimension
-//        
+        OperationQueue.main.addOperation {
+            SVProgressHUD.setDefaultMaskType(.custom)
+            SVProgressHUD.setBackgroundColor(UIColor.gray)
+            SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
+            SVProgressHUD.show()
+        }
+        
         getHealthData()
         
     }
@@ -55,6 +61,8 @@ class NewsFeedVC: UIViewController
     
     func getHealthData()
     {
+        
+        
         let NewsApi = "https://newsapi.org/v2/top-headlines?category=health&country=in&apiKey=c5b24a8c983d4480b5197c75fe2a0308"
         
         Alamofire.request(NewsApi, method: .get, parameters: nil).responseJSON { (resp) in
@@ -71,6 +79,11 @@ class NewsFeedVC: UIViewController
                 
             case .failure(_):
                 break
+            }
+            
+            OperationQueue.main.addOperation {
+              
+                SVProgressHUD.dismiss()
             }
         }
         

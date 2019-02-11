@@ -25,8 +25,8 @@ class AddPatient
 
 class PatientListVC: UIViewController, AddPatientProtocol
 {
-   
-   
+    @IBOutlet weak var lblNoPatient: UILabel!
+    @IBOutlet weak var newsLoader: UIActivityIndicatorView!
     @IBOutlet weak var viewBtnPatinet: UIView!
     @IBOutlet weak var lineTotalPatient : UILabel!
     @IBOutlet weak var newsCollection: UICollectionView!
@@ -70,14 +70,15 @@ class PatientListVC: UIViewController, AddPatientProtocol
         getHealthData()
         self.m_bStatus  = true
         self.viewBtnPatinet.isHidden = true
+        self.newsLoader.isHidden = false
         
-        if UserDefaults.standard.value(forKey: "RefMsg") != nil
-       {
-            print("Referral code set")
-       }else{
-            
-             SetReferalId()
-        }
+//        if UserDefaults.standard.value(forKey: "RefMsg") != nil
+//       {
+//            print("Referral code set")
+//       }else{
+//
+//             SetReferalId()
+//        }
     
       let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
        
@@ -90,7 +91,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
         newsCollection.dataSource = self
         self.GetCount()
         
-        self.ColorArr = [UIColor.MKColor.Red.P400, UIColor.MKColor.Blue.P400, UIColor.MKColor.Orange.P400, UIColor.MKColor.Green.P400, UIColor.MKColor.Indigo.P400, UIColor.MKColor.Amber.P400, UIColor.MKColor.LightBlue.P400, UIColor.MKColor.BlueGrey.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Cyan.P400, UIColor.MKColor.Teal.P400, UIColor.MKColor.Lime.P400, UIColor.MKColor.Pink.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Purple.P400]
+        self.ColorArr = [UIColor.MKColor.Red.P400, UIColor.MKColor.Blue.P400, UIColor.MKColor.Orange.P400, UIColor.MKColor.Green.P400, UIColor.MKColor.Indigo.P400, UIColor.MKColor.Amber.P400, UIColor.MKColor.LightBlue.P400, UIColor.MKColor.BlueGrey.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Cyan.P400, UIColor.MKColor.Teal.P400, UIColor.MKColor.Lime.P400, UIColor.MKColor.Pink.P400, UIColor.MKColor.Purple.P400]
     }
     
     override func awakeFromNib() {
@@ -100,7 +101,6 @@ class PatientListVC: UIViewController, AddPatientProtocol
     func callAddPatientApi() {
         GetPatientData()
     }
-    
     
     func sideMenus()
     {
@@ -121,7 +121,11 @@ class PatientListVC: UIViewController, AddPatientProtocol
            
             switch resp.result
             {
+                
             case .success(_):
+                
+                self.newsLoader.isHidden = true
+                
                 let json = resp.result.value as! NSDictionary
               self.newsArr = json["articles"] as! [AnyObject]
                 
@@ -133,6 +137,76 @@ class PatientListVC: UIViewController, AddPatientProtocol
             }
         }
         
+    }
+    
+    
+    @IBAction func btnInfoOne_onClick(_ sender: Any)
+    {
+        if btnTotalPatient.tag == 1
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows total  today's patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }else
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows total monthly patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }
+        
+    }
+    
+    @IBAction func btnInfoTwo_onClick(_ sender: Any)
+    {
+        if btnTotalPatient.tag == 1
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows today's new patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }else
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows monthly new patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }
+    }
+    
+    @IBAction func btnInfoThree_onClick(_ sender: Any)
+    {
+        if btnTotalPatient.tag == 1
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows today's existing patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }else
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows monthly existing patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }
+    }
+    
+    @IBAction func btnInfoFour_onClick(_ sender: Any)
+    {
+        if btnTotalPatient.tag == 1
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows today's repeated patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }else
+        {
+            ZAlertView.init(title: "Medoc", msg: "It shows monthly repeated patients", actiontitle: "OK")
+            {
+                print("")
+            }
+        }
     }
     
     
@@ -271,15 +345,12 @@ class PatientListVC: UIViewController, AddPatientProtocol
   
                 cancel.dismissWithDuration(0.5)
                 
-                
-                
                 ZAlertView.init(title: "Medoc", msg: "If you do not have any Referral code, please take it from your reference. You can connect to 'connect@ksoftpl.com'", actiontitle: "OK") {
                     print("")
                 }
             }
             self.alertwithtext.addTextField("Remark", placeHolder: "Write Referral Code")
             
-          //  self.alertwithtext.show()
             self.alertwithtext.showWithDuration(1.0)
             
         }
@@ -319,8 +390,9 @@ class PatientListVC: UIViewController, AddPatientProtocol
         super.viewWillAppear(animated)
         self.TopView.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
     revealViewController().navigationController?.navigationBar.isHidden = true
-      self.sideMenus()
+        self.sideMenus()
         GetPatientData()
+        btnTotalPatient.tag = 1
     }
  
   
@@ -342,8 +414,11 @@ class PatientListVC: UIViewController, AddPatientProtocol
                 let Msg = json["msg"] as! String
                 if Msg == "success"
                 {
+                    self.lblNoPatient.isHidden = true
+                    self.collPatientList.isHidden = false
+
                     self.PatientArr = json["data"] as! [AnyObject]
-                   self.collPatientList.reloadData()
+                    self.collPatientList.reloadData()
                     
                     if self.PatientArr.count == 2
                     {
@@ -363,7 +438,9 @@ class PatientListVC: UIViewController, AddPatientProtocol
                     }
                     
                 }else{
-                    self.toast.isShow("No any patient")
+                    
+                    self.lblNoPatient.isHidden = false
+                    self.collPatientList.isHidden = true
                  }
                 
                 break
@@ -413,6 +490,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     @IBAction func btnPatient_till_today_onclick(_ sender: Any)
     {
+        btnTotalPatient.tag = 1
+        
        setCountLines()
         
         let CountData = self.CountArr
@@ -430,6 +509,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     @IBAction func btnMonthly_patient_onclick(_ sender: Any)
     {
+        btnTotalPatient.tag = 2
+        
         self.btnMonthlyPatient.setTitleColor(UIColor(red:0.18, green:0.66, blue:0.29, alpha:1.0), for: .normal)
         
         self.btnTotalPatient.setTitleColor(UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0), for: .normal)
@@ -437,8 +518,6 @@ class PatientListVC: UIViewController, AddPatientProtocol
         self.lineMonthlyPatient.backgroundColor = UIColor(red:0.18, green:0.66, blue:0.29, alpha:1.0)
         
         self.lineTotalPatient.backgroundColor = UIColor.clear
-        
-        
         
         let CountData = self.CountArr
         

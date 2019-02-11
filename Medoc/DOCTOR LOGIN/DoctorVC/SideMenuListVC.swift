@@ -33,9 +33,9 @@ class SideMenuListVC: UIViewController
     var toast = JYToast()
 
 
-    var SideListArr = ["Today's Patient", "Appointments", "News Feed", "Videos", "Profile", "DOC-COM", "Rate Us", "About Us", "Contact Us", "Purchases", "Logout"]
+    var SideListArr = ["Today's Patient", "Appointments", "News Feed", "Videos", "Profile", "About Us", "Contact Us", "Logout"]
     
-    var imgArr = ["signuser", "calendar", "NewsFeed", "Videos", "user (1)", "Chat", "RateUs", "AboutUs","ContactUs", "Purchase", "icon"]
+    var imgArr = ["signuser", "calendar", "NewsFeed", "Videos", "user (1)",  "AboutUs","ContactUs", "icon"]
     
     
       override func viewDidLoad() {
@@ -176,29 +176,29 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
             revealViewController().pushFrontViewController(profileVc, animated: true)
             break
             
-        case 5:
-            let chatVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
-           revealViewController().pushFrontViewController(chatVc, animated: true)
-            break
+//        case 5:
+//            let chatVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
+//           revealViewController().pushFrontViewController(chatVc, animated: true)
+//            break
         
-        case 7:
+        case 5:
             let aboutusVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AboutUsVC") as! AboutUsVC
             revealViewController().pushFrontViewController(aboutusVc, animated: true)
             break
             
-        case 8:
+        case 6:
             let contactVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ContactUsVC") as! ContactUsVC
           
              revealViewController().pushFrontViewController(contactVc, animated: true)
             
             break
         
-        case 9:
-            let purchaseVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PurchaseLienceVC") as! PurchaseLienceVC
-            revealViewController().pushFrontViewController(purchaseVc, animated: true)
-            break
+//        case 9:
+//            let purchaseVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PurchaseLienceVC") as! PurchaseLienceVC
+//            revealViewController().pushFrontViewController(purchaseVc, animated: true)
+//            break
             
-        case 10:
+        case 7:
           
             ZAlertView(title: "Medoc", msg: "Are you sure you want to logout ?", dismisstitle: "No", actiontitle: "Yes")
             {

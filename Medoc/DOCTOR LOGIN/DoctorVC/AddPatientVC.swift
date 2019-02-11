@@ -29,6 +29,7 @@ class AddPatientVC: UIViewController
     @IBOutlet weak var txtDate: UITextField!
     @IBOutlet weak var btnDatePicker: UIButton!
 
+    @IBOutlet weak var lblAge: UILabel!
     @IBOutlet weak var txtPatNm: SkyFloatingLabelTextField!
     @IBOutlet weak var txtContactNo: SkyFloatingLabelTextField!
     
@@ -47,6 +48,7 @@ class AddPatientVC: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
+          lblAge.isHidden = true
       imgMale.image = imgMale.image!.withRenderingMode(.alwaysTemplate)
       imgFemale.image = imgFemale.image!.withRenderingMode(.alwaysTemplate)
         
@@ -178,6 +180,8 @@ class AddPatientVC: UIViewController
     
     @objc func doneDOB()
     {
+        
+       // var calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
@@ -185,6 +189,11 @@ class AddPatientVC: UIViewController
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.dobStr = self.convertDateFormater(dateFormatter.string(from: datepicker.date))
         self.view.endEditing(true)
+        let Age = calculateAge(dob: self.dobStr)
+        lblAge.isHidden = false
+        lblAge.text = "Age: \(Age)"
+      
+     
     }
     
     
@@ -239,12 +248,13 @@ class AddPatientVC: UIViewController
     {
         txtPatNm.text = ""
         txtContactNo.text = ""
+        txtDob.text = ""
+        lblAge.text = ""
     }
     
     
     @IBAction func btnSavePatData_onClick(_ sender: Any)
     {
-        
         if validation()
         {
             TakePatientData()
@@ -325,12 +335,15 @@ class AddPatientVC: UIViewController
                 if Msg == "success"
                 {
                     self.toast.isShow("Added successfully")
-                    self.AddFiles()
+                    
+                    self.m_dAddPatient.callAddPatientApi()
                     self.view.removeFromSuperview()
                     
                     let vc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-                    self.m_dAddPatient.callAddPatientApi()
-                    self.present(vc, animated: true, completion: nil)
+
+                 //    self.AddFiles()
+
+                        self.navigationController?.pushViewController(vc, animated: true)
                     
                 }else if Msg == "Phone number already registered"{
                     
@@ -364,6 +377,7 @@ class AddPatientVC: UIViewController
                     let data = self.selectedImage.jpegData(compressionQuality: 0.0)
                     
                     multipartFormData.append(data!, withName: "images[]", fileName: self.fileName, mimeType: "images/jpeg")
+                    
                 }
         },
             
@@ -390,11 +404,19 @@ class AddPatientVC: UIViewController
                         let Msg = JSON["msg"] as! String
                         if Msg == "success"
                         {
+                             self.m_dAddPatient.callAddPatientApi()
                             self.view.removeFromSuperview()
                         }
                         if Msg == "fail"
                         {
+                             self.m_dAddPatient.callAddPatientApi()
                           self.view.removeFromSuperview()
+                        }
+                        
+                        if Msg == "Post Data Is Empty"
+                        {
+                             self.m_dAddPatient.callAddPatientApi()
+                            self.view.removeFromSuperview()
                         }
                     }
                 }
@@ -473,8 +495,6 @@ extension UIImage {
 }
 extension AddPatientVC : UITextFieldDelegate
 {
-    
-   
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {

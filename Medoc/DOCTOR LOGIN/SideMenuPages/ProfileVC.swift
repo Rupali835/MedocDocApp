@@ -89,34 +89,34 @@ class ProfileVC: UIViewController, UITextFieldDelegate
                         self.lblContact.text = lcdata["contact_no"] as! String
                         
                         
-                        if (lcdata["address"] as! String) != ""
+                        if let addr = lcdata["address"] as? String
                         {
-                            self.txtAddress.text = (lcdata["address"] as! String)
+                            self.txtAddress.text = addr
                         }
                         
-                        if (lcdata["website"] as! String) != ""
+                        if let wbsite = lcdata["website"] as? String
                         {
-                            self.txtWebsite.text = (lcdata["website"] as! String)
+                            self.txtWebsite.text = wbsite
                         }
                         
-                        if (lcdata["dob"] as! String) != ""
+                        if let Dob = lcdata["dob"] as? String
                         {
-                            self.txtDOB.text = (lcdata["dob"] as! String)
+                            self.txtDOB.text = Dob
                         }
                         
-                        if (lcdata["designation"] as! String) != ""
+                        if let dest = lcdata["designation"] as? String
                         {
-                            self.txtSpecilizedIn.text = (lcdata["designation"] as! String)
+                            self.txtSpecilizedIn.text = dest
                         }
                         
-                        if (lcdata["alt_contact_no"] as! String) != ""
+                        if let altContact = lcdata["alt_contact_no"] as? String
                         {
-                            self.txtAltMobNo.text = (lcdata["alt_contact_no"] as! String)
+                            self.txtAltMobNo.text = altContact
                         }
                         
-                        if (lcdata["registration_no"] as! String) != ""
+                        if let RegNo = lcdata["registration_no"] as? String
                         {
-                            self.txtReferanceNo.text = (lcdata["registration_no"] as! String)
+                            self.txtReferanceNo.text = RegNo
                         }
 
                         if let profile_img = lcdata["profile_picture"] as? String

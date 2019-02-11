@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import ZAlertView
 
 class AppointmentVC: UIViewController {
 
@@ -68,8 +69,17 @@ class AppointmentVC: UIViewController {
                 let Msg = json["msg"] as! String
                 if Msg == "success"
                 {
+                    self.collView.isHidden = false
                     self.patientList = json["data"] as! [AnyObject]
                     self.collView.reloadData()
+                }
+                if Msg == "fail"
+                {
+                    self.collView.isHidden = true
+                    ZAlertView.init(title: "Medoc", msg: "No patients for selected date.", actiontitle: "OK")
+                    {
+                        print("")
+                    }
                 }
                 
                 break

@@ -1,6 +1,7 @@
 
 import UIKit
 import Alamofire
+import SVProgressHUD
 
 class LoginVC: UIViewController
 {
@@ -13,11 +14,12 @@ class LoginVC: UIViewController
     var m_cContainerVC = ContainerVC()
     var SignupVc : SignUpFormVC!
     var toast = JYToast()
+    var b_tutorial = Bool(false)
     
     func initilize(cContainerVC: ContainerVC)
     {
         self.m_cContainerVC = cContainerVC
-      // self.SignupVc.initilize(cContainervc: self.m_cContainerVC)
+      
     }
     
     override func viewDidLoad()
@@ -43,7 +45,15 @@ class LoginVC: UIViewController
 
         if validation()
         {
-         Login()
+            
+            OperationQueue.main.addOperation {
+                SVProgressHUD.setDefaultMaskType(.custom)
+                SVProgressHUD.setBackgroundColor(UIColor.gray)
+                SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
+                SVProgressHUD.show()
+            }
+
+            Login()
         }
     }
     
@@ -69,15 +79,37 @@ class LoginVC: UIViewController
                 
                 if Msg == "success"
                 {
+                    
                     let userData = json["data"] as! NSDictionary
                     UserDefaults.standard.set(userData, forKey: "userData")
-                   
-                    let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    let navigationController = appDelegate.window!.rootViewController as! UINavigationController
+                  
+                    let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
                     
-                   //navigationController.pushViewController(yourVc, animated: true)
-                    navigationController.setViewControllers([yourVc], animated: true)
+                    if launchedBefore          //true
+                    {
+                        print("Not first launch.")
+                        
+                        let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        let navigationController = appDelegate.window!.rootViewController as! UINavigationController
+                        navigationController.setViewControllers([yourVc], animated: true)
+                    }
+                    else                       //false
+                    {
+                        print("First launch, setting UserDefault.")
+                        UserDefaults.standard.set(true, forKey: "launchedBefore")
+                        
+                        let yourVc : TutorialVC = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "TutorialVC") as! TutorialVC
+                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                        let navigationController = appDelegate.window!.rootViewController as! UINavigationController
+                        navigationController.setViewControllers([yourVc], animated: true)
+                        
+                    }
+                    OperationQueue.main.addOperation {
+                        
+                        SVProgressHUD.dismiss()
+                    }
+                    
                     
                 }else{
                     self.toast.isShow("Check Username or Password..")
