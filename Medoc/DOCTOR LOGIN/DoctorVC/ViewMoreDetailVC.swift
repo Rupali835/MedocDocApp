@@ -35,9 +35,10 @@ class ViewMoreDetailVC: UIViewController
         super.viewDidLoad()
         
         setDelegte()
-        let dict = UserDefaults.standard.value(forKey: "PatientDict") as! [String : Any]
         
-        let Pid = dict["patient_id"] as! String
+//        let dict = UserDefaults.standard.value(forKey: "PatientDict") as! [String : Any]
+//
+//        let Pid = dict["patient_id"] as! String
     
         LayoutView(view: [medicineView, labTestView, graphView, diebeticView, complainView])
         

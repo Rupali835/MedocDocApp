@@ -16,6 +16,7 @@ import SVProgressHUD
 class DetailPrescriptionVC: UIViewController {
 
     
+    @IBOutlet weak var lblChiefComplain: UILabel!
     
     @IBOutlet weak var totalHgtofmainView: NSLayoutConstraint!
     @IBOutlet weak var viewMedicine: UIView!
@@ -172,6 +173,7 @@ class DetailPrescriptionVC: UIViewController {
             self.txtTemp.text = lcdata["blood_pressure"] as? String
             self.txtHeight.text = (lcdata["height"] as! String)
             self.txtWeight.text = (lcdata["weight"] as! String)
+            self.lblChiefComplain.text = (lcdata["patient_problem"] as! String)
             
             let presOE = (lcdata["prescription_details"] as! String)
             if presOE != "NF"

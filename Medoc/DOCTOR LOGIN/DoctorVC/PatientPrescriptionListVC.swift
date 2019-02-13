@@ -113,12 +113,14 @@ class PatientPrescriptionListVC: UIViewController
             {
                 self.PrescriptionListView.isHidden = false
                 self.btnAdd.isHidden = true
-                self.lblPatNm.text = (self.dataFromAppoinment["name"] as! String)
-                let num = self.dataFromAppoinment["contact_no"] as! String
-                self.stackFive.setTitle("M: \(num)", for: .normal)
-                
-                self.patient_id = self.dataFromAppoinment["patient_id"] as! String
-                self.lblPatientId.text = "Patient ID: \(self.patient_id)"
+              
+       //         self.lblPatNm.text = (self.dataFromAppoinment["name"] as! String)
+//                let num = self.dataFromAppoinment["contact_no"] as! String
+//                self.stackFive.setTitle("M: \(num)", for: .normal)
+//
+               self.patient_id = self.dataFromAppoinment["patient_id"] as! String
+//                self.lblPatientId.text = "Patient ID: \(self.patient_id)"
+          
                 PrescriptionList(id : self.patient_id)
                 fetchData(pid: self.patient_id)
             }
@@ -128,12 +130,7 @@ class PatientPrescriptionListVC: UIViewController
             PatientDict = UserDefaults.standard.value(forKey: "PatientDict") as! [String : Any]
             if PatientDict.isEmpty == false
             {
-                self.lblPatNm.text = PatientDict["name"] as? String
-                self.patient_id = PatientDict["patient_id"] as! String
-            
-                let num = PatientDict["contact_no"] as! String
-                self.lblPatientId.text = "Patient ID: \(self.patient_id)"
-                self.stackFive.setTitle("M: \(num)", for: .normal)
+               self.patient_id = PatientDict["patient_id"] as! String
                 PrescriptionList(id : self.patient_id)
                 fetchData(pid: self.patient_id)
             }
@@ -172,14 +169,28 @@ class PatientPrescriptionListVC: UIViewController
                     
                     self.PatientBasicInfo = data[0] as! [String : Any]
                    
+                    if let Pname = self.PatientBasicInfo["name"] as? String
+                    {
+                        self.lblPatNm.text = "Patient Name: \(Pname)"
+                    }
+                    
+                    if let PatientId = self.PatientBasicInfo["patient_id"] as? String
+                    {
+                        self.lblPatientId.text = "Patient ID: \(PatientId)"
+                    }
+                    
+                    if let ContactNo = self.PatientBasicInfo["contact_no"] as? String
+                    {
+                        self.stackFive.setTitle("M: \(ContactNo)", for: .normal)
+                    }
+                    
                    if let Dob = self.PatientBasicInfo["dob"] as? String
                    {
                         let age = calculateAge(dob: Dob)
                     
-                self.lblAge.text = "Age: \(age)"
-                    
+                       self.lblAge.text = "Age: \(age)"
                    }
-                  
+                   
                     if let img = self.PatientBasicInfo["profile_picture"] as? String
                     {
                         if img != "NF"
@@ -384,6 +395,18 @@ class PatientPrescriptionListVC: UIViewController
             }
         }
    }
+    
+    func convertDateFormaterInList(cdate: String) -> String
+    { 
+        print(cdate)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateFormatter.date(from: cdate)
+        dateFormatter.dateFormat = "dd-MMM-yyyy  h:mm:a"
+        return  dateFormatter.string(from: date!)
+        
+    }
+    
 }
 
 extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionViewDataSource
@@ -415,7 +438,9 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
             let cell = collPrescriptionList.dequeueReusableCell(withReuseIdentifier: "PatientPrescriptionListCell", for: indexPath) as! PatientPrescriptionListCell
             
             let lcdict = self.ListArr[indexPath.row]
-            cell.lblDate.text = (lcdict["created_at"] as! String)
+            let Cdate = (lcdict["created_at"] as! String)
+            cell.lblDate.text = convertDateFormaterInList(cdate: Cdate)
+            
             let ptProb = (lcdict["patient_problem"] as! String)
             
             cell.lblPatproblem.text = "Chief Complain: \(ptProb)"

@@ -9,6 +9,7 @@ import SkyFloatingLabelTextField
 class SignUpFormVC: UIViewController
 {
 
+    @IBOutlet weak var signScroll: UIScrollView!
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var btnCamera: UIButton!
@@ -56,8 +57,13 @@ class SignUpFormVC: UIViewController
         AddJsonData()
         textValidAction()
         
+        
        }
 
+    override func viewWillAppear(_ animated: Bool) {
+        signScroll.scrollToTop()
+    }
+    
     func textValidAction()
     {
       
@@ -372,7 +378,7 @@ extension SignUpFormVC : UITextFieldDelegate
         
         if textField == txtQualification
         {
-//            dropdownQualification.show()
+            dropdownQualification.show()
 //            dropdownQualification.selectionAction = { [unowned self] (index: Int, item: String) in
 //
 //                self.QualificationtagView.tags.append(TagView(text: item))
@@ -415,6 +421,15 @@ extension SignUpFormVC : UITextFieldDelegate
         }
         
         return true
+    }
+    
+}
+extension UIScrollView
+{
+    func scrollToTop()
+    {
+        let desiredOffset = CGPoint(x: 0, y: -contentInset.top); setContentOffset(desiredOffset, animated: true)
+        
     }
     
 }

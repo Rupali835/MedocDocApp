@@ -91,7 +91,33 @@ class PatientListVC: UIViewController, AddPatientProtocol
         newsCollection.dataSource = self
         self.GetCount()
         
+        startTimer()
+        
         self.ColorArr = [UIColor.MKColor.Red.P400, UIColor.MKColor.Blue.P400, UIColor.MKColor.Orange.P400, UIColor.MKColor.Green.P400, UIColor.MKColor.Indigo.P400, UIColor.MKColor.Amber.P400, UIColor.MKColor.LightBlue.P400, UIColor.MKColor.BlueGrey.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Cyan.P400, UIColor.MKColor.Teal.P400, UIColor.MKColor.Lime.P400, UIColor.MKColor.Pink.P400, UIColor.MKColor.Purple.P400]
+    }
+    
+    func startTimer()
+    {
+        let timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(PatientListVC.scrollToNextCell), userInfo: nil, repeats: true);
+    }
+    
+    
+    @objc func scrollToNextCell()
+    {
+        
+        let cellSize = self.newsCollection.frame.size
+        let contentOffset = newsCollection.contentOffset
+        
+        if newsCollection.contentSize.width <= newsCollection.contentOffset.x + cellSize.width
+        {
+            let r = CGRect(x: 0, y: contentOffset.y, width: cellSize.width, height: cellSize.height)
+            newsCollection.scrollRectToVisible(r, animated: true)
+            
+        } else {
+            let r = CGRect(x: contentOffset.x + cellSize.width, y: contentOffset.y, width: cellSize.width + 10, height: cellSize.height)
+            newsCollection.scrollRectToVisible(r, animated: true);
+        }
+        
     }
     
     override func awakeFromNib() {
@@ -142,71 +168,38 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     @IBAction func btnInfoOne_onClick(_ sender: Any)
     {
-        if btnTotalPatient.tag == 1
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows total  today's patients", actiontitle: "OK")
+//        if btnTotalPatient.tag == 1
+//        {
+            ZAlertView.init(title: "Medoc", msg: "Addition of \"New Patients\", \"Existing Patient\" and \"Repeated Patients\"", actiontitle: "OK")
             {
                 print("")
             }
-        }else
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows total monthly patients", actiontitle: "OK")
-            {
-                print("")
-            }
-        }
         
     }
     
     @IBAction func btnInfoTwo_onClick(_ sender: Any)
     {
-        if btnTotalPatient.tag == 1
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows today's new patients", actiontitle: "OK")
+
+            ZAlertView.init(title: "Medoc", msg: "Patients getting prescribed for the first time using \"MeDoc Patient\" application on their phone", actiontitle: "OK")
             {
                 print("")
             }
-        }else
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows monthly new patients", actiontitle: "OK")
-            {
-                print("")
-            }
-        }
     }
     
     @IBAction func btnInfoThree_onClick(_ sender: Any)
     {
-        if btnTotalPatient.tag == 1
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows today's existing patients", actiontitle: "OK")
+       ZAlertView.init(title: "Medoc", msg: "Patient is alreasy existing in \"MeDoc\" application but vising at you for first time", actiontitle: "OK")
             {
                 print("")
             }
-        }else
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows monthly existing patients", actiontitle: "OK")
-            {
-                print("")
-            }
-        }
     }
     
     @IBAction func btnInfoFour_onClick(_ sender: Any)
     {
-        if btnTotalPatient.tag == 1
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows today's repeated patients", actiontitle: "OK")
+        ZAlertView.init(title: "Medoc", msg: "\"New Patients\" and \"Existing Patients\" visiting at you again.", actiontitle: "OK")
             {
                 print("")
             }
-        }else
-        {
-            ZAlertView.init(title: "Medoc", msg: "It shows monthly repeated patients", actiontitle: "OK")
-            {
-                print("")
-            }
-        }
     }
     
     

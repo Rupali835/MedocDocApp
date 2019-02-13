@@ -31,6 +31,7 @@ class SideMenuListVC: UIViewController
     var m_cSideList = [SideList]()
     var ProfileArr = [AnyObject]()
     var toast = JYToast()
+    var LoginId = Int()
 
 
     var SideListArr = ["Today's Patient", "Appointments", "News Feed", "Videos", "Profile", "About Us", "Contact Us", "Logout"]
@@ -48,6 +49,7 @@ class SideMenuListVC: UIViewController
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
        let Nm = dict["name"] as! String
         self.lblDocNm.text = "Dr. \(Nm)"
+        self.LoginId = dict["id"] as! Int
     }
     
     
@@ -75,12 +77,14 @@ class SideMenuListVC: UIViewController
         let Key = Token + " " + AccessToken
         print(Key)
         
-        let logoutUrl = "http://otgmart.com/medoc/medoc_test/public/api/logout_api"
+        let logoutUrl = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/logout"
         
-        let headers : HTTPHeaders = ["Authorization" : Key,
-                                     "Accept" : "application/json"]
+//        let headers : HTTPHeaders = ["Authorization" : Key,
+//                                     "Accept" : "application/json"]
         
-        Alamofire.request(logoutUrl, method: .post, parameters: nil, encoding: JSONEncoding.default, headers: headers).responseJSON { (resp) in
+        let param = ["user_id" : self.LoginId]
+        
+        Alamofire.request(logoutUrl, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
             
             switch resp.result

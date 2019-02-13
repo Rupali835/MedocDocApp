@@ -7,21 +7,20 @@
 //
 
 import UIKit
+import Kingfisher
 
 class OpenImageInWeb: UIViewController
 {
-
-    @IBOutlet weak var imgWeb: UIWebView!
-    
+    @IBOutlet weak var imgReport: UIImageView!
     var image_name = String()
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if image_name != nil
         {
-            loadUrl(str : image_name)
+            let Imgurl = URL(string: image_name)
+            imgReport.kf.setImage(with: Imgurl)
         }
         
         
@@ -32,12 +31,12 @@ class OpenImageInWeb: UIViewController
         self.navigationController?.popViewController(animated: true)
     }
     
-    func loadUrl(str : String){
-        
-        let url = URL(string: str)
-        let requestObj = URLRequest(url: url! as URL)
-       imgWeb.loadRequest(requestObj)
-        
-    }
+//    func loadUrl(str : String){
+//
+//        let url = URL(string: str)
+//        let requestObj = URLRequest(url: url! as URL)
+//       imgWeb.loadRequest(requestObj)
+//
+//    }
     
 }
