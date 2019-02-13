@@ -57,12 +57,14 @@ class DetailPrescriptionVC: UIViewController {
     var ReportDetailArr = [AnyObject]()
     
     var drawingImgArr = [AnyObject]()
-    var reportImgArr = [AnyObject]()
+  //  var reportImgArr = [AnyObject]()
     var PrescImgArray = [AnyObject]()
     var StringURL : String!
     var pres_pdf : String!
     var PatientId = String()
     var pdfName = String()
+    var ReportArr = [[String: AnyObject]]()
+
     
     let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
     
@@ -75,7 +77,7 @@ class DetailPrescriptionVC: UIViewController {
         
     if PatientInfo != nil
     {
-        print(PatientInfo)
+
         let Id = self.PatientInfo["id"] as! String
         detailPresc(id : Id)
     }
@@ -236,24 +238,48 @@ class DetailPrescriptionVC: UIViewController {
     
     func setReportData(Arr : [AnyObject])
     {
-       for lcArr in Arr
-       {
-            let report_imgNm = lcArr["image_name"] as! String
+
         
+        self.ReportArr.removeAll(keepingCapacity: false)
+        Arr.forEach { lcArr in
+            
+            let report_imgNm = lcArr["image_name"] as! String
+            
             if (report_imgNm != "NF") && (report_imgNm != "[]")
             {
-                lblNoReportImg.isHidden = true
-                self.reportImgArr = getArrayFromJSonString(cJsonStr: report_imgNm)
-                self.HgtReportImges.constant = 350
-                repoetImgColl.reloadData()
-            }else
-            {
-                lblNoReportImg.isHidden = false
-                 self.HgtReportImges.constant = 120
+                self.getArrayFromJSonString(mcJsonStr: report_imgNm).forEach { lcDict in
+                    self.ReportArr.append(lcDict)
+                }
             }
+
         }
+        
+            if self.ReportArr.count != 0
+            {
+                lblNoReportImg.isHidden = true
+                self.HgtReportImges.constant = 350
+                self.repoetImgColl.reloadData()
+            }else{
+                lblNoReportImg.isHidden = false
+                self.HgtReportImges.constant = 120
+            }
+            
+            
+    
+        
     }
     
+    func getArrayFromJSonString(mcJsonStr: String)->[[String: AnyObject]]
+    {
+        let jsonData = mcJsonStr.data(using: .utf8)!
+        
+        guard let lcArrData = try? JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: AnyObject]] else {
+            return [["Data": "No Found"]] as [[String: AnyObject]]
+        }
+        
+        return lcArrData
+    }
+
     func getArrayFromJSonString(cJsonStr: String)->[AnyObject]
     {
         let jsonData = cJsonStr.data(using: .utf8)!
@@ -265,8 +291,6 @@ class DetailPrescriptionVC: UIViewController {
         return lcArrData
     }
     
-    
-
     @IBAction func btnDownloadPdf_onclick(_ sender: Any)
     {
         OperationQueue.main.addOperation {
@@ -316,7 +340,8 @@ class DetailPrescriptionVC: UIViewController {
  
     @IBAction func btnback_onclick(_ sender: Any)
     {
-        self.dismiss(animated: true, completion: nil)
+       // self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
 }
@@ -334,7 +359,7 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
             
         }else if collectionView == repoetImgColl
         {
-            return self.reportImgArr.count
+            return self.ReportArr.count
         }else if collectionView == medicineCollectionView
         {
             return self.MedicineArr.count
@@ -344,9 +369,7 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-    
-    
-    
+   
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         if collectionView == prescImgColl
@@ -390,10 +413,10 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
           {
             let Rcell = repoetImgColl.dequeueReusableCell(withReuseIdentifier: "CellReportImages", for: indexPath) as! CellReportImages
             
-            if self.reportImgArr.count != 0
+            if self.ReportArr.count != 0
             {
                 
-                let lcdict = self.reportImgArr[indexPath.row]
+                let lcdict = self.ReportArr[indexPath.row]
                 let Img = lcdict["dataName"] as! String
                 let ImgPath = image_path + Img
                 let Imgurl = URL(string: ImgPath)
@@ -461,5 +484,58 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        
+        if collectionView == prescImgColl
+        {
+            if self.PrescImgArray.count != 0
+            {
+                let lcdict = self.PrescImgArray[indexPath.row]
+                
+                let Img = lcdict["dataName"] as! String
+                let ImgPath = image_path + Img
+               
+               let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+                
+                vc.image_name = ImgPath
+                self.navigationController?.pushViewController(vc, animated: true)
+            
+            }
+        }
+        
+        if collectionView == repoetImgColl
+        {
+            if self.ReportArr.count != 0
+            {
+                
+                let lcdict = self.ReportArr[indexPath.row]
+                let Img = lcdict["dataName"] as! String
+                let ImgPath = image_path + Img
+                
+                let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+                
+                vc.image_name = ImgPath
+                self.navigationController?.pushViewController(vc, animated: true)
+               
+            }
+        }
+        
+        if collectionView == patientDrawingImgColl
+        {
+            if self.drawingImgArr.count != 0
+            {
+                
+                let lcdict = self.drawingImgArr[indexPath.row]
+                let Img = lcdict["dataName"] as! String
+                let ImgPath = image_path + Img
+               
+                let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+                
+                vc.image_name = ImgPath
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
+    }
 }

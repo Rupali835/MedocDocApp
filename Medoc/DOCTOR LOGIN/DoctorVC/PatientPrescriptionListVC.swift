@@ -13,14 +13,7 @@ import Kingfisher
 class PatientPrescriptionListVC: UIViewController
 {
 
-    
-//    @IBOutlet weak var btnBlodGrp: UIButton!
-   
-    
-    
-    
     @IBOutlet weak var stackOne: UIButton!
-    
     @IBOutlet weak var stackSix: UIButton!
     @IBOutlet weak var stackFive: UIButton!
     @IBOutlet weak var stackFour: UIButton!
@@ -34,6 +27,8 @@ class PatientPrescriptionListVC: UIViewController
     @IBOutlet weak var DrawingView: UIView!
     @IBOutlet weak var ReportView: UIView!
     
+    @IBOutlet weak var collDrawings: UICollectionView!
+    @IBOutlet weak var collReports: UICollectionView!
     @IBOutlet weak var collPrescriptionList: UICollectionView!
   //  @IBOutlet weak var btnContactNo: UIButton!
    
@@ -43,7 +38,9 @@ class PatientPrescriptionListVC: UIViewController
     @IBOutlet weak var lblPatNm: UILabel!
     @IBOutlet weak var imgPatient: UIImageView!
   
-    
+    var DrawingArr = [[String: AnyObject]]()
+    var MedicineArr = [AnyObject]()
+    var ReportArr = [[String: AnyObject]]()
     var ListArr = [AnyObject]()
     var PatientDict = [String : Any]()
     var patient_id = String()
@@ -51,11 +48,13 @@ class PatientPrescriptionListVC: UIViewController
     var dataFromAppoinment = [String : Any]()
     var viewFromAppoinment = Bool()
     var chiefComplainArr = [String : Int]()
+    var loggedinId = Int()
+    var cOpenPopup : OpenPopUpInfoVC!
+    var PatientBasicInfo = [String : Any]()
   
-    var patientInfoArr = [[String : Any]]()
-      let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
+    let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
     
-    override func viewDidLoad() {
+       override func viewDidLoad() {
         super.viewDidLoad()
         
         setLbl(lbl: [stackOne, stackTwo, stackThree, stackFour, stackFive, stackSix])
@@ -63,13 +62,48 @@ class PatientPrescriptionListVC: UIViewController
         imgPatient.layer.borderWidth = 1.5
         imgPatient.layer.borderColor = UIColor.green.cgColor
         
-        btnAdd.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        btnAdd.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        btnAdd.layer.shadowOpacity = 1.0
-        btnAdd.layer.shadowRadius = 0.0
-        btnAdd.layer.masksToBounds = false
-        btnAdd.layer.cornerRadius = 4.0
+        let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
+        
+        self.loggedinId = (dict["id"] as? Int)!
     }
+    
+    override func awakeFromNib()
+    {
+        self.cOpenPopup = (AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenPopUpInfoVC") as! OpenPopUpInfoVC)
+    }
+    
+    @IBAction func btnEmrgData_onCick(_ sender: Any)
+    {
+        self.cOpenPopup.view.frame = self.view.frame
+        
+        self.cOpenPopup.setData(info: self.PatientBasicInfo, val: 1)
+        
+//        self.cOpenPopup.checkData = 1
+//        self.cOpenPopup.PatientInfo = self.PatientBasicInfo
+        self.view.addSubview(self.cOpenPopup.view)
+        self.cOpenPopup.view.clipsToBounds = true
+    }
+    
+    @IBAction func btnBasicInfo_onClick(_ sender: Any)
+    {
+        self.cOpenPopup.view.frame = self.view.frame
+        self.cOpenPopup.setData(info: self.PatientBasicInfo, val: 2)
+//        self.cOpenPopup.checkData = 2
+//        self.cOpenPopup.PatientInfo = self.PatientBasicInfo
+        self.view.addSubview(self.cOpenPopup.view)
+        self.cOpenPopup.view.clipsToBounds = true
+    }
+    
+    @IBAction func btnMedicalCondition_onClick(_ sender: Any)
+    {
+        self.cOpenPopup.view.frame = self.view.frame
+        self.cOpenPopup.setData(info: self.PatientBasicInfo, val: 3)
+//        self.cOpenPopup.checkData = 3
+//        self.cOpenPopup.PatientInfo = self.PatientBasicInfo
+        self.view.addSubview(self.cOpenPopup.view)
+        self.cOpenPopup.view.clipsToBounds = true
+    }
+    
     
     func setDataByVC()
     {
@@ -78,7 +112,6 @@ class PatientPrescriptionListVC: UIViewController
             if self.dataFromAppoinment != nil
             {
                 self.PrescriptionListView.isHidden = false
-            //    showView(b_show: false)
                 self.btnAdd.isHidden = true
                 self.lblPatNm.text = (self.dataFromAppoinment["name"] as! String)
                 let num = self.dataFromAppoinment["contact_no"] as! String
@@ -90,8 +123,6 @@ class PatientPrescriptionListVC: UIViewController
                 fetchData(pid: self.patient_id)
             }
         }else{
-            
-         //   showView(b_show: true)
             
             self.btnAdd.isHidden = false
             PatientDict = UserDefaults.standard.value(forKey: "PatientDict") as! [String : Any]
@@ -139,9 +170,9 @@ class PatientPrescriptionListVC: UIViewController
                 {
                     let data = json["data"] as! [AnyObject]
                     
-                    let InfoArr = data[0] as! [String : Any]
+                    self.PatientBasicInfo = data[0] as! [String : Any]
                    
-                   if let Dob = InfoArr["dob"] as? String
+                   if let Dob = self.PatientBasicInfo["dob"] as? String
                    {
                         let age = calculateAge(dob: Dob)
                     
@@ -149,7 +180,7 @@ class PatientPrescriptionListVC: UIViewController
                     
                    }
                   
-                    if let img = InfoArr["profile_picture"] as? String
+                    if let img = self.PatientBasicInfo["profile_picture"] as? String
                     {
                         if img != "NF"
                         {
@@ -165,22 +196,7 @@ class PatientPrescriptionListVC: UIViewController
                     {
                         self.imgPatient.image = UIImage(named: "signuser")
                     }
-                
-                  self.patientInfoArr.removeAll(keepingCapacity: false)
-                    
-                    for (key, lcVal) in InfoArr
-                    {
-                        var lcdict = [String : String]()
-                        
-                        if let Strval = lcVal as? String
-                        {
-                            if ((Strval != "NF") && (Strval != "0") && (Strval != ""))
-                            {
-                                lcdict[key] = Strval
-                                self.patientInfoArr.append(lcdict)
-                            }
-                        }
-                    }
+                  
                 }
                 
                 break
@@ -195,17 +211,29 @@ class PatientPrescriptionListVC: UIViewController
     @IBAction func btnViewMore_onclick(_ sender: Any)
     {
         let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ViewMoreDetailVC") as! ViewMoreDetailVC
-        detailvc.ChiefComplainARR = self.chiefComplainArr
-        self.navigationController?.pushViewController(detailvc, animated: true)
         
+        if self.chiefComplainArr.count != 0
+        {
+             detailvc.ChiefComplainARR = self.chiefComplainArr
+        }
+         self.navigationController?.pushViewController(detailvc, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
        setDataByVC()
+       setDelegate()
+    }
+    
+    func setDelegate()
+    {
         collPrescriptionList.delegate = self
         collPrescriptionList.dataSource = self
-    }
+        collReports.delegate = self
+        collReports.dataSource = self
+        collDrawings.delegate = self
+        collDrawings.dataSource = self
+     }
     
     func showView(b_show : Bool)
     {
@@ -218,11 +246,23 @@ class PatientPrescriptionListVC: UIViewController
     
     func PrescriptionList(id : String)
     {
-        let listApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/list_of_prescription"
+        let listApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_prescription_list_by_patient_id"
         
-        let param = ["patient_id" : id]
+        var Param = Parameters()
         
-        Alamofire.request(listApi, method: .post, parameters: param).responseJSON { (resp) in
+        if viewFromAppoinment == true
+        {
+             Param = ["patient_id" : id,
+                         "loggedin_id" : self.loggedinId]
+        }
+        else
+        {
+            Param = ["patient_id" : id]
+        }
+      
+        print(Param)
+        
+        Alamofire.request(listApi, method: .post, parameters: Param).responseJSON { (resp) in
             print(resp)
             
             switch resp.result
@@ -230,16 +270,25 @@ class PatientPrescriptionListVC: UIViewController
             case .success(_):
                 let json = resp.result.value as! NSDictionary
                 let Msg = json["msg"] as! String
+                
                 if Msg == "success"
                 {
                     var chiefProbArr = [String]()
                     
-                    self.PrescriptionListView.isHidden = false
-                   self.ListArr = json["data"] as! [AnyObject]
+            self.PrescriptionListView.isHidden = false
+            self.ListArr = json["prescriptions"] as! [AnyObject]
+                   
+            self.setDataToText(Arr: self.ListArr)
                     
-                    self.chiefComplainArr.removeAll(keepingCapacity: false)
+            let ReportData = json["reports"] as! [AnyObject]
                     
-                    for lcPatProb in self.ListArr
+            self.setReportData(Arr: ReportData)
+                    
+            self.MedicineArr = json["medicines"] as! [AnyObject]
+                    
+            self.chiefComplainArr.removeAll(keepingCapacity: false)
+                    
+                   for lcPatProb in self.ListArr
                     {
                         let paProb = lcPatProb["patient_problem"] as! String
                         
@@ -249,9 +298,9 @@ class PatientPrescriptionListVC: UIViewController
                     
                     let mapItem =  chiefProbArr.map {($0, 1)}
                     
-                    self.chiefComplainArr = Dictionary(mapItem, uniquingKeysWith: +)
+        self.chiefComplainArr = Dictionary(mapItem, uniquingKeysWith: +)
                     
-                self.collPrescriptionList.reloadData()
+            self.collPrescriptionList.reloadData()
                 }
                 
                 if Msg == "fail"
@@ -282,15 +331,76 @@ class PatientPrescriptionListVC: UIViewController
         self.navigationController?.pushViewController(presvc, animated: true)
     }
     
+    func getArrayFromJSonString(cJsonStr: String)->[[String: AnyObject]]
+    {
+        let jsonData = cJsonStr.data(using: .utf8)!
+        
+        guard var lcArrData = try? JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: AnyObject]] else {
+            return [["Data": "No Found"]] as [[String: AnyObject]]
+        }
+        
+        return lcArrData
+    }
+    
+    func setDataToText(Arr : [AnyObject])
+    {
+        self.DrawingArr.removeAll(keepingCapacity: false)
+       Arr.forEach { lcArr in
+            
+            let report_imgNm = lcArr["drawing_image"] as! String
+            //let lcID = lcArr["id"] as! String
+        
+            if (report_imgNm != "NF") && (report_imgNm != "[]")
+            {
+               self.getArrayFromJSonString(cJsonStr: report_imgNm).forEach { lcDict in
+               
+                var lcNewDic = [String: AnyObject]()
+                lcNewDic = lcDict
+                lcNewDic["id"] = lcArr["id"] as AnyObject
+                self.DrawingArr.append(lcNewDic)
+                    
+                    collDrawings.reloadData()
+                }
+            }
+        }
+        
+    }
+    
+    func setReportData(Arr : [AnyObject])
+    {
+        self.ReportArr.removeAll(keepingCapacity: false)
+        Arr.forEach { lcArr in
+            
+           let report_imgNm = lcArr["image_name"] as! String
+            
+            if (report_imgNm != "NF") && (report_imgNm != "[]")
+            {
+                
+                self.getArrayFromJSonString(cJsonStr: report_imgNm).forEach { lcDict in
+                    self.ReportArr.append(lcDict)
+                    
+                    collReports.reloadData()
+                }
+            }
+        }
+   }
 }
 
 extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        if self.ListArr.count != 0
+        if collectionView == collPrescriptionList
         {
             return self.ListArr.count
+            
+        }else if collectionView == collReports
+        {
+            return self.ReportArr.count
+            
+        }else if collectionView == collDrawings
+        {
+           return self.DrawingArr.count
         }else
         {
             return 0
@@ -299,25 +409,89 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let cell = collPrescriptionList.dequeueReusableCell(withReuseIdentifier: "PatientPrescriptionListCell", for: indexPath) as! PatientPrescriptionListCell
         
-        let lcdict = self.ListArr[indexPath.row]
-        cell.lblDate.text = (lcdict["created_at"] as! String)
-        let ptProb = (lcdict["patient_problem"] as! String)
-        
-        cell.lblPatproblem.text = "Chief Complain: \(ptProb)"
-        cell.backView.designCell()
-        return cell
+        if collectionView == collPrescriptionList
+        {
+            let cell = collPrescriptionList.dequeueReusableCell(withReuseIdentifier: "PatientPrescriptionListCell", for: indexPath) as! PatientPrescriptionListCell
+            
+            let lcdict = self.ListArr[indexPath.row]
+            cell.lblDate.text = (lcdict["created_at"] as! String)
+            let ptProb = (lcdict["patient_problem"] as! String)
+            
+            cell.lblPatproblem.text = "Chief Complain: \(ptProb)"
+            cell.backView.designCell()
+            return cell
+        }
+        else if collectionView == collReports
+        {
+           let Rcell = collReports.dequeueReusableCell(withReuseIdentifier: "PatientReportListCell", for: indexPath) as! PatientReportListCell
+            
+            let lcdict = self.ReportArr[indexPath.row]
+            let Img = lcdict["dataName"] as! String
+            let ImgPath = image_path + Img
+            let Imgurl = URL(string: ImgPath)
+            Rcell.imgReport.kf.setImage(with: Imgurl)
+            Rcell.backView.designCell()
+            
+            return Rcell
+        }
+            
+        else if collectionView == collDrawings
+        {
+            let Dcell = collDrawings.dequeueReusableCell(withReuseIdentifier: "PatientDrawingListCell", for: indexPath) as! PatientDrawingListCell
+            
+            let lcdict = self.DrawingArr[indexPath.row]
+            let Img = lcdict["dataName"] as! String
+            let ImgPath = image_path + Img
+            let Imgurl = URL(string: ImgPath)
+            Dcell.imgDrawing.kf.setImage(with: Imgurl)
+            Dcell.backview.designCell()
+            
+            return Dcell
+        }
+        else
+        {
+            return UICollectionViewCell()
+        }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
         
-        let lcdict = self.ListArr[indexPath.row]
-        detailvc.PatientInfo = lcdict as! [String : Any]
-        self.present(detailvc, animated: true, completion: nil)
+        if collectionView == collPrescriptionList
+        {
+            let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
+            
+            let lcdict = self.ListArr[indexPath.row]
+            detailvc.PatientInfo = lcdict as! [String : Any]
+            self.navigationController?.pushViewController(detailvc, animated: true)
+          //  self.present(detailvc, animated: true, completion: nil)
+        }
+        
+        if collectionView == collReports
+        {
+            let lcdict = self.ReportArr[indexPath.row]
+            let Img = lcdict["dataName"] as! String
+            let ImgPath = image_path + Img
+            
+            let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+            
+            vc.image_name = ImgPath
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        
+        if collectionView == collDrawings
+        {
+             let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
+            
+            let lcdict = self.DrawingArr[indexPath.row]
+            detailvc.PatientInfo = lcdict as [String : Any]
+            
+            self.navigationController?.pushViewController(detailvc, animated: true)
+        }
+      
     }
     
 }

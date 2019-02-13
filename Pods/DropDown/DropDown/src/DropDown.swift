@@ -732,6 +732,8 @@ extension DropDown {
 			templateCell.bounds.size.height = cellHeight
             let width = templateCell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).width
 			
+            
+            
 			if width > maxWidth {
 				maxWidth = width
 			}

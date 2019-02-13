@@ -37,6 +37,8 @@
 		3BF823EE21AE7289004C92E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF823ED21AE7288004C92E5 /* GoogleService-Info.plist */; };
 		5802D89C21E5E6CC00934ACF /* PatientListCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5802D89B21E5E6CC00934ACF /* PatientListCollectionCell.swift */; };
 		580466BA21F5B5FF004CF7DF /* UpdateDoctorProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580466B921F5B5FF004CF7DF /* UpdateDoctorProfileVC.swift */; };
+		580640172212A0190012E55B /* OpenImageInWeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580640162212A0190012E55B /* OpenImageInWeb.swift */; };
+		580640192212D1040012E55B /* OpenPopUpInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580640182212D1040012E55B /* OpenPopUpInfoVC.swift */; };
 		580A5A1E21C0F0480019570F /* PatientPrescriptionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */; };
 		580A5A2421C0F16F0019570F /* LCBezierPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 580A5A2021C0F16F0019570F /* LCBezierPath.m */; };
 		580A5A2521C0F16F0019570F /* LCPaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 580A5A2121C0F16F0019570F /* LCPaintView.m */; };
@@ -176,6 +178,8 @@
 		58E4A1E421F3310D00156AD7 /* AddDrawingImgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4A1E321F3310D00156AD7 /* AddDrawingImgCell.swift */; };
 		58E7EEA92209F8B90010C0E6 /* TutorialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7EEA82209F8B90010C0E6 /* TutorialVC.swift */; };
 		58E7EEAB2209F9340010C0E6 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7EEAA2209F9340010C0E6 /* TutorialCell.swift */; };
+		58F290F62211A6A200CD1E2B /* PatientReportListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */; };
+		58F290F82211A6B700CD1E2B /* PatientDrawingListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F290F72211A6B700CD1E2B /* PatientDrawingListCell.swift */; };
 		58F7E20F21EF49280027E284 /* PatientPrescriptionListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F7E20E21EF49280027E284 /* PatientPrescriptionListVC.swift */; };
 		58F7E21521EF6A100027E284 /* AppointmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F7E21421EF6A100027E284 /* AppointmentVC.swift */; };
 		58FBCFCA21E7A77B0055B529 /* SearchPatientbyContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FBCFC921E7A77B0055B529 /* SearchPatientbyContactCell.swift */; };
@@ -236,6 +240,8 @@
 		4A4C2C855EE3C184BAB4C94F /* Pods-Medoc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medoc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Medoc/Pods-Medoc.debug.xcconfig"; sourceTree = "<group>"; };
 		5802D89B21E5E6CC00934ACF /* PatientListCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListCollectionCell.swift; sourceTree = "<group>"; };
 		580466B921F5B5FF004CF7DF /* UpdateDoctorProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDoctorProfileVC.swift; sourceTree = "<group>"; };
+		580640162212A0190012E55B /* OpenImageInWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenImageInWeb.swift; sourceTree = "<group>"; };
+		580640182212D1040012E55B /* OpenPopUpInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenPopUpInfoVC.swift; sourceTree = "<group>"; };
 		580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPrescriptionVC.swift; sourceTree = "<group>"; };
 		580A5A2021C0F16F0019570F /* LCBezierPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCBezierPath.m; sourceTree = "<group>"; };
 		580A5A2121C0F16F0019570F /* LCPaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCPaintView.m; sourceTree = "<group>"; };
@@ -429,6 +435,8 @@
 		58E4A1E321F3310D00156AD7 /* AddDrawingImgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrawingImgCell.swift; sourceTree = "<group>"; };
 		58E7EEA82209F8B90010C0E6 /* TutorialVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVC.swift; sourceTree = "<group>"; };
 		58E7EEAA2209F9340010C0E6 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
+		58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientReportListCell.swift; sourceTree = "<group>"; };
+		58F290F72211A6B700CD1E2B /* PatientDrawingListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDrawingListCell.swift; sourceTree = "<group>"; };
 		58F7E20E21EF49280027E284 /* PatientPrescriptionListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPrescriptionListVC.swift; sourceTree = "<group>"; };
 		58F7E21421EF6A100027E284 /* AppointmentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentVC.swift; sourceTree = "<group>"; };
 		58FBCFC921E7A77B0055B529 /* SearchPatientbyContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPatientbyContactCell.swift; sourceTree = "<group>"; };
@@ -719,6 +727,8 @@
 				580E851D21F9E7D8002A4DCD /* ViewMoreDetailVC.swift */,
 				581D8DDE220D660A008B3784 /* ChartAnalysisVC.swift */,
 				581D8DE7220DAEC2008B3784 /* TemperatureGraphVC.swift */,
+				580640162212A0190012E55B /* OpenImageInWeb.swift */,
+				580640182212D1040012E55B /* OpenPopUpInfoVC.swift */,
 			);
 			path = DoctorVC;
 			sourceTree = "<group>";
@@ -751,6 +761,8 @@
 				581D8DE0220D8B76008B3784 /* ChiefComplainAnalysisCell.swift */,
 				581D8DE2220D9890008B3784 /* MedicineAnalysisCell.swift */,
 				581D8DE4220D98C6008B3784 /* LabTestAnalysisCell.swift */,
+				58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */,
+				58F290F72211A6B700CD1E2B /* PatientDrawingListCell.swift */,
 			);
 			path = DoctorCell;
 			sourceTree = "<group>";
@@ -1234,9 +1246,11 @@
 				58C9925122030F7F00E56C5A /* MKTableViewCell.swift in Sources */,
 				58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */,
 				5827125521F09D1A009E7C02 /* CellPrescImages.swift in Sources */,
+				580640192212D1040012E55B /* OpenPopUpInfoVC.swift in Sources */,
 				58C9925222030F7F00E56C5A /* MKNavigationBar.swift in Sources */,
 				3BA92C6321B00E5E008D85DB /* KLCPopup.m in Sources */,
 				583198AF21C239010068C1AA /* SignUpFormVC.swift in Sources */,
+				58F290F82211A6B700CD1E2B /* PatientDrawingListCell.swift in Sources */,
 				587FFC9921FCD54900C2B316 /* UIImage+DBAssetIcons.m in Sources */,
 				58CB10CD21E4DDA600745BC9 /* CIImage+Utils.swift in Sources */,
 				58CB10D621E4DDA600745BC9 /* Error.swift in Sources */,
@@ -1255,6 +1269,7 @@
 				580A5A1E21C0F0480019570F /* PatientPrescriptionVC.swift in Sources */,
 				582528C621F6F118003B4996 /* CellMedicineData.swift in Sources */,
 				3BF823DD21AD7A32004C92E5 /* Medoc.xcdatamodeld in Sources */,
+				58F290F62211A6A200CD1E2B /* PatientReportListCell.swift in Sources */,
 				3BA92C6F21B00E5E008D85DB /* JYToast.swift in Sources */,
 				5827125721F09D33009E7C02 /* CellDrawingImages.swift in Sources */,
 				583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */,
@@ -1349,6 +1364,7 @@
 				58CB10CB21E4DDA600745BC9 /* AVCaptureVideoOrientation+Utils.swift in Sources */,
 				58C9924F22030F7F00E56C5A /* MKCardView.swift in Sources */,
 				58CB10C921E4DDA600745BC9 /* ShutterButton.swift in Sources */,
+				580640172212A0190012E55B /* OpenImageInWeb.swift in Sources */,
 				582DA44A21E8B86300B85EF5 /* AddReportVC.swift in Sources */,
 				582DA44C21E8B93D00B85EF5 /* AddReportImgCell.swift in Sources */,
 				58CC60E321FED539007F70B1 /* NewsFeedHomePageCell.swift in Sources */,

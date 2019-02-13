@@ -326,7 +326,6 @@ class AddPatientVC: UIViewController
         Alamofire.request(PatApi, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
             
-            
             switch resp.result
             {
             case .success(_):

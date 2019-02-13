@@ -114,15 +114,19 @@ extension ViewMoreDetailVC : UICollectionViewDelegate, UICollectionViewDataSourc
             
             var count = String()
             
-            if value == 1
+            if ((key as? String) != nil)
             {
-                count = "(\(value) time)"
-            }else
-            {
-                count = "(\(value) times)"
+                if value == 1
+                {
+                    count = "(\(value) time)"
+                }else
+                {
+                    count = "(\(value) times)"
+                }
+                
+                cell.lblChiefComplain.text = "\(key) \(count)"
             }
-          
-            cell.lblChiefComplain.text = "\(key) \(count)"
+            
             return cell
         }
        else if collectionView == collMedicine
