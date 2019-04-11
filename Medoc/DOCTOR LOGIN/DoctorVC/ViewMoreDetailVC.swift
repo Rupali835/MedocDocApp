@@ -7,11 +7,12 @@
 //
 
 import UIKit
-import Alamofire
+import Charts
 
-class ViewMoreDetailVC: UIViewController
+class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
 {
-    
+   
+    @IBOutlet weak var diabeticChart: LineChartView!
     @IBOutlet weak var collMedicine: UICollectionView!
     @IBOutlet weak var collLabTest: UICollectionView!
     @IBOutlet weak var collChiefComplain: UICollectionView!
@@ -25,30 +26,89 @@ class ViewMoreDetailVC: UIViewController
     var InfoArr = [[String : Any]]()
     var ChiefComplainARR = [String : Int]()
     var toast = JYToast()
+    weak var axisFormatDelegate: IAxisValueFormatter?
+    let chartView = LineChartView()
+
     
     var MedicineARR = ["Crocin (2)", "Vitamin-B (1)", "Tylenol (2)", "Pepto-Bismol (3)", "Kaopectate (1)", "Bismuth (1)", "Tylenol (2)", "ibuprofen (1)"]
     
     var LabTestARR = ["DENGUE FEVER IGM ANTIBODY (1)", "DIABETES SCREEN (3)", "FEVER PANEL 1 (3)", "HIV 1 & 2 ANTIBODIES (1), SCREENING TEST (1)", "X-RAY ANKLE & FOOT (1)", "URINE (2)", "GLUCOSE (3)"]
+    
+    var months = ["Jan","Feb","Mar","Apr","May","Jun"]
+    
+    let unitsSold = [10.0, 4.0, 6.0, 3.0, 12.0, 16.0]
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         setDelegte()
-        
-//        let dict = UserDefaults.standard.value(forKey: "PatientDict") as! [String : Any]
-//
-//        let Pid = dict["patient_id"] as! String
-    
-        LayoutView(view: [medicineView, labTestView, graphView, diebeticView, complainView])
+
+       LayoutView(view: [medicineView, labTestView, graphView, diebeticView, complainView])
         
         if ChiefComplainARR.count != 0
         {
             collChiefComplain.reloadData()
         }
     
+        diabeticChart.delegate = self
+        setChart(dataPoints: months, values: unitsSold)
+        axisFormatDelegate = self
+        
         
     }
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String
+    {
+        return months[Int(value)]
+    }
+    
+    func setChart(dataPoints: [String], values: [Double])
+    {
+        let xAxis = XAxis()
+        var dataEntries: [ChartDataEntry] = []
+        
+        for i in 0..<dataPoints.count {
+            
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i], data: dataPoints as AnyObject)
+            
+            dataEntries.append(dataEntry)
+            
+        }
+        
+        for i in months{
+            axisFormatDelegate?.stringForValue(Double(i) ?? 0, axis: xAxis)
+        }
+        
+        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Diabetic Values")
+        
+        let lineChartData = LineChartData(dataSet: lineChartDataSet)
+        
+        diabeticChart.data = lineChartData
+        
+        let xAxisValue = diabeticChart.xAxis
+        
+        diabeticChart.xAxis.granularityEnabled = true
+       
+        diabeticChart.xAxis.granularity = 1.0
+        
+        diabeticChart.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
+        
+        diabeticChart.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        
+        diabeticChart.leftAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        
+        diabeticChart.rightAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        
+        diabeticChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
+        
+        lineChartDataSet.valueFont = UIFont.boldSystemFont(ofSize: 10)
+        
+        xAxisValue.valueFormatter = axisFormatDelegate
+        diabeticChart.xAxis.valueFormatter = xAxisValue.valueFormatter
+        
+    }
+    
     
     func setDelegte()
     {
@@ -84,7 +144,12 @@ class ViewMoreDetailVC: UIViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
- }
+    @IBAction func btnChartTwo_onclick(_ sender: Any)
+    {
+        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "TemperatureGraphVC") as! TemperatureGraphVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
 extension ViewMoreDetailVC : UICollectionViewDelegate, UICollectionViewDataSource
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -174,4 +239,3 @@ extension ViewMoreDetailVC : UICollectionViewDelegate, UICollectionViewDataSourc
     
     
 }
-

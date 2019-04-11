@@ -95,7 +95,6 @@ class AddReportVC: UIViewController
        self.navigationController?.popViewController(animated: true)
     }
     
-    
     @objc func Delete_Click(sender: AnyObject)
     {
         

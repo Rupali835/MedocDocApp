@@ -94,6 +94,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
         startTimer()
         
         self.ColorArr = [UIColor.MKColor.Red.P400, UIColor.MKColor.Blue.P400, UIColor.MKColor.Orange.P400, UIColor.MKColor.Green.P400, UIColor.MKColor.Indigo.P400, UIColor.MKColor.Amber.P400, UIColor.MKColor.LightBlue.P400, UIColor.MKColor.BlueGrey.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Cyan.P400, UIColor.MKColor.Teal.P400, UIColor.MKColor.Lime.P400, UIColor.MKColor.Pink.P400, UIColor.MKColor.Purple.P400]
+        
+     //   MedicineDataFromCore.cMedicineData.getMedicineList()
     }
     
     func startTimer()
@@ -218,7 +220,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     func GetCount()
     {
-        let countApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_counts"
+        let countApi = Constant.BaseUrl+Constant.getTotalCountofPatients
         
         let Parm = ["loggedin_id" : m_cAddPatient.loggedin_id!,
                     "loggedin_role" : m_cAddPatient.loggedin_role!] as [String : Any]
@@ -260,7 +262,6 @@ class PatientListVC: UIViewController, AddPatientProtocol
     {
         self.m_bStatus = !self.m_bStatus
        SetButtonStatus(bStatus: m_bStatus)
-        
     }
     
     func SetButtonStatus(bStatus: Bool)
@@ -278,14 +279,13 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     @IBAction func btnNewPatient_onclick(_ sender: Any)
     {
-       
-        
         UIView.animate(withDuration: 0.5)
         {
             self.viewBtnPatinet.isHidden = true
             self.addPatientVc.view.frame = self.view.frame
             self.addPatientVc.m_dAddPatient = self
             self.view.addSubview(self.addPatientVc.view)
+            self.addPatientVc.clearData()
             self.addPatientVc.view.clipsToBounds = true
         }
     }
@@ -391,7 +391,9 @@ class PatientListVC: UIViewController, AddPatientProtocol
   
     func GetPatientData()
     {
-        let getPatApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_todays_patients"
+      
+        let getPatApi = Constant.BaseUrl+Constant.getTodaysPatients
+        print(getPatApi)
         
         let param = ["loggedin_id" : m_cAddPatient.loggedin_id!,
                      "loggedin_role" : m_cAddPatient.loggedin_role!] as [String : Any]
@@ -427,14 +429,13 @@ class PatientListVC: UIViewController, AddPatientProtocol
                     }
                     if self.PatientArr.count > 4
                     {
-                        self.HgtofViewofCollection.constant = 270
+                        self.HgtofViewofCollection.constant = 180
                     }
                     
                 }else{
-                    
                     self.lblNoPatient.isHidden = false
                     self.collPatientList.isHidden = true
-                 }
+                }
                 
                 break
                 
@@ -540,10 +541,9 @@ class PatientListVC: UIViewController, AddPatientProtocol
             self.navigationController?.pushViewController(newsweb, animated: true)
 
     }
-    
-    
+
 }
-extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource
+extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
@@ -573,7 +573,6 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource
             cell.lblNum.text = String(index + 1)
             cell.lblNum.backgroundColor = randomColor
             cell.lblPatNm.text = lcdict["name"] as? String
-            
             cell.backview.designCell()
             return cell
         }
@@ -600,11 +599,9 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource
             
             Ncell.backview.designCell()
             Ncell.backview.layer.borderColor = UIColor.white.cgColor
-             Ncell.backview.layer.borderWidth = 1.0
+            Ncell.backview.layer.borderWidth = 1.0
             Ncell.btnReadMore.layer.borderColor = UIColor.darkGray.cgColor
             Ncell.btnReadMore.layer.borderWidth = 1
-            
-            
             Ncell.btnReadMore.tag = indexPath.row
             Ncell.btnReadMore.addTarget(self, action: #selector(openUrlOnWeb(sender:)), for: .touchUpInside)
             
@@ -637,15 +634,20 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource
             
         }
         
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //2
-        return CGSize(width: (self.collPatientList.frame.size.width) / 2, height: 120)
+    
+        if collectionView == collPatientList
+        {
+             return CGSize(width: (self.collPatientList.frame.size.width - 30) / 2, height: 70)
+        }else
+        {
+             return CGSize(width: (self.newsCollection.frame.size.width) / 2, height: self.newsCollection.frame.height)
+        }
+      
     }
     
     //3

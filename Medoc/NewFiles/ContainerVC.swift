@@ -14,8 +14,6 @@ class ContainerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
-        
         UIView.animate(withDuration: 1.0) {
             
             self.loginvc.view.frame = self.containerView.bounds
@@ -24,9 +22,6 @@ class ContainerVC: UIViewController {
             self.containerView.clipsToBounds = true
             self.containerView.designCell()
         }
-        
-       
-        
     }
     
     override func awakeFromNib()
@@ -56,14 +51,15 @@ class ContainerVC: UIViewController {
                             self.signupvc.view.frame = self.containerView.bounds
                        
                        
-                      self.containerView.clipsToBounds = true
-                    
-                            self.containerView.addSubview(self.signupvc.view)
+                    //  self.containerView.clipsToBounds = true
+                   
+                        self.addChild(self.signupvc)
+                            
+                        self.containerView.addSubview(self.signupvc.view)
                                  self.signupvc.view.clipsToBounds = true
         },
                           completion: nil)
         
-
     }
     
     func showForgetpassword()

@@ -72,17 +72,17 @@ class SideMenuListVC: UIViewController
         let result = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
         print(result)
         
-        let Token = result["token_type"] as! String
-        let AccessToken = result["access_token"] as! String
-        let Key = Token + " " + AccessToken
-        print(Key)
+//        let Token = result["token_type"] as! String
+//        let AccessToken = result["access_token"] as! String
+//        let Key = Token + " " + AccessToken
+    //    print(Key)
         
-        let logoutUrl = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/logout"
+      //  let logoutUrl = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/logout"
         
-//        let headers : HTTPHeaders = ["Authorization" : Key,
-//                                     "Accept" : "application/json"]
-        
+        let logoutUrl = Constant.BaseUrl+Constant.LogoutDoctor
+         
         let param = ["user_id" : self.LoginId]
+        print(param)
         
         Alamofire.request(logoutUrl, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)

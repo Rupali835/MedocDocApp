@@ -40,7 +40,9 @@ class DetailPrescriptionVC: UIViewController {
     @IBOutlet weak var repoetImgColl: UICollectionView!
     @IBOutlet weak var patientDrawingImgColl: UICollectionView!
    
+    @IBOutlet weak var lblNoLabTest: UILabel!
     
+    @IBOutlet weak var txtLabTest: UITextView!
     @IBOutlet weak var medicineCollectionView: UICollectionView!
     
     @IBOutlet weak var txtPrescdetail: UITextView!
@@ -65,6 +67,7 @@ class DetailPrescriptionVC: UIViewController {
     var PatientId = String()
     var pdfName = String()
     var ReportArr = [[String: AnyObject]]()
+    var patientDict = Prescriptions()
 
     
     let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
@@ -75,13 +78,18 @@ class DetailPrescriptionVC: UIViewController {
         super.viewDidLoad()
       
         self.userInteraction()
+    
+        if self.PatientId != nil
+        {
+            detailPresc(id : self.PatientId)
+        }
         
-    if PatientInfo != nil
-    {
-
-        let Id = self.PatientInfo["id"] as! String
-        detailPresc(id : Id)
-    }
+//    if PatientInfo != nil
+//    {
+//
+//        let Id = self.PatientInfo["id"] as! String
+//        detailPresc(id : Id)
+//    }
       
     setDelegate()
         
@@ -115,8 +123,9 @@ class DetailPrescriptionVC: UIViewController {
     
     func detailPresc(id : String)
     {
-        let detailpresApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/detail_prescription"
+       // let detailpresApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/detail_prescription"
         
+        let detailpresApi = Constant.BaseUrl+Constant.detail_prescription_of_patient
         let param = ["id" : id]
         
         Alamofire.request(detailpresApi, method: .post, parameters: param).responseJSON { (resp) in
@@ -174,6 +183,17 @@ class DetailPrescriptionVC: UIViewController {
             self.txtHeight.text = (lcdata["height"] as! String)
             self.txtWeight.text = (lcdata["weight"] as! String)
             self.lblChiefComplain.text = (lcdata["patient_problem"] as! String)
+           
+             let labTestNm = lcdata["lab_test"] as? String
+             if labTestNm != "NF"
+             {
+                self.txtLabTest.text = labTestNm
+                self.lblNoLabTest.isHidden = true
+            }else
+             {
+                self.txtLabTest.text = ""
+                self.lblNoLabTest.isHidden = false
+            }
             
             let presOE = (lcdata["prescription_details"] as! String)
             if presOE != "NF"
@@ -255,8 +275,7 @@ class DetailPrescriptionVC: UIViewController {
             }
 
         }
-        
-            if self.ReportArr.count != 0
+         if self.ReportArr.count != 0
             {
                 lblNoReportImg.isHidden = true
                 self.HgtReportImges.constant = 350
@@ -264,10 +283,7 @@ class DetailPrescriptionVC: UIViewController {
             }else{
                 lblNoReportImg.isHidden = false
                 self.HgtReportImges.constant = 120
-            }
-            
-            
-    
+          }
         
     }
     

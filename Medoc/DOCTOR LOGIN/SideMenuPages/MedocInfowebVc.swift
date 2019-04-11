@@ -18,7 +18,6 @@ class MedocInfowebVc: UIViewController {
     {
         super.viewDidLoad()
         loadUrl()
-
     }
     
     func loadUrl(){

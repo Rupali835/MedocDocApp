@@ -67,7 +67,10 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     
      func GetDoctorProfile(Id : Int)
     {
-        let get_profile = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_doctor_info"
+        //let get_profile = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_doctor_info"
+        
+        let get_profile = Constant.BaseUrl+Constant.GetProfileData
+        
         let param = ["loggedin_id" : Id]
         
         Alamofire.request(get_profile, method: .post, parameters: param).responseJSON { (resp) in

@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="17G5019" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FetchMedicineData" representedClassName="FetchMedicineData" syncable="YES" codeGenerationType="class">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created_at" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="created_by" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="medicine_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="product_code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rxstring" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="spl_inactive_ing" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="spl_ingredients" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="spl_strength" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="splcolor_text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="splshape_text" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FetchMedicineData" positionX="-63" positionY="-18" width="128" height="225"/>
+    </elements>
 </model>

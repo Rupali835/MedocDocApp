@@ -14,6 +14,7 @@ import GoogleSignIn
 import FirebaseAuth
 import FBSDKCoreKit
 import IQKeyboardManager
+import DropDown
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
@@ -23,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         IQKeyboardManager.shared().isEnabled = true
-       
+       DropDown.startListeningToKeyboard()
+        
         Thread.sleep(forTimeInterval: 3.0)
        let result = UserDefaults.standard.value(forKey: "userData")
         print(result)
@@ -32,12 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             let navigationController = self.window?.rootViewController as! UINavigationController
             navigationController.setViewControllers([yourVc], animated: true)
         }
-           // var rootVCStoryboardId = userIsLoggedin ? "SWRevealViewController" : "LoginViewController"
-           // self.window?.rootViewController = UIStoryboard(name: Storyboards.main, bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rootVCStoryboardId)
-       // }
         
-//        var rootVCStoryboardId = userIsLoggedin ? "SWRevealViewController" : "LoginViewController"
-//        self.window?.rootViewController = UIStoryboard(name: Storyboards.main, bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier(rootVCStoryboardId)
        return true
      
     }

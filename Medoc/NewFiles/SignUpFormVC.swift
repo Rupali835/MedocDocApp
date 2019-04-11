@@ -6,10 +6,10 @@ import CloudTagView
 import DropDown
 import SkyFloatingLabelTextField
 
-class SignUpFormVC: UIViewController
+class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate
 {
 
-    @IBOutlet weak var signScroll: UIScrollView!
+   
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var btnCamera: UIButton!
@@ -27,6 +27,7 @@ class SignUpFormVC: UIViewController
     
     @IBOutlet weak var QualificationtagView: CloudTagView!
     
+    var imagePicker = UIImagePickerController()
     var m_cContainerVC: ContainerVC!
     var toast = JYToast()
     var selectedImage: UIImage!
@@ -40,6 +41,7 @@ class SignUpFormVC: UIViewController
     var dropdownQualification = DropDown()
     var selectQualificationString = [String]()
     var m_cFilterdArr = [String]()
+   // var m_csignVc = SignUpFormVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,17 +63,15 @@ class SignUpFormVC: UIViewController
        }
 
     override func viewWillAppear(_ animated: Bool) {
-        signScroll.scrollToTop()
+      
     }
     
     func textValidAction()
     {
-      
         self.txtEmail.delegate = self
         self.txtMobileNo.delegate = self
         
         self.txtMobileNo.addTarget(self, action: #selector(MobileNoDidChange), for: .editingChanged)
-        
         self.txtEmail.addTarget(self, action: #selector(EmailDidChande), for: .editingChanged)
         
     }
@@ -115,32 +115,38 @@ class SignUpFormVC: UIViewController
         }
     }
     
-    
-    
     func AddJsonData()
     {
-        if let path = Bundle.main.path(forResource: "Type of Doctor", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>, let PatientProblem = jsonResult["data"] as? [AnyObject]
+       let doctApi = Constant.BaseUrl+Constant.TypesOfDoctor
+        
+        Alamofire.request(doctApi, method: .get, parameters: nil).responseJSON { (resp) in
+            print(resp)
+            
+            switch resp.result
+            {
+            case .success(_):
+                
+                let json = resp.result.value as! NSDictionary
+                let Msg = json["msg"] as! String
+                if Msg == "success"
                 {
-                    print(PatientProblem)
-                    
-                    for lcdict in PatientProblem
+                    let Data = json["data"] as! [AnyObject]
+                    for lcdict in Data
                     {
-                        let Name = lcdict["name"] as? String
-                        
-                        dropdownQualification.dataSource.append(Name!)
+                      let Name = lcdict["name"] as? String
+                    self.dropdownQualification.dataSource.append(Name!)
                         
                     }
-                    
                 }
-            } catch {
-                // handle error
-                self.toast.isShow(error as! String)
+                break
+                
+            case .failure(_):
+                
+                self.toast.isShow("Something went wrong")
+                break
             }
         }
+      
     }
     
   
@@ -157,20 +163,95 @@ class SignUpFormVC: UIViewController
     
     @IBAction func btnRegister_onClick(_ sender: Any)
     {
-        
        if validation()
        {
           sendData()
        }
         
     }
+   
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let tempImage:UIImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        
+        btnProfileImg.setImage(tempImage, for: .normal)
+        
+        let timestamp = Date().toMillis()
+        tempImage.accessibilityIdentifier = String(describing: timestamp)
+        self.fileName = String(describing: timestamp!)
+        self.selectedImage = tempImage
+        
+        self.m_cContainerVC.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.m_cContainerVC.dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func btnCamera_onClick(_ sender: Any)
     {
-        TakePhoto()
+        
+        let alertController = UIAlertController(title: "Select Photo", message: "Select atleast one photo", preferredStyle: .actionSheet)
+
+        let action1 = UIAlertAction(title: "Camera", style: .default) { (action) in
+
+           alertController.dismiss(animated: true, completion: nil)
+
+            if(UIImagePickerController .isSourceTypeAvailable(.camera)){
+                self.imagePicker.sourceType = .camera
+                self.m_cContainerVC.present(self.imagePicker, animated: true, completion: nil)
+            } else {
+                let alertWarning = UIAlertView(title:"Warning", message: "You don't have camera", delegate:nil, cancelButtonTitle:"OK", otherButtonTitles:"Cancel")
+                alertWarning.show()
+            }
+
+
+        }
+        let action2 = UIAlertAction(title: "Gallery", style: .default) { (action) in
+
+            self.imagePicker.modalPresentationStyle = UIModalPresentationStyle.currentContext
+            self.imagePicker.delegate = self
+            self.m_cContainerVC.present(self.imagePicker, animated: true, completion: nil)
+
+
+        }
+        let action3 = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            print("Destructive is pressed....")
+
+        }
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        alertController.addAction(action3)
+
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
+
+        self.m_cContainerVC.present(alertController, animated: true, completion: nil)
+
+ 
+        
+       /*  Rupali
+        ImagePickerManager().pickImage(self){ image in
+            //here is the image
+            
+            
+            let timestamp = Date().toMillis()
+            image.accessibilityIdentifier = String(describing: timestamp)
+            
+            self.fileName = String(describing: timestamp!)
+            self.btnProfileImg.setImage(image, for: .normal)
+            
+            self.selectedImage = image
+            
+        }*/
     }
    
+    
+    
     func json(from object:Any) -> String? {
         guard let data = try? JSONSerialization.data(withJSONObject:  object, options: []) else
         {
@@ -204,8 +285,7 @@ class SignUpFormVC: UIViewController
              ProfilePic = "NF"
         }
         
-        
-        let SignupApi = "http://otgmart.com/medoc/medoc_test/public/api/doc_signup_api"
+        let SignupApi = Constant.BaseUrl + Constant.SignIn
         
         let param = ["name" : txtName.text!,
                      "email" : txtEmail.text!,
@@ -228,8 +308,6 @@ class SignUpFormVC: UIViewController
                    
                     let data = self.selectedImage.jpegData(compressionQuality: 0.0)
                     
-              //      let data = self.selectedImage.pngData()
-                    
                     multipartFormData.append(data!, withName: "profile_picture", fileName: self.fileName, mimeType: "image/jpeg")
                     
                 }
@@ -251,7 +329,7 @@ class SignUpFormVC: UIViewController
                                 
                                 let json = response.result.value as! NSDictionary
                                 let Msg = json["msg"] as! String
-                                if Msg == "Added Successfully"
+                                if Msg == "success"
                                 {
                                     ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details in Medoc App. Thank you!", actiontitle: "OK")
                                     {
@@ -327,39 +405,39 @@ class SignUpFormVC: UIViewController
         return true
     }
     
-    func TakePhoto()
-    {
-        let attachmentPickerController = DBAttachmentPickerController.imagePickerControllerFinishPicking({ CDBAttachmentArr in
-            
-            
-            for lcAttachment in CDBAttachmentArr
-            {
-                self.fileName = lcAttachment.fileName
-                print(self.fileName)
-                
-                lcAttachment.loadOriginalImage(completion: {image in
-                    
-                    
-                    let timestamp = Date().toMillis()
-                    image?.accessibilityIdentifier = String(describing: timestamp)
-                    
-                    self.fileName = String(describing: timestamp!)
-                    self.btnProfileImg.setImage(image, for: .normal)
-                    
-                    self.selectedImage = image
-                })
-                
-            }
-            
-        }, cancel: nil)
-        
-        attachmentPickerController.mediaType = .image
-        attachmentPickerController.mediaType = .video
-        attachmentPickerController.capturedVideoQulity = UIImagePickerController.QualityType.typeHigh
-        attachmentPickerController.allowsMultipleSelection = false
-        attachmentPickerController.allowsSelectionFromOtherApps = false
-        attachmentPickerController.present(on: self)
-    }
+//    func TakePhoto()
+//    {
+//        let attachmentPickerController = DBAttachmentPickerController.imagePickerControllerFinishPicking({ CDBAttachmentArr in
+//
+//
+//            for lcAttachment in CDBAttachmentArr
+//            {
+//                self.fileName = lcAttachment.fileName
+//                print(self.fileName)
+//
+//                lcAttachment.loadOriginalImage(completion: {image in
+//
+//
+//                    let timestamp = Date().toMillis()
+//                    image?.accessibilityIdentifier = String(describing: timestamp)
+//
+//                    self.fileName = String(describing: timestamp!)
+//                    self.btnProfileImg.setImage(image, for: .normal)
+//
+//                    self.selectedImage = image
+//                })
+//
+//            }
+//
+//        }, cancel: nil)
+//
+//        attachmentPickerController.mediaType = .image
+//        attachmentPickerController.mediaType = .video
+//        attachmentPickerController.capturedVideoQulity = UIImagePickerController.QualityType.typeHigh
+//        attachmentPickerController.allowsMultipleSelection = false
+//        attachmentPickerController.allowsSelectionFromOtherApps = false
+//        attachmentPickerController.present(on: self)
+//    }
     
     
 }
@@ -379,15 +457,7 @@ extension SignUpFormVC : UITextFieldDelegate
         if textField == txtQualification
         {
             dropdownQualification.show()
-//            dropdownQualification.selectionAction = { [unowned self] (index: Int, item: String) in
-//
-//                self.QualificationtagView.tags.append(TagView(text: item))
-//                self.selectQualificationString.append(item)
-//                print(self.selectQualificationString.count)
-//            }
-            
-            
-            
+
             if let text = textField.text,
                 let textRange = Range(range, in: text)
             {
@@ -408,7 +478,6 @@ extension SignUpFormVC : UITextFieldDelegate
                      self.selectQualificationString.append(item)
                      self.txtQualification.text = ""
                 }
-                
             }
         }
         
@@ -419,7 +488,6 @@ extension SignUpFormVC : UITextFieldDelegate
             
             return newLength <= 10
         }
-        
         return true
     }
     
@@ -429,7 +497,6 @@ extension UIScrollView
     func scrollToTop()
     {
         let desiredOffset = CGPoint(x: 0, y: -contentInset.top); setContentOffset(desiredOffset, animated: true)
-        
     }
     
 }

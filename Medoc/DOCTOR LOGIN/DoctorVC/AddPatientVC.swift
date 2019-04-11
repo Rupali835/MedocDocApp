@@ -11,11 +11,12 @@ import Alamofire
 import SkyFloatingLabelTextField
 import ZAlertView
 
+
 protocol AddPatientProtocol {
     func callAddPatientApi()
 }
 
-class AddPatientVC: UIViewController
+class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate
 {
 
     @IBOutlet weak var txtDob: SkyFloatingLabelTextField!
@@ -36,6 +37,7 @@ class AddPatientVC: UIViewController
     let date = Date()
     let datepicker = UIDatePicker()
     let toolBar = UIToolbar()
+    
     var DateStr : String?
     var selectedImage: UIImage!
     var fileName: String!
@@ -44,19 +46,21 @@ class AddPatientVC: UIViewController
     var m_dAddPatient : AddPatientProtocol!
     let formatter = DateFormatter()
     var dobStr : String!
+    var imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-          lblAge.isHidden = true
+      clearData()
+        
+      lblAge.isHidden = true
       imgMale.image = imgMale.image!.withRenderingMode(.alwaysTemplate)
       imgFemale.image = imgFemale.image!.withRenderingMode(.alwaysTemplate)
         
        self.txtContactNo.delegate = self
        self.txtPatNm.delegate = self
-        self.txtDob.delegate = self
+       self.txtDob.delegate = self
         
-     
         formatter.dateFormat = "yyyy-MM-dd"
         let stringDate: String = formatter.string(from: Date())
         self.txtDate.text = stringDate
@@ -76,13 +80,11 @@ class AddPatientVC: UIViewController
         m_caddPatient.loggedin_id = dict["id"] as? Int
         m_caddPatient.loggedin_role = dict["role_id"] as? String
        
-       
-        
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
-         clearData()
+        
     }
     
     @objc func validContact()
@@ -136,8 +138,24 @@ class AddPatientVC: UIViewController
     
      @IBAction func btnAddPatientProfile_onclick(_ sender: Any)
         {
-            self.TakePhoto()
-        }
+           // self.TakePhoto()
+           
+            ImagePickerManager().pickImage(self){ image in
+                //here is the image
+                
+                
+                let timestamp = Date().toMillis()
+                image.accessibilityIdentifier = String(describing: timestamp)
+                
+                self.fileName = String(describing: timestamp!)
+                self.btnProfile.setImage(image, for: .normal)
+                self.selectedImage = image
+                
+            }
+            
+         }
+    
+    
     
     func StringFromDate(nDate: Date) -> String
     {
@@ -149,6 +167,10 @@ class AddPatientVC: UIViewController
     func createDOB()
     {
         _ = Date()
+        
+//        let date = Date()
+//        let datepicker = UIDatePicker()
+//        let toolBar = UIToolbar()
         
         datepicker.datePickerMode = .date
         toolBar.sizeToFit()
@@ -173,15 +195,17 @@ class AddPatientVC: UIViewController
       
         let maxDate: Date = calendar.date(byAdding: components, to: currentDate)!
         
-         self.datepicker.minimumDate = minDate as! Date
-         self.datepicker.maximumDate = maxDate as! Date
+        datepicker.minimumDate = minDate
+        datepicker.maximumDate = maxDate
         
     }
     
     @objc func doneDOB()
     {
-        
-       // var calendar = Calendar.current
+//        let date = Date()
+//        let datepicker = UIDatePicker()
+//        let toolBar = UIToolbar()
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
@@ -192,7 +216,6 @@ class AddPatientVC: UIViewController
         let Age = calculateAge(dob: self.dobStr)
         lblAge.isHidden = false
         lblAge.text = "Age: \(Age)"
-      
      
     }
     
@@ -200,6 +223,10 @@ class AddPatientVC: UIViewController
     func createDatePicker()
     {
         _ = Date()
+        
+//        let date = Date()
+//        let datepicker = UIDatePicker()
+//        let toolBar = UIToolbar()
         
         datepicker.datePickerMode = .date
         toolBar.sizeToFit()
@@ -215,6 +242,10 @@ class AddPatientVC: UIViewController
 
     @objc func donePresses()
     {
+//        let date = Date()
+//        let datepicker = UIDatePicker()
+//        let toolBar = UIToolbar()
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
@@ -271,7 +302,7 @@ class AddPatientVC: UIViewController
         
         if txtDob.text == ""
         {
-            self.toast.isShow("Patient date is mandatory")
+            self.toast.isShow("Patient birth date is mandatory")
             return false
         }
         
@@ -293,8 +324,6 @@ class AddPatientVC: UIViewController
             }
             
         }
-       
-        
         return true
     }
     
@@ -310,7 +339,8 @@ class AddPatientVC: UIViewController
             m_caddPatient.profile_picture = "NF"
         }
         
-        let PatApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_patient"
+        
+         let PatApi = Constant.BaseUrl+Constant.addPatient
         
         let param = ["loggedin_id" : m_caddPatient.loggedin_id!,
                      "loggedin_role" : m_caddPatient.loggedin_role!,
@@ -340,7 +370,7 @@ class AddPatientVC: UIViewController
                     
                     let vc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
 
-                 //    self.AddFiles()
+                    self.AddFiles()
 
                         self.navigationController?.pushViewController(vc, animated: true)
                     
@@ -366,14 +396,16 @@ class AddPatientVC: UIViewController
     
     func AddFiles()
     {
-        let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
+       // let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
+        
+        let FileApi = Constant.BaseUrl+Constant.UploadFiles
         
         Alamofire.upload(
             multipartFormData: { multipartFormData in
                 
                 if self.selectedImage != nil
                 {
-                    let data = self.selectedImage.jpegData(compressionQuality: 0.0)
+                    let data = self.selectedImage.jpegData(compressionQuality: 0.1)
                     
                     multipartFormData.append(data!, withName: "images[]", fileName: self.fileName, mimeType: "images/jpeg")
                     
@@ -429,40 +461,6 @@ class AddPatientVC: UIViewController
  
     }
     
-
-    func TakePhoto()
-    {
-        let attachmentPickerController = DBAttachmentPickerController.imagePickerControllerFinishPicking({ CDBAttachmentArr in
-            
-            for lcAttachment in CDBAttachmentArr
-            {
-                self.fileName = lcAttachment.fileName
-                print(self.fileName)
-               
-                lcAttachment.loadOriginalImage(completion: {image in
-                    
-                    
-                    let timestamp = Date().toMillis()
-                    image?.accessibilityIdentifier = String(describing: timestamp)
-                    
-                    self.fileName = String(describing: timestamp!)
-                    self.btnProfile.setImage(image, for: .normal)
-                    
-                    self.selectedImage = image
-                })
-                
-            }
-            
-        }, cancel: nil)
-        
-        attachmentPickerController.mediaType = .image
-        attachmentPickerController.mediaType = .video
-        attachmentPickerController.capturedVideoQulity = UIImagePickerController.QualityType.typeHigh
-        attachmentPickerController.allowsMultipleSelection = false
-        attachmentPickerController.allowsSelectionFromOtherApps = false
-        attachmentPickerController.present(on: self)
-    }
-    
      @IBAction func btnmale_onclick(_ sender: Any)
      {
      btnmale.tag = 1
@@ -482,9 +480,7 @@ class AddPatientVC: UIViewController
      self.lblMan.textColor = UIColor.darkGray
      self.imgMale.tintColor = UIColor.darkGray
      }
-    
   
-
 }
 extension UIImage {
     func toString() -> String? {

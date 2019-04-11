@@ -12,7 +12,6 @@ class PatientInfoCell: UITableViewCell {
 
     @IBOutlet weak var lblinfo: UILabel!
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -27,7 +27,7 @@ class LoginVC: UIViewController
         super.viewDidLoad()
 
         btnLogin.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
-      
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     @IBAction func btnForgetPassword_onClick(_ sender: Any)
@@ -59,8 +59,8 @@ class LoginVC: UIViewController
     
     func Login()
     {
-    
-        let LoginApi = "http://otgmart.com/medoc/medoc_test/public/api/login"
+
+        let LoginApi = Constant.BaseUrl+Constant.LoginDoctor
         
         let Param = ["username" : txtUserNm.text!,
                      "password" : txtPassword.text!
@@ -82,29 +82,29 @@ class LoginVC: UIViewController
                     
                     let userData = json["data"] as! NSDictionary
                     UserDefaults.standard.set(userData, forKey: "userData")
-                  
-                    let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
-                    
-                    if launchedBefore          //true
-                    {
-                        print("Not first launch.")
+//
+//                    let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+//
+//                    if launchedBefore          //true
+//                    {
+          //              print("Not first launch.")
                         
                         let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
                         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         let navigationController = appDelegate.window!.rootViewController as! UINavigationController
                         navigationController.setViewControllers([yourVc], animated: true)
-                    }
-                    else                       //false
-                    {
-                        print("First launch, setting UserDefault.")
-                        UserDefaults.standard.set(true, forKey: "launchedBefore")
-                        
-                        let yourVc : TutorialVC = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "TutorialVC") as! TutorialVC
-                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                        let navigationController = appDelegate.window!.rootViewController as! UINavigationController
-                        navigationController.setViewControllers([yourVc], animated: true)
-                        
-                    }
+//                    }
+//                    else                       //false
+//                    {
+//                        print("First launch, setting UserDefault.")
+//                        UserDefaults.standard.set(true, forKey: "launchedBefore")
+//
+//                        let yourVc : TutorialVC = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "TutorialVC") as! TutorialVC
+//                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//                        let navigationController = appDelegate.window!.rootViewController as! UINavigationController
+//                        navigationController.setViewControllers([yourVc], animated: true)
+//
+//                    }
                     OperationQueue.main.addOperation {
                         
                         SVProgressHUD.dismiss()
@@ -112,7 +112,24 @@ class LoginVC: UIViewController
                     
                     
                 }else{
-                    self.toast.isShow("Check Username or Password..")
+                    
+                    
+                    OperationQueue.main.addOperation {
+                        
+                        SVProgressHUD.dismiss()
+                    }
+
+                    let Data = json["reason"] as! String
+                    if Data == "User Is Already LoggedIn In Another Device."
+                    {
+                        self.toast.isShow("User Is Already LoggedIn In Another Device. Please check it.")
+                    }
+                    
+                    if Data == "User Not Found.Please Check Login Credentials."
+                    {
+                       self.toast.isShow("Check Username or Password..")
+                    }
+                    
                 }
                 
                 break
@@ -137,8 +154,6 @@ class LoginVC: UIViewController
             toast.isShow("Both fields are mandetory")
             return false
         }
-    
-        
         return true
     }
     

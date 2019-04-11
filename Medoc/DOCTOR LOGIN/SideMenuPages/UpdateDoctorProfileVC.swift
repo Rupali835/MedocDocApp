@@ -117,7 +117,9 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
             DateDob = txtDob.text!
         }
         
-        let profileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/update_doctor"
+      //  let profileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/update_doctor"
+        
+        let profileApi = Constant.BaseUrl+Constant.setNewProfileData
         
         let Profile_param =
             [
@@ -165,7 +167,10 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
 
     func AddFiles()
     {
-        let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
+       // let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
+        
+        let FileApi = Constant.BaseUrl+Constant.UploadFiles
+        
         Alamofire.upload(
             multipartFormData: { multipartFormData in
                 

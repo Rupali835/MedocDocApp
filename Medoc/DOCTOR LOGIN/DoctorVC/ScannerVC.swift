@@ -91,7 +91,9 @@ class ScannerVC: AVScannerViewController
     func TakePatientData(patId : String)
     {
         
-        let PatApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_patient"
+       // let PatApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_patient"
+        
+        let PatApi = Constant.BaseUrl+Constant.addPatient
         
         let param = ["loggedin_id" : self.loginID,
                      "patient_id_existing" : patId,

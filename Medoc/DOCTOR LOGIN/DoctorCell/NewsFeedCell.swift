@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsFeedCell: UITableViewCell {
+class NewsFeedCell: UICollectionViewCell {
 
     @IBOutlet weak var imgNews: UIImageView!
     
@@ -17,21 +17,15 @@ class NewsFeedCell: UITableViewCell {
     @IBOutlet weak var lblTime: UILabel!
     @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
+      @IBOutlet weak var backview: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
        
         btnReadMore.layer.borderColor = UIColor.darkGray.cgColor
         btnReadMore.layer.borderWidth = 1.0
-        
-        
-        
     }
-    @IBOutlet weak var backview: UIView!
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-       
-    }
-
+  
+    
 }

@@ -13,6 +13,7 @@ import Kingfisher
 class PatientPrescriptionListVC: UIViewController
 {
 
+    @IBOutlet weak var lblVisitedDoctor: UILabel!
     @IBOutlet weak var stackOne: UIButton!
     @IBOutlet weak var stackSix: UIButton!
     @IBOutlet weak var stackFive: UIButton!
@@ -30,9 +31,6 @@ class PatientPrescriptionListVC: UIViewController
     @IBOutlet weak var collDrawings: UICollectionView!
     @IBOutlet weak var collReports: UICollectionView!
     @IBOutlet weak var collPrescriptionList: UICollectionView!
-  //  @IBOutlet weak var btnContactNo: UIButton!
-   
-  
 
     @IBOutlet weak var btnAdd: UIButton!
     @IBOutlet weak var lblPatNm: UILabel!
@@ -41,7 +39,7 @@ class PatientPrescriptionListVC: UIViewController
     var DrawingArr = [[String: AnyObject]]()
     var MedicineArr = [AnyObject]()
     var ReportArr = [[String: AnyObject]]()
-    var ListArr = [AnyObject]()
+  
     var PatientDict = [String : Any]()
     var patient_id = String()
     var toast = JYToast()
@@ -52,12 +50,17 @@ class PatientPrescriptionListVC: UIViewController
     var cOpenPopup : OpenPopUpInfoVC!
     var PatientBasicInfo = [String : Any]()
   
+    var prescList = [Prescriptions]()
+    var medicineList = [Medicines]()
+    var reportList = [Reports]()
+    var lastPrescDrNm = LastPrescBy()
+    
     let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
     
        override func viewDidLoad() {
         super.viewDidLoad()
         
-        setLbl(lbl: [stackOne, stackTwo, stackThree, stackFour, stackFive, stackSix])
+      //  setLbl(lbl: [stackOne, stackTwo, stackThree, stackFour, stackFive, stackSix])
         
         imgPatient.layer.borderWidth = 1.5
         imgPatient.layer.borderColor = UIColor.green.cgColor
@@ -78,8 +81,6 @@ class PatientPrescriptionListVC: UIViewController
         
         self.cOpenPopup.setData(info: self.PatientBasicInfo, val: 1)
         
-//        self.cOpenPopup.checkData = 1
-//        self.cOpenPopup.PatientInfo = self.PatientBasicInfo
         self.view.addSubview(self.cOpenPopup.view)
         self.cOpenPopup.view.clipsToBounds = true
     }
@@ -88,8 +89,7 @@ class PatientPrescriptionListVC: UIViewController
     {
         self.cOpenPopup.view.frame = self.view.frame
         self.cOpenPopup.setData(info: self.PatientBasicInfo, val: 2)
-//        self.cOpenPopup.checkData = 2
-//        self.cOpenPopup.PatientInfo = self.PatientBasicInfo
+
         self.view.addSubview(self.cOpenPopup.view)
         self.cOpenPopup.view.clipsToBounds = true
     }
@@ -98,12 +98,9 @@ class PatientPrescriptionListVC: UIViewController
     {
         self.cOpenPopup.view.frame = self.view.frame
         self.cOpenPopup.setData(info: self.PatientBasicInfo, val: 3)
-//        self.cOpenPopup.checkData = 3
-//        self.cOpenPopup.PatientInfo = self.PatientBasicInfo
         self.view.addSubview(self.cOpenPopup.view)
         self.cOpenPopup.view.clipsToBounds = true
     }
-    
     
     func setDataByVC()
     {
@@ -113,15 +110,9 @@ class PatientPrescriptionListVC: UIViewController
             {
                 self.PrescriptionListView.isHidden = false
                 self.btnAdd.isHidden = true
-              
-       //         self.lblPatNm.text = (self.dataFromAppoinment["name"] as! String)
-//                let num = self.dataFromAppoinment["contact_no"] as! String
-//                self.stackFive.setTitle("M: \(num)", for: .normal)
-//
-               self.patient_id = self.dataFromAppoinment["patient_id"] as! String
-//                self.lblPatientId.text = "Patient ID: \(self.patient_id)"
-          
-                PrescriptionList(id : self.patient_id)
+              self.patient_id = self.dataFromAppoinment["patient_id"] as! String
+
+                prescList(id: self.patient_id)
                 fetchData(pid: self.patient_id)
             }
         }else{
@@ -131,7 +122,7 @@ class PatientPrescriptionListVC: UIViewController
             if PatientDict.isEmpty == false
             {
                self.patient_id = PatientDict["patient_id"] as! String
-                PrescriptionList(id : self.patient_id)
+                prescList(id: self.patient_id)
                 fetchData(pid: self.patient_id)
             }
         }
@@ -150,7 +141,9 @@ class PatientPrescriptionListVC: UIViewController
     
     func fetchData(pid : String)
     {
-        let Api = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_patient_info"
+       // let Api = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_patient_info"
+        
+        let Api = Constant.BaseUrl+Constant.getPatientInfo
         
         let param = ["patient_id" : pid]
         
@@ -183,7 +176,7 @@ class PatientPrescriptionListVC: UIViewController
                     {
                         self.stackFive.setTitle("M: \(ContactNo)", for: .normal)
                     }
-                    
+                
                    if let Dob = self.PatientBasicInfo["dob"] as? String
                    {
                         let age = calculateAge(dob: Dob)
@@ -255,23 +248,21 @@ class PatientPrescriptionListVC: UIViewController
         self.secondLine.isHidden = b_show
     }
     
-    func PrescriptionList(id : String)
+    func prescList(id : String) // get all prescriptions
     {
-        let listApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_prescription_list_by_patient_id"
+        let listApi = Constant.BaseUrl+Constant.get_all_prescription_of_patient
         
         var Param = Parameters()
         
         if viewFromAppoinment == true
         {
-             Param = ["patient_id" : id,
-                         "loggedin_id" : self.loggedinId]
+            Param = ["patient_id" : id,
+                     "loggedin_id" : self.loggedinId]
         }
         else
         {
             Param = ["patient_id" : id]
         }
-      
-        print(Param)
         
         Alamofire.request(listApi, method: .post, parameters: Param).responseJSON { (resp) in
             print(resp)
@@ -279,54 +270,62 @@ class PatientPrescriptionListVC: UIViewController
             switch resp.result
             {
             case .success(_):
-                let json = resp.result.value as! NSDictionary
-                let Msg = json["msg"] as! String
-                
-                if Msg == "success"
-                {
-                    var chiefProbArr = [String]()
+                do{
                     
-            self.PrescriptionListView.isHidden = false
-            self.ListArr = json["prescriptions"] as! [AnyObject]
-                   
-            self.setDataToText(Arr: self.ListArr)
+                    let json = try JSONDecoder().decode(PatientPrescriptionList.self, from: resp.data!)
                     
-            let ReportData = json["reports"] as! [AnyObject]
-                    
-            self.setReportData(Arr: ReportData)
-                    
-            self.MedicineArr = json["medicines"] as! [AnyObject]
-                    
-            self.chiefComplainArr.removeAll(keepingCapacity: false)
-                    
-                   for lcPatProb in self.ListArr
+                    let Msg = json.msg
+                    if Msg == "success"
                     {
-                        let paProb = lcPatProb["patient_problem"] as! String
+                    self.prescList = json.prescriptions
+                    self.reportList = json.reports
+                    self.medicineList = json.medicines
+                    self.lastPrescDrNm = json.last_prescription_by
                         
-                       chiefProbArr.append(paProb)
-                        
+                    if let Name = self.lastPrescDrNm.name
+                    {
+                        self.lblVisitedDoctor.text = "Last Visited Doctor: Dr.\(Name)"
                     }
-                    
-                    let mapItem =  chiefProbArr.map {($0, 1)}
-                    
-        self.chiefComplainArr = Dictionary(mapItem, uniquingKeysWith: +)
-                    
-            self.collPrescriptionList.reloadData()
-                }
+                        
+                    self.setPrescListToText(prescArr: self.prescList)
+                      
+                    self.setReportsImgs(reportArr: self.reportList)
+                        
+                self.chiefComplainArr.removeAll(keepingCapacity: false)
+                       
+                        var chiefProbArr = [String]()
+                        
+                        for lcPatProb in self.prescList
+                        {
+                            let paProb = lcPatProb.patient_problem
+                            chiefProbArr.append(paProb!)
+                        }
+                        
+                        let mapItem =  chiefProbArr.map {($0, 1)}
+                        
+                        self.chiefComplainArr = Dictionary(mapItem, uniquingKeysWith: +)
+                        
+                    self.collPrescriptionList.reloadData()
+                    }
+                    else
+                    {
+                        self.toast.isShow("No prescription added")
+                    }
                 
-                if Msg == "fail"
-                {
-                     self.toast.isShow("Something went wrong")
+                }catch{
+                    self.toast.isShow(error as! String)
                 }
-                
                 break
                 
             case .failure(_):
                 self.toast.isShow("Something went wrong")
                 break
             }
+            
         }
+        
     }
+
     
     @IBAction func btnback_onclick(_ sender: Any)
     {
@@ -346,55 +345,55 @@ class PatientPrescriptionListVC: UIViewController
     {
         let jsonData = cJsonStr.data(using: .utf8)!
         
-        guard var lcArrData = try? JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: AnyObject]] else {
+        guard let lcArrData = try? JSONSerialization.jsonObject(with: jsonData, options: []) as! [[String: AnyObject]] else {
             return [["Data": "No Found"]] as [[String: AnyObject]]
         }
         
         return lcArrData
     }
     
-    func setDataToText(Arr : [AnyObject])
+    func setPrescListToText(prescArr : [Prescriptions])
     {
         self.DrawingArr.removeAll(keepingCapacity: false)
-       Arr.forEach { lcArr in
+        prescArr.forEach { lcArr in
             
-            let report_imgNm = lcArr["drawing_image"] as! String
-            //let lcID = lcArr["id"] as! String
-        
-            if (report_imgNm != "NF") && (report_imgNm != "[]")
+            let drawing_imgNm = lcArr.drawing_image as String
+            
+            if (drawing_imgNm != "NF") && (drawing_imgNm != "[]")
             {
-               self.getArrayFromJSonString(cJsonStr: report_imgNm).forEach { lcDict in
-               
-                var lcNewDic = [String: AnyObject]()
-                lcNewDic = lcDict
-                lcNewDic["id"] = lcArr["id"] as AnyObject
-                self.DrawingArr.append(lcNewDic)
+                self.getArrayFromJSonString(cJsonStr: drawing_imgNm).forEach { lcDict in
+                    
+                    var lcNewDic = [String: AnyObject]()
+                    lcNewDic = lcDict
+                    lcNewDic["id"] = lcArr.id as AnyObject
+                    self.DrawingArr.append(lcNewDic)
                     
                     collDrawings.reloadData()
+                    
                 }
             }
         }
-        
     }
     
-    func setReportData(Arr : [AnyObject])
+    func setReportsImgs(reportArr : [Reports])
     {
         self.ReportArr.removeAll(keepingCapacity: false)
-        Arr.forEach { lcArr in
+        
+        reportArr.forEach { lcArr in
             
-           let report_imgNm = lcArr["image_name"] as! String
+            let report_imgNm = lcArr.image_name
             
             if (report_imgNm != "NF") && (report_imgNm != "[]")
             {
-                
-                self.getArrayFromJSonString(cJsonStr: report_imgNm).forEach { lcDict in
+                self.getArrayFromJSonString(cJsonStr: report_imgNm!).forEach { lcDict in
                     self.ReportArr.append(lcDict)
                     
                     collReports.reloadData()
                 }
             }
+          
         }
-   }
+    }
     
     func convertDateFormaterInList(cdate: String) -> String
     { 
@@ -409,13 +408,14 @@ class PatientPrescriptionListVC: UIViewController
     
 }
 
-extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionViewDataSource
+extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if collectionView == collPrescriptionList
         {
-            return self.ListArr.count
+            print(self.prescList.count)
+            return self.prescList.count
             
         }else if collectionView == collReports
         {
@@ -437,13 +437,13 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
         {
             let cell = collPrescriptionList.dequeueReusableCell(withReuseIdentifier: "PatientPrescriptionListCell", for: indexPath) as! PatientPrescriptionListCell
             
-            let lcdict = self.ListArr[indexPath.row]
-            let Cdate = (lcdict["created_at"] as! String)
-            cell.lblDate.text = convertDateFormaterInList(cdate: Cdate)
             
-            let ptProb = (lcdict["patient_problem"] as! String)
-            
-            cell.lblPatproblem.text = "Chief Complain: \(ptProb)"
+            let lcdict = self.prescList[indexPath.row]
+            let Cdate = lcdict.created_at
+            cell.lblDate.text = convertDateFormaterInList(cdate: Cdate!)
+            let ptProb = lcdict.patient_problem
+        
+            cell.lblPatproblem.text = "Chief Complain: \(String(describing: ptProb!))"
             cell.backView.designCell()
             return cell
         }
@@ -488,9 +488,13 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
         {
             let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
             
-            let lcdict = self.ListArr[indexPath.row]
-            detailvc.PatientInfo = lcdict as! [String : Any]
-            self.navigationController?.pushViewController(detailvc, animated: true)
+            let lcdict = self.prescList[indexPath.row]
+          //  detailvc.PatientInfo = lcdict as! [String : Any]
+            
+        //    detailvc.patientDict = lcdict
+            detailvc.PatientId = lcdict.id
+            
+          self.navigationController?.pushViewController(detailvc, animated: true)
           //  self.present(detailvc, animated: true, completion: nil)
         }
         
@@ -512,11 +516,47 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
              let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
             
             let lcdict = self.DrawingArr[indexPath.row]
-            detailvc.PatientInfo = lcdict as [String : Any]
-            
-            self.navigationController?.pushViewController(detailvc, animated: true)
+            print(lcdict)
+            let Id = lcdict["id"] as! String
+            detailvc.PatientId = Id
+           // detailvc.PatientInfo = lcdict as [String : Any]
+        
+        self.navigationController?.pushViewController(detailvc, animated: true)
         }
       
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //2
+        if collectionView == collReports
+        {
+            return CGSize(width: (self.collReports.frame.size.width - 30) / 2, height: 100)
+        }
+        if collectionView == collDrawings
+        {
+            return CGSize(width: (self.collReports.frame.size.width - 30) / 2, height: 100)
+        }
+        else
+        {
+           return CGSize(width: self.collPrescriptionList.frame.width, height: 100)
+        }
+    
+    }
+    
+    //3
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+    }
+    
+    // 4
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
     }
     
 }

@@ -1013,7 +1013,8 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 		return cell
 	}
 	
-	fileprivate func configureCell(_ cell: DropDownCell, at index: Int) {
+	fileprivate func configureCell(_ cell: DropDownCell, at index: Int)
+    {
 		if index >= 0 && index < localizationKeysDataSource.count {
 			cell.accessibilityIdentifier = localizationKeysDataSource[index]
 		}
