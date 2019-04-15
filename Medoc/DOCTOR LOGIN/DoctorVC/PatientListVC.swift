@@ -168,6 +168,12 @@ class PatientListVC: UIViewController, AddPatientProtocol
     }
     
     
+    @IBAction func btnMedicine_onClick(_ sender: Any)
+    {
+      let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "EnterMedicineVc") as! EnterMedicineVc
+      self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func btnInfoOne_onClick(_ sender: Any)
     {
 //        if btnTotalPatient.tag == 1

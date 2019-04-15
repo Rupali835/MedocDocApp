@@ -35,7 +35,9 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBOutlet weak var txtContactNo: SkyFloatingLabelTextField!
     
     let date = Date()
-    let datepicker = UIDatePicker()
+    let datepickerAppointment = UIDatePicker()
+    let datepickerDOB = UIDatePicker()
+    
     let toolBar = UIToolbar()
     
     var DateStr : String?
@@ -172,7 +174,7 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
 //        let datepicker = UIDatePicker()
 //        let toolBar = UIToolbar()
         
-        datepicker.datePickerMode = .date
+        datepickerDOB.datePickerMode = .date
         toolBar.sizeToFit()
         let barBtnItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneDOB))
         
@@ -180,7 +182,7 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         
         toolBar.setItems([barBtnItem, barBtnCancel], animated: false)
         txtDob.inputAccessoryView = toolBar
-        txtDob.inputView = datepicker
+        txtDob.inputView = datepickerDOB
     
         let calendar = Calendar.current
          let currentDate: Date = Date()
@@ -195,8 +197,8 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
       
         let maxDate: Date = calendar.date(byAdding: components, to: currentDate)!
         
-        datepicker.minimumDate = minDate
-        datepicker.maximumDate = maxDate
+        datepickerDOB.minimumDate = minDate
+        datepickerDOB.maximumDate = maxDate
         
     }
     
@@ -209,9 +211,9 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        txtDob.text = dateFormatter.string(from: datepicker.date)
+        txtDob.text = dateFormatter.string(from: datepickerDOB.date)
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        self.dobStr = self.convertDateFormater(dateFormatter.string(from: datepicker.date))
+        self.dobStr = self.convertDateFormater(dateFormatter.string(from: datepickerDOB.date))
         self.view.endEditing(true)
         let Age = calculateAge(dob: self.dobStr)
         lblAge.isHidden = false
@@ -220,15 +222,20 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
     }
     
     
-    func createDatePicker()
+    func createDatePicker()  // For appointment
     {
         _ = Date()
         
-//        let date = Date()
+      //  let dateAppointment = Date()
 //        let datepicker = UIDatePicker()
 //        let toolBar = UIToolbar()
         
-        datepicker.datePickerMode = .date
+        let calendar = Calendar.current
+        let currentDate: Date = Date()
+        var components: DateComponents = DateComponents()
+        components.calendar = calendar
+        
+        datepickerAppointment.datePickerMode = .date
         toolBar.sizeToFit()
         let barBtnItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePresses))
         
@@ -236,7 +243,12 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         
         toolBar.setItems([barBtnItem, barBtnCancel], animated: false)
         txtDate.inputAccessoryView = toolBar
-        txtDate.inputView = datepicker
+        txtDate.inputView = datepickerAppointment
+        
+        let maxDate: Date = calendar.date(byAdding: components, to: currentDate)!
+        
+        datepickerAppointment.minimumDate = maxDate
+       
     
     }
 
@@ -249,9 +261,9 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        txtDate.text = dateFormatter.string(from: datepicker.date)
+        txtDate.text = dateFormatter.string(from: datepickerAppointment.date)
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        self.DateStr = self.convertDateFormater(dateFormatter.string(from: datepicker.date))
+        self.DateStr = self.convertDateFormater(dateFormatter.string(from: datepickerAppointment.date))
         self.view.endEditing(true)
     }
     

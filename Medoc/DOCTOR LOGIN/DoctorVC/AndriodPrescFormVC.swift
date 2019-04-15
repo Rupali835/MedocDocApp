@@ -144,6 +144,10 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     @IBOutlet weak var viewPatientReport: UIView!
     @IBOutlet weak var viewWholeDrawingView: UIView!
 
+    @IBOutlet weak var btnSyrup: DLRadioButton!
+    
+    @IBOutlet weak var btnDrop: DLRadioButton!
+    
     var m_nNewLength: Int!
     var m_cFilterdArr = [String]()
     var medicineIntervalType = String()
@@ -978,6 +982,12 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     @IBAction func detailBtnOK_onClick(_ sender: Any)
     {
         popUp.dismiss(true)
+    }
+    
+    @IBAction func btnSyrup_onClick(_ sender: Any) {
+    }
+    
+    @IBAction func btnDrop_onClick(_ sender: Any) {
     }
     
     

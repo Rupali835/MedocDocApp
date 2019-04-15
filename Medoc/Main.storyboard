@@ -502,7 +502,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Qualification" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eqd-xZ-OJj" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Educational Qualification" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eqd-xZ-OJj" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                                 <rect key="frame" x="60" y="5.5" width="405" height="49"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="49" id="M1y-F1-WpN"/>
@@ -1373,6 +1373,9 @@
                                                                 <state key="normal" title="Medicine">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <action selector="btnMedicine_onClick:" destination="cGU-Hc-4Nl" eventType="touchUpInside" id="1rB-56-UTU"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXB-Sp-khv">
                                                                 <rect key="frame" x="417" y="0.0" width="417" height="251.5"/>

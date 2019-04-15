@@ -176,7 +176,7 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
             break
             
        case 4:
-            let profileVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+            let profileVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DoctorProfileVc") as! DoctorProfileVc
             revealViewController().pushFrontViewController(profileVc, animated: true)
             break
             

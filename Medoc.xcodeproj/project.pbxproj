@@ -176,8 +176,10 @@
 		58E3506421CA485700AAF430 /* SideMenuListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E3506321CA485700AAF430 /* SideMenuListVC.swift */; };
 		58E4A1E221F32AB300156AD7 /* AddDrawingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4A1E121F32AB300156AD7 /* AddDrawingVC.swift */; };
 		58E4A1E421F3310D00156AD7 /* AddDrawingImgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4A1E321F3310D00156AD7 /* AddDrawingImgCell.swift */; };
+		58E4C4BF22609488006A659A /* EnterMedicineVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4C4BE22609488006A659A /* EnterMedicineVc.swift */; };
 		58E7EEA92209F8B90010C0E6 /* TutorialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7EEA82209F8B90010C0E6 /* TutorialVC.swift */; };
 		58E7EEAB2209F9340010C0E6 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7EEAA2209F9340010C0E6 /* TutorialCell.swift */; };
+		58EC00F0225F6DF200288694 /* DoctorProfileVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EC00EF225F6DF200288694 /* DoctorProfileVc.swift */; };
 		58EFE63D221D6E4B003CA352 /* MedicineDataFromCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EFE63C221D6E4B003CA352 /* MedicineDataFromCore.swift */; };
 		58F1CC4222154B4F007130B6 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F1CC4122154B4F007130B6 /* ImagePickerManager.swift */; };
 		58F290F62211A6A200CD1E2B /* PatientReportListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */; };
@@ -438,8 +440,10 @@
 		58E3506321CA485700AAF430 /* SideMenuListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListVC.swift; sourceTree = "<group>"; };
 		58E4A1E121F32AB300156AD7 /* AddDrawingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrawingVC.swift; sourceTree = "<group>"; };
 		58E4A1E321F3310D00156AD7 /* AddDrawingImgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrawingImgCell.swift; sourceTree = "<group>"; };
+		58E4C4BE22609488006A659A /* EnterMedicineVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMedicineVc.swift; sourceTree = "<group>"; };
 		58E7EEA82209F8B90010C0E6 /* TutorialVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVC.swift; sourceTree = "<group>"; };
 		58E7EEAA2209F9340010C0E6 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
+		58EC00EF225F6DF200288694 /* DoctorProfileVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileVc.swift; sourceTree = "<group>"; };
 		58EFE63C221D6E4B003CA352 /* MedicineDataFromCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineDataFromCore.swift; sourceTree = "<group>"; };
 		58F1CC4122154B4F007130B6 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientReportListCell.swift; sourceTree = "<group>"; };
@@ -706,6 +710,7 @@
 				580E851B21F9DE55002A4DCD /* AboutUsVC.swift */,
 				5859911421FEDA440004CF7A /* newsFeedWebViewVC.swift */,
 				58C992392202F8CD00E56C5A /* MedocInfowebVc.swift */,
+				58EC00EF225F6DF200288694 /* DoctorProfileVc.swift */,
 			);
 			path = SideMenuPages;
 			sourceTree = "<group>";
@@ -735,6 +740,7 @@
 				580640162212A0190012E55B /* OpenImageInWeb.swift */,
 				580640182212D1040012E55B /* OpenPopUpInfoVC.swift */,
 				58F78AB3221D40BA001A08A8 /* FetchResponseApi.swift */,
+				58E4C4BE22609488006A659A /* EnterMedicineVc.swift */,
 			);
 			path = DoctorVC;
 			sourceTree = "<group>";
@@ -1254,6 +1260,7 @@
 				580E852421F9F896002A4DCD /* PatientInfoCell.swift in Sources */,
 				580E851821F9D475002A4DCD /* PdfReaderVC.swift in Sources */,
 				58348D9821DE1DCC007BE8C2 /* CheckboxButton.swift in Sources */,
+				58E4C4BF22609488006A659A /* EnterMedicineVc.swift in Sources */,
 				5827125921F09D4A009E7C02 /* CellReportImages.swift in Sources */,
 				58EFE63D221D6E4B003CA352 /* MedicineDataFromCore.swift in Sources */,
 				581D8DE8220DAEC2008B3784 /* TemperatureGraphVC.swift in Sources */,
@@ -1268,6 +1275,7 @@
 				58C9925122030F7F00E56C5A /* MKTableViewCell.swift in Sources */,
 				58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */,
 				5827125521F09D1A009E7C02 /* CellPrescImages.swift in Sources */,
+				58EC00F0225F6DF200288694 /* DoctorProfileVc.swift in Sources */,
 				580640192212D1040012E55B /* OpenPopUpInfoVC.swift in Sources */,
 				58C9925222030F7F00E56C5A /* MKNavigationBar.swift in Sources */,
 				3BA92C6321B00E5E008D85DB /* KLCPopup.m in Sources */,

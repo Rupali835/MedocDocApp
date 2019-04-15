@@ -155,9 +155,7 @@ class AppointmentVC: UIViewController {
         let date = dateFormatter.date(from: date)
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return  dateFormatter.string(from: date!)
-        
     }
-
 }
 extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource
 {
@@ -220,7 +218,5 @@ extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10.0
     }
-    
-    
     
 }
