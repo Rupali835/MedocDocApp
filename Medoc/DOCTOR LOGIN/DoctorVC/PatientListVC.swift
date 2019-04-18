@@ -23,6 +23,7 @@ class AddPatient
 
 }
 
+
 class PatientListVC: UIViewController, AddPatientProtocol
 {
     @IBOutlet weak var lblNoPatient: UILabel!
@@ -43,6 +44,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
     @IBOutlet weak var lblTotal_patient_count: UILabel!
     @IBOutlet weak var lblExisting_patient_count: UILabel!
     @IBOutlet weak var lblNew_patient_count: UILabel!
+    
+//    @IBOutlet weak var netCheckView: NoInternetView!
     
     var m_cPatintInfoArr = [CPatientEntryData]()
     var popUp = KLCPopup()
@@ -66,6 +69,15 @@ class PatientListVC: UIViewController, AddPatientProtocol
     {
         
         super.viewDidLoad()
+        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+            print("Internet Connection not Available!")
+            Alert.shared.basicalert(vc: self, title: "Internet Connection Appears Offline", msg: "Go to Setting and Turn on Mobile Data or Wifi Connection")
+
+        }
+        
         setCountLines()
         getHealthData()
         self.m_bStatus  = true
@@ -358,7 +370,10 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     func SendRefelCode(refId : String)
     {
-        let refApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/update_ref_id"
+        //let refApi = "http://www.kanishkagroups.com/medoc_doctor_api/index.php/API/update_ref_id"
+        
+        let refApi = Constant.BaseUrl + Constant.UpdateRefId
+        
         let param = ["loggedin_id" : m_cAddPatient.loggedin_id!,
                      "ref_id" : refId] as [String : Any]
         

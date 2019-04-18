@@ -55,7 +55,7 @@ class PatientPrescriptionListVC: UIViewController
     var reportList = [Reports]()
     var lastPrescDrNm = LastPrescBy()
     
-    let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
+    let image_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
     
        override func viewDidLoad() {
         super.viewDidLoad()
@@ -291,7 +291,7 @@ class PatientPrescriptionListVC: UIViewController
                       
                     self.setReportsImgs(reportArr: self.reportList)
                         
-                self.chiefComplainArr.removeAll(keepingCapacity: false)
+                    self.chiefComplainArr.removeAll(keepingCapacity: false)
                        
                         var chiefProbArr = [String]()
                         
@@ -436,7 +436,6 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
         if collectionView == collPrescriptionList
         {
             let cell = collPrescriptionList.dequeueReusableCell(withReuseIdentifier: "PatientPrescriptionListCell", for: indexPath) as! PatientPrescriptionListCell
-            
             
             let lcdict = self.prescList[indexPath.row]
             let Cdate = lcdict.created_at

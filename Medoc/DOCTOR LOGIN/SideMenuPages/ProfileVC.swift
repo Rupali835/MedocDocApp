@@ -28,7 +28,8 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     @IBOutlet weak var backBtn: UIButton!
    
     
-   var img_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
+    var img_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
+    
     let dropdownDoctorList = DropDown()
     var AssistantData = [AnyObject]()
     
@@ -67,8 +68,7 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     
      func GetDoctorProfile(Id : Int)
     {
-        //let get_profile = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_doctor_info"
-        
+       
         let get_profile = Constant.BaseUrl+Constant.GetProfileData
         
         let param = ["loggedin_id" : Id]

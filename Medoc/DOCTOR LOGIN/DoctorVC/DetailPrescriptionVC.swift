@@ -70,9 +70,9 @@ class DetailPrescriptionVC: UIViewController {
     var patientDict = Prescriptions()
 
     
-    let image_path = "http://www.otgmart.com/medoc/medoc_doctor_api/uploads/"
+    let image_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
     
-    let pdf_path = "http://www.otgmart.com/medoc/medoc_doctor_api/prescription_pdf/"
+    let pdf_path = "http://13.234.38.193/medoc_doctor_api/prescription_pdf/"
     
     override func viewDidLoad() {
         super.viewDidLoad()

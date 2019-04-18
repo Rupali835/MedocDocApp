@@ -11,48 +11,58 @@ import DropDown
 
 class EnterMedicineVc: UIViewController {
 
-    @IBOutlet weak var btntextTiming: UIButton!
-    @IBOutlet weak var btntextAmount: UIButton!
-    @IBOutlet weak var btntextType: UIButton!
+
+    @IBOutlet weak var txtTime: UITextField!
+    @IBOutlet weak var txtSchedule: UITextField!
+    @IBOutlet weak var txtInstructions: UITextField!
+    @IBOutlet weak var txtMedicineType: UITextField!
     @IBOutlet weak var txtMedicinenm: UITextField!
-    @IBOutlet weak var btnType: UIButton!
-    
-    @IBOutlet weak var btnTiming: UIButton!
-    @IBOutlet weak var btnAmount: UIButton!
+
     let dropDownType = DropDown()
-    let dropDownAmount = DropDown()
+    let dropDownInstruction = DropDown()
     let dropDownTiming = DropDown()
+    
+    
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        dropDownType.anchorView = btnType
+        txtSchedule.delegate = self
+        txtMedicineType.delegate = self
+        txtInstructions.delegate = self
+        
+        dropDownType.anchorView = txtMedicineType
         dropDownType.direction = .bottom
         dropDownType.bottomOffset = CGPoint(x: 0, y:(dropDownType.anchorView?.plainView.bounds.height)!)
-        dropDownType.dataSource = ["Tablet", "Syrup", "Tube", "Drop"]
+        dropDownType.dataSource = ["Capsules", "Cream", "Drops", "Gel", "Inhaler", "Injection", "Lotion", "Mouthwash", "Ointment", "Others", "Physiotherapy", "Powder", "Spray", "Suppository", "Syrup", "Tablet", "Treatment Session"]
 
-        dropDownAmount.anchorView = btnAmount
-        dropDownAmount.direction = .bottom
-        dropDownAmount.bottomOffset = CGPoint(x: 0, y:(dropDownType.anchorView?.plainView.bounds.height)!)
-        dropDownAmount.dataSource = ["1 Tablet", "1½ Tablet", "2 Tablet"]
-      
+        dropDownInstruction.anchorView = txtInstructions
+        dropDownInstruction.direction = .bottom
+        dropDownInstruction.bottomOffset = CGPoint(x: 0, y:(dropDownType.anchorView?.plainView.bounds.height)!)
+        dropDownInstruction.dataSource = ["Before meal", "After meal", "During meal", "Empty stomach", "With warm water", "Never take with milk", "Avoid sugar", "Avoid salty food", "Avoid fatty food", "Eat more vegetable", "Eat more iron-rich food", "No specific instruction"]
 
-        dropDownTiming.anchorView = btnTiming
+
+        dropDownTiming.anchorView = txtSchedule
         dropDownTiming.direction = .bottom
         dropDownTiming.bottomOffset = CGPoint(x: 0, y:(dropDownType.anchorView?.plainView.bounds.height)!)
-        dropDownTiming.dataSource = ["Daily", "Weekly", "Time Interval"]
-      
+        dropDownTiming.dataSource = ["Once", "Daily", "Weekly", "Time Interval"]
+
 
         
     }
-    
+   
+    @IBAction func btnBack_onclick(_ sender: Any)
+    {
+        self.navigationController?.popViewController(animated: true)
+    }
+    /*
     @IBAction func btnSelectType_onClick(_ sender: Any)
     {
         dropDownType.show()
         dropDownType.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.btntextType.setTitle(item, for: .normal)
+            self.btnType.setTitle(item, for: .normal)
             
         }
     }
@@ -62,7 +72,7 @@ class EnterMedicineVc: UIViewController {
         dropDownAmount.show()
         dropDownAmount.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.btntextAmount.setTitle(item, for: .normal)
+            self.btnAmount.setTitle(item, for: .normal)
             
         }
     }
@@ -72,9 +82,47 @@ class EnterMedicineVc: UIViewController {
         dropDownTiming.show()
         dropDownTiming.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.btntextTiming.setTitle(item, for: .normal)
+            self.btnTiming.setTitle(item, for: .normal)
             
         }
     }
+ 
+ */
     
+}
+
+extension EnterMedicineVc : UITextFieldDelegate
+{
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        if textField == txtMedicineType
+        {
+            dropDownType.show()
+            dropDownType.selectionAction = { [unowned self] (index: Int, item: String) in
+                print("Selected item: \(item) at index: \(index)")
+               self.txtMedicineType.text = item
+                
+            }
+        }
+        
+        if textField == txtInstructions
+        {
+            dropDownInstruction.show()
+            dropDownInstruction.selectionAction = { [unowned self] (index: Int, item: String) in
+                print("Selected item: \(item) at index: \(index)")
+                self.txtInstructions.text = item
+                
+            }
+        }
+        
+        if textField == txtSchedule
+        {
+            dropDownTiming.show()
+            dropDownTiming.selectionAction = { [unowned self] (index: Int, item: String) in
+                print("Selected item: \(item) at index: \(index)")
+                self.txtSchedule.text = item
+                
+            }
+        }
+    }
 }

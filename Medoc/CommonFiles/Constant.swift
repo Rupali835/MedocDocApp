@@ -10,15 +10,19 @@ import Foundation
 
 struct Constant
 {
-    static let BaseUrl = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/"
+    static let BaseUrl = "http://13.234.38.193/medoc_doctor_api/index.php/API/"
     
     static let LoginDoctor = "login"
     static let LogoutDoctor = "logout"
     static let SignIn = "create_doc"
     
+    static let UpdateRefId = "update_ref_id"
+    
     static let getTodaysPatients = "get_todays_patients"
     static let addPatient = "add_patient"
+    static let addPrescription = "add_prescription"
     static let getTotalCountofPatients = "get_counts"
+    static let getDesignation = "get_designations"
     
     static let TypesOfDoctor = "type_of_doctors"
     static let GetProfileData = "get_doctor_info"

@@ -1641,23 +1641,15 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             m_cPresdata.signature_image = "NF"
         }
         
-        let PresApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_prescription"
+      //  let PresApi = "http://www.kanishkagroups.com/medoc_doctor_api/index.php/API/add_prescription"
+        
+        let PresApi = Constant.BaseUrl + Constant.addPrescription
  
            let param = "patient_id=\(patient_id)&temperature=\(txtTemp.text!)&lab_test=\(self.txtLabTest.text!)&weight=\(txtWeight.text!)&height=\(m_cPresdata.height!)&blood_pressure=\(txtBloodGrp.text!)&other_details=\(txtOtherDetail.text!)&refered_by=\(txtReferdBy.text!)&handwritten_image=\(m_cPresdata.handwritten_image!)&patient_problem=\(txtpatProblems.text!)&drawing_image=\(m_cPresdata.drawing_image!)&signature_image=\(m_cPresdata.signature_image!)&image_name=\(m_cPresdata.image_name!)&medicine_data=\(m_cPresdata.medicine_data!)&patient_clinic_visit_id=\(PatientClinicVisitId)&followup_date=\(txtFollowUpdate.text!)&loggedin_id=\(self.loggedinId!)&prescription_details=\(txtPresc.text!)"
         
         print(param)
         
-//        OperationQueue.main.addOperation {
-//            SVProgressHUD.setDefaultMaskType(.custom)
-//            SVProgressHUD.setBackgroundColor(UIColor.gray)
-//            SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
-//            SVProgressHUD.show(withStatus: "Saving Prescription")
-//        }
-        
-        
-        
-//      SVProgressHUD.show(withStatus: "Saving Prescription..")
-        
+
         
         var urlReq = URLRequest(url: URL(string: PresApi)!)
         urlReq.httpMethod = "Post"
@@ -2335,9 +2327,7 @@ extension AndriodPrescFormVC : UITextFieldDelegate
                 self.dropdownLabTestList.reloadAllComponents()
                 
                 dropdownLabTestList.selectionAction = { [unowned self] (index: Int, item: String) in
-                    
-                    
-                    self.txtLabTest.text = item
+                     self.txtLabTest.text = item
                 }
                 
             }

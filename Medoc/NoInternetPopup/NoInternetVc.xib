@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="Medoc" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" restorationIdentifier="NoInternetVc" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qYq-Lo-bRO">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gf6-I3-v9M">
+                            <rect key="frame" x="37.5" y="173.5" width="300" height="300"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MedocAppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="SIw-vm-ywq">
+                                    <rect key="frame" x="120" y="5" width="60" height="60"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="60" id="2zj-Gr-XYY"/>
+                                        <constraint firstAttribute="width" constant="60" id="a5f-mm-G1V"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="SIw-vm-ywq" firstAttribute="centerX" secondItem="gf6-I3-v9M" secondAttribute="centerX" id="PaA-qy-lDm"/>
+                                <constraint firstAttribute="height" constant="300" id="csr-gb-w5c"/>
+                                <constraint firstAttribute="width" constant="300" id="pcB-zt-wLs"/>
+                                <constraint firstItem="SIw-vm-ywq" firstAttribute="top" secondItem="gf6-I3-v9M" secondAttribute="top" constant="5" id="wfY-cq-61L"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You're offline" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="879-hM-ZY8">
+                            <rect key="frame" x="117.5" y="263.5" width="140" height="28.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="140" id="zAR-JJ-q62"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="GeezaPro" family="Geeza Pro" pointSize="23"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check your internet connection and try again" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4E2-2H-OlB">
+                            <rect key="frame" x="20" y="312" width="335" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="QYe-za-TGg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kH2-DR-uiW">
+                            <rect key="frame" x="30" y="389" width="315" height="50"/>
+                            <color key="backgroundColor" red="0.40392156862745099" green="0.22745098039215686" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="n0z-hO-kGB"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <state key="normal" title="TRY AGAIN">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="gf6-I3-v9M" firstAttribute="centerY" secondItem="qYq-Lo-bRO" secondAttribute="centerY" id="4bf-QF-7Gq"/>
+                        <constraint firstAttribute="trailing" secondItem="4E2-2H-OlB" secondAttribute="trailing" constant="20" id="Ddy-Gf-5uT"/>
+                        <constraint firstItem="kH2-DR-uiW" firstAttribute="top" secondItem="4E2-2H-OlB" secondAttribute="bottom" constant="32" id="GDp-IJ-rd1"/>
+                        <constraint firstItem="kH2-DR-uiW" firstAttribute="centerX" secondItem="qYq-Lo-bRO" secondAttribute="centerX" id="IYm-oB-l7I"/>
+                        <constraint firstItem="4E2-2H-OlB" firstAttribute="centerX" secondItem="qYq-Lo-bRO" secondAttribute="centerX" id="Mfk-GB-V5y"/>
+                        <constraint firstItem="879-hM-ZY8" firstAttribute="top" secondItem="SIw-vm-ywq" secondAttribute="bottom" constant="25" id="gfV-ce-oVe"/>
+                        <constraint firstItem="879-hM-ZY8" firstAttribute="centerX" secondItem="qYq-Lo-bRO" secondAttribute="centerX" id="hyE-SW-rGV"/>
+                        <constraint firstItem="4E2-2H-OlB" firstAttribute="top" secondItem="879-hM-ZY8" secondAttribute="bottom" constant="20" id="r05-Uy-ND9"/>
+                        <constraint firstItem="gf6-I3-v9M" firstAttribute="centerX" secondItem="qYq-Lo-bRO" secondAttribute="centerX" id="rtd-sh-D6v"/>
+                        <constraint firstItem="4E2-2H-OlB" firstAttribute="leading" secondItem="qYq-Lo-bRO" secondAttribute="leading" constant="20" id="sra-wB-wJ0"/>
+                        <constraint firstItem="kH2-DR-uiW" firstAttribute="leading" secondItem="qYq-Lo-bRO" secondAttribute="leading" constant="30" id="vc0-Qs-G3p"/>
+                        <constraint firstAttribute="trailing" secondItem="kH2-DR-uiW" secondAttribute="trailing" constant="30" id="z3o-8A-tHW"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qYq-Lo-bRO" secondAttribute="trailing" id="IAW-Cd-iTm"/>
+                <constraint firstItem="qYq-Lo-bRO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="NtC-3f-OeB"/>
+                <constraint firstItem="qYq-Lo-bRO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="byU-wh-I5d"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="qYq-Lo-bRO" secondAttribute="bottom" id="lkR-2j-R1o"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.40000000000001" y="154.27286356821591"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="MedocAppIcon" width="328" height="309"/>
+    </resources>
+</document>

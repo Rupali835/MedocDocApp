@@ -300,7 +300,14 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
     {
         if validation()
         {
-            TakePatientData()
+            if Reachability.isConnectedToNetwork(){
+                TakePatientData()
+            }else{
+                print("Internet Connection not Available!")
+                Alert.shared.basicalert(vc: self, title: "Internet Connection Appears Offline", msg: "Go to Setting and Turn on Mobile Data or Wifi Connection")
+                
+            }
+         
         }
     }
     

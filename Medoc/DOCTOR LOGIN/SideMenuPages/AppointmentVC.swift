@@ -52,8 +52,7 @@ class AppointmentVC: UIViewController {
         let id = dict["id"] as? Int
         let Role = dict["role_id"] as? String
         
-      //  let Api = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/get_patients_datewise"
-        
+   
         let Api = Constant.BaseUrl+Constant.getPatientsDatewise
         
         let param = ["loggedin_id" : id!,
