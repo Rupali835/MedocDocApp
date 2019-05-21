@@ -123,21 +123,21 @@ extension NewsFeedVC : UICollectionViewDelegate, UICollectionViewDataSource, UIC
             cell.lblTitle.text = ""
         }
         
-        if let Desc = lcdict["description"] as? String
-        {
-            cell.lblDesc.text = Desc
-        }else{
-            cell.lblDesc.text = ""
-        }
-        
-        if let time = lcdict["publishedAt"] as? String
-        {
-            cell.lblTime.text = time
-        }else
-        {
-            cell.lblTime.text = ""
-        }
-        
+//        if let Desc = lcdict["description"] as? String
+//        {
+//            cell.lblDesc.text = Desc
+//        }else{
+//            cell.lblDesc.text = ""
+//        }
+//
+//        if let time = lcdict["publishedAt"] as? String
+//        {
+//            cell.lblTime.text = time
+//        }else
+//        {
+//            cell.lblTime.text = ""
+//        }
+//
         if let Img = lcdict["urlToImage"] as? String
         {
             let imgUrl = URL(string: Img)
@@ -157,7 +157,7 @@ extension NewsFeedVC : UICollectionViewDelegate, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-           return CGSize(width: ((self.collNews.frame.size.width) / 2) - (10+5), height: (self.collNews.frame.size.width) / 2)
+           return CGSize(width: ((self.collNews.frame.size.width) / 3) - (10+5), height: (self.collNews.frame.size.width) / 3)
        }
     
     //3

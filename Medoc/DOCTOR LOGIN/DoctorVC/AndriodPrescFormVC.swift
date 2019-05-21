@@ -44,6 +44,7 @@ class PresData
     var image_name : String!    // Report image with tag
     var followup_date : String!
     var prescription_details : String!
+    var lab_test : String!
   
 }
 
@@ -66,11 +67,15 @@ class MedicineData
     var beforeDinnerTime : String!
     var afterDinner : String!
     var afterDinnerTime : String!
+    var medicineType : String!
+    var medicineQuantity : String!
  }
 
 class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportImgDelegate, DrawingOnPadProtocol,PaintDocsDelegate, UITextViewDelegate
 {
     
+    @IBOutlet weak var txtHospitalNm: UITextField!
+    @IBOutlet weak var loader: DotsLoader!
     @IBOutlet weak var txtLabTest: UITextField!
     @IBOutlet weak var lblPatientId: UILabel!
     @IBOutlet weak var txtAfDinTime: UITextField!
@@ -144,9 +149,12 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     @IBOutlet weak var viewPatientReport: UIView!
     @IBOutlet weak var viewWholeDrawingView: UIView!
 
-    @IBOutlet weak var btnSyrup: DLRadioButton!
+//    @IBOutlet weak var txtMedicInstruction: UITextField!
+//    @IBOutlet weak var txtMedicShedule: UITextField!
+//    @IBOutlet weak var txtMedicType: UITextField!
     
-    @IBOutlet weak var btnDrop: DLRadioButton!
+    @IBOutlet weak var txtMedicQuantity: SkyFloatingLabelTextField!
+    @IBOutlet weak var txtMedicType: SkyFloatingLabelTextField!
     
     var m_nNewLength: Int!
     var m_cFilterdArr = [String]()
@@ -199,7 +207,12 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     let dropdownAutoWordsList = DropDown()
     let dropdownLabTestList = DropDown()
+    let dropDownMedicType = DropDown()
+    let dropDownMedicInstruction = DropDown()
+    let dropDownMedicTiming = DropDown()
+    let dropdownHospitalList = DropDown()
 
+    
     var pickerview = UIPickerView()
     var PickerMinArr = [String]()
     var selectedMinIndex : Int = 0
@@ -208,20 +221,15 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     var labTestArr = [String]()
     var chiefId = [String]()
     var chiefName = [String]()
+    var h_listArr = [getHospitalList]()
+    var selectedHospitalId = "0"
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        dropdownAutoWordsList.anchorView = txtpatProblems
-        dropdownAutoWordsList.direction = .bottom
-        dropdownAutoWordsList.bottomOffset = CGPoint(x: 0, y:(dropdownAutoWordsList.anchorView?.plainView.bounds.height)!)
-        
-        dropdownLabTestList.anchorView = txtLabTest
-        dropdownLabTestList.direction = .bottom
-        dropdownLabTestList.bottomOffset = CGPoint(x: 0, y:(dropdownLabTestList.anchorView?.plainView.bounds.height)!)
-        
-        DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 20)
+        self.setAllDropdown()
+        loader.isHidden = true
         btnInCemi.tag = 0
         btnInFeet.tag = 1
         btnInFeet.isSelected = true
@@ -263,6 +271,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
         
         loggedinId = dict["id"] as? Int
+        self.getHospital(id: loggedinId)
         collMedicine.delegate = self
         collMedicine.dataSource = self
         createDatePicker()
@@ -270,7 +279,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         txtBloodGrp.clearButtonMode = .whileEditing
         textFeildValid()
         
-       // AddJsonData()
         setDelegate()
         getLabTest()
         getCheifComplains()
@@ -282,6 +290,29 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.PickerMinArr = ["15 min", "30 min", "45 min", "60 min", "75 min", "90 min", "105 min", "120 min", "135 min", "150 min", "165 min", "180 min"]
        }
 
+    func setAllDropdown()
+    {
+        dropdownAutoWordsList.anchorView = txtpatProblems
+        dropdownAutoWordsList.direction = .bottom
+        dropdownAutoWordsList.bottomOffset = CGPoint(x: 0, y:(dropdownAutoWordsList.anchorView?.plainView.bounds.height)!)
+        
+        dropdownHospitalList.anchorView = txtHospitalNm
+        dropdownHospitalList.direction = .top
+        dropdownHospitalList.bottomOffset = CGPoint(x: 0, y:(dropdownHospitalList.anchorView?.plainView.bounds.height)!)
+        
+        
+        dropdownLabTestList.anchorView = txtLabTest
+        dropdownLabTestList.direction = .bottom
+        dropdownLabTestList.bottomOffset = CGPoint(x: 0, y:(dropdownLabTestList.anchorView?.plainView.bounds.height)!)
+        
+        dropDownMedicType.anchorView = txtMedicType
+        dropDownMedicType.direction = .bottom
+        dropDownMedicType.bottomOffset = CGPoint(x: 0, y:(dropDownMedicType.anchorView?.plainView.bounds.height)!)
+        dropDownMedicType.dataSource = ["Capsules", "Cream", "Drops", "Gel", "Inhaler", "Injection", "Lotion", "Mouthwash", "Ointment", "Others", "Physiotherapy", "Powder", "Spray", "Suppository", "Syrup", "Tablet", "Treatment Session"]
+    
+        DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 20)
+    }
+    
     func setDelegate()
     {
         txtAfBrkTime.delegate    = self
@@ -299,6 +330,8 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         txtTemp.delegate         = self
         txtBloodGrp.delegate     = self
         txtHgtInCemi.delegate    = self
+        txtMedicType.delegate    = self
+        txtHospitalNm.delegate   = self
     }
     
     // MARK : ADD CHEIF COMPLAINS API
@@ -343,6 +376,8 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     func getLabTest()
     {
+//        loader.isHidden = false
+//        loader.startAnimating()
         OperationQueue.main.addOperation {
             SVProgressHUD.setDefaultMaskType(.custom)
             SVProgressHUD.setBackgroundColor(UIColor.gray)
@@ -353,6 +388,10 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         let labApi = Constant.BaseUrl+Constant.getLabtest
         
         Alamofire.request(labApi, method: .get, parameters: nil).responseJSON { (resp) in
+            
+//            self.loader.isHidden = true
+//            self.loader.stopAnimating()
+            
             
             OperationQueue.main.addOperation {
                 SVProgressHUD.dismiss()
@@ -605,7 +644,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         btn.layer.borderColor = UIColor.black.cgColor
     }
  
-    func signImg(imgsign: UIImage, imgName: String)
+    func signImg(imgsign: UIImage, imgName: String)  // delegate from sign vc
     {
         let img = imgsign
         imgSignFromBack.image = img
@@ -621,14 +660,14 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
      }
     
-    func reportImages()
+    func reportImages()  // delegate from add report vc
     {
         if self.m_cReportData.m_cReportDataArr.count != 0
         {
             self.m_cReportImagesData.removeAll(keepingCapacity: true)
             self.m_cReportArr = self.m_cReportData.m_cReportDataArr
             var lcdict = [String : Any]()
-            
+            self.m_cReportImagesData.removeAll(keepingCapacity: false)
             for lcreport in self.m_cReportArr
             {
                 lcdict["dataTag"] = lcreport.Report_Tag
@@ -639,12 +678,14 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         }
     }
 
-    func sendDataToFirstPage()  // Drawing images with name and tag name
+    func sendDataToFirstPage()  //delegate : Prescription images with name and tag name
     {
         if self.m_cPressData.m_cPressDataArr.count != 0
         {
             var lcDict = [String: Any]()
             self.m_cPrescARR = self.m_cPressData.m_cPressDataArr
+            
+            self.m_cPrescImagesData.removeAll(keepingCapacity: false)
             
             for lcPresc in self.m_cPressData.m_cPressDataArr
             {
@@ -661,7 +702,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
    
     }
 
-    func DrawingOnPad()
+    func DrawingOnPad()     // delegate from Add Drawing Vc
     {
         
         if self.m_cDrawData.m_cDrawDataArr.count != 0
@@ -669,6 +710,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             var lcDict = [String: Any]()
             self.m_cDrawingARR = m_cDrawData.m_cDrawDataArr
             
+            self.m_cDrawinhImagesData.removeAll(keepingCapacity: false)
             for lcDraw in  self.m_cDrawingARR
             {
                 let lcPresTimestamp = lcDraw.drawing_timestamp!
@@ -743,6 +785,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         txtAfLunchTime.text = ""
         txtBfDinTime.text = ""
         txtAfDinTime.text = ""
+        txtMedicQuantity.text = ""
         
         btnBeBreak.setTitle("Before Breakfast", for: .normal)
         self.checkBfBrk.setImage(UIImage(named: "emptyCheck"), for: .normal)
@@ -762,6 +805,12 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.btnAftDinner.setTitle("After Dinner", for: .normal)
         self.checkAfDinner.setImage(UIImage(named: "emptyCheck"), for: .normal)
         
+    }
+    
+    
+    @IBAction func btnSaveMedicine_onClick(_ sender: Any)
+    {
+        medicineDict["MedicineNm"] = txtMedicType
     }
     
     func validMedicine() -> Bool
@@ -882,7 +931,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     @IBAction func btnSubmitMedicine_onclick(_ sender: Any)
     {
-        
+       
         if validMedicine()
         {
             
@@ -935,12 +984,30 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                 self.M_CmedicineData.afterDinnerTime = "0"
             }
             
+            if txtMedicType.text != ""
+            {
+                 M_CmedicineData.medicineType = self.txtMedicType.text!
+            }else
+            {
+                 M_CmedicineData.medicineType = ""
+            }
+           
+            if txtMedicQuantity.text != ""
+            {
+                M_CmedicineData.medicineQuantity = self.txtMedicQuantity.text!
+            }else
+            {
+                M_CmedicineData.medicineQuantity = ""
+            }
+            
             M_CmedicineData.medicineName = self.txtMedicineNm.text!
             M_CmedicineData.intervalPeriod = self.txtHowManyDays.text!
             M_CmedicineData.intervalTime = self.txtHowManyWeeks.text!
             
             medicineDict["patientId"] = self.patient_id
             medicineDict["medicineName"] = M_CmedicineData.medicineName
+            medicineDict["medicineType"] = M_CmedicineData.medicineType
+            medicineDict["medicineQuantity"] = M_CmedicineData.medicineQuantity
             medicineDict["intervalType"] = M_CmedicineData.intervalType
             medicineDict["intervalPeriod"] = M_CmedicineData.intervalPeriod
             medicineDict["intervalTime"] = M_CmedicineData.intervalTime
@@ -984,12 +1051,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         popUp.dismiss(true)
     }
     
-    @IBAction func btnSyrup_onClick(_ sender: Any) {
-    }
-    
-    @IBAction func btnDrop_onClick(_ sender: Any) {
-    }
-    
+  
     
     @IBAction func btnDaily_onClick(_ sender: Any)
     {
@@ -999,7 +1061,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.btnDaily.tag = 1
         
         self.txtHowManyWeeks.isHidden = true
-        self.HgtMedicalView.constant = 700
+        self.HgtMedicalView.constant = 620
         self.dailyStackView.isHidden = false
         self.checkboxStackView.isHidden = false
         M_CmedicineData.intervalType = "1"
@@ -1016,7 +1078,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.txtHowManyWeeks.isHidden = false
         self.dailyStackView.isHidden = false
         self.checkboxStackView.isHidden = false
-        self.HgtMedicalView.constant = 700
+        self.HgtMedicalView.constant = 620
         M_CmedicineData.intervalType = "2"
     }
     
@@ -1030,7 +1092,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.txtHowManyWeeks.placeholder = "For how many hours?"
         self.dailyStackView.isHidden = true
         self.checkboxStackView.isHidden = true
-        self.HgtMedicalView.constant = 550
+        self.HgtMedicalView.constant = 500
         M_CmedicineData.intervalType = "3"
         
         M_CmedicineData.beforeBreakfast = "0"
@@ -1158,7 +1220,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             self.M_CmedicineData.beforeLunch = "1"
         
         }else{
-            
             checkBfLunch.setImage(UIImage(named: "emptyCheck"), for: .normal)
             self.M_CmedicineData.beforeLunch = "0"
             self.M_CmedicineData.beforeLunchTime = "0"
@@ -1345,8 +1406,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             self.M_CmedicineData.beforeDinner        = "0"
             self.M_CmedicineData.beforeDinnerTime    = "0"
         }
-        
-       
     }
     
     @IBAction func btnCloseform_onclick(_ sender: Any)
@@ -1357,6 +1416,44 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
              self.navigationController?.popViewController(animated: true)
         }
     }
+    
+    func getHospital(id : Int)
+    {
+        let Api = Constant.BaseUrl + Constant.getClinic
+        let param = ["loggedin_id" : id]
+        
+        Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
+            print(resp)
+            
+            switch resp.result
+            {
+            case .success(_):
+                do{
+                    
+                    let json = try JSONDecoder().decode(HospitalData.self, from: resp.data!)
+                    
+                    if json.msg == "success"
+                    {
+                        self.h_listArr = json.hospital
+                    }
+                    else
+                    {
+                       print("No hospital added")
+                    }
+                    
+                }catch{
+                    Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "\(error.localizedDescription)")
+                }
+                break
+                
+            case .failure(_):
+                break
+                
+            }
+            
+        }
+    }
+    
     
     @IBAction func btnSavePresc_onClick(_ sender: Any)
     {
@@ -1406,17 +1503,11 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
         }
         
+        
         if validPresData()
         {
             ZAlertView(title: "Medoc", msg: "Are you sure you want to save this prescription?", dismisstitle: "No", actiontitle: "Yes")
             {
-
-//                OperationQueue.main.addOperation {
-//                    SVProgressHUD.setDefaultMaskType(.custom)
-//                    SVProgressHUD.setBackgroundColor(UIColor.gray)
-//                    SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
-//                    SVProgressHUD.show(withStatus: "Saving Prescription")
-//                }
                 self.sendPres()
             }
         }
@@ -1545,15 +1636,23 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             return false
         }
         
-//        if MedicineArr.count == 0
-//        {
-//            ZAlertView.init(title: "Medoc Reminder", msg: "You do not add medicine", actiontitle: "Ok")
-//            {
-//                print("")
-//            }
-//           // return false
-//        }
-
+        if self.h_listArr.count == 0
+        {
+            let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
+            vc.delegate = self
+            self.present(vc, animated: true, completion: nil)
+            return false
+        }
+        
+        if self.txtHospitalNm.text == ""
+        {
+            ZAlertView.init(title: "Medoc", msg: "Please select hospital name", actiontitle: "Ok")
+            {
+                print("")
+            }
+            return false
+        }
+        
         return true
     }
     
@@ -1563,33 +1662,42 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
        
         if txtLabTest.text == ""
         {
-           txtLabTest.text = ""
+            m_cPresdata.lab_test = "NF"
+            
+        }else{
+            m_cPresdata.lab_test = txtLabTest.text!
         }
         
-        if txtReferdBy.text == "NF"
+        if txtReferdBy.text == ""
         {
-            txtReferdBy.text = "NF"
+            m_cPresdata.refered_by = "NF"
+        }else{
+            m_cPresdata.refered_by = txtReferdBy.text
         }
         
         if txtTemp.text == ""
         {
-            txtTemp.text = "NF"
+  //          txtTemp.text = "NF"
+            m_cPresdata.temprature = "NF"
            
-        }
-        
-        if txtLabTest.text == ""
-        {
-            txtLabTest.text = "NF"
+        }else{
+            m_cPresdata.temprature = txtTemp.text
         }
         
         if txtBloodGrp.text == ""
         {
-            txtBloodGrp.text = "NF"
+  //          txtBloodGrp.text = "NF"
+            m_cPresdata.blood_group = "NF"
+        }else
+        {
+             m_cPresdata.blood_group = txtBloodGrp.text
         }
         
         if txtWeight.text == ""
         {
-            txtWeight.text = "NF"
+            m_cPresdata.weight = "NF"
+        }else{
+            m_cPresdata.weight = txtWeight.text
         }
         if txtOtherDetail.text == "" || txtOtherDetail.text == "Write here.."
         {
@@ -1640,16 +1748,15 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         {
             m_cPresdata.signature_image = "NF"
         }
-        
-      //  let PresApi = "http://www.kanishkagroups.com/medoc_doctor_api/index.php/API/add_prescription"
-        
+    
         let PresApi = Constant.BaseUrl + Constant.addPrescription
  
-           let param = "patient_id=\(patient_id)&temperature=\(txtTemp.text!)&lab_test=\(self.txtLabTest.text!)&weight=\(txtWeight.text!)&height=\(m_cPresdata.height!)&blood_pressure=\(txtBloodGrp.text!)&other_details=\(txtOtherDetail.text!)&refered_by=\(txtReferdBy.text!)&handwritten_image=\(m_cPresdata.handwritten_image!)&patient_problem=\(txtpatProblems.text!)&drawing_image=\(m_cPresdata.drawing_image!)&signature_image=\(m_cPresdata.signature_image!)&image_name=\(m_cPresdata.image_name!)&medicine_data=\(m_cPresdata.medicine_data!)&patient_clinic_visit_id=\(PatientClinicVisitId)&followup_date=\(txtFollowUpdate.text!)&loggedin_id=\(self.loggedinId!)&prescription_details=\(txtPresc.text!)"
+        let HospitalId = "27"
+        
+           let param = "patient_id=\(patient_id)&temperature=\(m_cPresdata.temprature!)&lab_test=\(m_cPresdata.lab_test!)&weight=\(m_cPresdata.weight!)&height=\(m_cPresdata.height!)&blood_pressure=\(m_cPresdata.blood_group!)&other_details=\(txtOtherDetail.text!)&refered_by=\(m_cPresdata.refered_by!)&handwritten_image=\(m_cPresdata.handwritten_image!)&patient_problem=\(txtpatProblems.text!)&drawing_image=\(m_cPresdata.drawing_image!)&signature_image=\(m_cPresdata.signature_image!)&image_name=\(m_cPresdata.image_name!)&medicine_data=\(m_cPresdata.medicine_data!)&patient_clinic_visit_id=\(PatientClinicVisitId)&followup_date=\(txtFollowUpdate.text!)&loggedin_id=\(self.loggedinId!)&prescription_details=\(txtPresc.text!)&h_id=\(self.selectedHospitalId)"
         
         print(param)
         
-
         
         var urlReq = URLRequest(url: URL(string: PresApi)!)
         urlReq.httpMethod = "Post"
@@ -1668,10 +1775,11 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                     }else{
                         print("Internet Connection not Available!")
                         Alert.shared.basicalert(vc: self, title: "Internet Connection Appears Offline", msg: "Go to Setting and Turn on Mobile Data or Wifi Connection")
-                      
                     }
                 }
             } else {
+                
+              
                 do {
                     SVProgressHUD.show(withStatus: "Saving Prescription..")
 
@@ -1682,20 +1790,25 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                     let Msg = json.value(forKey: "msg") as! String
                     if Msg == "success"
                     {
-                      
-                        self.AddFiles()
+                        let PresId = String(json["prescription_id"] as! Int)
+                        
+                        DispatchQueue.main.async {
+                            self.AddFiles(pres_id: PresId)
+                        }
+                     
                     }
                 } catch {
-                    print("catch")
+                    print(error.localizedDescription)
+                    self.toast.isShow("Something went wrong")
                 }
             }
         }.resume()
     }
     
-    func AddFiles()
+    func AddFiles(pres_id: String)
     {
-        // let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
-        
+       
+        let PresId = pres_id
         let FileApi = Constant.BaseUrl+Constant.UploadFiles
         
         Alamofire.upload(
@@ -1710,7 +1823,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                     
                 }
                 
-       
                 for lcimg in self.m_cPrescARR
                 {
                   let imgNm = String(self.loggedinId) + lcimg.PresTimestampNm! + ".jpeg"
@@ -1764,56 +1876,66 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                 
                 upload.uploadProgress(closure: { (Progress) in
                     
-                   
+                   SVProgressHUD.show(withStatus: "Saving Prescription..")
                     print("Upload Progress: \(Progress.fractionCompleted)")
                 })
                 
                 upload.responseJSON { response in
                     
                     if let JSON = response.result.value as? [String: Any] {
-                        print("Response : ",JSON)
+                        print("Files Response : ",JSON)
                         
-                        OperationQueue.main.addOperation {
-                            SVProgressHUD.dismiss()
-                           
+                        DispatchQueue.main.async {
+                            self.CreatPdf(presId: PresId)
                         }
-                        
-                        let Msg = JSON["msg"] as! String
-                        if Msg == "success"
-                        {
-                           SwiftLoader.hide()
-                            
-                            ZAlertView.init(title: "Medoc", msg: "Prescription Added successfully", actiontitle: "OK") {
-                                print("")
-                                
-                            }
-                             self.navigationController?.popViewController(animated: true)
-                         
-                        }else if Msg == "fail"
-                        {
-                            ZAlertView.init(title: "Medoc", msg: "Prescription Added successfully but images not saved", actiontitle: "OK") {
-                                print("")
-                                
-                            }
-
-                            
-                        //    self.toast.isShow("Prescription Added successfully but images not saved")
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                        else
-                        {
-                    self.navigationController?.popViewController(animated: true)
-                        }
+                    
                     }
                 }
                 
             case .failure(let encodingError):
+                OperationQueue.main.addOperation {
+                    SVProgressHUD.dismiss()
+                    
+                }
                 print(encodingError)
             }
             
         }
     }
 
+    func CreatPdf(presId: String)
+    {
+        let Api = Constant.BaseUrl + Constant.CreatPdf
+        
+        let Param = ["loggedin_id" : self.loggedinId!,
+                     "patient_id" : self.patient_id,
+                     "prescription_id" : presId] as [String : Any]
+        print(Param)
+        Alamofire.request(Api, method: .post, parameters: Param).responseJSON { (resp) in
+            print("Pdf response \(resp)")
+            
+            OperationQueue.main.addOperation {
+                SVProgressHUD.dismiss()
+                
+            }
+            
+            guard let json = resp.result.value as? NSDictionary else { return }
+            
+           let Msg = json["msg"] as! String
+            if Msg == "success"
+            {
+                ZAlertView.init(title: "Medoc", msg: "Prescription Added successfully", actiontitle: "OK") {
+                    print("")
+                    
+                }
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+          
+        }
+        
+    }
+    
     func json(from object:Any) -> String? {
         guard let data = try? JSONSerialization.data(withJSONObject:  object, options: []) else
         {
@@ -1884,15 +2006,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     }
     
     func PaintDocs(docs: UIImage, docnm: String, docTimeStamp: String) {
-      /*  let prescvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddPrescriptionDrawingVC") as! AddPrescriptionDrawingVC
-        
-        if self.m_cPrescARR.isEmpty == false
-        {
-            prescvc.m_cPrescArr = self.m_cPrescARR
-        }
-        
-        prescvc.m_cDrawimg = self
-        self.present(prescvc, animated: true, completion: nil)*/
+     
     }
     
     func ShowAddPrescriptionVC(bFrom: Bool)
@@ -1922,11 +2036,9 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
            
             lcAddPrescriptionDrawingVC.m_cDrawimg = self
             lcAddPrescriptionDrawingVC.m_cPressData = self.m_cPressData
-             self.navigationController?.pushViewController(lcAddPrescriptionDrawingVC, animated: true)
+       self.navigationController?.pushViewController(lcAddPrescriptionDrawingVC, animated: true)
             
        }
-        
-        
     }
     
     @IBAction func btnAddDrawing_onClick(_ sender: Any)
@@ -1944,6 +2056,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     @IBAction func btnSignature_onClick(_ sender: Any)
     {
+        view.endEditing(true)
         UIView.animate(withDuration: 0.5)
         {
             self.signatureFormvc.view.frame = self.view.frame
@@ -2164,8 +2277,27 @@ extension AndriodPrescFormVC : UICollectionViewDelegate, UICollectionViewDataSou
              lblMedicineTiming.text = ""
             detailMedicineWeeks.text = "Number of Time : \(lcdict["intervalTime"] as! String)"
             
-            detailMedicineNm.text = "Medicine Name : \(lcdict["medicineName"] as! String)"
-            detailMedicineType.text = "Medicine Type : \(setType)"
+            let medicineNm = lcdict["medicineName"] as! String
+            let medicineType = lcdict["medicineType"] as! String
+            
+            if medicineType != ""
+            {
+                 detailMedicineNm.text = "Medicine Name : \(medicineNm) (\(medicineType))"
+            }else
+            {
+                 detailMedicineNm.text = "Medicine Name : \(medicineNm)"
+            }
+          
+            //detailMedicineType.text = "Medicine Type : \(setType)"
+            
+            let Quantity = lcdict["medicineQuantity"] as! String
+            if Quantity != ""
+            {
+                detailMedicineType.text = "Medicine Type : \(setType) (Quantity : \(Quantity))"
+            }else
+            {
+                detailMedicineType.text = "Medicine Type : \(setType)"
+            }
             
             detailMedicineDays.text = "Number of Days : \(lcdict["intervalPeriod"] as! String)"
         }else
@@ -2210,9 +2342,27 @@ extension AndriodPrescFormVC : UICollectionViewDelegate, UICollectionViewDataSou
             
               detailMedicineWeeks.text = "Number of Weeks : \(lcdict["intervalTime"] as! String)"
             
-            detailMedicineNm.text = "Medicine Name : \(lcdict["medicineName"] as! String)"
-            detailMedicineType.text = "Medicine Type : \(setType)"
+            let medicineNm = lcdict["medicineName"] as! String
+            let medicineType = lcdict["medicineType"] as! String
+           
+            if medicineType != ""
+            {
+                detailMedicineNm.text = "Medicine Name : \(medicineNm) (\(medicineType))"
+            }else
+            {
+                detailMedicineNm.text = "Medicine Name : \(medicineNm)"
+            }
+          
             
+            let Quantity = lcdict["medicineQuantity"] as! String
+            if Quantity != ""
+            {
+                detailMedicineType.text = "Medicine Type : \(setType) (Quantity : \(Quantity))"
+            }else
+            {
+                  detailMedicineType.text = "Medicine Type : \(setType)"
+            }
+          
             detailMedicineDays.text = "Number of Days : \(lcdict["intervalPeriod"] as! String)"
             
         }
@@ -2283,6 +2433,55 @@ extension AndriodPrescFormVC : UITextFieldDelegate
             createAlertView(title: "Select Time", txtcheck: txtAfDinTime)
         }
 
+        if textField == txtMedicType
+        {
+            view.endEditing(true)
+            dropDownMedicType.show()
+            dropDownMedicType.selectionAction = { [unowned self] (index: Int, item: String) in
+                print("Selected item: \(item) at index: \(index)")
+                self.txtMedicType.text = item
+                
+            }
+        }
+        
+        if textField == txtLabTest
+        {
+            dropdownLabTestList.show()
+            dropdownLabTestList.selectionAction = { [unowned self] (index: Int, item: String) in
+                print("Selected item: \(item) at index: \(index)")
+                self.txtLabTest.text = item
+            }
+        }
+        
+        if textField == txtHospitalNm
+        {
+            view.endEditing(true)
+            if self.h_listArr.count != 0
+            {
+                var NameArr = [String]()
+                var hIdArr = [String]()
+                for lcdict in self.h_listArr
+                {
+                    NameArr.append(lcdict.name!)
+                    hIdArr.append(lcdict.id!)
+                }
+                
+                dropdownHospitalList.dataSource = NameArr
+                dropdownHospitalList.show()
+                
+                dropdownHospitalList.selectionAction = {  [unowned self] (index: Int, item: String) in
+                    self.txtHospitalNm.text = item
+                    
+                    self.selectedHospitalId = hIdArr[index]
+                    print("Hospital id : \(self.selectedHospitalId)")
+                }
+            }else
+            {
+                Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "You do not add any hospital")
+            }
+        
+        }
+    
     }
     
     
@@ -2304,15 +2503,13 @@ extension AndriodPrescFormVC : UITextFieldDelegate
                 self.dropdownAutoWordsList.reloadAllComponents()
                 
                 dropdownAutoWordsList.selectionAction = { [unowned self] (index: Int, item: String) in
-                    
-                    
                     self.txtpatProblems.text = item
                 }
                
             }
         }
         
-        if textField == txtLabTest
+        else if textField == txtLabTest
         {
             if let text = textField.text,
                 let textRange = Range(range, in: text)
@@ -2333,7 +2530,7 @@ extension AndriodPrescFormVC : UITextFieldDelegate
             }
         }
         
-        if textField == txtHowManyDays
+        else if textField == txtHowManyDays
         {
             guard let text = txtHowManyDays.text else { return true }
             let newLength = text.characters.count + string.characters.count - range.length
@@ -2341,7 +2538,7 @@ extension AndriodPrescFormVC : UITextFieldDelegate
             return newLength <= 3// Bool
         }
         
-        if textField == txtHowManyWeeks
+        else if textField == txtHowManyWeeks
         {
             guard let text = txtHowManyWeeks.text else { return true }
             let newLength = text.characters.count + string.characters.count - range.length
@@ -2349,14 +2546,14 @@ extension AndriodPrescFormVC : UITextFieldDelegate
             return newLength <= 3// Bool
         }
         
-        if textField == txtWeight
+        else if textField == txtWeight
         {
             guard let text = txtWeight.text else { return true }
             let newLength = text.characters.count + string.characters.count - range.length
             
             return newLength <= 3// Bool
         }
-        if textField == txtHeightInFeet
+       else if textField == txtHeightInFeet
         {
             if txtHeightInFeet.placeholder == "Feet"
             {
@@ -2378,7 +2575,7 @@ extension AndriodPrescFormVC : UITextFieldDelegate
            
         }
         
-        if textField == txtHgtInCemi
+        else if textField == txtHgtInCemi
         {
             guard let text = txtHgtInCemi.text else { return true }
             let newLength = text.characters.count + string.characters.count - range.length
@@ -2387,30 +2584,34 @@ extension AndriodPrescFormVC : UITextFieldDelegate
         }
         
         
-        if textField == txtTemp
+       else if textField == txtTemp
         {
             guard let text = txtTemp.text else { return true }
             
-           
                 let newLength = text.characters.count + string.characters.count - range.length
                 
                 return newLength <= 3 // Bool
         }
         
-        if textField == txtBloodGrp
+        else if textField == txtBloodGrp
         {
             guard let text = txtBloodGrp.text else { return true }
-            
             
             if txtBloodGrp.text?.characters.count == 3
             {
                 txtBloodGrp.text?.append(contentsOf: "/")
             }
             
-          self.m_nNewLength = text.characters.count + string.characters.count - range.length
+            self.m_nNewLength = text.characters.count + string.characters.count - range.length
             
-                return self.m_nNewLength <= 7
+            return self.m_nNewLength <= 7
         }
+        else if textField == txtHospitalNm
+        {
+            
+        }
+        
+        
         
         return true
     }
@@ -2425,7 +2626,6 @@ extension AndriodPrescFormVC : TagViewDelegate {
         print("tag touched: " + tag.text)
     }
 }
-
 
 extension AndriodPrescFormVC:  UIPickerViewDelegate,UIPickerViewDataSource{
     
@@ -2532,4 +2732,10 @@ extension AndriodPrescFormVC:  UIPickerViewDelegate,UIPickerViewDataSource{
         
     }
     
+}
+extension AndriodPrescFormVC : AddClinicProtocol
+{
+    func addClinicInprofile() {
+        self.getHospital(id: self.loggedinId)
+    }
 }

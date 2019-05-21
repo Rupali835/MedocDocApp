@@ -83,7 +83,8 @@ class AddPrescriptionDrawingVC: UIViewController, PaintDocsDelegate {
         
     }
 
-    func DrawingDocs(docImg: UIImage, doctag: String, doctimeStamp: String) {
+    func DrawingDocs(docImg: UIImage, doctag: String, doctimeStamp: String)
+    {
         print("")
     }
     

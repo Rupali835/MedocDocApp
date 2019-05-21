@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         IQKeyboardManager.shared().isEnabled = true
        DropDown.startListeningToKeyboard()
         
-        Thread.sleep(forTimeInterval: 3.0)
+        Thread.sleep(forTimeInterval: 2.0)
        let result = UserDefaults.standard.value(forKey: "userData")
         print(result)
         if result != nil {

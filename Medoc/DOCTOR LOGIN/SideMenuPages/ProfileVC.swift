@@ -27,14 +27,17 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     @IBOutlet weak var txtSpecilizedIn: HoshiTextField!
     @IBOutlet weak var backBtn: UIButton!
    
+     var profileData = [AnyObject]()
     
-    var img_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
+   // var img_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
+    
+    var img_path = "http://medoc.co.in/medoc_doctor_api/uploads/"
+
     
     let dropdownDoctorList = DropDown()
     var AssistantData = [AnyObject]()
     
     var toast = JYToast()
-    var profileData = [AnyObject]()
     
     override func viewDidLoad()
     {

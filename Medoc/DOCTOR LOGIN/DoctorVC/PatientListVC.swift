@@ -45,7 +45,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
     @IBOutlet weak var lblExisting_patient_count: UILabel!
     @IBOutlet weak var lblNew_patient_count: UILabel!
     
-//    @IBOutlet weak var netCheckView: NoInternetView!
+  //  @IBOutlet weak var clinicView: AddClinicViewpopup!
+    
     
     var m_cPatintInfoArr = [CPatientEntryData]()
     var popUp = KLCPopup()
@@ -72,17 +73,35 @@ class PatientListVC: UIViewController, AddPatientProtocol
         
         if Reachability.isConnectedToNetwork(){
             print("Internet Connection Available!")
+          
+           let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+
+            if launchedBefore          //true
+            {
+                print("Not first launch.")
+            }else
+            { // first time login
+
+                 UserDefaults.standard.set(true, forKey: "launchedBefore")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2)
+                {
+                    let clinicvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
+                    self.present(clinicvc, animated: true, completion: nil)
+                }
+
+            }
+  
         }else{
             print("Internet Connection not Available!")
             Alert.shared.basicalert(vc: self, title: "Internet Connection Appears Offline", msg: "Go to Setting and Turn on Mobile Data or Wifi Connection")
-
-        }
+            }
         
         setCountLines()
         getHealthData()
         self.m_bStatus  = true
         self.viewBtnPatinet.isHidden = true
         self.newsLoader.isHidden = false
+        self.newsLoader.startAnimating()
         
 //        if UserDefaults.standard.value(forKey: "RefMsg") != nil
 //       {
@@ -101,7 +120,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
         collPatientList.dataSource = self
         newsCollection.delegate = self
         newsCollection.dataSource = self
-        self.GetCount()
+     
         
         startTimer()
         
@@ -110,6 +129,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
      //   MedicineDataFromCore.cMedicineData.getMedicineList()
     }
     
+
     func startTimer()
     {
         let timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(PatientListVC.scrollToNextCell), userInfo: nil, repeats: true);
@@ -136,6 +156,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     override func awakeFromNib() {
         self.addPatientVc = (AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "AddPatientVC") as! AddPatientVC)
+        
+      
     }
     
     func callAddPatientApi() {
@@ -163,7 +185,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
             {
                 
             case .success(_):
-                
+                self.newsLoader.stopAnimating()
                 self.newsLoader.isHidden = true
                 
                 let json = resp.result.value as! NSDictionary
@@ -182,8 +204,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     @IBAction func btnMedicine_onClick(_ sender: Any)
     {
-      let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "EnterMedicineVc") as! EnterMedicineVc
-      self.navigationController?.pushViewController(vc, animated: true)
+//      let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "EnterMedicineVc") as! EnterMedicineVc
+//      self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func btnInfoOne_onClick(_ sender: Any)
@@ -264,8 +286,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
                 }
                 
                }
-               
-                break
+               break
                 
             case .failure(_):
                 break
@@ -407,6 +428,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
         self.sideMenus()
         GetPatientData()
         btnTotalPatient.tag = 1
+        self.GetCount()
     }
  
   
@@ -418,7 +440,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
         
         let param = ["loggedin_id" : m_cAddPatient.loggedin_id!,
                      "loggedin_role" : m_cAddPatient.loggedin_role!] as [String : Any]
-        
+        print(param)
         Alamofire.request(getPatApi, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
             
@@ -594,6 +616,8 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource, 
             cell.lblNum.text = String(index + 1)
             cell.lblNum.backgroundColor = randomColor
             cell.lblPatNm.text = lcdict["name"] as? String
+            let Count = lcdict["visit_count"] as! Int
+            cell.lblFollowupCount.text = "Follow up \(Count)"
             cell.backview.designCell()
             return cell
         }
@@ -663,6 +687,7 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource, 
     
         if collectionView == collPatientList
         {
+            // return CGSize(width: (self.collPatientList.frame.size.width - 10) / 3, height: 70)
              return CGSize(width: (self.collPatientList.frame.size.width - 30) / 2, height: 70)
         }else
         {

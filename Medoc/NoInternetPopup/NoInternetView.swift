@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoInternetView: UIView {
+class AddclinicView: UIView {
 
     @IBOutlet weak var lblchecknet: UILabel!
   

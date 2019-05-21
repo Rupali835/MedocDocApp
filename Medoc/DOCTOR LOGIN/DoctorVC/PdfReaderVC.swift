@@ -17,7 +17,7 @@ class PdfReaderVC: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -33,5 +33,27 @@ class PdfReaderVC: UIViewController {
     {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func btnPrintPdf_onClick(_ sender: Any)
+    {
+        let printController = UIPrintInteractionController.shared
+        
+        let pInfo : UIPrintInfo = UIPrintInfo.printInfo()
+        pInfo.outputType = UIPrintInfo.OutputType.general
+        pInfo.jobName = pdfWebview.request?.url!.absoluteString ?? ""
+        pInfo.orientation = UIPrintInfo.Orientation.portrait
+        
+//        let formatter = UIMarkupTextPrintFormatter(markupText: self.UrlStr)
+//        formatter.perPageContentInsets = UIEdgeInsets(top: 30, left: 10, bottom: 30, right: 10)
+//        
+//        printController.printFormatter = formatter
+     
+        printController.printInfo = pInfo
+        printController.showsNumberOfCopies = true
+        printController.printFormatter = pdfWebview.viewPrintFormatter()
+        printController.present(animated: true, completionHandler: nil)    
+        
+    }
+    
     
 }

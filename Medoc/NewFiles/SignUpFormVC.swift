@@ -19,25 +19,17 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
     @IBOutlet weak var txtRegNo: SkyFloatingLabelTextField!
     @IBOutlet weak var txtMobileNo: SkyFloatingLabelTextField!
     @IBOutlet weak var txtEmail: SkyFloatingLabelTextField!
-    
-    
+    @IBOutlet weak var loader: DotsLoader!
     @IBOutlet weak var btnProfileImg: UIButton!
     @IBOutlet weak var imglink: UIImageView!
     @IBOutlet weak var imgcap: UIImageView!
-    
     @IBOutlet weak var QualificationtagView: CloudTagView!
     
     var imagePicker = UIImagePickerController()
     var m_cContainerVC: ContainerVC!
     var toast = JYToast()
     var selectedImage: UIImage!
-    var DocumentselectedImage: UIImage!
-    var filePath: String!
-    var fileURL: URL!
     var fileName: String!
-    var DocumentImageFileName: String!
-    var DocumentFileURL: URL!
-    var DocumentFileName: String?
     var dropdownQualification = DropDown()
     var selectQualificationString = [String]()
     var m_cFilterdArr = [String]()
@@ -62,7 +54,15 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         
        }
 
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
+        txtName.text = ""
+        txtEmail.text = ""
+        txtMobileNo.text = ""
+        txtRegNo.text = ""
+        txtQualification.text = ""
+        selectQualificationString = []
+        self.loader.isHidden = true
       
     }
     
@@ -149,7 +149,6 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
       
     }
     
-  
     func initilize(cContainervc: ContainerVC)
     {
        self.m_cContainerVC = cContainervc
@@ -157,7 +156,7 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
   
     @IBAction func btnCloseSignUPpage_onClick(_ sender: Any)
     {
-         self.view.removeFromSuperview()
+        self.view.removeFromSuperview()
     }
     
     
@@ -167,87 +166,22 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
        {
           sendData()
        }
-        
     }
    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let tempImage:UIImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        
-        btnProfileImg.setImage(tempImage, for: .normal)
-        
-        let timestamp = Date().toMillis()
-        tempImage.accessibilityIdentifier = String(describing: timestamp)
-        self.fileName = String(describing: timestamp!)
-        self.selectedImage = tempImage
-        
-        self.m_cContainerVC.dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.m_cContainerVC.dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func btnCamera_onClick(_ sender: Any)
     {
-        
-        let alertController = UIAlertController(title: "Select Photo", message: "Select atleast one photo", preferredStyle: .actionSheet)
-
-        let action1 = UIAlertAction(title: "Camera", style: .default) { (action) in
-
-           alertController.dismiss(animated: true, completion: nil)
-
-            if(UIImagePickerController .isSourceTypeAvailable(.camera)){
-                self.imagePicker.sourceType = .camera
-                self.m_cContainerVC.present(self.imagePicker, animated: true, completion: nil)
-            } else {
-                let alertWarning = UIAlertView(title:"Warning", message: "You don't have camera", delegate:nil, cancelButtonTitle:"OK", otherButtonTitles:"Cancel")
-                alertWarning.show()
-            }
-
-
-        }
-        let action2 = UIAlertAction(title: "Gallery", style: .default) { (action) in
-
-            self.imagePicker.modalPresentationStyle = UIModalPresentationStyle.currentContext
-            self.imagePicker.delegate = self
-            self.m_cContainerVC.present(self.imagePicker, animated: true, completion: nil)
-
-
-        }
-        let action3 = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-            print("Destructive is pressed....")
-
-        }
-        alertController.addAction(action1)
-        alertController.addAction(action2)
-        alertController.addAction(action3)
-
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.sourceView = self.view
-            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-            popoverController.permittedArrowDirections = []
-        }
-        
-
-        self.m_cContainerVC.present(alertController, animated: true, completion: nil)
-
- 
-        
-       /*  Rupali
         ImagePickerManager().pickImage(self){ image in
             //here is the image
-            
             
             let timestamp = Date().toMillis()
             image.accessibilityIdentifier = String(describing: timestamp)
             
-            self.fileName = String(describing: timestamp!)
+            self.fileName = String(describing: timestamp!) + ".jpeg"
             self.btnProfileImg.setImage(image, for: .normal)
             
             self.selectedImage = image
             
-        }*/
+        }
     }
    
     
@@ -257,11 +191,9 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         {
             return nil
         }
-        
         return String(data: data, encoding: String.Encoding.utf8)
     }
-    
-    
+
     // MARK : FUNCTIONS
     
     func sendData()
@@ -298,72 +230,102 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         
         print(param)
        
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+        
+        Alamofire.request(SignupApi, method: .post, parameters: param).responseJSON { (resp) in
+            print(resp)
+            
+            switch resp.result
+            {
+            case .success(_):
+                let json = resp.result.value as! NSDictionary
+                let Msg = json["msg"] as! String
+                if Msg == "success"
+                {
+                    self.AddFiles()
+                }
+                break
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    func AddFiles()
+    {
+        // let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
+        
+        let FileApi = Constant.BaseUrl+Constant.UploadFiles
         
         Alamofire.upload(
             multipartFormData: { multipartFormData in
                 
                 if self.selectedImage != nil
                 {
+                    let data = self.selectedImage.jpegData(compressionQuality: 0.1)
                     
-                   
-                    let data = self.selectedImage.jpegData(compressionQuality: 0.0)
+                    multipartFormData.append(data!, withName: "images[]", fileName: self.fileName, mimeType: "images/jpeg")
                     
-                    multipartFormData.append(data!, withName: "profile_picture", fileName: self.fileName, mimeType: "image/jpeg")
-                    
-                }
-                
-                for (key, val) in param {
-                    multipartFormData.append((val as AnyObject).data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue).rawValue)!, withName: key)
                 }
         },
-            to: SignupApi,
-            encodingCompletion: { encodingResult in
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    upload.responseJSON { response in
-
-                        
-                            switch response.result
-                            {
-                            case .success(_):
-                                
-                                let json = response.result.value as! NSDictionary
-                                let Msg = json["msg"] as! String
-                                if Msg == "success"
-                                {
-                                    ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details in Medoc App. Thank you!", actiontitle: "OK")
-                                    {
-                                        self.view.removeFromSuperview()
-                                    }
-                                }else if Msg == "Already exist"
-                                {
-                                    
-                                    ZAlertView.init(title: "Medoc", msg: "Mobile number or Email has already available on server. Please use another.", actiontitle: "OK")
-                                    {
-                                        print("")
-                                    }
-                                }
-                                else if Msg == "User not found"
-                                {
-                                    ZAlertView.init(title: "Medoc", msg: "Your data is not found, Please sign up.", actiontitle: "OK")
-                                    {
-                                        print("")
-                                    }
-                                }
-                                break
-                                
-                            case .failure(_):
-                                break
-                            }
-                            
-                        }
+            
+            usingThreshold : SessionManager.multipartFormDataEncodingMemoryThreshold,
+            to : FileApi,
+            method: .post)
+            
+        { (result) in
+            
+            print(result)
+            
+            switch result {
+            case .success(let upload, _, _):
+                
+                upload.uploadProgress(closure: { (Progress) in
+                    print("Upload Progress: \(Progress.fractionCompleted)")
+                })
+                
+                upload.responseJSON { response in
                     
-                case .failure(let encodingError):
-                    print(encodingError)
+                    self.loader.stopAnimating()
+                    self.loader.isHidden = true
+                    if let JSON = response.result.value as? [String: Any] {
+                        print("Response : ",JSON)
+                        
+                        let Msg = JSON["msg"] as! String
+                        if Msg == "success"
+                        {
+                            ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details in Medoc App. Thank you!", actiontitle: "OK")
+                            {
+                                self.view.removeFromSuperview()
+                            }
+                        }
+                        if Msg == "Fail"
+                        {
+                            ZAlertView.init(title: "Medoc", msg: "Mobile number or Email has already available on server. Please use another.", actiontitle: "OK")
+                            {
+                            }
+                        }
+                        
+                        if Msg == "fail"
+                        {
+                            ZAlertView.init(title: "Medoc", msg: "Something went wrong, Try after sometime", actiontitle: "OK")
+                            {
+                               // self.view.removeFromSuperview()
+                            }
+                        }
+                    }
                 }
-        })
+                
+            case .failure(let encodingError):
+                print(encodingError)
+            }
+            
+        }
+        
         
     }
+    
     
     
     func validation() -> Bool

@@ -77,7 +77,6 @@
 		58348D9221DDD9D7007BE8C2 /* AndriodPrescFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58348D9121DDD9D7007BE8C2 /* AndriodPrescFormVC.swift */; };
 		58348D9821DE1DCC007BE8C2 /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58348D9721DE1DCB007BE8C2 /* CheckboxButton.swift */; };
 		58348D9A21DE2F3D007BE8C2 /* SignatureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58348D9921DE2F3D007BE8C2 /* SignatureVC.swift */; };
-		585768F921DD5E33004E931B /* PurchaseLienceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585768F821DD5E33004E931B /* PurchaseLienceVC.swift */; };
 		585913FD21F89EB000B2ACCD /* NewsFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585913FC21F89EB000B2ACCD /* NewsFeedVC.swift */; };
 		585913FF21F89EF500B2ACCD /* NewsFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585913FE21F89EF500B2ACCD /* NewsFeedCell.swift */; };
 		5859911521FEDA440004CF7A /* newsFeedWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5859911421FEDA440004CF7A /* newsFeedWebViewVC.swift */; };
@@ -167,10 +166,6 @@
 		58D9073621C17C4D000A751E /* CPatientEnrtyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */; };
 		58D9538F22017A6500804C59 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9538D22017A6400804C59 /* Alert.swift */; };
 		58D9539022017A6500804C59 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D9538E22017A6500804C59 /* Reachability.swift */; };
-		58DA12B42267105B00CCE36E /* NoInternetVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA12B22267105B00CCE36E /* NoInternetVc.swift */; };
-		58DA12B52267105B00CCE36E /* NoInternetVc.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DA12B32267105B00CCE36E /* NoInternetVc.xib */; };
-		58DA12B7226722B200CCE36E /* NoInternetView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58DA12B6226722B200CCE36E /* NoInternetView.xib */; };
-		58DA12BB2267239700CCE36E /* NoInternetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DA12BA2267239700CCE36E /* NoInternetView.swift */; };
 		58DAFDD821C77ED700E81940 /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */; };
 		58DAFDFD21C7C19500E81940 /* SideBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFDFC21C7C19500E81940 /* SideBarCell.swift */; };
 		58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DAFE0221C7EC8200E81940 /* SWRevealViewController.m */; };
@@ -180,11 +175,9 @@
 		58E3506421CA485700AAF430 /* SideMenuListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E3506321CA485700AAF430 /* SideMenuListVC.swift */; };
 		58E4A1E221F32AB300156AD7 /* AddDrawingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4A1E121F32AB300156AD7 /* AddDrawingVC.swift */; };
 		58E4A1E421F3310D00156AD7 /* AddDrawingImgCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4A1E321F3310D00156AD7 /* AddDrawingImgCell.swift */; };
-		58E4C4BF22609488006A659A /* EnterMedicineVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E4C4BE22609488006A659A /* EnterMedicineVc.swift */; };
 		58E7EEA92209F8B90010C0E6 /* TutorialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7EEA82209F8B90010C0E6 /* TutorialVC.swift */; };
 		58E7EEAB2209F9340010C0E6 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E7EEAA2209F9340010C0E6 /* TutorialCell.swift */; };
 		58EC00F0225F6DF200288694 /* DoctorProfileVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EC00EF225F6DF200288694 /* DoctorProfileVc.swift */; };
-		58EFE63D221D6E4B003CA352 /* MedicineDataFromCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58EFE63C221D6E4B003CA352 /* MedicineDataFromCore.swift */; };
 		58F1CC4222154B4F007130B6 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F1CC4122154B4F007130B6 /* ImagePickerManager.swift */; };
 		58F290F62211A6A200CD1E2B /* PatientReportListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */; };
 		58F290F82211A6B700CD1E2B /* PatientDrawingListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F290F72211A6B700CD1E2B /* PatientDrawingListCell.swift */; };
@@ -193,8 +186,30 @@
 		58F7E20F21EF49280027E284 /* PatientPrescriptionListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F7E20E21EF49280027E284 /* PatientPrescriptionListVC.swift */; };
 		58F7E21521EF6A100027E284 /* AppointmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F7E21421EF6A100027E284 /* AppointmentVC.swift */; };
 		58FBCFCA21E7A77B0055B529 /* SearchPatientbyContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FBCFC921E7A77B0055B529 /* SearchPatientbyContactCell.swift */; };
+		58FBFDD82278268200A2AC05 /* Phq9ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FBFDD72278268200A2AC05 /* Phq9ListCell.swift */; };
 		58FD09A3225B49AF008C794F /* PatientPrescriptionListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FD09A2225B49AF008C794F /* PatientPrescriptionListDataModel.swift */; };
 		91950D93CFE47E481F691806 /* Pods_Medoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C45CB29D8418FE384706EB /* Pods_Medoc.framework */; };
+		F228860F22927852003D9AA6 /* HospitalDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228860E22927852003D9AA6 /* HospitalDataModel.swift */; };
+		F228861122927CFF003D9AA6 /* getHospitalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228861022927CFF003D9AA6 /* getHospitalCell.swift */; };
+		F22B4C012284356400C4C5FF /* DotsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22B4C002284356300C4C5FF /* DotsLoader.swift */; };
+		F25F7ADD228BFB4E00286C1C /* AddClinicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25F7ADC228BFB4E00286C1C /* AddClinicVC.swift */; };
+		F2B078192283120D001BC527 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2B077FA228311EE001BC527 /* Info.plist */; };
+		F2B0781A2283120D001BC527 /* FSCalendarWeekdayView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B077FD228311F1001BC527 /* FSCalendarWeekdayView.m */; };
+		F2B0781B2283120D001BC527 /* FSCalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B077FE228311F2001BC527 /* FSCalendarCell.m */; };
+		F2B0781C2283120D001BC527 /* FSCalendarAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B07803228311F6001BC527 /* FSCalendarAppearance.m */; };
+		F2B0781D2283120D001BC527 /* FSCalendarCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B07804228311F7001BC527 /* FSCalendarCollectionView.m */; };
+		F2B0781E2283120D001BC527 /* FSCalendarDelegationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B07807228311FA001BC527 /* FSCalendarDelegationFactory.m */; };
+		F2B0781F2283120D001BC527 /* FSCalendarCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B07808228311FB001BC527 /* FSCalendarCollectionViewLayout.m */; };
+		F2B078202283120D001BC527 /* FSCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B0780B228311FD001BC527 /* FSCalendar.m */; };
+		F2B078212283120D001BC527 /* FSCalendarCalculator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B0780C228311FE001BC527 /* FSCalendarCalculator.m */; };
+		F2B078222283120D001BC527 /* FSCalendarSeparatorDecorationView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B0780D228311FF001BC527 /* FSCalendarSeparatorDecorationView.m */; };
+		F2B078232283120D001BC527 /* FSCalendarDelegationProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B0780E22831200001BC527 /* FSCalendarDelegationProxy.m */; };
+		F2B078242283120D001BC527 /* FSCalendarStickyHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B0780F22831201001BC527 /* FSCalendarStickyHeader.m */; };
+		F2B078252283120D001BC527 /* FSCalendarTransitionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B0781022831202001BC527 /* FSCalendarTransitionCoordinator.m */; };
+		F2B078262283120D001BC527 /* FSCalendarExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B0781522831207001BC527 /* FSCalendarExtensions.m */; };
+		F2B078272283120D001BC527 /* FSCalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B078172283120A001BC527 /* FSCalendarHeaderView.m */; };
+		F2B078282283120D001BC527 /* FSCalendarConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F2B078182283120D001BC527 /* FSCalendarConstants.m */; };
+		F2D2B2E2228D88CA0014C23B /* ProfileDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D2B2E1228D88CA0014C23B /* ProfileDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -307,7 +322,6 @@
 		58348D9121DDD9D7007BE8C2 /* AndriodPrescFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndriodPrescFormVC.swift; sourceTree = "<group>"; };
 		58348D9721DE1DCB007BE8C2 /* CheckboxButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		58348D9921DE2F3D007BE8C2 /* SignatureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureVC.swift; sourceTree = "<group>"; };
-		585768F821DD5E33004E931B /* PurchaseLienceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseLienceVC.swift; sourceTree = "<group>"; };
 		585913FC21F89EB000B2ACCD /* NewsFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedVC.swift; sourceTree = "<group>"; };
 		585913FE21F89EF500B2ACCD /* NewsFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedCell.swift; sourceTree = "<group>"; };
 		5859911421FEDA440004CF7A /* newsFeedWebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newsFeedWebViewVC.swift; sourceTree = "<group>"; };
@@ -433,10 +447,6 @@
 		58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CPatientEnrtyData.swift; sourceTree = "<group>"; };
 		58D9538D22017A6400804C59 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		58D9538E22017A6500804C59 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
-		58DA12B22267105B00CCE36E /* NoInternetVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetVc.swift; sourceTree = "<group>"; };
-		58DA12B32267105B00CCE36E /* NoInternetVc.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetVc.xib; sourceTree = "<group>"; };
-		58DA12B6226722B200CCE36E /* NoInternetView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoInternetView.xib; sourceTree = "<group>"; };
-		58DA12BA2267239700CCE36E /* NoInternetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetView.swift; sourceTree = "<group>"; };
 		58DAFDD721C77ED700E81940 /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
 		58DAFDFC21C7C19500E81940 /* SideBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarCell.swift; sourceTree = "<group>"; };
 		58DAFE0121C7EC8200E81940 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
@@ -447,11 +457,9 @@
 		58E3506321CA485700AAF430 /* SideMenuListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListVC.swift; sourceTree = "<group>"; };
 		58E4A1E121F32AB300156AD7 /* AddDrawingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrawingVC.swift; sourceTree = "<group>"; };
 		58E4A1E321F3310D00156AD7 /* AddDrawingImgCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrawingImgCell.swift; sourceTree = "<group>"; };
-		58E4C4BE22609488006A659A /* EnterMedicineVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMedicineVc.swift; sourceTree = "<group>"; };
 		58E7EEA82209F8B90010C0E6 /* TutorialVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialVC.swift; sourceTree = "<group>"; };
 		58E7EEAA2209F9340010C0E6 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
 		58EC00EF225F6DF200288694 /* DoctorProfileVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorProfileVc.swift; sourceTree = "<group>"; };
-		58EFE63C221D6E4B003CA352 /* MedicineDataFromCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineDataFromCore.swift; sourceTree = "<group>"; };
 		58F1CC4122154B4F007130B6 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
 		58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientReportListCell.swift; sourceTree = "<group>"; };
 		58F290F72211A6B700CD1E2B /* PatientDrawingListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDrawingListCell.swift; sourceTree = "<group>"; };
@@ -460,8 +468,46 @@
 		58F7E20E21EF49280027E284 /* PatientPrescriptionListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPrescriptionListVC.swift; sourceTree = "<group>"; };
 		58F7E21421EF6A100027E284 /* AppointmentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppointmentVC.swift; sourceTree = "<group>"; };
 		58FBCFC921E7A77B0055B529 /* SearchPatientbyContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPatientbyContactCell.swift; sourceTree = "<group>"; };
+		58FBFDD72278268200A2AC05 /* Phq9ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phq9ListCell.swift; sourceTree = "<group>"; };
 		58FD09A2225B49AF008C794F /* PatientPrescriptionListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPrescriptionListDataModel.swift; sourceTree = "<group>"; };
 		DB567A7B6C833F547ACD17EE /* Pods-Medoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Medoc/Pods-Medoc.release.xcconfig"; sourceTree = "<group>"; };
+		F228860E22927852003D9AA6 /* HospitalDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalDataModel.swift; sourceTree = "<group>"; };
+		F228861022927CFF003D9AA6 /* getHospitalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getHospitalCell.swift; sourceTree = "<group>"; };
+		F22B4C002284356300C4C5FF /* DotsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotsLoader.swift; sourceTree = "<group>"; };
+		F25F7ADC228BFB4E00286C1C /* AddClinicVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClinicVC.swift; sourceTree = "<group>"; };
+		F2B077F9228311EE001BC527 /* FSCalendarCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionView.h; sourceTree = "<group>"; };
+		F2B077FA228311EE001BC527 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2B077FB228311EF001BC527 /* FSCalendarAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarAppearance.h; sourceTree = "<group>"; };
+		F2B077FC228311F0001BC527 /* FSCalendarExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarExtensions.h; sourceTree = "<group>"; };
+		F2B077FD228311F1001BC527 /* FSCalendarWeekdayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarWeekdayView.m; sourceTree = "<group>"; };
+		F2B077FE228311F2001BC527 /* FSCalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCell.m; sourceTree = "<group>"; };
+		F2B077FF228311F3001BC527 /* FSCalendarSeparatorDecorationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarSeparatorDecorationView.h; sourceTree = "<group>"; };
+		F2B07800228311F4001BC527 /* FSCalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarHeaderView.h; sourceTree = "<group>"; };
+		F2B07801228311F5001BC527 /* FSCalendarTransitionCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarTransitionCoordinator.h; sourceTree = "<group>"; };
+		F2B07802228311F5001BC527 /* FSCalendarCalculator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCalculator.h; sourceTree = "<group>"; };
+		F2B07803228311F6001BC527 /* FSCalendarAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarAppearance.m; sourceTree = "<group>"; };
+		F2B07804228311F7001BC527 /* FSCalendarCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionView.m; sourceTree = "<group>"; };
+		F2B07805228311F8001BC527 /* FSCalendarDelegationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDelegationFactory.h; sourceTree = "<group>"; };
+		F2B07806228311F9001BC527 /* FSCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendar.h; sourceTree = "<group>"; };
+		F2B07807228311FA001BC527 /* FSCalendarDelegationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarDelegationFactory.m; sourceTree = "<group>"; };
+		F2B07808228311FB001BC527 /* FSCalendarCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCollectionViewLayout.m; sourceTree = "<group>"; };
+		F2B07809228311FB001BC527 /* FSCalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarConstants.h; sourceTree = "<group>"; };
+		F2B0780A228311FC001BC527 /* FSCalendarDynamicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDynamicHeader.h; sourceTree = "<group>"; };
+		F2B0780B228311FD001BC527 /* FSCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendar.m; sourceTree = "<group>"; };
+		F2B0780C228311FE001BC527 /* FSCalendarCalculator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarCalculator.m; sourceTree = "<group>"; };
+		F2B0780D228311FF001BC527 /* FSCalendarSeparatorDecorationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarSeparatorDecorationView.m; sourceTree = "<group>"; };
+		F2B0780E22831200001BC527 /* FSCalendarDelegationProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarDelegationProxy.m; sourceTree = "<group>"; };
+		F2B0780F22831201001BC527 /* FSCalendarStickyHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarStickyHeader.m; sourceTree = "<group>"; };
+		F2B0781022831202001BC527 /* FSCalendarTransitionCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarTransitionCoordinator.m; sourceTree = "<group>"; };
+		F2B0781122831202001BC527 /* FSCalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCell.h; sourceTree = "<group>"; };
+		F2B0781222831203001BC527 /* FSCalendarDelegationProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarDelegationProxy.h; sourceTree = "<group>"; };
+		F2B0781322831204001BC527 /* FSCalendarCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarCollectionViewLayout.h; sourceTree = "<group>"; };
+		F2B0781422831205001BC527 /* FSCalendarWeekdayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarWeekdayView.h; sourceTree = "<group>"; };
+		F2B0781522831207001BC527 /* FSCalendarExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarExtensions.m; sourceTree = "<group>"; };
+		F2B0781622831208001BC527 /* FSCalendarStickyHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSCalendarStickyHeader.h; sourceTree = "<group>"; };
+		F2B078172283120A001BC527 /* FSCalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarHeaderView.m; sourceTree = "<group>"; };
+		F2B078182283120D001BC527 /* FSCalendarConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSCalendarConstants.m; sourceTree = "<group>"; };
+		F2D2B2E1228D88CA0014C23B /* ProfileDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,23 +556,25 @@
 		3BA92BE621B00E5E008D85DB /* Third Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				F22B4C002284356300C4C5FF /* DotsLoader.swift */,
+				F2B077F8228311BB001BC527 /* FSCalendar */,
 				58C9918B225C859600A8B24E /* Cardview.swift */,
-				58C9923B22030F7F00E56C5A /* MaterialDesign */,
-				5859911B21FF12FD0004CF7A /* SwiftLoader.swift */,
-				587FFC5021FCD54900C2B316 /* DBAttachPicker */,
-				58CB109121E4DDA500745BC9 /* WeScan */,
 				58348D9721DE1DCB007BE8C2 /* CheckboxButton.swift */,
-				58DAFE0021C7EC8200E81940 /* SWRevealViewController */,
-				580A5A1F21C0F16F0019570F /* LCPaintView */,
+				5859911B21FF12FD0004CF7A /* SwiftLoader.swift */,
 				3BA92C2321B00E5E008D85DB /* DLRadioButton.m */,
 				3BA92C2421B00E5E008D85DB /* SPKeyBoardAvoiding.swift */,
 				3BA92C2521B00E5E008D85DB /* StringValidation.swift */,
-				3BA92C2621B00E5E008D85DB /* KLCPopup */,
-				3BA92C2921B00E5E008D85DB /* TextFieldEffects */,
 				3BA92C3521B00E5E008D85DB /* GradientView.swift */,
 				3BA92C3621B00E5E008D85DB /* JYToast.swift */,
 				3BA92C3721B00E5E008D85DB /* ReachabilityCheck.swift */,
 				3BA92C3921B00E5E008D85DB /* DLRadioButton.h */,
+				58C9923B22030F7F00E56C5A /* MaterialDesign */,
+				587FFC5021FCD54900C2B316 /* DBAttachPicker */,
+				58CB109121E4DDA500745BC9 /* WeScan */,
+				58DAFE0021C7EC8200E81940 /* SWRevealViewController */,
+				580A5A1F21C0F16F0019570F /* LCPaintView */,
+				3BA92C2621B00E5E008D85DB /* KLCPopup */,
+				3BA92C2921B00E5E008D85DB /* TextFieldEffects */,
 			);
 			path = "Third Libraries";
 			sourceTree = "<group>";
@@ -599,9 +647,7 @@
 		3BF823D321AD7A31004C92E5 /* Medoc */ = {
 			isa = PBXGroup;
 			children = (
-				58DA12B122670F9F00CCE36E /* NoInternetPopup */,
 				58FD09A1225B4902008C794F /* DataModel */,
-				58EFE63B221D6E26003CA352 /* CoreDataFiles */,
 				580E851F21F9ECD4002A4DCD /* EncryptionFiles */,
 				5827127B21F0B85C009E7C02 /* Razorpay.framework */,
 				58C8803C21E321F90054FBC1 /* VideoFile */,
@@ -706,7 +752,6 @@
 			isa = PBXGroup;
 			children = (
 				5868516C21C8DA5600D3BE39 /* ProfileVC.swift */,
-				585768F821DD5E33004E931B /* PurchaseLienceVC.swift */,
 				587B1C0421E13C8E00877C70 /* ChatVC.swift */,
 				58C8803A21E318C90054FBC1 /* VideoListVC.swift */,
 				58F7E21421EF6A100027E284 /* AppointmentVC.swift */,
@@ -725,8 +770,8 @@
 			isa = PBXGroup;
 			children = (
 				580A5A2621C0F3960019570F /* PrescriptionViewController.swift */,
-				5877BE1921B7BB800001328A /* PatientListVC.swift */,
 				580A5A1D21C0F0480019570F /* PatientPrescriptionVC.swift */,
+				5877BE1921B7BB800001328A /* PatientListVC.swift */,
 				58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */,
 				58E3506321CA485700AAF430 /* SideMenuListVC.swift */,
 				58DF976821CCCB62007AD147 /* cMedicianEntryData.swift */,
@@ -746,7 +791,7 @@
 				580640162212A0190012E55B /* OpenImageInWeb.swift */,
 				580640182212D1040012E55B /* OpenPopUpInfoVC.swift */,
 				58F78AB3221D40BA001A08A8 /* FetchResponseApi.swift */,
-				58E4C4BE22609488006A659A /* EnterMedicineVc.swift */,
+				F25F7ADC228BFB4E00286C1C /* AddClinicVC.swift */,
 			);
 			path = DoctorVC;
 			sourceTree = "<group>";
@@ -781,6 +826,8 @@
 				581D8DE4220D98C6008B3784 /* LabTestAnalysisCell.swift */,
 				58F290F52211A6A200CD1E2B /* PatientReportListCell.swift */,
 				58F290F72211A6B700CD1E2B /* PatientDrawingListCell.swift */,
+				58FBFDD72278268200A2AC05 /* Phq9ListCell.swift */,
+				F228861022927CFF003D9AA6 /* getHospitalCell.swift */,
 			);
 			path = DoctorCell;
 			sourceTree = "<group>";
@@ -1026,17 +1073,6 @@
 			path = Session;
 			sourceTree = "<group>";
 		};
-		58DA12B122670F9F00CCE36E /* NoInternetPopup */ = {
-			isa = PBXGroup;
-			children = (
-				58DA12B22267105B00CCE36E /* NoInternetVc.swift */,
-				58DA12B32267105B00CCE36E /* NoInternetVc.xib */,
-				58DA12B6226722B200CCE36E /* NoInternetView.xib */,
-				58DA12BA2267239700CCE36E /* NoInternetView.swift */,
-			);
-			path = NoInternetPopup;
-			sourceTree = "<group>";
-		};
 		58DAFE0021C7EC8200E81940 /* SWRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1046,21 +1082,54 @@
 			path = SWRevealViewController;
 			sourceTree = "<group>";
 		};
-		58EFE63B221D6E26003CA352 /* CoreDataFiles */ = {
-			isa = PBXGroup;
-			children = (
-				58EFE63C221D6E4B003CA352 /* MedicineDataFromCore.swift */,
-			);
-			path = CoreDataFiles;
-			sourceTree = "<group>";
-		};
 		58FD09A1225B4902008C794F /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
 				58FD09A2225B49AF008C794F /* PatientPrescriptionListDataModel.swift */,
 				58C99189225C716D00A8B24E /* ChiefComplainsDataModel.swift */,
+				F2D2B2E1228D88CA0014C23B /* ProfileDataModel.swift */,
+				F228860E22927852003D9AA6 /* HospitalDataModel.swift */,
 			);
 			path = DataModel;
+			sourceTree = "<group>";
+		};
+		F2B077F8228311BB001BC527 /* FSCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				F2B07806228311F9001BC527 /* FSCalendar.h */,
+				F2B0780B228311FD001BC527 /* FSCalendar.m */,
+				F2B077FB228311EF001BC527 /* FSCalendarAppearance.h */,
+				F2B07803228311F6001BC527 /* FSCalendarAppearance.m */,
+				F2B07802228311F5001BC527 /* FSCalendarCalculator.h */,
+				F2B0780C228311FE001BC527 /* FSCalendarCalculator.m */,
+				F2B0781122831202001BC527 /* FSCalendarCell.h */,
+				F2B077FE228311F2001BC527 /* FSCalendarCell.m */,
+				F2B077F9228311EE001BC527 /* FSCalendarCollectionView.h */,
+				F2B07804228311F7001BC527 /* FSCalendarCollectionView.m */,
+				F2B0781322831204001BC527 /* FSCalendarCollectionViewLayout.h */,
+				F2B07808228311FB001BC527 /* FSCalendarCollectionViewLayout.m */,
+				F2B07809228311FB001BC527 /* FSCalendarConstants.h */,
+				F2B078182283120D001BC527 /* FSCalendarConstants.m */,
+				F2B07805228311F8001BC527 /* FSCalendarDelegationFactory.h */,
+				F2B07807228311FA001BC527 /* FSCalendarDelegationFactory.m */,
+				F2B0781222831203001BC527 /* FSCalendarDelegationProxy.h */,
+				F2B0780E22831200001BC527 /* FSCalendarDelegationProxy.m */,
+				F2B0780A228311FC001BC527 /* FSCalendarDynamicHeader.h */,
+				F2B077FC228311F0001BC527 /* FSCalendarExtensions.h */,
+				F2B0781522831207001BC527 /* FSCalendarExtensions.m */,
+				F2B07800228311F4001BC527 /* FSCalendarHeaderView.h */,
+				F2B078172283120A001BC527 /* FSCalendarHeaderView.m */,
+				F2B077FF228311F3001BC527 /* FSCalendarSeparatorDecorationView.h */,
+				F2B0780D228311FF001BC527 /* FSCalendarSeparatorDecorationView.m */,
+				F2B0781622831208001BC527 /* FSCalendarStickyHeader.h */,
+				F2B0780F22831201001BC527 /* FSCalendarStickyHeader.m */,
+				F2B07801228311F5001BC527 /* FSCalendarTransitionCoordinator.h */,
+				F2B0781022831202001BC527 /* FSCalendarTransitionCoordinator.m */,
+				F2B0781422831205001BC527 /* FSCalendarWeekdayView.h */,
+				F2B077FD228311F1001BC527 /* FSCalendarWeekdayView.m */,
+				F2B077FA228311EE001BC527 /* Info.plist */,
+			);
+			path = FSCalendar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1147,7 +1216,6 @@
 				58CB10DC21E4DDA600745BC9 /* flash.png in Resources */,
 				587FFC9221FCD54900C2B316 /* DBAssetGroupsViewController.xib in Resources */,
 				587FFC9C21FCD54900C2B316 /* DBAttachmentPickerController.stringsdict in Resources */,
-				58DA12B7226722B200CCE36E /* NoInternetView.xib in Resources */,
 				587FFC9B21FCD54900C2B316 /* DBAttachmentPickerController.strings in Resources */,
 				58CB10E421E4DDA600745BC9 /* enhance.png in Resources */,
 				587FFC9321FCD54900C2B316 /* DBAssetItemsViewController.xib in Resources */,
@@ -1161,8 +1229,8 @@
 				58CB10E321E4DDA600745BC9 /* enhance@2x.png in Resources */,
 				58CB10E121E4DDA600745BC9 /* flash@3x.png in Resources */,
 				58CB10E021E4DDA600745BC9 /* flashUnavailable@3x.png in Resources */,
+				F2B078192283120D001BC527 /* Info.plist in Resources */,
 				3BA92C7F21B0103E008D85DB /* Main.storyboard in Resources */,
-				58DA12B52267105B00CCE36E /* NoInternetVc.xib in Resources */,
 				3BA92C7B21B00E5E008D85DB /* Doctor.storyboard in Resources */,
 				3BF823DF21AD7A3F004C92E5 /* Assets.xcassets in Resources */,
 				3BA92C7121B00E5E008D85DB /* Admin.storyboard in Resources */,
@@ -1242,7 +1310,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Razorpay.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1279,35 +1346,41 @@
 				580E852421F9F896002A4DCD /* PatientInfoCell.swift in Sources */,
 				580E851821F9D475002A4DCD /* PdfReaderVC.swift in Sources */,
 				58348D9821DE1DCC007BE8C2 /* CheckboxButton.swift in Sources */,
-				58E4C4BF22609488006A659A /* EnterMedicineVc.swift in Sources */,
 				5827125921F09D4A009E7C02 /* CellReportImages.swift in Sources */,
-				58EFE63D221D6E4B003CA352 /* MedicineDataFromCore.swift in Sources */,
+				F2B0781C2283120D001BC527 /* FSCalendarAppearance.m in Sources */,
 				581D8DE8220DAEC2008B3784 /* TemperatureGraphVC.swift in Sources */,
 				581226F4220224FB007759FB /* PatientProblemCell.swift in Sources */,
 				580E851321F98344002A4DCD /* AddPatientVC.swift in Sources */,
 				58E7EEAB2209F9340010C0E6 /* TutorialCell.swift in Sources */,
 				58C9925B22030F7F00E56C5A /* MKLayer.swift in Sources */,
+				F2B078242283120D001BC527 /* FSCalendarStickyHeader.m in Sources */,
 				58F7E21521EF6A100027E284 /* AppointmentVC.swift in Sources */,
 				3BA92C6421B00E5E008D85DB /* YoshikoTextField.swift in Sources */,
 				5831988B21C22E700068C1AA /* LoginVC.swift in Sources */,
 				5827125321F07538009E7C02 /* DetailPrescriptionVC.swift in Sources */,
 				58C9925122030F7F00E56C5A /* MKTableViewCell.swift in Sources */,
 				58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */,
+				F2B078272283120D001BC527 /* FSCalendarHeaderView.m in Sources */,
 				5827125521F09D1A009E7C02 /* CellPrescImages.swift in Sources */,
 				58EC00F0225F6DF200288694 /* DoctorProfileVc.swift in Sources */,
 				580640192212D1040012E55B /* OpenPopUpInfoVC.swift in Sources */,
 				58C9925222030F7F00E56C5A /* MKNavigationBar.swift in Sources */,
 				3BA92C6321B00E5E008D85DB /* KLCPopup.m in Sources */,
 				583198AF21C239010068C1AA /* SignUpFormVC.swift in Sources */,
+				F22B4C012284356400C4C5FF /* DotsLoader.swift in Sources */,
 				58F290F82211A6B700CD1E2B /* PatientDrawingListCell.swift in Sources */,
 				587FFC9921FCD54900C2B316 /* UIImage+DBAssetIcons.m in Sources */,
 				58CB10CD21E4DDA600745BC9 /* CIImage+Utils.swift in Sources */,
 				58CB10D621E4DDA600745BC9 /* Error.swift in Sources */,
 				58D9539022017A6500804C59 /* Reachability.swift in Sources */,
 				58E4A1E421F3310D00156AD7 /* AddDrawingImgCell.swift in Sources */,
+				F228860F22927852003D9AA6 /* HospitalDataModel.swift in Sources */,
 				587FFC9A21FCD54900C2B316 /* NSIndexSet+DBLibrary.m in Sources */,
+				F2B078212283120D001BC527 /* FSCalendarCalculator.m in Sources */,
 				3BA92C7021B00E5E008D85DB /* ReachabilityCheck.swift in Sources */,
 				5859911521FEDA440004CF7A /* newsFeedWebViewVC.swift in Sources */,
+				F2B0781E2283120D001BC527 /* FSCalendarDelegationFactory.m in Sources */,
+				F2B0781F2283120D001BC527 /* FSCalendarCollectionViewLayout.m in Sources */,
 				58CB10CC21E4DDA600745BC9 /* CGPoint+Utils.swift in Sources */,
 				587FFC9521FCD54900C2B316 /* DBAttachment.m in Sources */,
 				58E7EEA92209F8B90010C0E6 /* TutorialVC.swift in Sources */,
@@ -1316,18 +1389,21 @@
 				3BA92C7A21B00E5E008D85DB /* AppStoryboard.swift in Sources */,
 				587B1C0321E0926000877C70 /* PaintImgCell.swift in Sources */,
 				58C9918A225C716D00A8B24E /* ChiefComplainsDataModel.swift in Sources */,
+				F25F7ADD228BFB4E00286C1C /* AddClinicVC.swift in Sources */,
 				580A5A1E21C0F0480019570F /* PatientPrescriptionVC.swift in Sources */,
 				582528C621F6F118003B4996 /* CellMedicineData.swift in Sources */,
 				3BF823DD21AD7A32004C92E5 /* Medoc.xcdatamodeld in Sources */,
 				58F290F62211A6A200CD1E2B /* PatientReportListCell.swift in Sources */,
 				3BA92C6F21B00E5E008D85DB /* JYToast.swift in Sources */,
+				F2B078222283120D001BC527 /* FSCalendarSeparatorDecorationView.m in Sources */,
+				F2B078202283120D001BC527 /* FSCalendar.m in Sources */,
 				5827125721F09D33009E7C02 /* CellDrawingImages.swift in Sources */,
 				583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */,
 				581D8DE3220D9890008B3784 /* MedicineAnalysisCell.swift in Sources */,
 				58CB10CF21E4DDA600745BC9 /* CGRect+Utils.swift in Sources */,
 				58C9925822030F7F00E56C5A /* MKLabel.swift in Sources */,
+				F2D2B2E2228D88CA0014C23B /* ProfileDataModel.swift in Sources */,
 				58348D9221DDD9D7007BE8C2 /* AndriodPrescFormVC.swift in Sources */,
-				58DA12B42267105B00CCE36E /* NoInternetVc.swift in Sources */,
 				581D8DDF220D660A008B3784 /* ChartAnalysisVC.swift in Sources */,
 				587FFC9721FCD54900C2B316 /* DBAttachmentAlertController.m in Sources */,
 				58DF976921CCCB62007AD147 /* cMedicianEntryData.swift in Sources */,
@@ -1346,6 +1422,7 @@
 				3BA92C6221B00E5E008D85DB /* StringValidation.swift in Sources */,
 				58C9925A22030F7F00E56C5A /* MKActivityIndicator.swift in Sources */,
 				3BA92C6121B00E5E008D85DB /* SPKeyBoardAvoiding.swift in Sources */,
+				F2B078282283120D001BC527 /* FSCalendarConstants.m in Sources */,
 				580A5A2721C0F3960019570F /* PrescriptionViewController.swift in Sources */,
 				58C9925522030F7F00E56C5A /* MKEmbedDrawerControllerSegue.swift in Sources */,
 				580E852221F9ECF5002A4DCD /* CryptLib.m in Sources */,
@@ -1354,7 +1431,6 @@
 				58CB10D921E4DDA600745BC9 /* QuadrilateralView.swift in Sources */,
 				3BA92C6C21B00E5E008D85DB /* AkiraTextField.swift in Sources */,
 				5868516D21C8DA5600D3BE39 /* ProfileVC.swift in Sources */,
-				58DA12BB2267239700CCE36E /* NoInternetView.swift in Sources */,
 				58E3506421CA485700AAF430 /* SideMenuListVC.swift in Sources */,
 				580E851A21F9D880002A4DCD /* ContactUsVC.swift in Sources */,
 				58C9924E22030F7F00E56C5A /* MKSideDrawerViewController.swift in Sources */,
@@ -1378,6 +1454,7 @@
 				58C9925422030F7F00E56C5A /* MKSnackbar.swift in Sources */,
 				582528C821F7024D003B4996 /* ScannerVC.swift in Sources */,
 				3BA92C6821B00E5E008D85DB /* TextFieldEffects.swift in Sources */,
+				F2B0781B2283120D001BC527 /* FSCalendarCell.m in Sources */,
 				58D9073621C17C4D000A751E /* CPatientEnrtyData.swift in Sources */,
 				58CB10D221E4DDA600745BC9 /* UIImage+Utils.swift in Sources */,
 				3BA92C6721B00E5E008D85DB /* YokoTextField.swift in Sources */,
@@ -1385,12 +1462,14 @@
 				58CB10C621E4DDA600745BC9 /* ImageScannerController.swift in Sources */,
 				58DAFE0321C7EC8300E81940 /* SWRevealViewController.m in Sources */,
 				58CB10D021E4DDA600745BC9 /* Array+Utils.swift in Sources */,
+				F2B078252283120D001BC527 /* FSCalendarTransitionCoordinator.m in Sources */,
 				3BF823D721AD7A31004C92E5 /* ViewController.swift in Sources */,
 				58C9924D22030F7F00E56C5A /* MKCollectionViewCell.swift in Sources */,
 				58DE554D21FC1CDC00C2C5FA /* OpenSideMenuClass.swift in Sources */,
 				580E851E21F9E7D8002A4DCD /* ViewMoreDetailVC.swift in Sources */,
 				5859911C21FF12FD0004CF7A /* SwiftLoader.swift in Sources */,
 				580A5A2421C0F16F0019570F /* LCBezierPath.m in Sources */,
+				F2B078262283120D001BC527 /* FSCalendarExtensions.m in Sources */,
 				587FFC8C21FCD54900C2B316 /* DBThumbnailPhotoCell.m in Sources */,
 				58C9925C22030F7F00E56C5A /* MKColor.swift in Sources */,
 				58FD09A3225B49AF008C794F /* PatientPrescriptionListDataModel.swift in Sources */,
@@ -1399,6 +1478,7 @@
 				58CB10DA21E4DDA600745BC9 /* Quadrilateral.swift in Sources */,
 				58C9925D22030F7F00E56C5A /* MKEmbedMainControllerSegue.swift in Sources */,
 				58C9925322030F7F00E56C5A /* MKTextField.swift in Sources */,
+				F2B0781D2283120D001BC527 /* FSCalendarCollectionView.m in Sources */,
 				58CB10E721E4DDA600745BC9 /* CaptureSession+Orientation.swift in Sources */,
 				58CB10C821E4DDA600745BC9 /* CaptureSessionManager.swift in Sources */,
 				580E851C21F9DE55002A4DCD /* AboutUsVC.swift in Sources */,
@@ -1412,10 +1492,12 @@
 				582DA44821E89CDE00B85EF5 /* AddPresImgCell.swift in Sources */,
 				3BA92C6021B00E5E008D85DB /* DLRadioButton.m in Sources */,
 				5877BE1A21B7BB800001328A /* PatientListVC.swift in Sources */,
+				F228861122927CFF003D9AA6 /* getHospitalCell.swift in Sources */,
 				58CB10D521E4DDA600745BC9 /* EditScanCornerView.swift in Sources */,
 				587FFC9021FCD54900C2B316 /* DBAssetGroupsViewController.m in Sources */,
 				58CB10CB21E4DDA600745BC9 /* AVCaptureVideoOrientation+Utils.swift in Sources */,
 				58C9924F22030F7F00E56C5A /* MKCardView.swift in Sources */,
+				F2B078232283120D001BC527 /* FSCalendarDelegationProxy.m in Sources */,
 				58CB10C921E4DDA600745BC9 /* ShutterButton.swift in Sources */,
 				58F78AB2221D2990001A08A8 /* Constant.swift in Sources */,
 				580640172212A0190012E55B /* OpenImageInWeb.swift in Sources */,
@@ -1427,12 +1509,13 @@
 				580A5A2521C0F16F0019570F /* LCPaintView.m in Sources */,
 				58C9918C225C859700A8B24E /* Cardview.swift in Sources */,
 				58CB10CA21E4DDA600745BC9 /* ScannerViewController.swift in Sources */,
-				585768F921DD5E33004E931B /* PurchaseLienceVC.swift in Sources */,
 				3BF823D521AD7A31004C92E5 /* AppDelegate.swift in Sources */,
+				F2B0781A2283120D001BC527 /* FSCalendarWeekdayView.m in Sources */,
 				58CB10D821E4DDA600745BC9 /* CIRectangleDetector.swift in Sources */,
 				3BA92C6E21B00E5E008D85DB /* GradientView.swift in Sources */,
 				58F78AB4221D40BA001A08A8 /* FetchResponseApi.swift in Sources */,
 				3BA92C6A21B00E5E008D85DB /* MadokaTextField.swift in Sources */,
+				58FBFDD82278268200A2AC05 /* Phq9ListCell.swift in Sources */,
 				58348D9A21DE2F3D007BE8C2 /* SignatureVC.swift in Sources */,
 				58CB10DB21E4DDA600745BC9 /* ReviewViewController.swift in Sources */,
 			);
@@ -1621,15 +1704,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 879PB75HQ7;
+				DEVELOPMENT_TEAM = TBC2KVJ5K4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Medoc/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1681,9 +1764,9 @@
 					"-framework",
 					"\"nanopb\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ksoftpl.Medoc-Patient";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kspl.mumbaipressIos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Medoc-Patient-Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = MedocDevelpCert;
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1696,15 +1779,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 879PB75HQ7;
+				DEVELOPMENT_TEAM = TBC2KVJ5K4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Medoc/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1756,9 +1839,9 @@
 					"-framework",
 					"\"nanopb\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ksoftpl.Medoc-Patient";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kspl.mumbaipressIos;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Medoc-Patient-Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = MedocDevelpCert;
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;

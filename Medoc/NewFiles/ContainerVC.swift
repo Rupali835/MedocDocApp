@@ -14,6 +14,8 @@ class ContainerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.isHidden = true
+        
         UIView.animate(withDuration: 1.0) {
             
             self.loginvc.view.frame = self.containerView.bounds
@@ -43,41 +45,49 @@ class ContainerVC: UIViewController {
     
     func showsign()
     {
-        UIView.transition(with: self.containerView,
-                          duration: 1.0,
-                          options: [.transitionFlipFromRight],
-                          animations: {
-                            
-                            self.signupvc.view.frame = self.containerView.bounds
-                       
-                       
-                    //  self.containerView.clipsToBounds = true
-                   
-                        self.addChild(self.signupvc)
-                            
-                        self.containerView.addSubview(self.signupvc.view)
-                                 self.signupvc.view.clipsToBounds = true
-        },
-                          completion: nil)
+        self.signupvc.view.frame = self.containerView.bounds
+        
+        self.addChild(self.signupvc)
+        
+        self.containerView.addSubview(self.signupvc.view)
+        self.signupvc.view.clipsToBounds = true
+        
+//        UIView.transition(with: self.containerView,
+//                          duration: 1.0,
+//                          options: [.transitionFlipFromRight],
+//                          animations: {
+//
+//                            self.signupvc.view.frame = self.containerView.bounds
+//
+//                        self.addChild(self.signupvc)
+//
+//                        self.containerView.addSubview(self.signupvc.view)
+//                                 self.signupvc.view.clipsToBounds = true
+//        },
+//                          completion: nil)
         
     }
     
     func showForgetpassword()
     {
-        UIView.transition(with: self.containerView,
-                          duration: 1.0,
-                          options: [.transitionCurlUp],
-                          animations: {
-                            
-                            self.passwordvc.view.frame = self.containerView.bounds
-                            
-                       
-                         self.containerView.addSubview(self.passwordvc.view)
-                              self.passwordvc.view.clipsToBounds = true
-                            
-        },
-                          completion: nil)
-        
+        self.passwordvc.view.frame = self.containerView.bounds
+        self.containerView.addSubview(self.passwordvc.view)
+        self.passwordvc.view.clipsToBounds = true
+//
+//        UIView.transition(with: self.containerView,
+//                          duration: 1.0,
+//                          options: [.transitionCurlUp],
+//                          animations: {
+//
+//                            self.passwordvc.view.frame = self.containerView.bounds
+//
+//
+//                         self.containerView.addSubview(self.passwordvc.view)
+//                              self.passwordvc.view.clipsToBounds = true
+//
+//        },
+//                          completion: nil)
+//
         
       
     }

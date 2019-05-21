@@ -118,7 +118,7 @@ class PrescriptionViewController: UIViewController {
     }
 
     
-    func openPopupName()
+    func openPopupName()   // For drawing
     {
         
         UIView.animate(withDuration: 1.0) {

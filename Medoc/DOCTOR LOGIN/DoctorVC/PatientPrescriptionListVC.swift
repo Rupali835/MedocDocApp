@@ -10,6 +10,17 @@ import UIKit
 import Alamofire
 import Kingfisher
 
+struct FAQDataModal {
+    var Question : String!
+    var Answer: String!
+    
+    init(question: String,answer: String) {
+        self.Question = question
+        self.Answer = answer
+    }
+    
+}
+
 class PatientPrescriptionListVC: UIViewController
 {
 
@@ -36,6 +47,9 @@ class PatientPrescriptionListVC: UIViewController
     @IBOutlet weak var lblPatNm: UILabel!
     @IBOutlet weak var imgPatient: UIImageView!
   
+    @IBOutlet weak var tblPhq9: UITableView!
+    
+  
     var DrawingArr = [[String: AnyObject]]()
     var MedicineArr = [AnyObject]()
     var ReportArr = [[String: AnyObject]]()
@@ -46,6 +60,8 @@ class PatientPrescriptionListVC: UIViewController
     var dataFromAppoinment = [String : Any]()
     var viewFromAppoinment = Bool()
     var chiefComplainArr = [String : Int]()
+    var medicineArrDashboard = [String : Int]()
+    var labTestDashboard = [String : Int]()
     var loggedinId = Int()
     var cOpenPopup : OpenPopUpInfoVC!
     var PatientBasicInfo = [String : Any]()
@@ -54,20 +70,25 @@ class PatientPrescriptionListVC: UIViewController
     var medicineList = [Medicines]()
     var reportList = [Reports]()
     var lastPrescDrNm = LastPrescBy()
+    var PhqList = [Phq9]()
+    var faq = [FAQDataModal]()
+    var phqQuestionArr = [AnyObject]()
     
-    let image_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
+    let image_path = "http://medoc.co.in/medoc_doctor_api/uploads/"
     
        override func viewDidLoad() {
         super.viewDidLoad()
         
       //  setLbl(lbl: [stackOne, stackTwo, stackThree, stackFour, stackFive, stackSix])
         
+        self.Phq9data()
         imgPatient.layer.borderWidth = 1.5
-        imgPatient.layer.borderColor = UIColor.green.cgColor
+//        imgPatient.layer.borderColor = UIColor.green.cgColor
         
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
         
         self.loggedinId = (dict["id"] as? Int)!
+        tblPhq9.separatorStyle = .none
     }
     
     override func awakeFromNib()
@@ -220,6 +241,14 @@ class PatientPrescriptionListVC: UIViewController
         {
              detailvc.ChiefComplainARR = self.chiefComplainArr
         }
+        if self.medicineArrDashboard.count != 0
+        {
+            detailvc.MedicineARR = self.medicineArrDashboard
+        }
+        if self.labTestDashboard.count != 0
+        {
+            detailvc.LabTestARR = self.labTestDashboard
+        }
          self.navigationController?.pushViewController(detailvc, animated: true)
     }
     
@@ -231,12 +260,18 @@ class PatientPrescriptionListVC: UIViewController
     
     func setDelegate()
     {
+        tblPhq9.delegate = self
+        tblPhq9.dataSource = self
         collPrescriptionList.delegate = self
         collPrescriptionList.dataSource = self
         collReports.delegate = self
         collReports.dataSource = self
         collDrawings.delegate = self
         collDrawings.dataSource = self
+
+        
+      
+        
      }
     
     func showView(b_show : Bool)
@@ -281,6 +316,7 @@ class PatientPrescriptionListVC: UIViewController
                     self.reportList = json.reports
                     self.medicineList = json.medicines
                     self.lastPrescDrNm = json.last_prescription_by
+                    self.PhqList = json.phq
                         
                     if let Name = self.lastPrescDrNm.name
                     {
@@ -290,6 +326,8 @@ class PatientPrescriptionListVC: UIViewController
                     self.setPrescListToText(prescArr: self.prescList)
                       
                     self.setReportsImgs(reportArr: self.reportList)
+                     
+                    self.setPhq9(phqArr: self.PhqList)
                         
                     self.chiefComplainArr.removeAll(keepingCapacity: false)
                        
@@ -304,6 +342,38 @@ class PatientPrescriptionListVC: UIViewController
                         let mapItem =  chiefProbArr.map {($0, 1)}
                         
                         self.chiefComplainArr = Dictionary(mapItem, uniquingKeysWith: +)
+                        
+                        
+    // medicine data forward to patient analysis
+                        
+                    self.medicineArrDashboard.removeAll(keepingCapacity: false)
+                        var medicineDsb = [String]()
+                        
+                        for lcMedic in self.medicineList
+                        {
+                            let MedicNm = lcMedic.medicine_name
+                            medicineDsb.append(MedicNm!)
+                            
+                        }
+                        
+                        let mapMedic = medicineDsb.map {($0, 1)}
+                        self.medicineArrDashboard = Dictionary(mapMedic, uniquingKeysWith: +)
+                        
+      // lab test forward to patient analysis
+                        
+                      self.labTestDashboard.removeAll(keepingCapacity: false)
+                        var labTestDsb = [String]()
+                        for lclabtest in self.prescList
+                        {
+                            let labTestNm = lclabtest.lab_test
+                            if (labTestNm != "") && (labTestNm != nil) && (labTestNm != "NF")
+                            {
+                                labTestDsb.append(labTestNm!)
+                            }
+                           
+                        }
+                        let mapLab = labTestDsb.map {($0, 1)}
+                        self.labTestDashboard = Dictionary(mapLab, uniquingKeysWith: +)
                         
                     self.collPrescriptionList.reloadData()
                     }
@@ -395,6 +465,21 @@ class PatientPrescriptionListVC: UIViewController
         }
     }
     
+    func setPhq9(phqArr : [Phq9])
+    {
+        
+        self.PhqList.removeAll(keepingCapacity: false)
+        self.phqQuestionArr.removeAll(keepingCapacity: false)
+        phqArr.forEach { lcArr in
+            let phqQuestions = lcArr.que_ans
+            
+            self.getArrayFromJSonString(cJsonStr: phqQuestions!).forEach { lcDict in self.phqQuestionArr.append(lcDict as AnyObject)
+            }
+            tblPhq9.reloadData()
+
+        }
+    }
+    
     func convertDateFormaterInList(cdate: String) -> String
     { 
         print(cdate)
@@ -406,7 +491,37 @@ class PatientPrescriptionListVC: UIViewController
         
     }
     
+    func Phq9data(){
+        let Q1 = FAQDataModal(question: "Little interest or pleasure in doing things?", answer: "")
+        faq.append(Q1)
+        
+        let Q2 = FAQDataModal(question: "Feeling down, depressed, or hopeless?", answer: "")
+        faq.append(Q2)
+        
+        let Q3 = FAQDataModal(question: "Trouble falling or staying asleep, or sleeping too much?", answer: "")
+        faq.append(Q3)
+        
+        let Q4 = FAQDataModal(question: "Feeling tired or having little energy?", answer: "")
+        faq.append(Q4)
+        
+        let Q5 = FAQDataModal(question: "Poor appetite or overeating?", answer: "")
+        faq.append(Q5)
+        
+        let Q6 = FAQDataModal(question: "Feeling bad about yourself - or that you are a failure or have let yourself or your family down?", answer: "")
+        faq.append(Q6)
+        
+        let Q7 = FAQDataModal(question: "Trouble concentrating on things, such as reading the newspaper or watching television?", answer: "")
+        faq.append(Q7)
+        
+        let Q8 = FAQDataModal(question: "Moving or speaking so slowly that other people could have noticed? Or the opposite - being so fidgety or restless that you have been moving around a lot more than usual?", answer: "")
+        faq.append(Q8)
+        
+        let Q9 = FAQDataModal(question: "Thoughts that you would be better off dead, or of hurting yourself in some way?", answer: "")
+        faq.append(Q9)
+    }
+    
 }
+
 
 extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
@@ -560,3 +675,76 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
     
 }
 
+extension PatientPrescriptionListVC : UITableViewDelegate, UITableViewDataSource
+{
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return phqQuestionArr.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+//    {
+////        var SecNm = String()
+////        PhqList.forEach { lcarr in
+////            let nm = lcarr.created_at
+////            SecNm = convertDateFormaterInList(cdate: nm!)
+////
+////        }
+//        return "Section : \(section + 1)"
+//    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return phqQuestionArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+   
+        {
+           
+            let Pcell = tblPhq9.dequeueReusableCell(withIdentifier: "Phq9ListCell", for: indexPath) as! Phq9ListCell
+            
+            let lcdict = self.phqQuestionArr[indexPath.row]
+            
+            let Questions = lcdict["questionId"] as! Int
+            
+            for (index, item) in self.faq.enumerated()
+            {
+                if Questions == index
+                {
+                    Pcell.lblQuestion.text = item.Question
+                    break
+                }
+            }
+            
+            let Answer = lcdict["answer"] as! String
+            
+            switch Answer
+            {
+            case "0" :
+                Pcell.lblAnswer.text = "Not at all"
+                break
+                
+            case "1" :
+                Pcell.lblAnswer.text = "Several days"
+                break
+                
+            case "2" :
+                Pcell.lblAnswer.text = "Most than half day"
+                break
+                
+            case "3" :
+                Pcell.lblAnswer.text = "Nearly every day"
+                break
+                
+            default:
+                Pcell.lblAnswer.text = "Not at all"
+                
+            }
+            
+            return Pcell
+        }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+}

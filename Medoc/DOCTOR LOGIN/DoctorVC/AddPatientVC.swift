@@ -149,7 +149,7 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
                 let timestamp = Date().toMillis()
                 image.accessibilityIdentifier = String(describing: timestamp)
                 
-                self.fileName = String(describing: timestamp!)
+                self.fileName = String(describing: timestamp!) + ".jpeg"
                 self.btnProfile.setImage(image, for: .normal)
                 self.selectedImage = image
                 
@@ -343,6 +343,15 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
             }
             
         }
+        if txtContactNo.text!.count < 10
+        {
+            ZAlertView.init(title: "Medoc", msg: "Invalid Contact", actiontitle: "Ok")
+            {
+                print("")
+            }
+            return false
+        }
+        
         return true
     }
     

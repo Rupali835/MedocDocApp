@@ -14,8 +14,6 @@ class NewsFeedCell: UICollectionViewCell {
     
     
     @IBOutlet weak var btnReadMore: UIButton!
-    @IBOutlet weak var lblTime: UILabel!
-    @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
       @IBOutlet weak var backview: UIView!
     

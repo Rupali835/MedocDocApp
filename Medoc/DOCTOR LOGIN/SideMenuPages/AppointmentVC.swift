@@ -13,7 +13,6 @@ import ZAlertView
 class AppointmentVC: UIViewController {
 
     @IBOutlet weak var collView: UICollectionView!
-    @IBOutlet weak var txtDate: UITextField!
     
     @IBOutlet weak var btnBack: UIButton!
     let datepicker = UIDatePicker()
@@ -22,22 +21,25 @@ class AppointmentVC: UIViewController {
     var patientList = [AnyObject]()
     var ColorArr = [UIColor]()
     
+    @IBOutlet weak var calendar: FSCalendar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        createDatePicker()
+      //  createDatePicker()
         
         collView.delegate = self
         collView.dataSource = self
         
+        calendar.delegate = self
+        calendar.dataSource = self
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let stringDate: String = formatter.string(from: Date())
-        let txt = "Appointment Date :"
         
-        self.txtDate.text = txt + stringDate
         self.DateStr = stringDate
-        getPatientList()
+        getPatientList(sDate: self.DateStr!)
         
          self.ColorArr = [UIColor.MKColor.Red.P400, UIColor.MKColor.Blue.P400, UIColor.MKColor.Orange.P400, UIColor.MKColor.Green.P400, UIColor.MKColor.Indigo.P400, UIColor.MKColor.Amber.P400, UIColor.MKColor.LightBlue.P400, UIColor.MKColor.BlueGrey.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Cyan.P400, UIColor.MKColor.Teal.P400, UIColor.MKColor.Lime.P400, UIColor.MKColor.Pink.P400, UIColor.MKColor.Brown.P400, UIColor.MKColor.Purple.P400]
     }
@@ -46,7 +48,7 @@ class AppointmentVC: UIViewController {
         sideMenus()
     }
     
-    func getPatientList()
+    func getPatientList(sDate : String)
     {
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
         let id = dict["id"] as? Int
@@ -57,7 +59,7 @@ class AppointmentVC: UIViewController {
         
         let param = ["loggedin_id" : id!,
                      "loggedin_role" : Role!,
-                     "date" : self.DateStr!] as [String : Any]
+                     "date" : sDate] as [String : Any]
         
         print(param)
         Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
@@ -108,53 +110,15 @@ class AppointmentVC: UIViewController {
     
     @IBAction func btnback_Onclick(_ sender: Any)
     {
+   
     }
     
-    // MARK : DATEPICKER
-    
-    func createDatePicker()
-    {
-        _ = Date()
-        
-        datepicker.datePickerMode = .date
-        toolBar.sizeToFit()
-        let barBtnItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePresses))
-        
-        let barBtnCancel = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(CancelPicker))
-        
-        toolBar.setItems([barBtnItem, barBtnCancel], animated: false)
-        
-        txtDate.inputAccessoryView = toolBar
-        txtDate.inputView = datepicker
-        
-    }
-    
-    @objc func donePresses()
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        let txt = "Appointment Date"
-        txtDate.text = txt + "  " + dateFormatter.string(from: datepicker.date)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        self.DateStr = self.convertDateFormater(dateFormatter.string(from: datepicker.date))
-        self.view.endEditing(true)
-        getPatientList()
-    }
-    
-    @objc func CancelPicker()
-    {
-        self.view.endEditing(true)
-    }
-    
-    func convertDateFormater(_ date: String) -> String
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.date(from: date)
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return  dateFormatter.string(from: date!)
-    }
+  
+    fileprivate let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        return formatter
+    }()
 }
 extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource
 {
@@ -216,6 +180,20 @@ extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10.0
+    }
+    
+
+}
+extension AppointmentVC : FSCalendarDelegate, FSCalendarDataSource
+{
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition)
+    {
+        let dateString = self.formatter.string(from: date)
+
+        print("did select date \(dateString)")
+        getPatientList(sDate: dateString)
+        
+        //self.configureVisibleCells()
     }
     
 }

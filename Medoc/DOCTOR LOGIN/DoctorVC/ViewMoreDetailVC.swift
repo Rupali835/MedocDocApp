@@ -30,9 +30,9 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
     let chartView = LineChartView()
 
     
-    var MedicineARR = ["Crocin (2)", "Vitamin-B (1)", "Tylenol (2)", "Pepto-Bismol (3)", "Kaopectate (1)", "Bismuth (1)", "Tylenol (2)", "ibuprofen (1)"]
+    var MedicineARR = [String : Int]()
     
-    var LabTestARR = ["DENGUE FEVER IGM ANTIBODY (1)", "DIABETES SCREEN (3)", "FEVER PANEL 1 (3)", "HIV 1 & 2 ANTIBODIES (1), SCREENING TEST (1)", "X-RAY ANKLE & FOOT (1)", "URINE (2)", "GLUCOSE (3)"]
+    var LabTestARR = [String : Int]()
     
     var months = ["Jan","Feb","Mar","Apr","May","Jun"]
     
@@ -50,11 +50,17 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
         {
             collChiefComplain.reloadData()
         }
-    
+        if MedicineARR.count != 0
+        {
+            collMedicine.reloadData()
+        }
+        if LabTestARR.count != 0
+        {
+            collLabTest.reloadData()
+        }
         diabeticChart.delegate = self
         setChart(dataPoints: months, values: unitsSold)
         axisFormatDelegate = self
-        
         
     }
     
@@ -125,9 +131,7 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
         for subView in view
         {
             subView.layer.cornerRadius = 10.0
-     
             subView.designCell()
-            
             subView.backgroundColor = UIColor.white
         }
       
@@ -199,14 +203,46 @@ extension ViewMoreDetailVC : UICollectionViewDelegate, UICollectionViewDataSourc
        {
         let Mcell = collMedicine.dequeueReusableCell(withReuseIdentifier: "MedicineAnalysisCell", for: indexPath) as! MedicineAnalysisCell
         
-        Mcell.lblMedicineNm.text = self.MedicineARR[indexPath.row]
+        let key = Array(self.MedicineARR.keys)[indexPath.row]
+        let value = Array(self.MedicineARR.values)[indexPath.row]
+        
+        var count = String()
+        
+        if ((key as? String) != nil)
+        {
+            if value == 1
+            {
+                count = "(\(value) time)"
+            }else
+            {
+                count = "(\(value) times)"
+            }
+            
+            Mcell.lblMedicineNm.text = "\(key) \(count)"
+        }
         return Mcell
         
         }
         else if collectionView == collLabTest
        {
         let Lcell = collLabTest.dequeueReusableCell(withReuseIdentifier: "LabTestAnalysisCell", for: indexPath) as! LabTestAnalysisCell
-        Lcell.lblLabTestNm.text = self.LabTestARR[indexPath.row]
+        
+        let key = Array(self.LabTestARR.keys)[indexPath.row]
+        let value = Array(self.LabTestARR.values)[indexPath.row]
+        var count = String()
+        
+        if ((key as? String) != nil) && (key != "")
+        {
+            if value == 1
+            {
+                count = "(\(value) time)"
+            }else
+            {
+                count = "(\(value) times)"
+            }
+            
+            Lcell.lblLabTestNm.text = "\(key) \(count)"
+        }
         return Lcell
         }
        else

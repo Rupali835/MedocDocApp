@@ -40,7 +40,7 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
     var selectedImage: UIImage!
     var fileName: String!
     var m_cProfileData = [AnyObject]()
-    var img_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
+    var img_path = "http://medoc.co.in/medoc_doctor_api/uploads/"
     
     override func viewDidLoad()
     {

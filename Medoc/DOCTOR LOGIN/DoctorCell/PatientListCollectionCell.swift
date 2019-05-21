@@ -11,6 +11,7 @@ import UIKit
 class PatientListCollectionCell: UICollectionViewCell {
  
     
+    @IBOutlet weak var lblFollowupCount: UILabel!
     @IBOutlet weak var backview: UIView!
     @IBOutlet weak var lblPatNm: UILabel!
     @IBOutlet weak var lblNum: UILabel!

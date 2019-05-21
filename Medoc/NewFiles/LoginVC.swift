@@ -11,6 +11,8 @@ class LoginVC: UIViewController
     @IBOutlet weak var txtUserNm: HoshiTextField!
     @IBOutlet weak var txtPassword: HoshiTextField!
     
+    @IBOutlet weak var animateView: GradientView!
+    
     var m_cContainerVC = ContainerVC()
     var SignupVc : SignUpFormVC!
     var toast = JYToast()
@@ -28,6 +30,7 @@ class LoginVC: UIViewController
 
         btnLogin.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
         self.navigationController?.navigationBar.isHidden = true
+        
     }
     
     @IBAction func btnForgetPassword_onClick(_ sender: Any)
@@ -53,7 +56,19 @@ class LoginVC: UIViewController
                 SVProgressHUD.show()
             }
 
-            Login()
+            if Reachability.isConnectedToNetwork(){
+                 Login()
+            }else{
+                
+                OperationQueue.main.addOperation {
+                    
+                    SVProgressHUD.dismiss()
+                }
+                
+                Alert.shared.basicalert(vc: self, title: "Internet Connection Appears Offline", msg: "Go to Setting and Turn on Mobile Data or Wifi Connection")
+                
+            }
+          
         }
     }
     
@@ -135,7 +150,11 @@ class LoginVC: UIViewController
                 break
                 
             case .failure(_):
-                
+                OperationQueue.main.addOperation {
+                    
+                    SVProgressHUD.dismiss()
+                }
+                self.toast.isShow("Something went wrong")
                 break
             }
         }

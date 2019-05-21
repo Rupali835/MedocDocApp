@@ -61,7 +61,14 @@ extension ZAlertView
     
     
 }
-
+extension UIView {
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+}
 
 //        let backColor = UIColor(red:0.94, green:0.94, blue:0.94, alpha:1.0)
 //

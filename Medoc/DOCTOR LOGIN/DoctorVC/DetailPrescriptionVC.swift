@@ -70,9 +70,9 @@ class DetailPrescriptionVC: UIViewController {
     var patientDict = Prescriptions()
 
     
-    let image_path = "http://13.234.38.193/medoc_doctor_api/uploads/"
+    let image_path = "http://medoc.co.in/medoc_doctor_api/uploads/"
     
-    let pdf_path = "http://13.234.38.193/medoc_doctor_api/prescription_pdf/"
+    let pdf_path = "http://medoc.co.in/medoc_doctor_api/prescription_pdf/"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -150,6 +150,9 @@ class DetailPrescriptionVC: UIViewController {
                     if self.ReportDetailArr.isEmpty == false
                     {
                         self.setReportData(Arr: self.ReportDetailArr)
+                    }else{
+                        self.lblNoReportImg.isHidden = false
+                        self.HgtReportImges.constant = 120
                     }
                     
                     if self.MedicineArr.isEmpty == false
@@ -160,9 +163,7 @@ class DetailPrescriptionVC: UIViewController {
                     {
                         self.lblNoMedicine.isHidden = false
                     }
-                    
-                    
-                  }
+                }
                 
                 break
             case .failure(_):
@@ -260,8 +261,7 @@ class DetailPrescriptionVC: UIViewController {
     
     func setReportData(Arr : [AnyObject])
     {
-
-        
+ 
         self.ReportArr.removeAll(keepingCapacity: false)
         Arr.forEach { lcArr in
             
@@ -305,7 +305,6 @@ class DetailPrescriptionVC: UIViewController {
         guard let lcArrData = try? JSONSerialization.jsonObject(with: jsonData, options: []) as! [AnyObject] else {
             return ["No Found" as AnyObject]
         }
-        
         return lcArrData
     }
     
@@ -321,8 +320,16 @@ class DetailPrescriptionVC: UIViewController {
         
           let downloadurl = "\(pdf_path)\(self.PatientId)\("/")\(self.pdfName)"
         
-        let pdfvc = self.storyboard?.instantiateViewController(withIdentifier: "PdfReaderVC") as! PdfReaderVC
+//        let pdfvc = self.storyboard?.instantiateViewController(withIdentifier: "PdfReaderVC") as! PdfReaderVC
+//
+//        pdfvc.UrlStr = downloadurl
+//        self.present(pdfvc, animated: true, completion: nil)
+//        OperationQueue.main.addOperation {
+//            SVProgressHUD.dismiss()
         
+    //    }
+        
+     
         let urlString: String! = (downloadurl as AnyObject).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
         
         let destination: DownloadRequest.DownloadFileDestination = { _, _ in

@@ -8,9 +8,11 @@
 
 import UIKit
 import ZAlertView
+import Alamofire
 
 class ForgetPasswordVC: UIViewController {
 
+    @IBOutlet weak var loader: DotsLoader!
     @IBOutlet weak var btnSubmit: UIButton!
     @IBOutlet weak var txtConformPassword: HoshiTextField!
     @IBOutlet weak var txtNewPassword: HoshiTextField!
@@ -26,7 +28,13 @@ class ForgetPasswordVC: UIViewController {
         
         btnSubmit.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
         
+      
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+          self.txtEmail.text = ""
+        self.loader.isHidden = true
     }
     
     func initilize(cContainervc: ContainerVC)
@@ -41,9 +49,60 @@ class ForgetPasswordVC: UIViewController {
     
     @IBAction func btnSubmit_onClick(_ sender: Any)
     {
+       if valid()
+       {
+         loader.isHidden = false
+         loader.startAnimating()
         
+        
+          let Api = Constant.BaseUrl + Constant.ForgotPassword
+          let param = ["username" : txtEmail.text!]
+          Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
+            print(resp)
+            
+            self.loader.stopAnimating()
+            self.loader.isHidden = true
+            
+            switch resp.result
+            {
+            case .success(_):
+                let json = resp.result.value as! NSDictionary
+                let Msg = json["msg"] as! String
+                if Msg == "success"
+                {
+                    ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details in Medoc App. Thank you!", actiontitle: "OK")
+                    {
+                        self.view.removeFromSuperview()
+                    }
+                }
+                if Msg == "fail"
+                {
+                    ZAlertView.init(title: "Medoc", msg: "Your data is not found, Please sign up.", actiontitle: "OK")
+                    {
+                        self.view.removeFromSuperview()
+                    }
+                }
+                break
+                
+            case .failure(_):
+                break
+            }
+            
+        }
+        }
+    }
+ 
+    func valid() -> Bool
+    {
+        if txtEmail.text == ""
+        {
+            self.toast.isShow("Email ID is mandetory")
+            return false
+        }
+        return true
     }
     
+    /*
     func validation() -> Bool
     {
         if txtEmail.text == "" && txtNewPassword.text == "" && txtConformPassword.text == ""
@@ -73,5 +132,5 @@ class ForgetPasswordVC: UIViewController {
         
         return true
     }
-    
+   */
 }
