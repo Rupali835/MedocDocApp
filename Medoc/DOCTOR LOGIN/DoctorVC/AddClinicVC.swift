@@ -66,7 +66,6 @@ class AddClinicVC: UIViewController {
         super.viewDidLoad()
         
         setLayout(textLayout: [txtName, txtaddrs, txtContact, txtWebsite, txtEmail])
-        fieldView.layer.cornerRadius = 15.0
         fieldView.layer.borderWidth = 1.0
         fieldView.layer.borderColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0).cgColor
 
@@ -77,9 +76,8 @@ class AddClinicVC: UIViewController {
         m_cClinicData.loggedin_id = dict["id"] as? Int
         m_cClinicData.loggedin_role = dict["role_id"] as? String
         
-       self.hospialAddedKey = dict["hospital_added"] as! Bool
-       self.loader.isHidden = true
-
+        self.hospialAddedKey = (dict["hospital_added"] as! Bool)
+        self.loader.isHidden = true
     }
 
     func setDelegate()
@@ -99,8 +97,7 @@ class AddClinicVC: UIViewController {
             item.layer.cornerRadius = 35.0
             item.layer.borderWidth = 1.0
             item.layer.borderColor = UIColor.black.cgColor
-            // item.leftView = paddingView
-            //item.leftViewMode = .always
+           
         }
     }
     
@@ -167,14 +164,6 @@ class AddClinicVC: UIViewController {
               m_cClinicData.h_logo = "NF"
         }
         
-//        if self.selectedImage != nil
-//        {
-//            m_cClinicData.h_logo = self.fileName
-//        }else
-//        {
-//            m_cClinicData.h_logo = "NF"
-//        }
-        
         let Api = Constant.BaseUrl + Constant.addClinic
         let param = ["h_name" : txtName.text!,
                      "h_address" : txtaddrs.text!,
@@ -188,8 +177,11 @@ class AddClinicVC: UIViewController {
                      "h_logo" : m_cClinicData.h_logo!
             ] as [String : Any]
         print(param)
-        self.loader.isHidden = false
-        self.loader.startAnimating()
+//        self.loader.isHidden = false
+//        self.loader.startAnimating()
+        
+          self.view.activityStartAnimating(activityColor: UIColor.black, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+        
         Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
             
@@ -200,13 +192,15 @@ class AddClinicVC: UIViewController {
                 let msg = json["msg"] as! String
                 if msg == "success"
                 {
-                    if self.m_cClinicLogo.count != 0
+                    if self.m_cClinicData.h_logo != "NF"
                     {
                         self.addLogoFile()
                     }else
                     {
+                          self.view.activityStopAnimating()
                         ZAlertView.init(title: "MeDoc", msg: "Clinic is added successfully.", actiontitle: "OK")
                         {
+                            self.delegate.addClinicInprofile()
                             self.dismiss(animated: true, completion: nil)
                         }
                     }
@@ -215,6 +209,8 @@ class AddClinicVC: UIViewController {
                 break
                 
             case .failure(_):
+                self.view.activityStopAnimating()
+                Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "Something went wrong. Check internet connection.")
                 break
                 
             }
@@ -225,8 +221,7 @@ class AddClinicVC: UIViewController {
     
     func addLogoFile()
     {
-        // let FileApi = "http://www.otgmart.com/medoc/medoc_doctor_api/index.php/API/add_files"
-        
+       
         let FileApi = Constant.BaseUrl + Constant.UploadFiles
         
         Alamofire.upload(
@@ -238,19 +233,12 @@ class AddClinicVC: UIViewController {
                     for img in self.m_cClinicLogo
                     {
                         let logoImg = img.clinicImg
-                        let data = logoImg?.jpegData(compressionQuality: 0.1)
+                        let data = logoImg?.jpegData(compressionQuality: 0.0)
                        multipartFormData.append(data!, withName: "images[]", fileName: img.clinicName, mimeType: "images/jpeg")
                     }
                 }
                 
-//                if self.selectedImage != nil
-//                {
-//                    let data = self.selectedImage.jpegData(compressionQuality: 0.1)
-//
-//                    multipartFormData.append(data!, withName: "images[]", fileName: self.fileName, mimeType: "images/jpeg")
-//
-//                }
-        },
+            },
             
             usingThreshold : SessionManager.multipartFormDataEncodingMemoryThreshold,
             to : FileApi,
@@ -272,8 +260,10 @@ class AddClinicVC: UIViewController {
                     if let JSON = response.result.value as? [String: Any] {
                         print("Response : ",JSON)
                         
-                        self.loader.stopAnimating()
-                        self.loader.isHidden = true
+                       self.view.activityStopAnimating()
+                        
+//                        self.loader.stopAnimating()
+//                        self.loader.isHidden = true
                         
                         let Msg = JSON["msg"] as! String
                         if Msg == "success"
@@ -289,8 +279,7 @@ class AddClinicVC: UIViewController {
                            self.toast.isShow("image not upload")
                             ZAlertView.init(title: "MeDoc", msg: "Clinic is added successfully.", actiontitle: "OK")
                             {
-                                self.delegate.addClinicInprofile()
-
+                            self.delegate.addClinicInprofile()
                             self.dismiss(animated: true, completion: nil)
                             }
                         }
@@ -307,6 +296,7 @@ class AddClinicVC: UIViewController {
                 
             case .failure(let encodingError):
                 print(encodingError)
+                Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "Something went wrong. Internet connection appears off.")
             }
             
         }
@@ -344,7 +334,6 @@ extension AddClinicVC : UITextFieldDelegate
         
         case txtaddrs:
             txtaddrs.layer.borderColor = UIColor.black.cgColor
-            return false
             break
         
         case txtContact:

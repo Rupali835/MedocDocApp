@@ -21,6 +21,7 @@ struct Constant
     
     static let UpdateRefId = "update_ref_id"
     
+    static let totalCountMedoc = "counts"
     static let getTodaysPatients = "get_todays_patients"
     static let addPatient = "add_patient"
     static let addPrescription = "add_prescription"

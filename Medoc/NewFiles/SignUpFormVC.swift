@@ -9,20 +9,17 @@ import SkyFloatingLabelTextField
 class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate
 {
 
-   
-    @IBOutlet weak var btnRegister: UIButton!
-    @IBOutlet weak var btnClose: UIButton!
-    @IBOutlet weak var btnCamera: UIButton!
+    @IBOutlet weak var imgview: UIView!
+    @IBOutlet weak var imgpic: UIImageView!
     
+    @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var txtName: SkyFloatingLabelTextField!
     @IBOutlet weak var txtQualification: SkyFloatingLabelTextField!
     @IBOutlet weak var txtRegNo: SkyFloatingLabelTextField!
     @IBOutlet weak var txtMobileNo: SkyFloatingLabelTextField!
     @IBOutlet weak var txtEmail: SkyFloatingLabelTextField!
-    @IBOutlet weak var loader: DotsLoader!
+   
     @IBOutlet weak var btnProfileImg: UIButton!
-    @IBOutlet weak var imglink: UIImageView!
-    @IBOutlet weak var imgcap: UIImageView!
     @IBOutlet weak var QualificationtagView: CloudTagView!
     
     var imagePicker = UIImagePickerController()
@@ -41,18 +38,12 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         dropdownQualification.anchorView = txtQualification
         txtQualification.delegate = self
         btnRegister.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
-        
-        imgcap.image = imgcap.image!.withRenderingMode(.alwaysTemplate)
-        imgcap.tintColor = UIColor.white
-        
-        imglink.image = imglink.image!.withRenderingMode(.alwaysTemplate)
-        imglink.tintColor = UIColor.white
+
         QualificationtagView.delegate = self
         AddJsonData()
         textValidAction()
         
-        
-       }
+    }
 
     override func viewWillAppear(_ animated: Bool)
     {
@@ -62,8 +53,14 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         txtRegNo.text = ""
         txtQualification.text = ""
         selectQualificationString = []
-        self.loader.isHidden = true
       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        btnProfileImg.layer.cornerRadius = 110.0
+        imgpic.layer.cornerRadius = 110.0
+        imgview.layer.cornerRadius = 110.0
+        btnProfileImg.clipsToBounds = true
     }
     
     func textValidAction()
@@ -87,9 +84,7 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
                 {
                     floatingLabelTextField.errorMessage = "Invalid contact number"
                 }
-                    
-                else {
-                    
+                else{
                     floatingLabelTextField.errorMessage = ""
                 }
             }
@@ -106,9 +101,7 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
                 {
                     floatingLabelTextField.errorMessage = "Invalid email"
                 }
-                    
-                else {
-                    
+                else{
                     floatingLabelTextField.errorMessage = ""
                 }
             }
@@ -146,7 +139,6 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
                 break
             }
         }
-      
     }
     
     func initilize(cContainervc: ContainerVC)
@@ -158,10 +150,10 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
     {
         self.view.removeFromSuperview()
     }
-    
-    
+
     @IBAction func btnRegister_onClick(_ sender: Any)
     {
+       self.view.endEditing(true)
        if validation()
        {
           sendData()
@@ -183,8 +175,6 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
             
         }
     }
-   
-    
     
     func json(from object:Any) -> String? {
         guard let data = try? JSONSerialization.data(withJSONObject:  object, options: []) else
@@ -230,11 +220,11 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         
         print(param)
        
-        self.loader.isHidden = false
-        self.loader.startAnimating()
+          self.view.activityStartAnimating(activityColor: UIColor.black, backgroundColor: UIColor.black.withAlphaComponent(0.5))
         
         Alamofire.request(SignupApi, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
+            
             
             switch resp.result
             {
@@ -243,10 +233,23 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
                 let Msg = json["msg"] as! String
                 if Msg == "success"
                 {
-                    self.AddFiles()
+                    if ProfilePic != "NF"
+                    {
+                        self.AddFiles()
+                    }else
+                    {
+                        self.view.activityStopAnimating()
+                        ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details for login in Medoc App. Thank you!", actiontitle: "OK")
+                        {
+                            self.view.removeFromSuperview()
+                        }
+                    }
+                   
                 }
                 break
             case .failure(_):
+                self.view.activityStopAnimating()
+                Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "Somthing went wrong. Please check internet connection")
                 break
             }
         }
@@ -287,8 +290,8 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
                 
                 upload.responseJSON { response in
                     
-                    self.loader.stopAnimating()
-                    self.loader.isHidden = true
+ self.view.activityStopAnimating()
+                    
                     if let JSON = response.result.value as? [String: Any] {
                         print("Response : ",JSON)
                         
@@ -314,10 +317,20 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
                                // self.view.removeFromSuperview()
                             }
                         }
+                        
+                        if Msg == "Post Data Is Empty"
+                        {
+                            ZAlertView.init(title: "Medoc", msg: "Your data will be sent to server. You will get email with login details in Medoc App. Thank you!", actiontitle: "OK")
+                            {
+                                self.view.removeFromSuperview()
+                            }
+                        }
                     }
                 }
                 
             case .failure(let encodingError):
+                     self.view.activityStopAnimating()
+                Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "Somthing went wrong. Please check internet connection")
                 print(encodingError)
             }
             
@@ -338,7 +351,7 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         }
         if txtEmail.text == ""
         {
-            self.toast.isShow("Please enter email ID")
+           self.toast.isShow("Please enter email ID")
             return false
         }
         if txtMobileNo.text == ""
@@ -367,41 +380,7 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         return true
     }
     
-//    func TakePhoto()
-//    {
-//        let attachmentPickerController = DBAttachmentPickerController.imagePickerControllerFinishPicking({ CDBAttachmentArr in
-//
-//
-//            for lcAttachment in CDBAttachmentArr
-//            {
-//                self.fileName = lcAttachment.fileName
-//                print(self.fileName)
-//
-//                lcAttachment.loadOriginalImage(completion: {image in
-//
-//
-//                    let timestamp = Date().toMillis()
-//                    image?.accessibilityIdentifier = String(describing: timestamp)
-//
-//                    self.fileName = String(describing: timestamp!)
-//                    self.btnProfileImg.setImage(image, for: .normal)
-//
-//                    self.selectedImage = image
-//                })
-//
-//            }
-//
-//        }, cancel: nil)
-//
-//        attachmentPickerController.mediaType = .image
-//        attachmentPickerController.mediaType = .video
-//        attachmentPickerController.capturedVideoQulity = UIImagePickerController.QualityType.typeHigh
-//        attachmentPickerController.allowsMultipleSelection = false
-//        attachmentPickerController.allowsSelectionFromOtherApps = false
-//        attachmentPickerController.present(on: self)
-//    }
-    
-    
+   
 }
 extension SignUpFormVC : TagViewDelegate {
     func tagDismissed(_ tag: TagView) {

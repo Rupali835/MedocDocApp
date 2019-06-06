@@ -15,19 +15,23 @@ class ChartAnalysisVC: UIViewController {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var chartOne: LineChartView!
     
+    var chartValues = [Double]()
+    
     weak var axisFormatDelegate: IAxisValueFormatter?
     
-    var months = ["Jan","Feb","Mar","Apr","May","Jun"]
+    var months = [String]()
     
-    let unitsSold = [10.0, 4.0, 6.0, 3.0, 12.0, 16.0]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setChart(dataPoints: months, values: unitsSold)
         axisFormatDelegate = self
-        
         backView.designCell()
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+        setChart(dataPoints: months, values: self.chartValues)
     }
     
     func setChart(dataPoints: [String], values: [Double])
@@ -36,19 +40,19 @@ class ChartAnalysisVC: UIViewController {
         var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
-            
+
             let dataEntry = ChartDataEntry(x: Double(i), y: values[i], data: dataPoints as AnyObject)
-            
+
             dataEntries.append(dataEntry)
-            
+
         }
         
-        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Test")
+        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Temperature")
         
         let lineChartData = LineChartData(dataSet: lineChartDataSet)
         
         chartOne.data = lineChartData
-        
+    
         let xAxisValue = chartOne.xAxis
         
         chartOne.xAxis.granularityEnabled = true
@@ -59,13 +63,15 @@ class ChartAnalysisVC: UIViewController {
         
         chartOne.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
         
-        chartOne.leftAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        chartOne.leftAxis.labelFont = UIFont.boldSystemFont(ofSize: 12)
         
-        chartOne.rightAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        chartOne.rightAxis.labelFont = UIFont.boldSystemFont(ofSize: 12)
         
-        lineChartDataSet.valueFont = UIFont.boldSystemFont(ofSize: 10)
+        lineChartDataSet.valueFont = UIFont.boldSystemFont(ofSize: 12)
         
         xAxisValue.valueFormatter = axisFormatDelegate
+        chartOne.xAxis.labelPosition = .bottom
+        chartOne.xAxis.labelTextColor = UIColor.black
         
     }
     
@@ -79,7 +85,7 @@ extension ChartAnalysisVC: IAxisValueFormatter {
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         
-        return months[Int(value)]
+        return months[Int(value) % months.count]
         
     }
     

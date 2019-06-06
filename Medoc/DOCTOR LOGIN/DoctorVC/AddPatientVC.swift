@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SkyFloatingLabelTextField
 import ZAlertView
+import DropDown
 
 
 protocol AddPatientProtocol {
@@ -29,17 +30,15 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
     @IBOutlet weak var imgFemale: UIImageView!
     @IBOutlet weak var txtDate: UITextField!
     @IBOutlet weak var btnDatePicker: UIButton!
-
     @IBOutlet weak var lblAge: UILabel!
     @IBOutlet weak var txtPatNm: SkyFloatingLabelTextField!
     @IBOutlet weak var txtContactNo: SkyFloatingLabelTextField!
     
+    @IBOutlet weak var txtRelationship: SkyFloatingLabelTextField!
     let date = Date()
     let datepickerAppointment = UIDatePicker()
     let datepickerDOB = UIDatePicker()
-    
     let toolBar = UIToolbar()
-    
     var DateStr : String?
     var selectedImage: UIImage!
     var fileName: String!
@@ -49,6 +48,7 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
     let formatter = DateFormatter()
     var dobStr : String!
     var imagePicker = UIImagePickerController()
+    var dropdownRelationship = DropDown()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,8 +68,9 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         self.txtDate.text = stringDate
         self.DateStr = stringDate
         self.txtDate.delegate = self
+        self.txtRelationship.delegate = self
        
-         self.txtDob.addTarget(self, action: #selector(openDobPicker), for: .editingDidBegin)
+        self.txtDob.addTarget(self, action: #selector(openDobPicker), for: .editingDidBegin)
         
         self.txtDate.addTarget(self, action: #selector(openPicker), for: .editingDidBegin)
         
@@ -81,7 +82,18 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         
         m_caddPatient.loggedin_id = dict["id"] as? Int
         m_caddPatient.loggedin_role = dict["role_id"] as? String
-       
+        setDropdown()
+    }
+    
+    func setDropdown()
+    {
+        dropdownRelationship.anchorView = txtRelationship
+        dropdownRelationship.direction = .top
+        dropdownRelationship.topOffset = CGPoint(x: 0, y:(dropdownRelationship.anchorView?.plainView.bounds.height)!)
+        
+        dropdownRelationship.dataSource = ["Self", "Mother", "Father", "Doughter", "Son", "Brother", "Sister"]
+        
+        DropDown.appearance().textFont = UIFont.boldSystemFont(ofSize: 20)
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -99,9 +111,7 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
                 {
                     floatingLabelTextField.errorMessage = "Invalid Contact"
                 }
-                    
-                else {
-                    
+                else{
                     floatingLabelTextField.errorMessage = ""
                 }
             }
@@ -248,8 +258,6 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         let maxDate: Date = calendar.date(byAdding: components, to: currentDate)!
         
         datepickerAppointment.minimumDate = maxDate
-       
-    
     }
 
     @objc func donePresses()
@@ -352,6 +360,14 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
             return false
         }
         
+        if txtRelationship.text == ""
+        {
+            ZAlertView.init(title: "Medoc", msg: "You have to select relationship.", actiontitle: "Ok")
+            {
+                print("")
+            }
+            return false
+        }
         return true
     }
     
@@ -378,6 +394,7 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
                      "profile_picture" : m_caddPatient.profile_picture!,
                      "action" : "new",
                      "dob" : self.dobStr!,
+                     "relationship" : txtRelationship.text!,
                      "appointment_date" : self.DateStr!] as [String : Any]
         
         print(param)
@@ -391,15 +408,20 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
                 let Msg = json["msg"] as! String
                 if Msg == "success"
                 {
-                    self.toast.isShow("Added successfully")
+                    if self.m_caddPatient.profile_picture != "NF"
+                    {
+                        self.AddFiles()
+                    }else
+                    {
+                        self.toast.isShow("Added successfully")
+                        self.m_dAddPatient.callAddPatientApi()
+                        self.view.removeFromSuperview()
+                    }
                     
-                    self.m_dAddPatient.callAddPatientApi()
-                    self.view.removeFromSuperview()
+                 
                     
                     let vc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
-
-                    self.AddFiles()
-
+                    
                         self.navigationController?.pushViewController(vc, animated: true)
                     
                 }else if Msg == "Phone number already registered"{
@@ -463,7 +485,7 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
                         let Msg = JSON["msg"] as! String
                         if Msg == "success"
                         {
-                             self.m_dAddPatient.callAddPatientApi()
+                            self.m_dAddPatient.callAddPatientApi()
                             self.view.removeFromSuperview()
                         }
                         if Msg == "fail"
@@ -518,6 +540,19 @@ extension UIImage {
 }
 extension AddPatientVC : UITextFieldDelegate
 {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtRelationship
+        {
+            view.endEditing(true)
+            dropdownRelationship.show()
+            dropdownRelationship.selectionAction = { [unowned self] (index: Int, item: String) in
+                print("Selected item: \(item) at index: \(index)")
+                self.txtRelationship.text = item
+                
+            }
+        }
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {

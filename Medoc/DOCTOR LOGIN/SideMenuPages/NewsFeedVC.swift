@@ -66,11 +66,26 @@ class NewsFeedVC: UIViewController
         
         Alamofire.request(NewsApi, method: .get, parameters: nil).responseJSON { (resp) in
           
+            
+            OperationQueue.main.addOperation {
+                
+                SVProgressHUD.dismiss()
+            }
+            
             switch resp.result
             {
+            
             case .success(_):
                 let json = resp.result.value as! NSDictionary
-                self.articleArr = json["articles"] as! [AnyObject]
+                
+                guard let NewsArr = json["articles"] as? [AnyObject] else
+                {
+                    
+                    return
+                }
+                self.articleArr = NewsArr
+                
+              //  self.articleArr = json["articles"] as! [AnyObject]
                 
                 self.collNews.reloadData()
                 break
@@ -79,10 +94,7 @@ class NewsFeedVC: UIViewController
                 break
             }
             
-            OperationQueue.main.addOperation {
-              
-                SVProgressHUD.dismiss()
-            }
+          
         }
         
     }

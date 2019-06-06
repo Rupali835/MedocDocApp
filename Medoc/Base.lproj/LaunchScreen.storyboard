@@ -52,6 +52,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MedocAppIcon" width="328" height="309"/>
+        <image name="MedocAppIcon" width="109" height="103"/>
     </resources>
 </document>

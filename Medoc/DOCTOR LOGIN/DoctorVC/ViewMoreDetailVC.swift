@@ -23,16 +23,22 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
     @IBOutlet weak var labTestView: UIView!
     @IBOutlet weak var diebeticView: UIView!
     
-    var InfoArr = [[String : Any]]()
+    var PrescList = [Prescriptions]()
     var ChiefComplainARR = [String : Int]()
     var toast = JYToast()
     weak var axisFormatDelegate: IAxisValueFormatter?
     let chartView = LineChartView()
-
-    
     var MedicineARR = [String : Int]()
-    
     var LabTestARR = [String : Int]()
+    var chartvalue = [Double]()
+    var charttype = [String]()
+    var appendvalue = [Double]()
+    var appendvalue2 = [Double]()
+    var appendTemp = [Double]()
+    var appendWeight = [Double]()
+    var weightDate = [String]()
+    var prescDate = [String]()
+    var bpDates = [String]()
     
     var months = ["Jan","Feb","Mar","Apr","May","Jun"]
     
@@ -43,8 +49,8 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
         super.viewDidLoad()
         
         setDelegte()
-
-       LayoutView(view: [medicineView, labTestView, graphView, diebeticView, complainView])
+        self.getDataFromPrescList()
+        LayoutView(view: [medicineView, labTestView, graphView, diebeticView, complainView])
         
         if ChiefComplainARR.count != 0
         {
@@ -64,9 +70,109 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
         
     }
     
+    func getDataFromPrescList()
+    {
+        appendTemp.removeAll(keepingCapacity: false)
+        appendvalue.removeAll(keepingCapacity: false)
+        appendvalue2.removeAll(keepingCapacity: false)
+        prescDate.removeAll(keepingCapacity: false)
+        appendWeight.removeAll(keepingCapacity: false)
+        weightDate.removeAll(keepingCapacity: false)
+       
+        if PrescList.count > 0
+        {
+            var chiefProbArr = [String]()
+            var labTestDsb = [String]()
+            
+            for lcPatDict in self.PrescList
+            {
+             
+                
+                let paProb = lcPatDict.patient_problem
+                chiefProbArr.append(paProb!)
+                
+                let labTestNm = lcPatDict.lab_test
+                if (labTestNm != "") && (labTestNm != nil) && (labTestNm != "NF")
+                {
+                    labTestDsb.append(labTestNm!)
+                }
+                
+                var bpValue = lcPatDict.blood_pressure
+                
+                if bpValue == "NF" || bpValue == "" || bpValue == nil
+                {
+                    bpValue = "0/0"
+                }
+                
+                let arr = bpValue?.split(separator: "/")
+                let systolic = arr![0]
+                let diastolic = arr![1]
+                
+                let presdate = lcPatDict.created_at
+                let date = convertDateFormaterInList(cdate: presdate!)
+                
+                if bpValue != "0/0"
+                {
+                    appendvalue.append(Double(systolic)!)
+                    appendvalue2.append(Double(diastolic)!)
+                    bpDates.append(date)
+                }
+                
+                var temperature = lcPatDict.temperature
+              
+                let formatDate = convertDateFormaterInList(cdate: presdate!)
+                
+                if temperature == "NF" || temperature == "" || temperature == nil || temperature == "0"
+                {
+                    temperature = "0°C"
+                }
+                if temperature != "0°C"
+                {
+                    appendTemp.append((Double(temperature!))!)
+                    prescDate.append(formatDate)
+                }
+                
+                var weight = lcPatDict.weight
+                
+                
+                if weight == "NF" || weight == "" || weight == nil || weight == "0"
+                {
+                    weight = "0 Kg"
+                }
+                if weight != "0 Kg"
+                {
+                    appendWeight.append((Double(weight!))!)
+                    weightDate.append(formatDate)
+                }
+            }
+            
+            
+            
+            let mapItem =  chiefProbArr.map {($0, 1)}
+            self.ChiefComplainARR = Dictionary(mapItem, uniquingKeysWith: +)
+            
+            let mapLab = labTestDsb.map {($0, 1)}
+            self.LabTestARR = Dictionary(mapLab, uniquingKeysWith: +)
+            
+        }else
+        {
+            
+        }
+    }
+    
+    func convertDateFormaterInList(cdate: String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateFormatter.date(from: cdate)
+        dateFormatter.dateFormat = "dd-MMM-yyyy"
+        return  dateFormatter.string(from: date!)
+        
+    }
+    
     func stringForValue(_ value: Double, axis: AxisBase?) -> String
     {
-        return months[Int(value)]
+        return charttype[Int(value)]
     }
     
     func setChart(dataPoints: [String], values: [Double])
@@ -134,7 +240,6 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
             subView.designCell()
             subView.backgroundColor = UIColor.white
         }
-      
     }
     
     @IBAction func btnback_onclick(_ sender: Any)
@@ -145,13 +250,26 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
     @IBAction func btnChartOne_onclick(_ sender: Any)
     {
         let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChartAnalysisVC") as! ChartAnalysisVC
+        vc.chartValues = self.appendTemp
+        vc.months = self.prescDate
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func btnChartTwo_onclick(_ sender: Any)
+    @IBAction func btnChartTwo_onclick(_ sender: Any)  // show temperature
     {
         let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "TemperatureGraphVC") as! TemperatureGraphVC
+        vc.setChartValue(Months: self.prescDate, xArr: appendvalue, yArr: appendvalue2)
+    
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    @IBAction func btnChartThird_onClick(_ sender: Any)
+    {
+        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "thirdGraphVc") as! thirdGraphVc
+        vc.chartValues = self.appendWeight
+        vc.months = self.weightDate
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
 }
 extension ViewMoreDetailVC : UICollectionViewDelegate, UICollectionViewDataSource

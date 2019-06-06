@@ -8,24 +8,29 @@
 
 import UIKit
 import SVProgressHUD
+import WebKit
 
-class AboutUsVC: UIViewController {
+class AboutUsVC: UIViewController, WKUIDelegate, WKNavigationDelegate
+{
 
     
+    @IBOutlet weak var loader: DotsLoader!
     @IBOutlet weak var btnBack: UIButton!
-    @IBOutlet weak var aboutWebview: UIWebView!
+  //  @IBOutlet weak var aboutWebview: UIWebView!
+    
+    @IBOutlet weak var aboutWebview: WKWebView!
+    
+  //  var webView: WKWebView!
+    var activityIndicator : UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        OperationQueue.main.addOperation {
-            SVProgressHUD.setDefaultMaskType(.custom)
-            SVProgressHUD.setBackgroundColor(UIColor.gray)
-            SVProgressHUD.setBackgroundLayerColor(UIColor.clear)
-            SVProgressHUD.show()
-        }
+//        webView = WKWebView(frame: CGRect.zero)
+//        webView.navigationDelegate = self
+//        webView.uiDelegate = self
         
+        self.loader.startAnimating()
         loadUrl()
     }
     
@@ -33,15 +38,32 @@ class AboutUsVC: UIViewController {
         
         let url = URL(string: "http://ksoftpl.com/about-us")
         let requestObj = URLRequest(url: url! as URL)
-        aboutWebview.loadRequest(requestObj)
-        
-        OperationQueue.main.addOperation {
-           
-            SVProgressHUD.dismiss()
-        }
-        
+        aboutWebview.load(requestObj)
     }
 
+    func showActivityIndicator(show: Bool) {
+        if show {
+            self.loader.startAnimating()
+            self.loader.isHidden = false      //true
+        } else {
+            self.loader.stopAnimating()
+            self.loader.isHidden = true // false
+        }
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        showActivityIndicator(show: false)
+    }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        showActivityIndicator(show: true)
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        showActivityIndicator(show: false)
+    }
+    
+    
     func sideMenus()
     {
         

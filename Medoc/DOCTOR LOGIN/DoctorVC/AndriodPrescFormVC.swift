@@ -270,8 +270,8 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
       
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
         
-        loggedinId = dict["id"] as? Int
-        self.getHospital(id: loggedinId)
+        self.loggedinId = dict["id"] as? Int
+       
         collMedicine.delegate = self
         collMedicine.dataSource = self
         createDatePicker()
@@ -290,6 +290,10 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.PickerMinArr = ["15 min", "30 min", "45 min", "60 min", "75 min", "90 min", "105 min", "120 min", "135 min", "150 min", "165 min", "180 min"]
        }
 
+    override func viewWillAppear(_ animated: Bool) {
+         self.getHospital(id: self.loggedinId)
+    }
+    
     func setAllDropdown()
     {
         dropdownAutoWordsList.anchorView = txtpatProblems
@@ -1410,7 +1414,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     @IBAction func btnCloseform_onclick(_ sender: Any)
     {
-
         ZAlertView(title: "Medoc", msg: "Are you sure you want to go back?", dismisstitle: "No", actiontitle: "Yes")
         {
              self.navigationController?.popViewController(animated: true)
@@ -2444,15 +2447,6 @@ extension AndriodPrescFormVC : UITextFieldDelegate
             }
         }
         
-        if textField == txtLabTest
-        {
-            dropdownLabTestList.show()
-            dropdownLabTestList.selectionAction = { [unowned self] (index: Int, item: String) in
-                print("Selected item: \(item) at index: \(index)")
-                self.txtLabTest.text = item
-            }
-        }
-        
         if textField == txtHospitalNm
         {
             view.endEditing(true)
@@ -2495,17 +2489,19 @@ extension AndriodPrescFormVC : UITextFieldDelegate
             {
                 self.dropdownAutoWordsList.show()
                 
-                let updatedText = text.replacingCharacters(in: textRange,with: string)
+                var updatedText = text.replacingCharacters(in: textRange,with: string)
                 
-                self.m_cFilterdArr = self.AutoWordsArr.filter( { $0.lowercased().prefix(updatedText.count) == updatedText.lowercased() })
+                self.m_cFilterdArr = self.AutoWordsArr.filter( { $0.lowercased().prefix(updatedText.count) == updatedText.lowercased()
+                })
                 
                 self.dropdownAutoWordsList.dataSource = self.m_cFilterdArr
                 self.dropdownAutoWordsList.reloadAllComponents()
                 
                 dropdownAutoWordsList.selectionAction = { [unowned self] (index: Int, item: String) in
                     self.txtpatProblems.text = item
+                    
+                    updatedText = ""
                 }
-               
             }
         }
         
@@ -2610,8 +2606,6 @@ extension AndriodPrescFormVC : UITextFieldDelegate
         {
             
         }
-        
-        
         
         return true
     }

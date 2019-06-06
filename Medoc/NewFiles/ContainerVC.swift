@@ -20,7 +20,7 @@ class ContainerVC: UIViewController {
             
             self.loginvc.view.frame = self.containerView.bounds
             self.containerView.addSubview(self.loginvc.view)
-            self.containerView.layer.cornerRadius = 20.0
+           // self.containerView.layer.cornerRadius = 20.0
             self.containerView.clipsToBounds = true
             self.containerView.designCell()
         }

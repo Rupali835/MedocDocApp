@@ -25,7 +25,6 @@
 		3BA92C6E21B00E5E008D85DB /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3521B00E5E008D85DB /* GradientView.swift */; };
 		3BA92C6F21B00E5E008D85DB /* JYToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3621B00E5E008D85DB /* JYToast.swift */; };
 		3BA92C7021B00E5E008D85DB /* ReachabilityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C3721B00E5E008D85DB /* ReachabilityCheck.swift */; };
-		3BA92C7121B00E5E008D85DB /* Admin.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C3B21B00E5E008D85DB /* Admin.storyboard */; };
 		3BA92C7A21B00E5E008D85DB /* AppStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */; };
 		3BA92C7B21B00E5E008D85DB /* Doctor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C4821B00E5E008D85DB /* Doctor.storyboard */; };
 		3BA92C7F21B0103E008D85DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BA92C7E21B0103E008D85DB /* Main.storyboard */; };
@@ -189,6 +188,8 @@
 		58FBFDD82278268200A2AC05 /* Phq9ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FBFDD72278268200A2AC05 /* Phq9ListCell.swift */; };
 		58FD09A3225B49AF008C794F /* PatientPrescriptionListDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FD09A2225B49AF008C794F /* PatientPrescriptionListDataModel.swift */; };
 		91950D93CFE47E481F691806 /* Pods_Medoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C45CB29D8418FE384706EB /* Pods_Medoc.framework */; };
+		F209401722A796F30059BB45 /* thirdGraphVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209401622A796F30059BB45 /* thirdGraphVc.swift */; };
+		F209401922A7A8100059BB45 /* PatientEmergDetailVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209401822A7A8100059BB45 /* PatientEmergDetailVc.swift */; };
 		F228860F22927852003D9AA6 /* HospitalDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228860E22927852003D9AA6 /* HospitalDataModel.swift */; };
 		F228861122927CFF003D9AA6 /* getHospitalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228861022927CFF003D9AA6 /* getHospitalCell.swift */; };
 		F22B4C012284356400C4C5FF /* DotsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22B4C002284356300C4C5FF /* DotsLoader.swift */; };
@@ -248,7 +249,6 @@
 		3BA92C3621B00E5E008D85DB /* JYToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JYToast.swift; sourceTree = "<group>"; };
 		3BA92C3721B00E5E008D85DB /* ReachabilityCheck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityCheck.swift; sourceTree = "<group>"; };
 		3BA92C3921B00E5E008D85DB /* DLRadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRadioButton.h; sourceTree = "<group>"; };
-		3BA92C3B21B00E5E008D85DB /* Admin.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Admin.storyboard; sourceTree = "<group>"; };
 		3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppStoryboard.swift; sourceTree = "<group>"; };
 		3BA92C4821B00E5E008D85DB /* Doctor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Doctor.storyboard; sourceTree = "<group>"; };
 		3BA92C7E21B0103E008D85DB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -471,6 +471,8 @@
 		58FBFDD72278268200A2AC05 /* Phq9ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phq9ListCell.swift; sourceTree = "<group>"; };
 		58FD09A2225B49AF008C794F /* PatientPrescriptionListDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientPrescriptionListDataModel.swift; sourceTree = "<group>"; };
 		DB567A7B6C833F547ACD17EE /* Pods-Medoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Medoc/Pods-Medoc.release.xcconfig"; sourceTree = "<group>"; };
+		F209401622A796F30059BB45 /* thirdGraphVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thirdGraphVc.swift; sourceTree = "<group>"; };
+		F209401822A7A8100059BB45 /* PatientEmergDetailVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientEmergDetailVc.swift; sourceTree = "<group>"; };
 		F228860E22927852003D9AA6 /* HospitalDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalDataModel.swift; sourceTree = "<group>"; };
 		F228861022927CFF003D9AA6 /* getHospitalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getHospitalCell.swift; sourceTree = "<group>"; };
 		F22B4C002284356300C4C5FF /* DotsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotsLoader.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 		3BA92BE421B00E5D008D85DB /* CommonFiles */ = {
 			isa = PBXGroup;
 			children = (
+				3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */,
 				58D9538D22017A6400804C59 /* Alert.swift */,
 				58D9538E22017A6500804C59 /* Reachability.swift */,
 				3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */,
@@ -606,15 +609,6 @@
 			path = TextFieldEffects;
 			sourceTree = "<group>";
 		};
-		3BA92C3A21B00E5E008D85DB /* ADMIN LOGIN */ = {
-			isa = PBXGroup;
-			children = (
-				3BA92C3B21B00E5E008D85DB /* Admin.storyboard */,
-				3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */,
-			);
-			path = "ADMIN LOGIN";
-			sourceTree = "<group>";
-		};
 		3BA92C4721B00E5E008D85DB /* DOCTOR LOGIN */ = {
 			isa = PBXGroup;
 			children = (
@@ -653,7 +647,6 @@
 				58C8803C21E321F90054FBC1 /* VideoFile */,
 				583198AD21C238E50068C1AA /* NewFiles */,
 				3BA92C4721B00E5E008D85DB /* DOCTOR LOGIN */,
-				3BA92C3A21B00E5E008D85DB /* ADMIN LOGIN */,
 				3BA92BE421B00E5D008D85DB /* CommonFiles */,
 				3BA92BE621B00E5E008D85DB /* Third Libraries */,
 				3B73761F21AEB3FD000EC50E /* Medoc.entitlements */,
@@ -792,6 +785,8 @@
 				580640182212D1040012E55B /* OpenPopUpInfoVC.swift */,
 				58F78AB3221D40BA001A08A8 /* FetchResponseApi.swift */,
 				F25F7ADC228BFB4E00286C1C /* AddClinicVC.swift */,
+				F209401622A796F30059BB45 /* thirdGraphVc.swift */,
+				F209401822A7A8100059BB45 /* PatientEmergDetailVc.swift */,
 			);
 			path = DoctorVC;
 			sourceTree = "<group>";
@@ -1170,6 +1165,9 @@
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 0;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -1233,7 +1231,6 @@
 				3BA92C7F21B0103E008D85DB /* Main.storyboard in Resources */,
 				3BA92C7B21B00E5E008D85DB /* Doctor.storyboard in Resources */,
 				3BF823DF21AD7A3F004C92E5 /* Assets.xcassets in Resources */,
-				3BA92C7121B00E5E008D85DB /* Admin.storyboard in Resources */,
 				58CB10DF21E4DDA600745BC9 /* flashUnavailable.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1362,6 +1359,7 @@
 				58AFEC6C21CB7F0000A712E0 /* SearchPatientCell.swift in Sources */,
 				F2B078272283120D001BC527 /* FSCalendarHeaderView.m in Sources */,
 				5827125521F09D1A009E7C02 /* CellPrescImages.swift in Sources */,
+				F209401922A7A8100059BB45 /* PatientEmergDetailVc.swift in Sources */,
 				58EC00F0225F6DF200288694 /* DoctorProfileVc.swift in Sources */,
 				580640192212D1040012E55B /* OpenPopUpInfoVC.swift in Sources */,
 				58C9925222030F7F00E56C5A /* MKNavigationBar.swift in Sources */,
@@ -1500,6 +1498,7 @@
 				F2B078232283120D001BC527 /* FSCalendarDelegationProxy.m in Sources */,
 				58CB10C921E4DDA600745BC9 /* ShutterButton.swift in Sources */,
 				58F78AB2221D2990001A08A8 /* Constant.swift in Sources */,
+				F209401722A796F30059BB45 /* thirdGraphVc.swift in Sources */,
 				580640172212A0190012E55B /* OpenImageInWeb.swift in Sources */,
 				582DA44A21E8B86300B85EF5 /* AddReportVC.swift in Sources */,
 				582DA44C21E8B93D00B85EF5 /* AddReportImgCell.swift in Sources */,
@@ -1706,7 +1705,7 @@
 				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = TBC2KVJ5K4;
+				DEVELOPMENT_TEAM = MC8SFM55TJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1764,9 +1763,9 @@
 					"-framework",
 					"\"nanopb\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kspl.mumbaipressIos;
+				PRODUCT_BUNDLE_IDENTIFIER = www.kanishka.medocdoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = MedocDevelpCert;
+				PROVISIONING_PROFILE_SPECIFIER = MedocDoctorDevelporCert;
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1781,7 +1780,7 @@
 				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = TBC2KVJ5K4;
+				DEVELOPMENT_TEAM = MC8SFM55TJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1839,9 +1838,9 @@
 					"-framework",
 					"\"nanopb\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kspl.mumbaipressIos;
+				PRODUCT_BUNDLE_IDENTIFIER = www.kanishka.medocdoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = MedocDevelpCert;
+				PROVISIONING_PROFILE_SPECIFIER = MedocDoctorDevelporCert;
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;

@@ -107,7 +107,7 @@ class SideMenuListVC: UIViewController
                     
                 }
                 
-                if let MSG = json["message"] as? String
+                if (json["message"] as? String) != nil
                 {
                     self.toast.isShow("Something went wrong..")
                 }

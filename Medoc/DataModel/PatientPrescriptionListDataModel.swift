@@ -15,7 +15,7 @@ class PatientPrescriptionList: Decodable
     var prescriptions : [Prescriptions]!
     var medicines : [Medicines]!
     var reports : [Reports]!
-    var last_prescription_by : LastPrescBy!
+    var last_prescription_by : LastPrescBy?
     var phq : [Phq9]!
     
 }
@@ -82,7 +82,7 @@ struct Reports: Decodable
 }
 struct LastPrescBy: Decodable
 {
-    var name : String!
+    var name : String?
 }
 
 struct Phq9: Decodable

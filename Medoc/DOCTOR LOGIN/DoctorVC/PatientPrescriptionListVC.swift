@@ -59,11 +59,11 @@ class PatientPrescriptionListVC: UIViewController
     var toast = JYToast()
     var dataFromAppoinment = [String : Any]()
     var viewFromAppoinment = Bool()
-    var chiefComplainArr = [String : Int]()
     var medicineArrDashboard = [String : Int]()
-    var labTestDashboard = [String : Int]()
+   
     var loggedinId = Int()
     var cOpenPopup : OpenPopUpInfoVC!
+    var cOpenEmergData : PatientEmergDetailVc!
     var PatientBasicInfo = [String : Any]()
   
     var prescList = [Prescriptions]()
@@ -94,16 +94,17 @@ class PatientPrescriptionListVC: UIViewController
     override func awakeFromNib()
     {
         self.cOpenPopup = (AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenPopUpInfoVC") as! OpenPopUpInfoVC)
+        
+        self.cOpenEmergData = (AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PatientEmergDetailVc") as! PatientEmergDetailVc)
     }
     
     @IBAction func btnEmrgData_onCick(_ sender: Any)
     {
-        self.cOpenPopup.view.frame = self.view.frame
+        self.cOpenEmergData.view.frame = self.view.frame
+        self.cOpenEmergData.PatientEmrgInfo = self.PatientBasicInfo
+        self.view.addSubview(self.cOpenEmergData.view)
+        self.cOpenEmergData.view.clipsToBounds = true
         
-        self.cOpenPopup.setData(info: self.PatientBasicInfo, val: 1)
-        
-        self.view.addSubview(self.cOpenPopup.view)
-        self.cOpenPopup.view.clipsToBounds = true
     }
     
     @IBAction func btnBasicInfo_onClick(_ sender: Any)
@@ -131,7 +132,7 @@ class PatientPrescriptionListVC: UIViewController
             {
                 self.PrescriptionListView.isHidden = false
                 self.btnAdd.isHidden = true
-              self.patient_id = self.dataFromAppoinment["patient_id"] as! String
+               self.patient_id = self.dataFromAppoinment["patient_id"] as! String
 
                 prescList(id: self.patient_id)
                 fetchData(pid: self.patient_id)
@@ -237,18 +238,15 @@ class PatientPrescriptionListVC: UIViewController
     {
         let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ViewMoreDetailVC") as! ViewMoreDetailVC
         
-        if self.chiefComplainArr.count != 0
+        if self.prescList.count != 0
         {
-             detailvc.ChiefComplainARR = self.chiefComplainArr
+             detailvc.PrescList = self.prescList
         }
         if self.medicineArrDashboard.count != 0
         {
             detailvc.MedicineARR = self.medicineArrDashboard
         }
-        if self.labTestDashboard.count != 0
-        {
-            detailvc.LabTestARR = self.labTestDashboard
-        }
+
          self.navigationController?.pushViewController(detailvc, animated: true)
     }
     
@@ -268,10 +266,7 @@ class PatientPrescriptionListVC: UIViewController
         collReports.dataSource = self
         collDrawings.delegate = self
         collDrawings.dataSource = self
-
-        
       
-        
      }
     
     func showView(b_show : Bool)
@@ -315,36 +310,27 @@ class PatientPrescriptionListVC: UIViewController
                     self.prescList = json.prescriptions
                     self.reportList = json.reports
                     self.medicineList = json.medicines
-                    self.lastPrescDrNm = json.last_prescription_by
-                    self.PhqList = json.phq
                         
-                    if let Name = self.lastPrescDrNm.name
-                    {
-                        self.lblVisitedDoctor.text = "Last Visited Doctor: Dr.\(Name)"
-                    }
+                    if json.last_prescription_by != nil
+                        {
+                             self.lastPrescDrNm = json.last_prescription_by!
+                            if let Name = self.lastPrescDrNm.name
+                            {
+                                self.lblVisitedDoctor.text = "Last Visited Doctor: Dr.\(Name)"
+                            }
+                        }else
+                        {
+                            self.lblVisitedDoctor.text = "Not Found"
+                        }
+                        
+                   
+                    self.PhqList = json.phq
                         
                     self.setPrescListToText(prescArr: self.prescList)
                       
                     self.setReportsImgs(reportArr: self.reportList)
                      
                     self.setPhq9(phqArr: self.PhqList)
-                        
-                    self.chiefComplainArr.removeAll(keepingCapacity: false)
-                       
-                        var chiefProbArr = [String]()
-                        
-                        for lcPatProb in self.prescList
-                        {
-                            let paProb = lcPatProb.patient_problem
-                            chiefProbArr.append(paProb!)
-                        }
-                        
-                        let mapItem =  chiefProbArr.map {($0, 1)}
-                        
-                        self.chiefComplainArr = Dictionary(mapItem, uniquingKeysWith: +)
-                        
-                        
-    // medicine data forward to patient analysis
                         
                     self.medicineArrDashboard.removeAll(keepingCapacity: false)
                         var medicineDsb = [String]()
@@ -353,28 +339,12 @@ class PatientPrescriptionListVC: UIViewController
                         {
                             let MedicNm = lcMedic.medicine_name
                             medicineDsb.append(MedicNm!)
-                            
                         }
                         
                         let mapMedic = medicineDsb.map {($0, 1)}
                         self.medicineArrDashboard = Dictionary(mapMedic, uniquingKeysWith: +)
                         
-      // lab test forward to patient analysis
-                        
-                      self.labTestDashboard.removeAll(keepingCapacity: false)
-                        var labTestDsb = [String]()
-                        for lclabtest in self.prescList
-                        {
-                            let labTestNm = lclabtest.lab_test
-                            if (labTestNm != "") && (labTestNm != nil) && (labTestNm != "NF")
-                            {
-                                labTestDsb.append(labTestNm!)
-                            }
-                           
-                        }
-                        let mapLab = labTestDsb.map {($0, 1)}
-                        self.labTestDashboard = Dictionary(mapLab, uniquingKeysWith: +)
-                        
+     
                     self.collPrescriptionList.reloadData()
                     }
                     else
@@ -404,6 +374,9 @@ class PatientPrescriptionListVC: UIViewController
     
     @IBAction func btnAddPresc_onclick(_ sender: Any)
     {
+        
+        
+        
         let presvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AndriodPrescFormVC") as! AndriodPrescFormVC
         
             presvc.PatientdataFromBack = PatientDict

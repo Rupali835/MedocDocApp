@@ -26,6 +26,17 @@ class AddPatient
 
 class PatientListVC: UIViewController, AddPatientProtocol
 {
+    
+   // Total medoc count labels
+    
+    
+    @IBOutlet weak var lblTchiefCom: UILabel!
+    
+    @IBOutlet weak var lblTdoctor: UILabel!
+    @IBOutlet weak var lblTmedicine: UILabel!
+    @IBOutlet weak var lblTlabTest: UILabel!
+    @IBOutlet weak var lblTpresc: UILabel!
+    @IBOutlet weak var totalCountView: UIView!
     @IBOutlet weak var lblNoPatient: UILabel!
     @IBOutlet weak var newsLoader: UIActivityIndicatorView!
     @IBOutlet weak var viewBtnPatinet: UIView!
@@ -45,7 +56,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
     @IBOutlet weak var lblExisting_patient_count: UILabel!
     @IBOutlet weak var lblNew_patient_count: UILabel!
     
-  //  @IBOutlet weak var clinicView: AddClinicViewpopup!
+    @IBOutlet weak var NewsView: UIView!
+    //  @IBOutlet weak var clinicView: AddClinicViewpopup!
     
     
     var m_cPatintInfoArr = [CPatientEntryData]()
@@ -88,7 +100,6 @@ class PatientListVC: UIViewController, AddPatientProtocol
                     let clinicvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
                     self.present(clinicvc, animated: true, completion: nil)
                 }
-
             }
   
         }else{
@@ -181,6 +192,8 @@ class PatientListVC: UIViewController, AddPatientProtocol
         
         Alamofire.request(NewsApi, method: .get, parameters: nil).responseJSON { (resp) in
            
+            print(resp)
+            
             switch resp.result
             {
                 
@@ -189,8 +202,21 @@ class PatientListVC: UIViewController, AddPatientProtocol
                 self.newsLoader.isHidden = true
                 
                 let json = resp.result.value as! NSDictionary
-              self.newsArr = json["articles"] as! [AnyObject]
+                guard let NewsArr = json["articles"] as? [AnyObject] else
+                {
+                    
+                    self.NewsView.isHidden = true
+                    self.totalCountView.isHidden = false
+                    self.getTotalMedocCount()
+                    return
+                }
                 
+                self.NewsView.isHidden = false
+                self.totalCountView.isHidden = true
+                
+              //  self.newsArr = json["articles"] as! [AnyObject]
+                
+                self.newsArr = NewsArr
                 self.newsCollection.reloadData()
                 break
                 
@@ -201,11 +227,38 @@ class PatientListVC: UIViewController, AddPatientProtocol
         
     }
     
+    func getTotalMedocCount()
+    {
+        let Api = Constant.BaseUrl + Constant.totalCountMedoc
+        Alamofire.request(Api, method: .get, parameters: nil).responseJSON { (resp) in
+            print(resp)
+            
+            guard let json = resp.result.value as? NSDictionary else
+            { return }
+            
+             let Msg = json["msg"] as? String
+            if Msg == "success"
+            {
+                let data = json["data"] as! [AnyObject]
+                
+                for item in data
+                {
+                    self.lblTchiefCom.text = String(item["total_chief_compalints"] as! Int)
+                    self.lblTpresc.text = String(item["total_prescriptions"] as! Int)
+                    self.lblTdoctor.text = String(item["total_doctors"] as! Int)
+                    self.lblTlabTest.text = String(item["total_lab_test"] as! Int)
+                    self.lblTmedicine.text = String(item["total_medicines"] as! Int)
+                    
+                }
+                
+            }
+            
+        }
+    }
     
     @IBAction func btnMedicine_onClick(_ sender: Any)
     {
-//      let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "EnterMedicineVc") as! EnterMedicineVc
-//      self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     @IBAction func btnInfoOne_onClick(_ sender: Any)
@@ -624,7 +677,7 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource, 
         else if collectionView == newsCollection
         {
             let Ncell = newsCollection.dequeueReusableCell(withReuseIdentifier: "NewsFeedHomePageCell", for: indexPath) as! NewsFeedHomePageCell
-           let lcdict = self.newsArr[indexPath.row]
+            let lcdict = self.newsArr[indexPath.row]
            
             if let Title = lcdict["title"] as? String
             {

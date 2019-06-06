@@ -11,13 +11,15 @@ class LoginVC: UIViewController
     @IBOutlet weak var txtUserNm: HoshiTextField!
     @IBOutlet weak var txtPassword: HoshiTextField!
     
+    @IBOutlet weak var btnEye: UIButton!
     @IBOutlet weak var animateView: GradientView!
     
     var m_cContainerVC = ContainerVC()
     var SignupVc : SignUpFormVC!
     var toast = JYToast()
     var b_tutorial = Bool(false)
-    
+    var iconClick : Bool!
+
     func initilize(cContainerVC: ContainerVC)
     {
         self.m_cContainerVC = cContainerVC
@@ -30,8 +32,25 @@ class LoginVC: UIViewController
 
         btnLogin.backgroundColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0)
         self.navigationController?.navigationBar.isHidden = true
-        
+         btnEye.setImage(UIImage(named: "hide"), for: .normal)
+        iconClick = true
+
     }
+    
+    @IBAction func btnShowPassword_onclick(_ sender: Any)
+    {
+        
+        if(iconClick == true) {
+            txtPassword.isSecureTextEntry = false
+             btnEye.setImage(UIImage(named: "eye"), for: .normal)
+            iconClick = false
+        } else {
+            txtPassword.isSecureTextEntry = true
+             btnEye.setImage(UIImage(named: "hide"), for: .normal)
+            iconClick = true
+        }
+    }
+    
     
     @IBAction func btnForgetPassword_onClick(_ sender: Any)
     {
@@ -45,7 +64,7 @@ class LoginVC: UIViewController
     
     @IBAction func btnLogin_onClick(_ sender: Any)
     {
-
+        self.view.endEditing(true)
         if validation()
         {
             
@@ -154,7 +173,8 @@ class LoginVC: UIViewController
                     
                     SVProgressHUD.dismiss()
                 }
-                self.toast.isShow("Something went wrong")
+                 Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "Somthing went wrong. Please check internet connection")
+              
                 break
             }
         }

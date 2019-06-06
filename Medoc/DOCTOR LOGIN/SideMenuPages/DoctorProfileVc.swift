@@ -120,6 +120,7 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
              self.selectedImage = image
             self.fileName = String(describing: timestamp!) + ".jpeg"
             self.userPic.image = image
+            self.userPic.contentMode = .scaleAspectFit
       //      self.btnProfileImg.setImage(image, for: .normal)
             
            
@@ -290,7 +291,7 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
                                     let str = "\(self.img_path)\(profilePic)"
                                     let ImgUrl = URL(string: str)
                                     self.userPic.kf.setImage(with: ImgUrl)
-                                    self.userPic.contentMode = .scaleAspectFill
+                                    self.userPic.contentMode = .scaleAspectFit
                                     
                                     
                                 }else{
@@ -372,8 +373,6 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
     
     func getHospital(id : Int)
     {
-       
-        
         let Api = Constant.BaseUrl + Constant.getClinic
         let param = ["loggedin_id" : id]
         
@@ -423,7 +422,7 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
         self.present(VC1, animated:true, completion: nil)
     }
 }
-extension DoctorProfileVc : UICollectionViewDelegate, UICollectionViewDataSource
+extension DoctorProfileVc : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return h_listArr.count
@@ -461,7 +460,7 @@ extension DoctorProfileVc : UICollectionViewDelegate, UICollectionViewDataSource
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
             // return CGSize(width: (self.collPatientList.frame.size.width - 10) / 3, height: 70)
-            return CGSize(width: (self.collClinic.frame.size.width - 20) / 2, height: 150)
+            return CGSize(width: (self.collClinic.frame.size.width - 30) / 2, height: 150)
        
         
     }

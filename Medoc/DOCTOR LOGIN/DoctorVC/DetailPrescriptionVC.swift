@@ -39,22 +39,17 @@ class DetailPrescriptionVC: UIViewController {
     @IBOutlet weak var prescImgColl: UICollectionView!
     @IBOutlet weak var repoetImgColl: UICollectionView!
     @IBOutlet weak var patientDrawingImgColl: UICollectionView!
-   
     @IBOutlet weak var lblNoLabTest: UILabel!
-    
     @IBOutlet weak var txtLabTest: UITextView!
     @IBOutlet weak var medicineCollectionView: UICollectionView!
-    
     @IBOutlet weak var txtPrescdetail: UITextView!
     @IBOutlet weak var txtTemp: HoshiTextField!
-    
     @IBOutlet weak var txtOtherdetail: UITextView!
     @IBOutlet weak var txtBloodGroup: HoshiTextField!
-    
     @IBOutlet weak var txtWeight: HoshiTextField!
     @IBOutlet weak var txtHeight: HoshiTextField!
+    
     var toast = JYToast()
-    var PatientInfo = [String : Any]()
     var PrescDetail = [AnyObject]()
     var MedicineArr = [AnyObject]()
     var ReportDetailArr = [AnyObject]()
@@ -67,7 +62,7 @@ class DetailPrescriptionVC: UIViewController {
     var PatientId = String()
     var pdfName = String()
     var ReportArr = [[String: AnyObject]]()
-    var patientDict = Prescriptions()
+ 
 
     
     let image_path = "http://medoc.co.in/medoc_doctor_api/uploads/"
@@ -83,17 +78,8 @@ class DetailPrescriptionVC: UIViewController {
         {
             detailPresc(id : self.PatientId)
         }
-        
-//    if PatientInfo != nil
-//    {
-//
-//        let Id = self.PatientInfo["id"] as! String
-//        detailPresc(id : Id)
-//    }
-      
-    setDelegate()
-        
-  }
+       setDelegate()
+    }
     
     func userInteraction()
     {
@@ -103,7 +89,6 @@ class DetailPrescriptionVC: UIViewController {
         txtPrescdetail.isUserInteractionEnabled = false
         txtOtherdetail.isUserInteractionEnabled = false
         txtBloodGroup.isUserInteractionEnabled = false
-        
     }
     
     func setDelegate()
@@ -136,7 +121,6 @@ class DetailPrescriptionVC: UIViewController {
             case .success(_):
                 
                 let json = resp.result.value as! NSDictionary
-                
                 let Msg = json["msg"] as! String
                 if Msg == "success"
                 {

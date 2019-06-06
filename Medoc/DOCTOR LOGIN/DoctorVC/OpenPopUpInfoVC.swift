@@ -34,73 +34,22 @@ class OpenPopUpInfoVC: UIViewController {
         self.checkData = val
     }
     
-    override func viewWillAppear(_ animated: Bool)
-    {
+    
+   
+    override func viewDidAppear(_ animated: Bool) {
         if PatientInfo.count != 0
         {
             showData()
         }
     }
     
+    
     func showData()
     {
         
         switch checkData
         {
-        case 1 :
           
-            
-            if let cont1 = self.PatientInfo["emergency_contact_name1"] as? String
-            {
-                lblOne.text = "Emergency Contact name1: \(cont1)"
-            }else
-            {
-                lblOne.text = "Contact name1: Not given by patient"
-            }
-            
-            if let cont2 = self.PatientInfo["emergency_contact_name2"] as? String
-            {
-                lblTwo.text = "Contact name2: \(cont2)"
-            }else
-            {
-                lblTwo.text = "Contact name2: Not given by patient"
-            }
-            
-            if let num1 = self.PatientInfo["emergency_contact_number1"] as? String
-            {
-                lblthree.text = "Contact number1: \(num1)"
-            }else
-            {
-                lblthree.text = "Contact number1: Not given by patient"
-            }
-            
-            if let num2 = self.PatientInfo["emergency_contact_number2"] as? String
-            {
-                lblFour.text = "Contact number2: \(num2)"
-            }else
-            {
-                lblFour.text = "Contact number2: Not given by patient"
-            }
-            
-            if let rel1 = self.PatientInfo["emergency_contact_relation1"] as? String
-            {
-                lblFive.text = "Contact relation1: \(rel1)"
-            }else
-            {
-                lblFive.text = "Contact relation1: Not given by patient"
-            }
-            
-            if let rel2 = self.PatientInfo["emergency_contact_relation2"] as? String
-            {
-                lblSix.text = "Contact relation2: \(rel2)"
-            }else
-            {
-                lblSix.text = "Contact relation2: Not given by patient"
-            }
- 
-
-            break
-            
         case 2 :
             
             if let cont1 = self.PatientInfo["email"] as? String
@@ -163,69 +112,69 @@ class OpenPopUpInfoVC: UIViewController {
         case 3 :
             
             
-            if let cont1 = self.PatientInfo["allergy"] as? String
+            if let cont1 = self.PatientInfo["family_history_allergy_details"] as? String
             {
-                if cont1 == "0"
+                if cont1 == "0" || cont1 == "" || cont1 == "NF"
                 {
-                     lblOne.text = "Allergy: NA"
+                     lblOne.text = "Family History Allergy: NA"
                 }else
                 {
-                    lblOne.text = "Allergy: Yes"
+                    lblOne.text = "Family History Allergy: Yes"
                 }
             }
             
-            if let cont2 = self.PatientInfo["cancer"] as? String
+            if let cont2 = self.PatientInfo["food_allergy_details"] as? String
             {
-                if cont2 == "0"
+                if cont2 == "0" || cont2 == "" || cont2 == "NF"
                 {
-                    lblTwo.text = "Cancer: NA"
+                    lblTwo.text = "Food Allergy: NA"
                 }else
                 {
-                    lblTwo.text = "Cancer: Yes"
+                    lblTwo.text = "Food Allergy: Yes"
                 }
             }
             
-            if let rel1 = self.PatientInfo["diabetes"] as? String
+            if let rel1 = self.PatientInfo["drug_allergy_details"] as? String
             {
-                if rel1 == "0"
+                if rel1 == "0" || rel1 == "" || rel1 == "NF"
                 {
-                    lblthree.text = "Diabetes: NA"
+                    lblthree.text = "Drug Allergy: NA"
                 }else
                 {
-                    lblthree.text = "Diabetes: Yes"
+                    lblthree.text = "Drug Allergy: Yes"
                 }
             }
             
-            if let num2 = self.PatientInfo["food_alergy"] as? String
+            if let num2 = self.PatientInfo["environmental_allergy_details"] as? String
             {
-                if num2 == "0"
+                if num2 == "0" || num2 == "" || num2 == "NF"
                 {
-                    lblFour.text = "Food Alergy: NA"
+                    lblFour.text = "Environmental Allergy: NA"
                 }else
                 {
-                    lblFour.text = "Food Alergy: Yes"
+                    lblFour.text = "Environmental Allergy: Yes"
                 }
             }
             
-            if let num1 = self.PatientInfo["insects_allergy"] as? String
+            if let num1 = self.PatientInfo["known_condition_details"] as? String
             {
-                if num1 == "0"
+                if num1 == "0" || num1 == "" || num1 == "NF"
                 {
-                    lblFive.text = "Insects Allergy: NA"
+                    lblFive.text = "known condition: NA"
                 }else
                 {
-                    lblFive.text = "Insects Allergy: Yes"
+                    lblFive.text = "known condition: Yes"
                 }
             }
             
-            if let rel2 = self.PatientInfo["lukemia"] as? String
+            if let rel2 = self.PatientInfo["genetic_disorders_details"] as? String
             {
-                if rel2 == "0"
+                if rel2 == "0" || rel2 == "" || rel2 == "NF"
                 {
-                    lblSix.text = "Lukemia: NA"
+                    lblSix.text = "Genetic disorders: NA"
                 }else
                 {
-                    lblSix.text = "Lukemia: Yes"
+                    lblSix.text = "Genetic disorders: Yes"
                 }
             }
         

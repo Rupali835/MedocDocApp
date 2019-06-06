@@ -62,8 +62,13 @@ class AppointmentVC: UIViewController {
                      "date" : sDate] as [String : Any]
         
         print(param)
+        
+        self.view.activityStartAnimating(activityColor: UIColor.black, backgroundColor: UIColor.black.withAlphaComponent(0.5))
+        
         Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
+            
+            self.view.activityStopAnimating()
             
             switch resp.result
             {
@@ -120,7 +125,7 @@ class AppointmentVC: UIViewController {
         return formatter
     }()
 }
-extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource
+extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.patientList != nil
@@ -165,7 +170,10 @@ extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         //2
-        return CGSize(width: (self.collView.frame.size.width - 100) / 2, height: 120)
+
+      //  return CGSize(width: UIScreen.main.bounds.size.width/2, height: 100)
+        
+        return CGSize(width: (self.collView.frame.size.width - 30) / 2, height: 100)
     }
     
     //3

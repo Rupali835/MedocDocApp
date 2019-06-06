@@ -49,6 +49,8 @@ class ForgetPasswordVC: UIViewController {
     
     @IBAction func btnSubmit_onClick(_ sender: Any)
     {
+        self.view.endEditing(true)
+        
        if valid()
        {
          loader.isHidden = false

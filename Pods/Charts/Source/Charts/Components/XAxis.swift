@@ -29,7 +29,7 @@ open class XAxis: AxisBase
     @objc open var labelWidth = CGFloat(1.0)
     
     /// height of the x-axis labels in pixels - this is automatically calculated by the `computeSize()` methods in the renderers
-    @objc open var labelHeight = CGFloat(1.0)
+    @objc open var labelHeight = CGFloat(10.0)
     
     /// width of the (rotated) x-axis labels in pixels - this is automatically calculated by the `computeSize()` methods in the renderers
     @objc open var labelRotatedWidth = CGFloat(1.0)
