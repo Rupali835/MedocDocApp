@@ -14,6 +14,7 @@ import MultiAutoCompleteTextSwift
 import DropDown
 import SVProgressHUD
 import CloudTagView
+import IQKeyboardManager
 
 class SignatureData {
     var SignatureImgName: String
@@ -74,6 +75,7 @@ class MedicineData
 class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportImgDelegate, DrawingOnPadProtocol,PaintDocsDelegate, UITextViewDelegate
 {
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var txtHospitalNm: UITextField!
     @IBOutlet weak var loader: DotsLoader!
     @IBOutlet weak var txtLabTest: UITextField!
@@ -227,7 +229,11 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        
+        IQKeyboardManager.shared().keyboardDistanceFromTextField = 100.0
+        IQKeyboardManager.shared().shouldResignOnTouchOutside = true
+        
+        scrollView.contentOffset = CGPoint(x: 0, y: 0)
         self.setAllDropdown()
         loader.isHidden = true
         btnInCemi.tag = 0
@@ -288,7 +294,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
        // print(self.medicineArr.count)
                 
         self.PickerMinArr = ["15 min", "30 min", "45 min", "60 min", "75 min", "90 min", "105 min", "120 min", "135 min", "150 min", "165 min", "180 min"]
-       }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
          self.getHospital(id: self.loggedinId)
@@ -2059,7 +2065,9 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     @IBAction func btnSignature_onClick(_ sender: Any)
     {
-        view.endEditing(true)
+        IQKeyboardManager.shared().resignFirstResponder()
+
+      //  view.endEditing(true)
         UIView.animate(withDuration: 0.5)
         {
             self.signatureFormvc.view.frame = self.view.frame
@@ -2449,7 +2457,9 @@ extension AndriodPrescFormVC : UITextFieldDelegate
         
         if textField == txtHospitalNm
         {
-            view.endEditing(true)
+           // view.endEditing(true)
+            IQKeyboardManager.shared().resignFirstResponder()
+            
             if self.h_listArr.count != 0
             {
                 var NameArr = [String]()

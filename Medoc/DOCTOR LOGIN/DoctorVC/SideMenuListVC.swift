@@ -34,9 +34,9 @@ class SideMenuListVC: UIViewController
     var LoginId = Int()
 
 
-    var SideListArr = ["Today's Patient", "Appointments", "News Feed", "Videos", "Profile", "About Us", "Contact Us", "Logout"]
+    var SideListArr = ["Today's Patient", "Appointments", "News Feed", "Videos", "Profile", "Hospital/Clinic", "About Us", "Contact Us", "Logout"]
     
-    var imgArr = ["signuser", "calendar", "NewsFeed", "Videos", "user (1)",  "AboutUs","ContactUs", "icon"]
+    var imgArr = ["signuser", "calendar", "NewsFeed", "Videos", "user (1)", "add-house", "AboutUs","ContactUs", "icon"]
     
     
       override func viewDidLoad() {
@@ -180,17 +180,17 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
             revealViewController().pushFrontViewController(profileVc, animated: true)
             break
             
-//        case 5:
-//            let chatVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChatVC") as! ChatVC
-//           revealViewController().pushFrontViewController(chatVc, animated: true)
-//            break
+        case 5:  // Add clinic
+            let clinicVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "HospitalListVc") as! HospitalListVc
+           revealViewController().pushFrontViewController(clinicVc, animated: true)
+            break
         
-        case 5:
+        case 6:
             let aboutusVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AboutUsVC") as! AboutUsVC
             revealViewController().pushFrontViewController(aboutusVc, animated: true)
             break
             
-        case 6:
+        case 7:
             let contactVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ContactUsVC") as! ContactUsVC
           
              revealViewController().pushFrontViewController(contactVc, animated: true)
@@ -202,7 +202,7 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
 //            revealViewController().pushFrontViewController(purchaseVc, animated: true)
 //            break
             
-        case 7:
+        case 8:
           
             ZAlertView(title: "Medoc", msg: "Are you sure you want to logout ?", dismisstitle: "No", actiontitle: "Yes")
             {

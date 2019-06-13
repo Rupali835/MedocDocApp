@@ -190,6 +190,8 @@
 		91950D93CFE47E481F691806 /* Pods_Medoc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C45CB29D8418FE384706EB /* Pods_Medoc.framework */; };
 		F209401722A796F30059BB45 /* thirdGraphVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209401622A796F30059BB45 /* thirdGraphVc.swift */; };
 		F209401922A7A8100059BB45 /* PatientEmergDetailVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F209401822A7A8100059BB45 /* PatientEmergDetailVc.swift */; };
+		F2102AB822B226E900C33AC4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2102AB722B226E900C33AC4 /* Utilities.swift */; };
+		F214F03922B12A9300511C8D /* HospitalListVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = F214F03822B12A9300511C8D /* HospitalListVc.swift */; };
 		F228860F22927852003D9AA6 /* HospitalDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228860E22927852003D9AA6 /* HospitalDataModel.swift */; };
 		F228861122927CFF003D9AA6 /* getHospitalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F228861022927CFF003D9AA6 /* getHospitalCell.swift */; };
 		F22B4C012284356400C4C5FF /* DotsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22B4C002284356300C4C5FF /* DotsLoader.swift */; };
@@ -473,6 +475,8 @@
 		DB567A7B6C833F547ACD17EE /* Pods-Medoc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Medoc.release.xcconfig"; path = "Pods/Target Support Files/Pods-Medoc/Pods-Medoc.release.xcconfig"; sourceTree = "<group>"; };
 		F209401622A796F30059BB45 /* thirdGraphVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thirdGraphVc.swift; sourceTree = "<group>"; };
 		F209401822A7A8100059BB45 /* PatientEmergDetailVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientEmergDetailVc.swift; sourceTree = "<group>"; };
+		F2102AB722B226E900C33AC4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		F214F03822B12A9300511C8D /* HospitalListVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalListVc.swift; sourceTree = "<group>"; };
 		F228860E22927852003D9AA6 /* HospitalDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalDataModel.swift; sourceTree = "<group>"; };
 		F228861022927CFF003D9AA6 /* getHospitalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = getHospitalCell.swift; sourceTree = "<group>"; };
 		F22B4C002284356300C4C5FF /* DotsLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotsLoader.swift; sourceTree = "<group>"; };
@@ -546,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				3BA92C4621B00E5E008D85DB /* AppStoryboard.swift */,
+				F2102AB722B226E900C33AC4 /* Utilities.swift */,
 				58D9538D22017A6400804C59 /* Alert.swift */,
 				58D9538E22017A6500804C59 /* Reachability.swift */,
 				3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */,
@@ -787,6 +792,7 @@
 				F25F7ADC228BFB4E00286C1C /* AddClinicVC.swift */,
 				F209401622A796F30059BB45 /* thirdGraphVc.swift */,
 				F209401822A7A8100059BB45 /* PatientEmergDetailVc.swift */,
+				F214F03822B12A9300511C8D /* HospitalListVc.swift */,
 			);
 			path = DoctorVC;
 			sourceTree = "<group>";
@@ -1374,6 +1380,7 @@
 				58E4A1E421F3310D00156AD7 /* AddDrawingImgCell.swift in Sources */,
 				F228860F22927852003D9AA6 /* HospitalDataModel.swift in Sources */,
 				587FFC9A21FCD54900C2B316 /* NSIndexSet+DBLibrary.m in Sources */,
+				F214F03922B12A9300511C8D /* HospitalListVc.swift in Sources */,
 				F2B078212283120D001BC527 /* FSCalendarCalculator.m in Sources */,
 				3BA92C7021B00E5E008D85DB /* ReachabilityCheck.swift in Sources */,
 				5859911521FEDA440004CF7A /* newsFeedWebViewVC.swift in Sources */,
@@ -1462,6 +1469,7 @@
 				58CB10D021E4DDA600745BC9 /* Array+Utils.swift in Sources */,
 				F2B078252283120D001BC527 /* FSCalendarTransitionCoordinator.m in Sources */,
 				3BF823D721AD7A31004C92E5 /* ViewController.swift in Sources */,
+				F2102AB822B226E900C33AC4 /* Utilities.swift in Sources */,
 				58C9924D22030F7F00E56C5A /* MKCollectionViewCell.swift in Sources */,
 				58DE554D21FC1CDC00C2C5FA /* OpenSideMenuClass.swift in Sources */,
 				580E851E21F9E7D8002A4DCD /* ViewMoreDetailVC.swift in Sources */,
@@ -1704,7 +1712,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MC8SFM55TJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1765,7 +1773,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.kanishka.medocdoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = MedocDoctorDevelporCert;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1779,7 +1787,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Medoc/Medoc.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MC8SFM55TJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1840,7 +1848,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = www.kanishka.medocdoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = MedocDoctorDevelporCert;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 2;

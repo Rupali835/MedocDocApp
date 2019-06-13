@@ -9,13 +9,13 @@
 import UIKit
 import Alamofire
 import Kingfisher
-
-
+import Charts
 
 class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
 
     // Profile Other Info label
     
+    @IBOutlet weak var analysisChart: LineChartView!
     @IBOutlet weak var otherInfoView: Cardview!
     @IBOutlet weak var lblNotes: UILabel!
     @IBOutlet weak var lblHeight: UILabel!
@@ -64,21 +64,24 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
     @IBOutlet weak var lblDrName: UILabel!
     @IBOutlet weak var lblemail: UILabel!
     
-    @IBOutlet weak var addClinicSmallView: UIView!
     @IBOutlet weak var clinicInfoView: Cardview!
-    @IBOutlet weak var collClinic: UICollectionView!
     var popUp = KLCPopup()
     
     @IBOutlet weak var addClinicView: Cardview!
     @IBOutlet weak var btnAddClinic: UIButton!
     
     var profileData = [AnyObject]()
+    var last_30_days_data = [AnyObject]()
+    var Arr_last_30_days_datavalues = [Double]()
+    var xAxisValue = [String]()
     var img_path = "http://medoc.co.in/medoc_doctor_api/uploads/"
     var toast = JYToast()
     var h_listArr = [getHospitalList]()
     var Login_id = Int()
     var selectedImage: UIImage!
     var fileName: String!
+    weak var axisFormatDelegate: IAxisValueFormatter?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,8 +90,7 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
         setLayout(btnItem: [btnSaveBaseInfo, btnCancelBaseInfo, btnSaveOtherInfo, btncancelOtherInfo])
         self.GestureBaseInfo()
         self.GestureOtherInfo()
-        self.collClinic.delegate = self
-        self.collClinic.dataSource = self
+       
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(openCam))
         
@@ -99,14 +101,10 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
         Login_id = dict["id"] as! Int
         let Role = dict["role_id"] as! String
         
-        let hospialAddedKey = dict["hospital_added"] as! Bool
-        
-        self.addClinicView.isHidden = hospialAddedKey ? true : false
-        
-        hospialAddedKey ? setHidden(bStatus: false) : setHidden(bStatus: true)
-        
         GetDoctorProfile(Id: Login_id)
+        axisFormatDelegate = self
         GetCount(id: Login_id, role: Role)
+        
     }
     
     @objc func openCam()
@@ -121,19 +119,11 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
             self.fileName = String(describing: timestamp!) + ".jpeg"
             self.userPic.image = image
             self.userPic.contentMode = .scaleAspectFit
-      //      self.btnProfileImg.setImage(image, for: .normal)
-            
-           
-            
+     
         }
     }
     
-    func setHidden(bStatus: Bool)
-    {
-        self.addClinicSmallView.isHidden = bStatus // add clinic btn second
-        self.clinicInfoView.isHidden     = bStatus
-    }
-    
+
     override func viewWillAppear(_ animated: Bool) {
     
         sideMenus()
@@ -301,20 +291,7 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
                                 }
                                 
                             }
-                          
-                            if let hospital_added = lcdata.hospital_added
-                            {
-                                hospital_added ? self.setHidden(bStatus: false) : self.setHidden(bStatus: true)
-                               
-                                if hospital_added
-                                {
-                                  self.getHospital(id: self.Login_id)
-                                }
-                                
-                self.addClinicView.isHidden = hospital_added ? true : false
-                                
-                            }
-                        
+                         
                         }
                      
                     }
@@ -329,7 +306,6 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
                 self.toast.isShow("Something went wrong")
                 break
             }
-            
         }
     }
     
@@ -346,18 +322,40 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
             {
             case .success(_):
                 let json = resp.result.value as! NSDictionary
-                
+                print("Get Count: \(json)")
                 let Msg = json["msg"] as! String
                 if Msg == "success"
                 {
                     let CountArr = json["data"] as! [AnyObject]
+                    
+                    self.xAxisValue.removeAll()
+                    self.Arr_last_30_days_datavalues.removeAll()
                     
                     for lcdata in CountArr
                     {
                         self.countTodaysPatients.text = String(lcdata["ptt_total"] as! Int)
                         self.countMonthlyPatients.text = String(lcdata["m_new"] as! Int)
                         self.countPresc.text = String(lcdata["prescription_total"] as! Int)
-                      
+                        self.last_30_days_data = lcdata["last_30_days_data"] as! [AnyObject]
+                    }
+                    for data in self.last_30_days_data {
+                        let count = data["count"] as! String
+                        let date = data["date"] as! String
+                        
+                        let df = DateFormatter()
+                        df.dateFormat = "yyyy-MM-dd"
+                        let getdateformate = df.date(from: date)
+                        
+                        let dateformatter2 = DateFormatter()
+                        dateformatter2.dateFormat = "d MMM"
+                        let datestr = dateformatter2.string(from: getdateformate!)
+                        
+                        self.Arr_last_30_days_datavalues.append(count.toDouble()!)
+                        self.xAxisValue.append(datestr)
+                    }
+                    DispatchQueue.main.async {
+                        self.setChart(dataPoints: self.xAxisValue, values: self.Arr_last_30_days_datavalues)
+                        
                     }
                 }
                 break
@@ -370,119 +368,54 @@ class DoctorProfileVc: UIViewController, UIImagePickerControllerDelegate {
             }
         }
     }
-    
-    func getHospital(id : Int)
-    {
-        let Api = Constant.BaseUrl + Constant.getClinic
-        let param = ["loggedin_id" : id]
+    func setChart(dataPoints: [String], values: [Double]) {
         
-        Alamofire.request(Api, method: .post, parameters: param).responseJSON { (resp) in
-            print(resp)
-            
-            switch resp.result
-            {
-            case .success(_):
-                do{
-                   
-                    let json = try JSONDecoder().decode(HospitalData.self, from: resp.data!)
-                    
-                    if json.msg == "success"
-                    {
-                       self.h_listArr = json.hospital
-                        
-                       // self.clinicInfoView.isHidden = false
-                        self.addClinicView.isHidden = true
-                        //self.addClinicSmallView.isHidden = false
-                        self.setHidden(bStatus: false)
-                        
-                        self.collClinic.reloadData()
-                        
-                    }else
-                    {
-                        Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "No Hospital Added")
-                    }
-                    
-                }catch{
-                    Alert.shared.basicalert(vc: self, title: "MeDoc", msg: "\(error.localizedDescription)")
-                }
-                break
-                
-            case .failure(_):
-                break
-                
-            }
-            
+        var dataEntries: [ChartDataEntry] = []
+        
+        for (i,_) in values.enumerated() {
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i],data: dataPoints as AnyObject)
+            dataEntries.append(dataEntry)
         }
-    }
-    
-    @IBAction func btnAddClinic_onclick(_ sender: Any)
-    {
-        let VC1 = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
-        VC1.delegate = self
-        self.present(VC1, animated:true, completion: nil)
+        var chartData = ChartData()
+        var chartDataSet = LineChartDataSet()
+        
+        chartDataSet = LineChartDataSet(values: dataEntries, label: "last 30 days data")
+        chartData = LineChartData(dataSets: [chartDataSet])
+        
+        let gradColors = [UIColor.red.withAlphaComponent(0.7).cgColor, UIColor.orange.cgColor]
+        let colorLocations:[CGFloat] = [0.0, 1.0]
+        if let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradColors as CFArray, locations: colorLocations) {
+            chartDataSet.fill = Fill(linearGradient: gradient, angle: 90.0)
+            chartDataSet.drawFilledEnabled = true
+            chartDataSet.lineDashPhase = 0.5
+        }
+        analysisChart.data = chartData
+        analysisChart.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        analysisChart.leftAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        analysisChart.rightAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
+        chartDataSet.valueFont = UIFont.boldSystemFont(ofSize: 10)
+        
+        let xAxisValue = analysisChart.xAxis
+        xAxisValue.granularityEnabled = true
+        xAxisValue.granularity = 1.0
+        xAxisValue.spaceMin = 0.5
+        xAxisValue.spaceMax = 0.5
+        xAxisValue.labelPosition = .bottom
+        analysisChart.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
+        xAxisValue.valueFormatter = axisFormatDelegate
+        
+        self.analysisChart.notifyDataSetChanged()
+        chartData.notifyDataChanged()
     }
 }
-extension DoctorProfileVc : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
-{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return h_listArr.count
-    }
+extension DoctorProfileVc: IAxisValueFormatter {
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collClinic.dequeueReusableCell(withReuseIdentifier: "getHospitalCell", for: indexPath) as! getHospitalCell
-        
-        let lcdict = h_listArr[indexPath.item]
-        cell.lblClinicNm.text = lcdict.name
-        
-        if lcdict.email != ""
-        {
-             cell.lblClinicEmail.text = lcdict.email
-        }else{
-            cell.lblClinicEmail.text = "not provided"
-        }
-      
-        cell.lblClinicNumber.text = lcdict.contact
-        if lcdict.logo != "NF" && lcdict.logo != ""
-        {
-            let str = "\(self.img_path)\(lcdict.logo!)"
-            let imgUrl = URL(string: str)
-            cell.imgClinicLogo.kf.setImage(with: imgUrl)
-        }else
-        {
-            cell.imgClinicLogo.image = UIImage(named: "AppIcon")
-        }
-        
-        return cell
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return xAxisValue[Int(value) % xAxisValue.count]
     }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-            // return CGSize(width: (self.collPatientList.frame.size.width - 10) / 3, height: 70)
-            return CGSize(width: (self.collClinic.frame.size.width - 30) / 2, height: 150)
-       
-        
-    }
-    
-    //3
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-    }
-    
-    // 4
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
-    }
-    
 }
-extension DoctorProfileVc : AddClinicProtocol
-{
-    func addClinicInprofile() {
-        self.getHospital(id: self.Login_id)
+extension String {
+    func toDouble() -> Double? {
+        return NumberFormatter().number(from: self)?.doubleValue
     }
 }

@@ -2860,7 +2860,6 @@
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hf1-5u-FKq">
                                                 <rect key="frame" x="120" y="45" width="160" height="160"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <state key="normal" image="MedocAppIcon"/>
                                                 <connections>
                                                     <action selector="btnMedocInfo_onclick:" destination="NSc-bN-9kh" eventType="touchUpInside" id="rr9-TZ-Aii"/>
                                                 </connections>
@@ -3006,7 +3005,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BjH-HO-bOw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2484" y="929"/>
+            <point key="canvasLocation" x="2570" y="870"/>
         </scene>
         <!--Add PatientVC-->
         <scene sceneID="Gue-va-Av0">
@@ -3394,7 +3393,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2PR-ZI-7yW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3194" y="929"/>
+            <point key="canvasLocation" x="3279" y="844"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1tn-cb-8gh">

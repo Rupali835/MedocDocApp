@@ -247,7 +247,7 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func btnChartOne_onclick(_ sender: Any)
+    @IBAction func btnChartOne_onclick(_ sender: Any) //show temp
     {
         let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChartAnalysisVC") as! ChartAnalysisVC
         vc.chartValues = self.appendTemp
@@ -255,7 +255,7 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func btnChartTwo_onclick(_ sender: Any)  // show temperature
+    @IBAction func btnChartTwo_onclick(_ sender: Any)  // show blood pressure
     {
         let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "TemperatureGraphVC") as! TemperatureGraphVC
         vc.setChartValue(Months: self.prescDate, xArr: appendvalue, yArr: appendvalue2)
@@ -263,7 +263,7 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
-    @IBAction func btnChartThird_onClick(_ sender: Any)
+    @IBAction func btnChartThird_onClick(_ sender: Any)  // show weight
     {
         let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "thirdGraphVc") as! thirdGraphVc
         vc.chartValues = self.appendWeight

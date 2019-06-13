@@ -66,10 +66,11 @@ class AddClinicVC: UIViewController {
         super.viewDidLoad()
         
         setLayout(textLayout: [txtName, txtaddrs, txtContact, txtWebsite, txtEmail])
+        fieldView.layer.cornerRadius = 5.0
         fieldView.layer.borderWidth = 1.0
         fieldView.layer.borderColor = UIColor(red:0.40, green:0.23, blue:0.72, alpha:1.0).cgColor
 
-        fieldView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
+       // fieldView.roundCorners(corners: [.topLeft, .topRight], radius: 15.0)
 
         let dict = UserDefaults.standard.value(forKey: "userData") as! NSDictionary
 
@@ -80,6 +81,21 @@ class AddClinicVC: UIViewController {
         self.loader.isHidden = true
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        sideMenus()
+    }
+    
+    func sideMenus()
+    {
+        if revealViewController() != nil {
+            
+//            btnBack.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+//            revealViewController().rearViewRevealWidth = 400
+//            revealViewController().rightViewRevealWidth = 180
+//            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
     func setDelegate()
     {
         txtName.delegate = self

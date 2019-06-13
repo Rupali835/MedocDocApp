@@ -26,7 +26,6 @@ class AppointmentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      //  createDatePicker()
         
         collView.delegate = self
         collView.dataSource = self

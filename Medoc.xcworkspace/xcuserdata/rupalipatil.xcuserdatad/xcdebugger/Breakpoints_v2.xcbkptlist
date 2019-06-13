@@ -10,11 +10,29 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Medoc/DOCTOR LOGIN/DoctorVC/AndriodPrescFormVC.swift"
-            timestampString = "581327528.6051379"
+            timestampString = "582039715.5386879"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2733"
-            endingLineNumber = "2733">
+            startingLineNumber = "2741"
+            endingLineNumber = "2741"
+            landmarkName = "AndriodPrescFormVC"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Medoc/DOCTOR LOGIN/DoctorVC/ScannerVC.swift"
+            timestampString = "582102045.919966"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "TakePatientData(patId:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

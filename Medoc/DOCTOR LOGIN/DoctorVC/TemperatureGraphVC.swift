@@ -29,7 +29,6 @@ class TemperatureGraphVC: UIViewController, ChartViewDelegate, IAxisValueFormatt
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
         tempChart.delegate = self
         tempChart.chartDescription?.enabled = false
         tempChart.dragEnabled = true
@@ -62,12 +61,7 @@ class TemperatureGraphVC: UIViewController, ChartViewDelegate, IAxisValueFormatt
         rightAxis.axisMaximum = 900
         rightAxis.axisMinimum = -200
         rightAxis.granularityEnabled = false
-        
-//        sliderX.value = 20
-//        sliderY.value = 30
         tempChart.animate(xAxisDuration: 2.5)
-        
-     //   setDataCount(5, range: 10)
         
     }
     
@@ -81,11 +75,12 @@ class TemperatureGraphVC: UIViewController, ChartViewDelegate, IAxisValueFormatt
     
     func stringForValue(_ value: Double, axis: AxisBase?) -> String
     {
-        return datePresc[Int(value) % datePresc.count]
+        return months[Int(value) % months.count]
     }
     
     override func viewDidAppear(_ animated: Bool)
     {
+        axisFormatDelegate = self
         self.setDataCount(dataPoints : months, value1: self.chartX, value2: self.chartY)
     }
  
@@ -148,18 +143,23 @@ class TemperatureGraphVC: UIViewController, ChartViewDelegate, IAxisValueFormatt
         tempChart.data = data
         
         
-//        let xAxisValue = tempChart.xAxis
-//
-//        tempChart.xAxis.granularityEnabled = true
-//
-//        tempChart.xAxis.granularity = 1.0
-//
-//        tempChart.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
-//
-//        xAxisValue.valueFormatter = axisFormatDelegate
+        let xAxisValue = tempChart.xAxis
+
+        tempChart.xAxis.granularityEnabled = true
+
+        tempChart.xAxis.granularity = 1.0
+
+        xAxisValue.spaceMin = 0.5
+        xAxisValue.spaceMax = 0.5
         tempChart.xAxis.labelPosition = .bottom
         tempChart.xAxis.labelTextColor = UIColor.black
+        
+        tempChart.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
+
+        xAxisValue.valueFormatter = axisFormatDelegate
     
+        self.tempChart.notifyDataSetChanged()
+        data.notifyDataChanged()
     }
     
 

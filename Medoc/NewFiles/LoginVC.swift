@@ -147,7 +147,6 @@ class LoginVC: UIViewController
                     
                 }else{
                     
-                    
                     OperationQueue.main.addOperation {
                         
                         SVProgressHUD.dismiss()
@@ -165,7 +164,6 @@ class LoginVC: UIViewController
                     }
                     
                 }
-                
                 break
                 
             case .failure(_):

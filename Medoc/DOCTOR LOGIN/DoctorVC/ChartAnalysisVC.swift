@@ -59,6 +59,11 @@ class ChartAnalysisVC: UIViewController {
         
         chartOne.xAxis.granularity = 1.0
         
+        xAxisValue.spaceMin = 0.5
+        xAxisValue.spaceMax = 0.5
+        
+        chartOne.xAxis.labelPosition = .bottom
+
         chartOne.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
         
         chartOne.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
@@ -68,11 +73,11 @@ class ChartAnalysisVC: UIViewController {
         chartOne.rightAxis.labelFont = UIFont.boldSystemFont(ofSize: 12)
         
         lineChartDataSet.valueFont = UIFont.boldSystemFont(ofSize: 12)
-        
-        xAxisValue.valueFormatter = axisFormatDelegate
-        chartOne.xAxis.labelPosition = .bottom
         chartOne.xAxis.labelTextColor = UIColor.black
+        xAxisValue.valueFormatter = axisFormatDelegate
         
+        self.chartOne.notifyDataSetChanged()
+        lineChartData.notifyDataChanged()
     }
     
     @IBAction func btnBack_onclick(_ sender: Any)

@@ -59,7 +59,10 @@ class thirdGraphVc: UIViewController, IAxisValueFormatter
         
         graph.xAxis.granularity = 1.0
         
-        graph.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
+        xAxisValue.spaceMin = 0.5
+        xAxisValue.spaceMax = 0.5
+        graph.xAxis.labelPosition = .bottom
+        
         
         graph.xAxis.labelFont = UIFont.boldSystemFont(ofSize: 10)
         
@@ -68,11 +71,14 @@ class thirdGraphVc: UIViewController, IAxisValueFormatter
         graph.rightAxis.labelFont = UIFont.boldSystemFont(ofSize: 12)
         
         lineChartDataSet.valueFont = UIFont.boldSystemFont(ofSize: 12)
-        
-        xAxisValue.valueFormatter = axisFormatDelegate
-        graph.xAxis.labelPosition = .bottom
         graph.xAxis.labelTextColor = UIColor.black
-        
+        graph.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
+
+        xAxisValue.valueFormatter = axisFormatDelegate
+        graph.animate(xAxisDuration: 1.0, easingOption: ChartEasingOption.linear)
+
+        self.graph.notifyDataSetChanged()
+        lineChartData.notifyDataChanged()
     }
     
     @IBAction func btnBack_onclick(_ sender: Any)
