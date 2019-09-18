@@ -177,7 +177,6 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     func sideMenus()
     {
-       
         if revealViewController() != nil {
             
             self.menuBtn.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)

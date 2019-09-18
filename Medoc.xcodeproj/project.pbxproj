@@ -73,7 +73,7 @@
 		5831988B21C22E700068C1AA /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5831988A21C22E700068C1AA /* LoginVC.swift */; };
 		583198AF21C239010068C1AA /* SignUpFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583198AE21C239010068C1AA /* SignUpFormVC.swift */; };
 		583198B121C23AA80068C1AA /* ContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583198B021C23AA80068C1AA /* ContainerVC.swift */; };
-		58348D9221DDD9D7007BE8C2 /* AndriodPrescFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58348D9121DDD9D7007BE8C2 /* AndriodPrescFormVC.swift */; };
+		58348D9221DDD9D7007BE8C2 /* b.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58348D9121DDD9D7007BE8C2 /* b.swift */; };
 		58348D9821DE1DCC007BE8C2 /* CheckboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58348D9721DE1DCB007BE8C2 /* CheckboxButton.swift */; };
 		58348D9A21DE2F3D007BE8C2 /* SignatureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58348D9921DE2F3D007BE8C2 /* SignatureVC.swift */; };
 		585913FD21F89EB000B2ACCD /* NewsFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585913FC21F89EB000B2ACCD /* NewsFeedVC.swift */; };
@@ -321,7 +321,7 @@
 		5831988A21C22E700068C1AA /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		583198AE21C239010068C1AA /* SignUpFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFormVC.swift; sourceTree = "<group>"; };
 		583198B021C23AA80068C1AA /* ContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerVC.swift; sourceTree = "<group>"; };
-		58348D9121DDD9D7007BE8C2 /* AndriodPrescFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndriodPrescFormVC.swift; sourceTree = "<group>"; };
+		58348D9121DDD9D7007BE8C2 /* b.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = b.swift; sourceTree = "<group>"; };
 		58348D9721DE1DCB007BE8C2 /* CheckboxButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckboxButton.swift; sourceTree = "<group>"; };
 		58348D9921DE2F3D007BE8C2 /* SignatureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureVC.swift; sourceTree = "<group>"; };
 		585913FC21F89EB000B2ACCD /* NewsFeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedVC.swift; sourceTree = "<group>"; };
@@ -773,7 +773,7 @@
 				58D9073521C17C4D000A751E /* CPatientEnrtyData.swift */,
 				58E3506321CA485700AAF430 /* SideMenuListVC.swift */,
 				58DF976821CCCB62007AD147 /* cMedicianEntryData.swift */,
-				58348D9121DDD9D7007BE8C2 /* AndriodPrescFormVC.swift */,
+				58348D9121DDD9D7007BE8C2 /* b.swift */,
 				58348D9921DE2F3D007BE8C2 /* SignatureVC.swift */,
 				582DA44521E88E4400B85EF5 /* AddPrescriptionDrawingVC.swift */,
 				582DA44921E8B86300B85EF5 /* AddReportVC.swift */,
@@ -1408,7 +1408,7 @@
 				58CB10CF21E4DDA600745BC9 /* CGRect+Utils.swift in Sources */,
 				58C9925822030F7F00E56C5A /* MKLabel.swift in Sources */,
 				F2D2B2E2228D88CA0014C23B /* ProfileDataModel.swift in Sources */,
-				58348D9221DDD9D7007BE8C2 /* AndriodPrescFormVC.swift in Sources */,
+				58348D9221DDD9D7007BE8C2 /* b.swift in Sources */,
 				581D8DDF220D660A008B3784 /* ChartAnalysisVC.swift in Sources */,
 				587FFC9721FCD54900C2B316 /* DBAttachmentAlertController.m in Sources */,
 				58DF976921CCCB62007AD147 /* cMedicianEntryData.swift in Sources */,

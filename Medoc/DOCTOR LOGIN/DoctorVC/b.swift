@@ -2009,7 +2009,6 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         attachmentPickerController.present(on: self)
     }
     
-    
     func DrawingDocs(docImg: UIImage, doctag: String, doctimeStamp: String) {
         print("")
     }
@@ -2060,21 +2059,24 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
             lcDrawingVC.m_cDrawData = self.m_cDrawData
             self.navigationController?.pushViewController(lcDrawingVC, animated: true)
         }
-        
     }
     
     @IBAction func btnSignature_onClick(_ sender: Any)
     {
         IQKeyboardManager.shared().resignFirstResponder()
 
-      //  view.endEditing(true)
-        UIView.animate(withDuration: 0.5)
-        {
-            self.signatureFormvc.view.frame = self.view.frame
-            self.signatureFormvc.m_cSignDelegate = self
-            self.view.addSubview(self.signatureFormvc.view)
-            self.signatureFormvc.view.clipsToBounds = true
-        }
+        self.signatureFormvc.view.frame = self.view.frame
+        self.signatureFormvc.m_cSignDelegate = self
+        self.view.addSubview(self.signatureFormvc.view)
+        self.signatureFormvc.view.clipsToBounds = true
+        
+//        UIView.animate(withDuration: 0.5)
+//        {
+//            self.signatureFormvc.view.frame = self.view.frame
+//            self.signatureFormvc.m_cSignDelegate = self
+//            self.view.addSubview(self.signatureFormvc.view)
+//            self.signatureFormvc.view.clipsToBounds = true
+//        }
     }
    
   // MARK : DATEPICKER

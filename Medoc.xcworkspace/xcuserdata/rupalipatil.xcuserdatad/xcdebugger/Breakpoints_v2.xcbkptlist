@@ -15,8 +15,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "2741"
             endingLineNumber = "2741"
-            landmarkName = "AndriodPrescFormVC"
-            landmarkType = "21">
+            landmarkName = "addClinicInprofile()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Medoc/DOCTOR LOGIN/DoctorVC/ScannerVC.swift"
-            timestampString = "582102045.919966"
+            filePath = "Medoc/DOCTOR LOGIN/DoctorVC/AndriodPrescFormVC.swift"
+            timestampString = "587294399.069857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "TakePatientData(patId:)"
+            startingLineNumber = "2067"
+            endingLineNumber = "2067"
+            landmarkName = "btnSignature_onClick(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Medoc/DOCTOR LOGIN/DoctorVC/AndriodPrescFormVC.swift"
+            timestampString = "587294414.189579"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2635"
+            endingLineNumber = "2635"
+            landmarkName = "createAlertView(title:txtcheck:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -225,7 +225,6 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
         Alamofire.request(SignupApi, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
             
-            
             switch resp.result
             {
             case .success(_):
@@ -244,8 +243,15 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
                             self.view.removeFromSuperview()
                         }
                     }
-                   
                 }
+                if Msg == "Fail"
+                {
+                    let Error = json["error"] as! String
+                    ZAlertView.init(title: "Medoc", msg: Error, actiontitle: "OK")
+                    {
+                    }
+                }
+                  self.view.activityStopAnimating()
                 break
             case .failure(_):
                 self.view.activityStopAnimating()

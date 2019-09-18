@@ -11,8 +11,10 @@ import Foundation
 struct Constant
 {
    // static let BaseUrl = "http://13.234.38.193/medoc_doctor_api/index.php/API/"
+   
+    static let BaseUrl = "http://ec2-13-234-38-193.ap-south-1.compute.amazonaws.com/medoc_doctor_api/index.php/API/"
     
-    static let BaseUrl = "http://medoc.co.in/medoc_doctor_api/index.php/API/"
+  //  static let BaseUrl = "http://medoc.co.in/medoc_doctor_api/index.php/API/"
     
     static let LoginDoctor = "login"
     static let LogoutDoctor = "logout"

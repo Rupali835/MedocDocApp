@@ -20,7 +20,6 @@ extension UIView{
 //        self.backgroundColor = UIColor.white
         
     }
-
 }
 extension UIView {
     func CornerRadius(objects: [UIView],cornerRadius: CGFloat) {
@@ -58,8 +57,7 @@ extension ZAlertView
         alert.show()
         self.init()
     }
-    
-    
+
 }
 extension UIView {
     func roundCorners(corners: UIRectCorner, radius: CGFloat) {

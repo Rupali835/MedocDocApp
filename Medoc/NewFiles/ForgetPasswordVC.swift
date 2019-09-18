@@ -79,7 +79,8 @@ class ForgetPasswordVC: UIViewController {
                 }
                 if Msg == "fail"
                 {
-                    ZAlertView.init(title: "Medoc", msg: "Your data is not found, Please sign up.", actiontitle: "OK")
+                    let Reason = json["reason"] as! String
+                    ZAlertView.init(title: "Medoc", msg: Reason, actiontitle: "OK")
                     {
                         self.view.removeFromSuperview()
                     }
@@ -91,7 +92,7 @@ class ForgetPasswordVC: UIViewController {
             }
             
         }
-        }
+      }
     }
  
     func valid() -> Bool

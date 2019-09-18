@@ -101,10 +101,11 @@ class ScannerVC: AVScannerViewController
                      ] as [String : Any]
         
         print(param)
+        
         Alamofire.request(PatApi, method: .post, parameters: param).responseJSON { (resp) in
             print(resp)
             
-            
+    
             switch resp.result
             {
             case .success(_):

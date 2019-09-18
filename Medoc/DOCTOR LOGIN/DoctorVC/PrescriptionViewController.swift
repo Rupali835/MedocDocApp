@@ -86,12 +86,10 @@ class PrescriptionViewController: UIViewController {
         
     }
     
-
-    
     @objc func saveAction(){
         if Paintview.image != nil{
             
-          if self.m_bView == false
+            if self.m_bView == false
             {
                 let drawImg = self.Paintview.image
                 self.paintImgArr.append(drawImg!)
@@ -112,12 +110,9 @@ class PrescriptionViewController: UIViewController {
             {
                  openPopupName()
             }
-            
-
         }
     }
 
-    
     func openPopupName()   // For drawing
     {
         
@@ -131,7 +126,7 @@ class PrescriptionViewController: UIViewController {
                 
                 let docNm = txt1.text!
                 
-
+                
                 NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : self.Paintview.image!])
                 
                 let drawImg = self.Paintview.image
@@ -139,16 +134,16 @@ class PrescriptionViewController: UIViewController {
                 
                 let timestamp = Date().toMillis()
                 drawImg?.accessibilityIdentifier = String(describing: timestamp)
-               
+                
                 let lcDrawObj = DrawingArr(cDrawImg: self.Paintview.image!, cDrawTag: docNm, cDrawTimestamp: String(describing: timestamp!))
                 
                 self.m_cDrawData.m_cDrawDataArr.append(lcDrawObj)
                 
-         let lcDrawDataVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddDrawingVC") as! AddDrawingVC
-           
+                let lcDrawDataVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddDrawingVC") as! AddDrawingVC
+                
                 lcDrawDataVC.m_cDrawData = self.m_cDrawData
-          
-            self.navigationController?.pushViewController(lcDrawDataVC, animated: true)
+                
+                self.navigationController?.pushViewController(lcDrawDataVC, animated: true)
                 
                 send.dismissWithDuration(0.5)
                 ZAlertView.hideAnimation = .fadeOut

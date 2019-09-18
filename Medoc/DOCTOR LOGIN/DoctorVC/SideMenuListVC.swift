@@ -153,7 +153,6 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
         case 0:
             let todayPatVc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
              revealViewController().pushFrontViewController(todayPatVc, animated: true)
-            
         
             break
        
