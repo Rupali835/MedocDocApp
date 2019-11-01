@@ -419,8 +419,13 @@ class AddPatientVC: UIViewController, UINavigationControllerDelegate, UIImagePic
                     }
                     
                  
-                    
-                    let vc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
+                    var appstory = AppStoryboard.Main
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        appstory = AppStoryboard.Main
+                    } else {
+                        appstory = AppStoryboard.IphoneMain
+                    }
+                    let vc = appstory.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
                     
                         self.navigationController?.pushViewController(vc, animated: true)
                     

@@ -101,7 +101,13 @@ class PrescriptionViewController: UIViewController {
                 let lcPresObj = PresArr(cPressImg: drawImg!, cTimestamp: String(describing: timestamp!))
               self.m_cPressData.m_cPressDataArr.append(lcPresObj)
                 
-                let prescvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddPrescriptionDrawingVC") as! AddPrescriptionDrawingVC
+                var appstory = AppStoryboard.Doctor
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    appstory = AppStoryboard.Doctor
+                } else {
+                    appstory = AppStoryboard.IphoneDoctor
+                }
+                let prescvc = appstory.instance.instantiateViewController(withIdentifier: "AddPrescriptionDrawingVC") as! AddPrescriptionDrawingVC
                 
               prescvc.m_cPressData = self.m_cPressData
               self.navigationController?.pushViewController(prescvc, animated: true)
@@ -139,7 +145,13 @@ class PrescriptionViewController: UIViewController {
                 
                 self.m_cDrawData.m_cDrawDataArr.append(lcDrawObj)
                 
-                let lcDrawDataVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddDrawingVC") as! AddDrawingVC
+                var appstory = AppStoryboard.Doctor
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    appstory = AppStoryboard.Doctor
+                } else {
+                    appstory = AppStoryboard.IphoneDoctor
+                }
+                let lcDrawDataVC = appstory.instance.instantiateViewController(withIdentifier: "AddDrawingVC") as! AddDrawingVC
                 
                 lcDrawDataVC.m_cDrawData = self.m_cDrawData
                 

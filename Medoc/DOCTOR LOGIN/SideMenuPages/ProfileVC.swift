@@ -154,7 +154,13 @@ class ProfileVC: UIViewController, UITextFieldDelegate
     
     @IBAction func btnEditProfile_onclick(_ sender: Any)
     {
-        let updateVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "UpdateDoctorProfileVC") as! UpdateDoctorProfileVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let updateVc = appstory.instance.instantiateViewController(withIdentifier: "UpdateDoctorProfileVC") as! UpdateDoctorProfileVC
         updateVc.setUpData(cProfileData: self.profileData)
         self.present(updateVc, animated: true, completion: nil)
     }

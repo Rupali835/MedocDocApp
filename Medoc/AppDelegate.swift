@@ -30,10 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         Thread.sleep(forTimeInterval: 2.0)
         let result = UserDefaults.standard.value(forKey: "userData")
         print(result)
+        
         if result != nil {
-           let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+
+            var appstory = AppStoryboard.Main
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Main
+            } else {
+                appstory = AppStoryboard.IphoneMain
+            }
+            let yourVc : SWRevealViewController = appstory.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
             let navigationController = self.window?.rootViewController as! UINavigationController
             navigationController.setViewControllers([yourVc], animated: true)
+            
         }
         
        return true

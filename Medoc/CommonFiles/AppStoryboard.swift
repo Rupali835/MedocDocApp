@@ -5,11 +5,11 @@ import UIKit
 
 enum AppStoryboard : String {
     
-    case Main, Doctor
+    case Main, Doctor, IphoneMain, IphoneDoctor
     
     var instance : UIStoryboard {
         print(self.rawValue)
-        return UIStoryboard(name: self.rawValue, bundle: Bundle.main)
+        return UIStoryboard(name: self.rawValue, bundle: nil)
     }
 }
 

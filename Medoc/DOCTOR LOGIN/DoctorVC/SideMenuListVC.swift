@@ -55,7 +55,13 @@ class SideMenuListVC: UIViewController
     
     @IBAction func btnMedocInfo_onclick(_ sender: Any)
     {
-        let webvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "MedocInfowebVc") as! MedocInfowebVc
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let webvc = appstory.instance.instantiateViewController(withIdentifier: "MedocInfowebVc") as! MedocInfowebVc
        
           revealViewController().pushFrontViewController(webvc, animated: true)
     }
@@ -151,56 +157,111 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
         switch Index
         {
         case 0:
-            let todayPatVc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
+            var appstory = AppStoryboard.Main
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Main
+            } else {
+                appstory = AppStoryboard.IphoneMain
+            }
+            let todayPatVc = appstory.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
              revealViewController().pushFrontViewController(todayPatVc, animated: true)
         
             break
        
     
         case 1:
-            let appointVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AppointmentVC") as! AppointmentVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let appointVc = appstory.instance.instantiateViewController(withIdentifier: "AppointmentVC") as! AppointmentVC
              revealViewController().pushFrontViewController(appointVc, animated: true)
          
             break
         
         case 2:
-            let appointVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "NewsFeedVC") as! NewsFeedVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let appointVc = appstory.instance.instantiateViewController(withIdentifier: "NewsFeedVC") as! NewsFeedVC
             revealViewController().pushFrontViewController(appointVc, animated: true)
             
             break
             
         case 3:
-            let videoVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "VideoListVC") as! VideoListVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let videoVc = appstory.instance.instantiateViewController(withIdentifier: "VideoListVC") as! VideoListVC
             revealViewController().pushFrontViewController(videoVc, animated: true)
             break
             
-       case 4:
-            let profileVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DoctorProfileVc") as! DoctorProfileVc
+        case 4:
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            
+            let profileVc = appstory.instance.instantiateViewController(withIdentifier: "DoctorProfileVc") as! DoctorProfileVc
             revealViewController().pushFrontViewController(profileVc, animated: true)
             break
             
         case 5:  // Add clinic
-            let clinicVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "HospitalListVc") as! HospitalListVc
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let clinicVc = appstory.instance.instantiateViewController(withIdentifier: "HospitalListVc") as! HospitalListVc
            revealViewController().pushFrontViewController(clinicVc, animated: true)
             break
         
         case 6:
-            let aboutusVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AboutUsVC") as! AboutUsVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let aboutusVc = appstory.instance.instantiateViewController(withIdentifier: "AboutUsVC") as! AboutUsVC
             revealViewController().pushFrontViewController(aboutusVc, animated: true)
             break
             
         case 7:
-            let contactVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ContactUsVC") as! ContactUsVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let contactVc = appstory.instance.instantiateViewController(withIdentifier: "ContactUsVC") as! ContactUsVC
           
              revealViewController().pushFrontViewController(contactVc, animated: true)
             
             break
         
 //        case 9:
-//            let purchaseVc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PurchaseLienceVC") as! PurchaseLienceVC
+//            var appstory = AppStoryboard.Doctor
+//            if UIDevice.current.userInterfaceIdiom == .pad {
+//                appstory = AppStoryboard.Doctor
+//            } else {
+//                appstory = AppStoryboard.IphoneDoctor
+//            }
+//            let purchaseVc = appstory.instance.instantiateViewController(withIdentifier: "PurchaseLienceVC") as! PurchaseLienceVC
 //            revealViewController().pushFrontViewController(purchaseVc, animated: true)
 //            break
-            
+//
         case 8:
           
             ZAlertView(title: "Medoc", msg: "Are you sure you want to logout ?", dismisstitle: "No", actiontitle: "Yes")

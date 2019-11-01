@@ -93,9 +93,15 @@ class PatientPrescriptionListVC: UIViewController
     
     override func awakeFromNib()
     {
-        self.cOpenPopup = (AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenPopUpInfoVC") as! OpenPopUpInfoVC)
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        self.cOpenPopup = (appstory.instance.instantiateViewController(withIdentifier: "OpenPopUpInfoVC") as! OpenPopUpInfoVC)
         
-        self.cOpenEmergData = (AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PatientEmergDetailVc") as! PatientEmergDetailVc)
+        self.cOpenEmergData = (appstory.instance.instantiateViewController(withIdentifier: "PatientEmergDetailVc") as! PatientEmergDetailVc)
     }
     
     @IBAction func btnEmrgData_onCick(_ sender: Any)
@@ -236,7 +242,13 @@ class PatientPrescriptionListVC: UIViewController
     
     @IBAction func btnViewMore_onclick(_ sender: Any)
     {
-        let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ViewMoreDetailVC") as! ViewMoreDetailVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let detailvc = appstory.instance.instantiateViewController(withIdentifier: "ViewMoreDetailVC") as! ViewMoreDetailVC
         
         if self.prescList.count != 0
         {
@@ -376,8 +388,13 @@ class PatientPrescriptionListVC: UIViewController
     {
         
         
-        
-        let presvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AndriodPrescFormVC") as! AndriodPrescFormVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let presvc = appstory.instance.instantiateViewController(withIdentifier: "AndriodPrescFormVC") as! AndriodPrescFormVC
         
             presvc.PatientdataFromBack = PatientDict
         
@@ -573,7 +590,13 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
         
         if collectionView == collPrescriptionList
         {
-            let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let detailvc = appstory.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
             
             let lcdict = self.prescList[indexPath.row]
           //  detailvc.PatientInfo = lcdict as! [String : Any]
@@ -591,7 +614,13 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
             let Img = lcdict["dataName"] as! String
             let ImgPath = image_path + Img
             
-            let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let vc = appstory.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
             
             vc.image_name = ImgPath
             self.navigationController?.pushViewController(vc, animated: true)
@@ -600,7 +629,13 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
         
         if collectionView == collDrawings
         {
-             let detailvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+             let detailvc = appstory.instance.instantiateViewController(withIdentifier: "DetailPrescriptionVC") as! DetailPrescriptionVC
             
             let lcdict = self.DrawingArr[indexPath.row]
             print(lcdict)

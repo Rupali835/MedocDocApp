@@ -29,15 +29,20 @@ class ContainerVC: UIViewController {
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        
-        self.loginvc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC
+        var appstory = AppStoryboard.Main
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Main
+        } else {
+            appstory = AppStoryboard.IphoneMain
+        }
+        self.loginvc = appstory.instance.instantiateViewController(withIdentifier: "LoginVC") as? LoginVC
         self.loginvc.initilize(cContainerVC: self)
         self.didMove(toParent: self)
         
-        self.signupvc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SignUpFormVC") as? SignUpFormVC
+        self.signupvc = appstory.instance.instantiateViewController(withIdentifier: "SignUpFormVC") as? SignUpFormVC
         self.signupvc.initilize(cContainervc: self)
         
-        self.passwordvc = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "ForgetPasswordVC") as? ForgetPasswordVC
+        self.passwordvc = appstory.instance.instantiateViewController(withIdentifier: "ForgetPasswordVC") as? ForgetPasswordVC
         self.passwordvc.initilize(cContainervc: self)
         
         

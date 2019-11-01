@@ -124,7 +124,13 @@ class ScannerVC: AVScannerViewController
                 if Msg == "success"
                 {
                     self.toast.isShow("Existing patient is added")
-                    let patientList = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
+                    var appstory = AppStoryboard.Main
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        appstory = AppStoryboard.Main
+                    } else {
+                        appstory = AppStoryboard.IphoneMain
+                    }
+                    let patientList = appstory.instance.instantiateViewController(withIdentifier: "PatientListVC") as! PatientListVC
                     self.m_dPatient.callAddPatientApi()
                    self.navigationController?.popViewController(animated: true)
                 }

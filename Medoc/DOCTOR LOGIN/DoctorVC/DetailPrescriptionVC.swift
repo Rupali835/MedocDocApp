@@ -505,7 +505,13 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
                 let Img = lcdict["dataName"] as! String
                 let ImgPath = image_path + Img
                
-               let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+                var appstory = AppStoryboard.Doctor
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    appstory = AppStoryboard.Doctor
+                } else {
+                    appstory = AppStoryboard.IphoneDoctor
+                }
+               let vc = appstory.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
                 
                 vc.image_name = ImgPath
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -522,7 +528,13 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
                 let Img = lcdict["dataName"] as! String
                 let ImgPath = image_path + Img
                 
-                let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+                var appstory = AppStoryboard.Doctor
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    appstory = AppStoryboard.Doctor
+                } else {
+                    appstory = AppStoryboard.IphoneDoctor
+                }
+                let vc = appstory.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
                 
                 vc.image_name = ImgPath
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -539,7 +551,13 @@ extension DetailPrescriptionVC : UICollectionViewDelegate, UICollectionViewDataS
                 let Img = lcdict["dataName"] as! String
                 let ImgPath = image_path + Img
                
-                let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
+                var appstory = AppStoryboard.Doctor
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    appstory = AppStoryboard.Doctor
+                } else {
+                    appstory = AppStoryboard.IphoneDoctor
+                }
+                let vc = appstory.instance.instantiateViewController(withIdentifier: "OpenImageInWeb") as! OpenImageInWeb
                 
                 vc.image_name = ImgPath
                 self.navigationController?.pushViewController(vc, animated: true)

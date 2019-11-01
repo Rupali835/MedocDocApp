@@ -122,18 +122,29 @@ class LoginVC: UIViewController
 //                    if launchedBefore          //true
 //                    {
           //              print("Not first launch.")
-                        
-                        let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+                        var appstory = AppStoryboard.Main
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            appstory = AppStoryboard.Main
+                        } else {
+                            appstory = AppStoryboard.IphoneMain
+                        }
+                        let yourVc : SWRevealViewController = appstory.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
                         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         let navigationController = appDelegate.window!.rootViewController as! UINavigationController
                         navigationController.setViewControllers([yourVc], animated: true)
-//                    }
+                   // }
 //                    else                       //false
 //                    {
+//                        var appstory = AppStoryboard.Main
+//                        if UIDevice.current.userInterfaceIdiom == .pad {
+//                            appstory = AppStoryboard.Main
+//                        } else {
+//                            appstory = AppStoryboard.IphoneMain
+//                        }
 //                        print("First launch, setting UserDefault.")
 //                        UserDefaults.standard.set(true, forKey: "launchedBefore")
 //
-//                        let yourVc : TutorialVC = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "TutorialVC") as! TutorialVC
+//                        let yourVc : TutorialVC = appstory.instance.instantiateViewController(withIdentifier: "TutorialVC") as! TutorialVC
 //                        let appDelegate = UIApplication.shared.delegate as! AppDelegate
 //                        let navigationController = appDelegate.window!.rootViewController as! UINavigationController
 //                        navigationController.setViewControllers([yourVc], animated: true)

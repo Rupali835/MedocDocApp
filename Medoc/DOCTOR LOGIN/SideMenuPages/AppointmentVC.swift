@@ -156,7 +156,13 @@ extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         let lcdict = self.patientList[indexPath.row]
-        let presclistvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PatientPrescriptionListVC") as! PatientPrescriptionListVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let presclistvc = appstory.instance.instantiateViewController(withIdentifier: "PatientPrescriptionListVC") as! PatientPrescriptionListVC
         presclistvc.viewFromAppoinment = true
         presclistvc.dataFromAppoinment = lcdict as! [String : Any]
         self.navigationController?.pushViewController(presclistvc, animated: true)

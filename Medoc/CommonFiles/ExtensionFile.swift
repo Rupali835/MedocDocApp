@@ -92,7 +92,13 @@ extension UIView {
 //
 //        dialog.addButton("Add Sketch", font: UIFont.systemFont(ofSize: 27), color: backColor, titleColor: UIColor.black) { (altview) in
 //            altview.dismissAlertView()
-//            let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
+//            var appstory = AppStoryboard.Doctor
+//            if UIDevice.current.userInterfaceIdiom == .pad {
+//                appstory = AppStoryboard.Doctor
+//            } else {
+//                appstory = AppStoryboard.IphoneDoctor
+//            }
+//            let vc = appstory.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
 //            vc.m_cPaintDocsdelegate = self
 //            self.present(vc, animated: true, completion: nil)
 //        }

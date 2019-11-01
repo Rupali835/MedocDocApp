@@ -116,7 +116,13 @@ class PatientPrescriptionVC: UIViewController, UITextViewDelegate, UITextFieldDe
     
     @IBAction func btnAddPrescription_onClick(_ sender: Any)
     {
-        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let vc = appstory.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
         present(vc, animated: true, completion: nil)
       
     }

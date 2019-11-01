@@ -249,7 +249,13 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
     
     @IBAction func btnChartOne_onclick(_ sender: Any) //show temp
     {
-        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ChartAnalysisVC") as! ChartAnalysisVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let vc = appstory.instance.instantiateViewController(withIdentifier: "ChartAnalysisVC") as! ChartAnalysisVC
         vc.chartValues = self.appendTemp
         vc.months = self.prescDate
         self.navigationController?.pushViewController(vc, animated: true)
@@ -257,7 +263,13 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
     
     @IBAction func btnChartTwo_onclick(_ sender: Any)  // show blood pressure
     {
-        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "TemperatureGraphVC") as! TemperatureGraphVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let vc = appstory.instance.instantiateViewController(withIdentifier: "TemperatureGraphVC") as! TemperatureGraphVC
         vc.setChartValue(Months: self.prescDate, xArr: appendvalue, yArr: appendvalue2)
     
         self.navigationController?.pushViewController(vc, animated: true)
@@ -265,7 +277,13 @@ class ViewMoreDetailVC: UIViewController, IAxisValueFormatter, ChartViewDelegate
 
     @IBAction func btnChartThird_onClick(_ sender: Any)  // show weight
     {
-        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "thirdGraphVc") as! thirdGraphVc
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let vc = appstory.instance.instantiateViewController(withIdentifier: "thirdGraphVc") as! thirdGraphVc
         vc.chartValues = self.appendWeight
         vc.months = self.weightDate
         self.navigationController?.pushViewController(vc, animated: true)

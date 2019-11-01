@@ -97,7 +97,13 @@ class PatientListVC: UIViewController, AddPatientProtocol
                  UserDefaults.standard.set(true, forKey: "launchedBefore")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2)
                 {
-                    let clinicvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
+                    var appstory = AppStoryboard.Doctor
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        appstory = AppStoryboard.Doctor
+                    } else {
+                        appstory = AppStoryboard.IphoneDoctor
+                    }
+                    let clinicvc = appstory.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
                     self.present(clinicvc, animated: true, completion: nil)
                 }
             }
@@ -166,7 +172,13 @@ class PatientListVC: UIViewController, AddPatientProtocol
     }
     
     override func awakeFromNib() {
-        self.addPatientVc = (AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "AddPatientVC") as! AddPatientVC)
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        self.addPatientVc = (appstory.instance.instantiateViewController(withIdentifier: "AddPatientVC") as! AddPatientVC)
         
       
     }
@@ -300,7 +312,13 @@ class PatientListVC: UIViewController, AddPatientProtocol
     @IBAction func btnScanQR_onclick(_ sender: Any)
     {
         popUp.dismiss(true)
-        let scanvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ScannerVC") as! ScannerVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let scanvc = appstory.instance.instantiateViewController(withIdentifier: "ScannerVC") as! ScannerVC
         scanvc.m_dPatient = self
         self.navigationController?.pushViewController(scanvc, animated: true)
     }
@@ -623,7 +641,13 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     @objc func openUrlOnWeb(sender: UIButton)
     {
-        let newsweb = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "newsFeedWebViewVC") as! newsFeedWebViewVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let newsweb = appstory.instance.instantiateViewController(withIdentifier: "newsFeedWebViewVC") as! newsFeedWebViewVC
        
         let nIndex = sender.tag
         
@@ -720,7 +744,13 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource, 
     {
         if collectionView == collPatientList
         {
-            let prescvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PatientPrescriptionListVC") as! PatientPrescriptionListVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let prescvc = appstory.instance.instantiateViewController(withIdentifier: "PatientPrescriptionListVC") as! PatientPrescriptionListVC
             let lcdict = self.PatientArr[indexPath.row]
             
             UserDefaults.standard.set(lcdict, forKey: "PatientDict")

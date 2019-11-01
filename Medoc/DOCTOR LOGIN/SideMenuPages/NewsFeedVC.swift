@@ -101,7 +101,13 @@ class NewsFeedVC: UIViewController
     
     @objc func OpenWeb(sender : UIButton)
     {
-        let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "newsFeedWebViewVC") as! newsFeedWebViewVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let vc = appstory.instance.instantiateViewController(withIdentifier: "newsFeedWebViewVC") as! newsFeedWebViewVC
         
         let lcPointInTable = sender.convert(sender.bounds.origin, to: self.collNews)
         let lcIndexPath = self.collNews.indexPathForItem(at: lcPointInTable)

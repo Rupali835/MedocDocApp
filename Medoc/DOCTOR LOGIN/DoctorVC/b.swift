@@ -736,8 +736,15 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         }
     }
     
-   override func awakeFromNib() {
-        self.signatureFormvc = (AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "SignatureVC") as! SignatureVC)
+    override func awakeFromNib() {
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+    
+        self.signatureFormvc = (appstory.instance.instantiateViewController(withIdentifier: "SignatureVC") as! SignatureVC)
     }
     
     func setBtnView()
@@ -1647,7 +1654,13 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         
         if self.h_listArr.count == 0
         {
-            let vc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let vc = appstory.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
             return false
@@ -1961,8 +1974,14 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         {
          self.TakePhoto()
         }else{
-            let reportvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddReportVC") as! AddReportVC
-         reportvc.m_cReportData = self.m_cReportData
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let reportvc = appstory.instance.instantiateViewController(withIdentifier: "AddReportVC") as! AddReportVC
+            reportvc.m_cReportData = self.m_cReportData
             reportvc.m_cReportDelegate = self
             self.navigationController?.pushViewController(reportvc, animated: true)
         }
@@ -1985,7 +2004,13 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
                     let timestamp = Date().toMillis()
                     image?.accessibilityIdentifier = String(describing: timestamp)
     
-              let lcReportVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddReportVC") as! AddReportVC
+                    var appstory = AppStoryboard.Doctor
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        appstory = AppStoryboard.Doctor
+                    } else {
+                        appstory = AppStoryboard.IphoneDoctor
+                    }
+              let lcReportVC = appstory.instance.instantiateViewController(withIdentifier: "AddReportVC") as! AddReportVC
                 
                     let lcReport = ReportImageArr(cReport_img: image!, cReport_timestmp: String(describing: timestamp!), cReport_tag: self.fileName!)
                     
@@ -2019,7 +2044,13 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
     
     func ShowAddPrescriptionVC(bFrom: Bool)
     {
-        let Presvc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let Presvc = appstory.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
         Presvc.m_bView = bFrom
         Presvc.m_cPaintDocsdelegate = self
         
@@ -2040,7 +2071,13 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         }
         else
         {
-          let lcAddPrescriptionDrawingVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddPrescriptionDrawingVC") as! AddPrescriptionDrawingVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+          let lcAddPrescriptionDrawingVC = appstory.instance.instantiateViewController(withIdentifier: "AddPrescriptionDrawingVC") as! AddPrescriptionDrawingVC
            
             lcAddPrescriptionDrawingVC.m_cDrawimg = self
             lcAddPrescriptionDrawingVC.m_cPressData = self.m_cPressData
@@ -2055,7 +2092,13 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         {
             self.ShowAddPrescriptionVC(bFrom: true)
         }else{
-            let lcDrawingVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddDrawingVC") as! AddDrawingVC
+            var appstory = AppStoryboard.Doctor
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                appstory = AppStoryboard.Doctor
+            } else {
+                appstory = AppStoryboard.IphoneDoctor
+            }
+            let lcDrawingVC = appstory.instance.instantiateViewController(withIdentifier: "AddDrawingVC") as! AddDrawingVC
             lcDrawingVC.m_cDrawData = self.m_cDrawData
             self.navigationController?.pushViewController(lcDrawingVC, animated: true)
         }

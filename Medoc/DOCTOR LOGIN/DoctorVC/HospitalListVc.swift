@@ -34,7 +34,13 @@ class HospitalListVc: UIViewController {
     
     @IBAction func btnAddClinic_onclick(_ sender: Any)
     {
-        let VC1 = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let VC1 = appstory.instance.instantiateViewController(withIdentifier: "AddClinicVC") as! AddClinicVC
         VC1.delegate = self
         self.present(VC1, animated:true, completion: nil)
     }

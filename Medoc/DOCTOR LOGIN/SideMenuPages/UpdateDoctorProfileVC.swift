@@ -206,23 +206,31 @@ class UpdateDoctorProfileVC: UIViewController, UITextFieldDelegate
                         print("Response : ",JSON)
                         
                         let Msg = JSON["msg"] as! String
+
+                        var appstory = AppStoryboard.Doctor
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            appstory = AppStoryboard.Doctor
+                        } else {
+                            appstory = AppStoryboard.IphoneDoctor
+                        }
+                        
                         if Msg == "success"
                         {
-                            let profilevc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+                            let profilevc = appstory.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
                             
                             self.present(profilevc, animated: true, completion: nil)
                             
                         }else if Msg == "fail"
                         {
                             self.toast.isShow("Image not uploaded")
-                           let profilevc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+                           let profilevc = appstory.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
                                 
                         self.present(profilevc, animated: true, completion: nil)
                             
                         }else
                         {
                              self.toast.isShow("Something went wrong")
-                            let profilevc = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
+                            let profilevc = appstory.instance.instantiateViewController(withIdentifier: "ProfileVC") as! ProfileVC
                             
                             self.present(profilevc, animated: true, completion: nil)
                         }

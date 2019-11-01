@@ -90,7 +90,13 @@ class AddPrescriptionDrawingVC: UIViewController, PaintDocsDelegate {
     
   @IBAction func btnAddPresImg_onclick(_ sender: Any)
     {
-        let lcPrescriptionVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let lcPrescriptionVC = appstory.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
         lcPrescriptionVC.m_cPaintDocsdelegate = self
          lcPrescriptionVC.m_cPressData = self.m_cPressData
         self.navigationController?.pushViewController(lcPrescriptionVC, animated: true)

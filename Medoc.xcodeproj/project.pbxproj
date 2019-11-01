@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C7848D6236C36F3007B5077 /* IphoneMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7848D5236C36F3007B5077 /* IphoneMain.storyboard */; };
+		1C7848D8236C3D52007B5077 /* IphoneDoctor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7848D7236C3D52007B5077 /* IphoneDoctor.storyboard */; };
 		3BA92C4C21B00E5E008D85DB /* ExtensionFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */; };
 		3BA92C6021B00E5E008D85DB /* DLRadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2321B00E5E008D85DB /* DLRadioButton.m */; };
 		3BA92C6121B00E5E008D85DB /* SPKeyBoardAvoiding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA92C2421B00E5E008D85DB /* SPKeyBoardAvoiding.swift */; };
@@ -229,6 +231,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1C7848D5236C36F3007B5077 /* IphoneMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IphoneMain.storyboard; sourceTree = "<group>"; };
+		1C7848D7236C3D52007B5077 /* IphoneDoctor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = IphoneDoctor.storyboard; sourceTree = "<group>"; };
 		3B73761F21AEB3FD000EC50E /* Medoc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Medoc.entitlements; sourceTree = "<group>"; };
 		3BA92BE521B00E5D008D85DB /* ExtensionFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionFile.swift; sourceTree = "<group>"; };
 		3BA92C2321B00E5E008D85DB /* DLRadioButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLRadioButton.m; sourceTree = "<group>"; };
@@ -620,7 +624,6 @@
 				5868516B21C8DA3600D3BE39 /* SideMenuPages */,
 				5877BE1821B7BB580001328A /* DoctorCell */,
 				5877BE1721B7BB4D0001328A /* DoctorVC */,
-				3BA92C4821B00E5E008D85DB /* Doctor.storyboard */,
 			);
 			path = "DOCTOR LOGIN";
 			sourceTree = "<group>";
@@ -658,12 +661,15 @@
 				3BF823D421AD7A31004C92E5 /* AppDelegate.swift */,
 				3BF823D621AD7A31004C92E5 /* ViewController.swift */,
 				3BA92C7E21B0103E008D85DB /* Main.storyboard */,
+				3BA92C4821B00E5E008D85DB /* Doctor.storyboard */,
 				3BF823DE21AD7A3F004C92E5 /* Assets.xcassets */,
 				3BF823E021AD7A3F004C92E5 /* LaunchScreen.storyboard */,
 				3BF823E321AD7A3F004C92E5 /* Info.plist */,
 				3BF823ED21AE7288004C92E5 /* GoogleService-Info.plist */,
 				3BF823DB21AD7A32004C92E5 /* Medoc.xcdatamodeld */,
 				3BA92C8121B01455008D85DB /* Medoc-Bridging-Header.h */,
+				1C7848D5236C36F3007B5077 /* IphoneMain.storyboard */,
+				1C7848D7236C3D52007B5077 /* IphoneDoctor.storyboard */,
 			);
 			path = Medoc;
 			sourceTree = "<group>";
@@ -1220,12 +1226,14 @@
 				58CB10DC21E4DDA600745BC9 /* flash.png in Resources */,
 				587FFC9221FCD54900C2B316 /* DBAssetGroupsViewController.xib in Resources */,
 				587FFC9C21FCD54900C2B316 /* DBAttachmentPickerController.stringsdict in Resources */,
+				1C7848D8236C3D52007B5077 /* IphoneDoctor.storyboard in Resources */,
 				587FFC9B21FCD54900C2B316 /* DBAttachmentPickerController.strings in Resources */,
 				58CB10E421E4DDA600745BC9 /* enhance.png in Resources */,
 				587FFC9321FCD54900C2B316 /* DBAssetItemsViewController.xib in Resources */,
 				587FFC8E21FCD54900C2B316 /* DBThumbnailPhotoCell.xib in Resources */,
 				58CB10C521E4DDA600745BC9 /* Localizable.strings in Resources */,
 				58CB10E221E4DDA600745BC9 /* enhance@3x.png in Resources */,
+				1C7848D6236C36F3007B5077 /* IphoneMain.storyboard in Resources */,
 				58CB10E621E4DDA600745BC9 /* Info.plist in Resources */,
 				58CB10DD21E4DDA600745BC9 /* flash@2x.png in Resources */,
 				3BF823EE21AE7289004C92E5 /* GoogleService-Info.plist in Resources */,
@@ -1776,7 +1784,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1851,7 +1859,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Medoc/Medoc-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

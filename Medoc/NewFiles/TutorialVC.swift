@@ -47,7 +47,13 @@ class TutorialVC: UIViewController
     
     @IBAction func btnSkip_onclick(_ sender: Any)
     {
-        let yourVc : SWRevealViewController = AppStoryboard.Main.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
+        var appstory = AppStoryboard.Main
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Main
+        } else {
+            appstory = AppStoryboard.IphoneMain
+        }
+        let yourVc : SWRevealViewController = appstory.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let navigationController = appDelegate.window!.rootViewController as! UINavigationController
         navigationController.setViewControllers([yourVc], animated: true)

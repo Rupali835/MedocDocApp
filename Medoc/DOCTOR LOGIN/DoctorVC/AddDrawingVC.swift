@@ -96,7 +96,13 @@ class AddDrawingVC: UIViewController, PaintDocsDelegate
     
     @IBAction func btnDrawing_onclick(_ sender: Any)
     {
-        let lcPrescriptionViewControllerVC = AppStoryboard.Doctor.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
+        var appstory = AppStoryboard.Doctor
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            appstory = AppStoryboard.Doctor
+        } else {
+            appstory = AppStoryboard.IphoneDoctor
+        }
+        let lcPrescriptionViewControllerVC = appstory.instance.instantiateViewController(withIdentifier: "PrescriptionViewController") as! PrescriptionViewController
         lcPrescriptionViewControllerVC.m_cPaintDocsdelegate = self
         lcPrescriptionViewControllerVC.m_bView = true
         lcPrescriptionViewControllerVC.m_cDrawData = self.m_cDrawData
