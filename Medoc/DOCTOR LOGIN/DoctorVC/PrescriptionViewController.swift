@@ -87,11 +87,11 @@ class PrescriptionViewController: UIViewController {
     }
     
     @objc func saveAction(){
-        if Paintview.image != nil{
+        if Paintview.paintimage != nil{
             
             if self.m_bView == false
             {
-                let drawImg = self.Paintview.image
+                let drawImg = self.Paintview.paintimage
                 self.paintImgArr.append(drawImg!)
                 
                 
@@ -127,15 +127,15 @@ class PrescriptionViewController: UIViewController {
                 let docNm = txt1.text!
                 
                 
-                NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : self.Paintview.image!])
+                NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : self.Paintview.paintimage!])
                 
-                let drawImg = self.Paintview.image
+                let drawImg = self.Paintview.paintimage
                 self.paintImgArr.append(drawImg!)
                 
                 let timestamp = Date().toMillis()
                 drawImg?.accessibilityIdentifier = String(describing: timestamp)
                 
-                let lcDrawObj = DrawingArr(cDrawImg: self.Paintview.image!, cDrawTag: docNm, cDrawTimestamp: String(describing: timestamp!))
+                let lcDrawObj = DrawingArr(cDrawImg: self.Paintview.paintimage!, cDrawTag: docNm, cDrawTimestamp: String(describing: timestamp!))
                 
                 self.m_cDrawData.m_cDrawDataArr.append(lcDrawObj)
                 
@@ -283,7 +283,7 @@ class PrescriptionViewController: UIViewController {
 }
 extension UIView {
     
-    var image: UIImage? {
+    var paintimage: UIImage? {
         let renderer = UIGraphicsImageRenderer(bounds: bounds)
     
         return renderer.image { rendererContext in layer.render(in: rendererContext.cgContext)

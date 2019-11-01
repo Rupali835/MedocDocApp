@@ -90,12 +90,12 @@ class SignatureVC: UIViewController
     
     @objc func DoneForm()
     {
-        if PaintView.image != nil{
-            NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : PaintView.image!])
+        if PaintView.paintimage != nil{
+            NotificationCenter.default.post(name: NSNotification.Name("addImage"), object: self, userInfo: ["image" : PaintView.paintimage!])
             
-            let drawImg = PaintView.image
+            let drawImg = PaintView.paintimage
             
-            let imgnm = PaintView.image?.accessibilityIdentifier = "sign_imageNm"
+            let imgnm = PaintView.paintimage?.accessibilityIdentifier = "sign_imageNm"
 
             print(imgnm)
             

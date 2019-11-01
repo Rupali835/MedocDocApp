@@ -11,11 +11,11 @@ import AVFoundation
 
 final class ZoomGestureController {
     
-    private let image: UIImage
+    private let image1: UIImage
     private let quadView: QuadrilateralView
     
     init(image: UIImage, quadView: QuadrilateralView) {
-        self.image = image
+        self.image1 = image
         self.quadView = quadView
     }
     
@@ -48,9 +48,9 @@ final class ZoomGestureController {
         self.previousPanPosition = position
         self.closestCorner = closestCorner
         
-        let scale = image.size.width / quadView.bounds.size.width
+        let scale = image1.size.width / quadView.bounds.size.width
         let scaledDraggedCornerViewCenter = CGPoint(x: draggedCornerViewCenter.x * scale, y: draggedCornerViewCenter.y * scale)
-        guard let zoomedImage = image.scaledImage(atPoint: scaledDraggedCornerViewCenter, scaleFactor: 2.5, targetSize: quadView.bounds.size) else {
+        guard let zoomedImage = image1.scaledImage(atPoint: scaledDraggedCornerViewCenter, scaleFactor: 2.5, targetSize: quadView.bounds.size) else {
             return
         }
         
