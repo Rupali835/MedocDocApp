@@ -32,8 +32,13 @@ class MedocInfowebVc: UIViewController {
         if revealViewController() != nil {
             
             self.backview.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            revealViewController().rearViewRevealWidth = 400
-            revealViewController().rightViewRevealWidth = 180
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                revealViewController().rearViewRevealWidth = 400
+                revealViewController().rightViewRevealWidth = 180
+            } else {
+                revealViewController().rearViewRevealWidth = 260
+                revealViewController().rightViewRevealWidth = 180
+            }
         }
     }
     

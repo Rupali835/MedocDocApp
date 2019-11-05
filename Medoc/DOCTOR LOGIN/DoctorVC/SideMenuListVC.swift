@@ -261,7 +261,7 @@ extension SideMenuListVC : UITableViewDelegate, UITableViewDataSource
 //            let purchaseVc = appstory.instance.instantiateViewController(withIdentifier: "PurchaseLienceVC") as! PurchaseLienceVC
 //            revealViewController().pushFrontViewController(purchaseVc, animated: true)
 //            break
-//
+
         case 8:
           
             ZAlertView(title: "Medoc", msg: "Are you sure you want to logout ?", dismisstitle: "No", actiontitle: "Yes")

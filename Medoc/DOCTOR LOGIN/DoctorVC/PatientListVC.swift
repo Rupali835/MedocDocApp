@@ -172,11 +172,11 @@ class PatientListVC: UIViewController, AddPatientProtocol
     }
     
     override func awakeFromNib() {
-        var appstory = AppStoryboard.Doctor
+        var appstory = AppStoryboard.Main
         if UIDevice.current.userInterfaceIdiom == .pad {
-            appstory = AppStoryboard.Doctor
+            appstory = AppStoryboard.Main
         } else {
-            appstory = AppStoryboard.IphoneDoctor
+            appstory = AppStoryboard.IphoneMain
         }
         self.addPatientVc = (appstory.instance.instantiateViewController(withIdentifier: "AddPatientVC") as! AddPatientVC)
         
@@ -192,8 +192,14 @@ class PatientListVC: UIViewController, AddPatientProtocol
         if revealViewController() != nil {
             
             self.menuBtn.addTarget(revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            revealViewController().rearViewRevealWidth = 400
-            revealViewController().rightViewRevealWidth = 180
+            
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                revealViewController().rearViewRevealWidth = 400
+                revealViewController().rightViewRevealWidth = 180
+            } else {
+                revealViewController().rearViewRevealWidth = 260
+                revealViewController().rightViewRevealWidth = 180
+            }
         }
     }
 
@@ -770,10 +776,18 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource, 
         if collectionView == collPatientList
         {
             // return CGSize(width: (self.collPatientList.frame.size.width - 10) / 3, height: 70)
-             return CGSize(width: (self.collPatientList.frame.size.width - 30) / 2, height: 70)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return CGSize(width: (self.collPatientList.frame.size.width - 30) / 2, height: 70)
+            } else {
+                return CGSize(width: (self.collPatientList.frame.size.width - 30), height: 70)
+            }
         }else
         {
-             return CGSize(width: (self.newsCollection.frame.size.width) / 2, height: self.newsCollection.frame.height)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                return CGSize(width: (self.newsCollection.frame.size.width) / 2, height: self.newsCollection.frame.height)
+            } else {
+                return CGSize(width: (self.newsCollection.frame.size.width), height: self.newsCollection.frame.height)
+            }
         }
       
     }
@@ -782,6 +796,9 @@ extension PatientListVC : UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
         return UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
     }
     

@@ -57,9 +57,9 @@ class SignUpFormVC: UIViewController,UIImagePickerControllerDelegate,UINavigatio
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        btnProfileImg.layer.cornerRadius = 110.0
-        imgpic.layer.cornerRadius = 110.0
-        imgview.layer.cornerRadius = 110.0
+        btnProfileImg.layer.cornerRadius = btnProfileImg.frame.width / 2
+        imgpic.layer.cornerRadius = imgpic.frame.width / 2
+        imgview.layer.cornerRadius = imgview.frame.width / 2
         btnProfileImg.clipsToBounds = true
     }
     
