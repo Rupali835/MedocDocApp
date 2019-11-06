@@ -180,6 +180,9 @@ extension NewsFeedVC : UICollectionViewDelegate, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return CGSize(width: (self.collNews.frame.size.width), height: (self.collNews.frame.size.width))
+        }
            return CGSize(width: ((self.collNews.frame.size.width) / 3) - (10+5), height: (self.collNews.frame.size.width) / 3)
        }
     

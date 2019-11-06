@@ -182,7 +182,9 @@ extension AppointmentVC : UICollectionViewDelegate, UICollectionViewDataSource, 
         //2
 
       //  return CGSize(width: UIScreen.main.bounds.size.width/2, height: 100)
-        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return CGSize(width: (self.collView.frame.size.width - 30), height: 100)
+        }
         return CGSize(width: (self.collView.frame.size.width - 30) / 2, height: 100)
     }
     

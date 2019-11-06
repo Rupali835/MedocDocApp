@@ -280,8 +280,7 @@ class PatientListVC: UIViewController, AddPatientProtocol
     
     @IBAction func btnInfoOne_onClick(_ sender: Any)
     {
-//        if btnTotalPatient.tag == 1
-//        {
+        
             ZAlertView.init(title: "Medoc", msg: "Addition of \"New Patients\", \"Existing Patient\" and \"Repeated Patients\"", actiontitle: "OK")
             {
                 print("")

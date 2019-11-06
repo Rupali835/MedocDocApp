@@ -48,7 +48,7 @@ import UIKit
     static let ButtonHeight: CGFloat          = 60
     static let ButtonSectionExtraGap: CGFloat = 12
     static let TextFieldHeight: CGFloat       = 60
-    static let AlertWidth: CGFloat            = 430
+    static let AlertWidth: CGFloat            = 280
     static let AlertHeight: CGFloat           = 200
     static let BackgroundAlpha: CGFloat       = 0.5
     
