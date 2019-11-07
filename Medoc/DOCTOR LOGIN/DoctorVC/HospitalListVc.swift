@@ -103,7 +103,7 @@ class HospitalListVc: UIViewController {
         }
     }
 }
-extension HospitalListVc : UICollectionViewDelegate, UICollectionViewDataSource
+extension HospitalListVc : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return h_listArr.count
@@ -135,6 +135,12 @@ extension HospitalListVc : UICollectionViewDelegate, UICollectionViewDataSource
         }
         
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            return CGSize(width: collectionView.frame.size.width, height: 450)
+        }
+        return CGSize(width: collectionView.frame.size.width / 2 - 10, height: 450)
     }
 }
 extension HospitalListVc : AddClinicProtocol
