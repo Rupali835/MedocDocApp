@@ -15,4 +15,7 @@ class PatientPrescriptionListCell: UICollectionViewCell {
     @IBOutlet weak var lblPatproblem: UILabel!
     
     @IBOutlet weak var lblDate: UILabel!
+    
+    @IBOutlet weak var lblAddedBy: UILabel!
+
 }

@@ -23,6 +23,7 @@ class ScannerVC: AVScannerViewController
     
     let cryptLib = CryptLib()
     var m_dPatient : AddPatientProtocol!
+    @IBOutlet var topview: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class ScannerVC: AVScannerViewController
         
         self.loginID = (dict["id"] as? Int)!
         
-    
+        view.bringSubviewToFront(topview)
     }
     
     // MARK: - Prepare viewDidLoad

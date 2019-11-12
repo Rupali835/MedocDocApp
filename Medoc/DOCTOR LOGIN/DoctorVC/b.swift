@@ -1078,7 +1078,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.btnDaily.tag = 1
         
         self.txtHowManyWeeks.isHidden = true
-        self.HgtMedicalView.constant = 620
+        self.HgtMedicalView.constant = 850
         self.dailyStackView.isHidden = false
         self.checkboxStackView.isHidden = false
         M_CmedicineData.intervalType = "1"
@@ -1095,7 +1095,7 @@ class AndriodPrescFormVC: UIViewController, signProtocol, drawingOnBack, reportI
         self.txtHowManyWeeks.isHidden = false
         self.dailyStackView.isHidden = false
         self.checkboxStackView.isHidden = false
-        self.HgtMedicalView.constant = 620
+        self.HgtMedicalView.constant = 850
         M_CmedicineData.intervalType = "2"
     }
     

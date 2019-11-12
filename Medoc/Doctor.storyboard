@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -3065,9 +3066,18 @@
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Icg-Py-D6C">
-                                                                                            <rect key="frame" x="10" y="50" width="331" height="31"/>
+                                                                                            <rect key="frame" x="170" y="50" width="171" height="31"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                                                             <nil key="textColor"/>
+                                                                                            <nil key="highlightedColor"/>
+                                                                                        </label>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEq-g3-6PU">
+                                                                                            <rect key="frame" x="10" y="81" width="150" height="0.0"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" constant="150" id="SJu-Uf-02s"/>
+                                                                                            </constraints>
+                                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                                            <color key="textColor" name="Color-1"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                     </subviews>
@@ -3076,8 +3086,10 @@
                                                                                         <constraint firstItem="6LI-aK-9lY" firstAttribute="top" secondItem="J6N-fI-8fh" secondAttribute="top" constant="5" id="3xx-xU-5mH"/>
                                                                                         <constraint firstAttribute="trailing" secondItem="6LI-aK-9lY" secondAttribute="trailing" constant="10" id="BiZ-7v-m86"/>
                                                                                         <constraint firstItem="Icg-Py-D6C" firstAttribute="top" secondItem="6LI-aK-9lY" secondAttribute="bottom" constant="5" id="PtM-hy-mF9"/>
+                                                                                        <constraint firstAttribute="bottom" secondItem="KEq-g3-6PU" secondAttribute="bottom" constant="10" id="QtW-iG-irG"/>
                                                                                         <constraint firstAttribute="bottom" secondItem="Icg-Py-D6C" secondAttribute="bottom" constant="10" id="X4D-2n-r81"/>
-                                                                                        <constraint firstItem="Icg-Py-D6C" firstAttribute="leading" secondItem="6LI-aK-9lY" secondAttribute="leading" id="aJH-Ho-qGp"/>
+                                                                                        <constraint firstItem="Icg-Py-D6C" firstAttribute="leading" secondItem="KEq-g3-6PU" secondAttribute="trailing" constant="10" id="Zr6-Vb-ea4"/>
+                                                                                        <constraint firstItem="KEq-g3-6PU" firstAttribute="leading" secondItem="J6N-fI-8fh" secondAttribute="leading" constant="10" id="foC-Qd-a8S"/>
                                                                                         <constraint firstItem="Icg-Py-D6C" firstAttribute="trailing" secondItem="6LI-aK-9lY" secondAttribute="trailing" id="gff-Q3-Trv"/>
                                                                                         <constraint firstItem="6LI-aK-9lY" firstAttribute="leading" secondItem="J6N-fI-8fh" secondAttribute="leading" constant="10" id="okj-i8-qMs"/>
                                                                                     </constraints>
@@ -3092,6 +3104,7 @@
                                                                         </constraints>
                                                                         <connections>
                                                                             <outlet property="backView" destination="J6N-fI-8fh" id="Far-1e-Yuu"/>
+                                                                            <outlet property="lblAddedBy" destination="KEq-g3-6PU" id="CbM-cF-ADR"/>
                                                                             <outlet property="lblDate" destination="Icg-Py-D6C" id="xWO-wH-e6o"/>
                                                                             <outlet property="lblPatproblem" destination="6LI-aK-9lY" id="mXi-pe-odl"/>
                                                                         </connections>
@@ -10567,5 +10580,8 @@
         <image name="user (1)" width="160" height="160"/>
         <image name="verified" width="60" height="60"/>
         <image name="weight" width="42" height="42"/>
+        <namedColor name="Color-1">
+            <color red="0.40392156862745099" green="0.22745098039215686" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

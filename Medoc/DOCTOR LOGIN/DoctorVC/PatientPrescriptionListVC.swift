@@ -458,7 +458,7 @@ class PatientPrescriptionListVC: UIViewController
     func setPhq9(phqArr : [Phq9])
     {
         
-        self.PhqList.removeAll(keepingCapacity: false)
+       // self.PhqList.removeAll(keepingCapacity: false)
         self.phqQuestionArr.removeAll(keepingCapacity: false)
         phqArr.forEach { lcArr in
             let phqQuestions = lcArr.que_ans
@@ -546,6 +546,12 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
             let Cdate = lcdict.created_at
             cell.lblDate.text = convertDateFormaterInList(cdate: Cdate!)
             let ptProb = lcdict.patient_problem
+            
+            if lcdict.doctor_id == "0" {
+                cell.lblAddedBy.text = "Added By Patient"
+            } else {
+                cell.lblAddedBy.text = ""
+            }
         
             cell.lblPatproblem.text = "Chief Complain: \(String(describing: ptProb!))"
             cell.backView.designCell()
@@ -662,7 +668,11 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
         }
         else
         {
-           return CGSize(width: self.collPrescriptionList.frame.width, height: 100)
+            if UIDevice.current.userInterfaceIdiom == .phone {
+                return CGSize(width: self.collPrescriptionList.frame.width, height: 120)
+            } else {
+                return CGSize(width: self.collPrescriptionList.frame.width, height: 100)
+            }
         }
     
     }
@@ -682,7 +692,82 @@ extension PatientPrescriptionListVC : UICollectionViewDelegate, UICollectionView
     }
     
 }
+extension PatientPrescriptionListVC : UITableViewDelegate, UITableViewDataSource
+{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return PhqList.count
+    }
 
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        return convertDateFormaterInList(cdate: PhqList[section].created_at)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var arr = [[String: AnyObject]]()
+        arr = self.getArrayFromJSonString(cJsonStr: self.PhqList[section].que_ans)
+        return arr.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+   
+        {
+           
+            let Pcell = tblPhq9.dequeueReusableCell(withIdentifier: "Phq9ListCell", for: indexPath) as! Phq9ListCell
+            
+            var arr = [[String: AnyObject]]()
+            arr = self.getArrayFromJSonString(cJsonStr: self.PhqList[indexPath.section].que_ans)
+            let lcdict = arr[indexPath.row]
+            
+            let Questions = lcdict["questionId"] as! Int
+            
+            for (index, item) in self.faq.enumerated()
+            {
+                if Questions == index
+                {
+                    Pcell.lblQuestion.text = item.Question
+                    break
+                }
+            }
+            
+            let Answer = lcdict["answer"] as? Int ?? 0
+            
+            switch Answer
+            {
+            case 0 :
+                Pcell.lblAnswer.text = "Not at all"
+                break
+                
+            case 1 :
+                Pcell.lblAnswer.text = "Several days"
+                break
+                
+            case 2 :
+                Pcell.lblAnswer.text = "Most than half day"
+                break
+                
+            case 3 :
+                Pcell.lblAnswer.text = "Nearly every day"
+                break
+                
+            default:
+                Pcell.lblAnswer.text = "Not at all"
+                
+            }
+            
+            return Pcell
+        }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+}
+
+/*
 extension PatientPrescriptionListVC : UITableViewDelegate, UITableViewDataSource
 {
 //    func numberOfSections(in tableView: UITableView) -> Int {
@@ -723,23 +808,23 @@ extension PatientPrescriptionListVC : UITableViewDelegate, UITableViewDataSource
                 }
             }
             
-            let Answer = lcdict["answer"] as! String
+            let Answer = lcdict["answer"] as! Int
             
             switch Answer
             {
-            case "0" :
+            case 0 :
                 Pcell.lblAnswer.text = "Not at all"
                 break
                 
-            case "1" :
+            case 1 :
                 Pcell.lblAnswer.text = "Several days"
                 break
                 
-            case "2" :
+            case 2 :
                 Pcell.lblAnswer.text = "Most than half day"
                 break
                 
-            case "3" :
+            case 3 :
                 Pcell.lblAnswer.text = "Nearly every day"
                 break
                 
@@ -756,3 +841,4 @@ extension PatientPrescriptionListVC : UITableViewDelegate, UITableViewDataSource
     }
     
 }
+*/
