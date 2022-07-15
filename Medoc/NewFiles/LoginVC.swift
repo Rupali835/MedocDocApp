@@ -131,6 +131,8 @@ class LoginVC: UIViewController
                         let yourVc : SWRevealViewController = appstory.instance.instantiateViewController(withIdentifier: "SWRevealViewController") as! SWRevealViewController
                         let appDelegate = UIApplication.shared.delegate as! AppDelegate
                         let navigationController = appDelegate.window!.rootViewController as! UINavigationController
+                    
+                
                         navigationController.setViewControllers([yourVc], animated: true)
                    // }
 //                    else                       //false
